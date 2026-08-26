@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-midnight: #071426;
+  --color-brand-graphite: #20252B;
+  --color-brand-titanium: #A7ADB3;
+  --color-brand-softwhite: #F5F5F2;
+  --color-brand-energyblue: #4DA3FF;
+
+  --color-background: var(--color-brand-softwhite);
+  --color-foreground: var(--color-brand-midnight);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  --background: var(--color-brand-softwhite);
+  --foreground: var(--color-brand-midnight);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Smooth scrolling via Lenis will handle the rest, but we can set basic scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
