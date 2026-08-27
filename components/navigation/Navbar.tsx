@@ -1,13 +1,15 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { Logo } from "@/components/brand/Logo";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
-
+  const pathname = usePathname();
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -17,71 +19,93 @@ export function Navbar() {
   }, []);
 
   const navLinks = [
-    { name: "About", href: "#about" },
-    { name: "Projects", href: "#projects" },
-    { name: "Blog", href: "#blog" },
+    { name: "About Us", href: "#about" },
+    { name: "Blogs", href: "#blog" },
+    { name: "Services", href: "#services", hasDropdown: true },
+    { name: "Case Studies", href: "#case-studies" },
+    { name: "Contact Us", href: "#contact" },
   ];
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center px-6">
-      <div 
-        className="w-full max-w-[1400px] pointer-events-auto flex items-center justify-between py-2 transition-all duration-500"
-      >
+    <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center w-full">
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pointer-events-auto transition-all duration-500">
         
-        {/* Left: Navigation Pill */}
-        <div className="flex-1 flex justify-start">
+        <div className="bg-white rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#1D1D1F]/5 px-3 md:px-4 h-16 flex items-center justify-between w-full">
+          
+          {/* Left: Logo & Divider */}
+          <div className="flex items-center gap-6 pl-2 md:pl-4">
+            <div className="flex items-center">
+              <Logo color="#1D1D1F" className="text-[18px] md:text-[20px]" />
+            </div>
+            
+            {/* Very faint vertical divider */}
+            <div className="hidden lg:block w-[1px] h-5 bg-[#1D1D1F]/10"></div>
+          </div>
+
+          {/* Center: Navigation Links */}
           <nav 
-            className="hidden md:flex items-center rounded-full p-1.5 bg-white border border-gray-100 shadow-sm relative"
+            className="hidden lg:flex items-center gap-1 xl:gap-2 relative"
             onMouseLeave={() => setHoveredLink(null)}
           >
             {navLinks.map((item) => (
-              <a 
-                key={item.name} 
-                href={item.href}
+              <div 
+                key={item.name}
                 onMouseEnter={() => setHoveredLink(item.name)}
-                className={`relative px-5 py-1.5 text-[14px] font-medium transition-colors z-10 ${hoveredLink === item.name ? 'text-white' : 'text-gray-600 hover:text-black'}`}
+                className="relative flex-shrink-0"
               >
-                {hoveredLink === item.name && (
-                  <motion.div 
-                    layoutId="nav-pill"
-                    className="absolute inset-0 bg-black rounded-full -z-10"
-                    transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                  />
+                <a 
+                  href={item.href}
+                  className="relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-[#1D1D1F]"
+                >
+                  {hoveredLink === item.name && (
+                    <motion.div 
+                      layoutId="nav-pill"
+                      className="absolute inset-0 bg-[#F5F5F7] rounded-[8px] -z-10"
+                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                  {item.name}
+                  {item.hasDropdown && (
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${hoveredLink === item.name ? 'rotate-180' : ''}`}>
+                      <polyline points="6 9 12 15 18 9"></polyline>
+                    </svg>
+                  )}
+                </a>
+                
+                {/* Dropdown Menu */}
+                {item.hasDropdown && hoveredLink === item.name && (
+                  <div className="absolute top-full left-0 mt-3 w-[200px] bg-white border border-[#1D1D1F]/10 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-2 z-50">
+                    <a href="#wind-power" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Wind Power</a>
+                    <a href="#solar" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Solar Energy</a>
+                    <a href="#consulting" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Consulting Services</a>
+                  </div>
                 )}
-                {item.name}
-              </a>
+              </div>
             ))}
           </nav>
-        </div>
-        
-        {/* Center: Logo */}
-        <div className="flex-1 flex justify-center items-center">
-          <div className={`transition-all duration-500 rounded-full h-11 px-5 flex items-center justify-center ${isScrolled ? 'bg-white/80 backdrop-blur-md border border-white/40 shadow-sm' : 'bg-transparent border border-transparent'}`}>
-            <Logo color="#071426" />
-          </div>
-        </div>
-        
-        {/* Right: CTA & Mobile Menu */}
-        <div className="flex-1 flex items-center justify-end gap-3">
-          <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-black text-white font-medium text-[14px] rounded-full transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black border border-white hover:border-black shadow-lg shadow-black/10">
-            <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
-              <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
-              <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
-              <rect x="8" y="0" width="6" height="6" rx="1" fill="currentColor"/>
-              <rect x="0" y="8" width="6" height="6" rx="1" fill="currentColor"/>
-            </svg>
-            Contact Us
-          </button>
           
-          <button className={`md:hidden p-2 rounded-full backdrop-blur-md transition-colors duration-300 ${isScrolled ? 'text-[#071426] bg-white shadow-sm border border-gray-100' : 'text-[#071426] bg-white/60 border border-transparent'}`}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <line x1="4" x2="20" y1="12" y2="12"/>
-              <line x1="4" x2="20" y1="6" y2="6"/>
-              <line x1="4" x2="20" y1="18" y2="18"/>
-            </svg>
-          </button>
+          {/* Right: CTA & Mobile Menu */}
+          <div className="flex items-center gap-3">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-[#1D1D1F] text-white font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_20px_rgb(0,0,0,0.08)]">
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
+                  <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
+                  <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
+                  <rect x="8" y="0" width="6" height="6" rx="1" fill="currentColor"/>
+                  <rect x="0" y="8" width="6" height="6" rx="1" fill="currentColor"/>
+                </svg>
+                Contact Us
+             </button>
+             
+             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 bg-[#1D1D1F] text-white`}>
+               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                 <line x1="4" x2="20" y1="12" y2="12"/>
+                 <line x1="4" x2="20" y1="6" y2="6"/>
+                 <line x1="4" x2="20" y1="18" y2="18"/>
+               </svg>
+             </button>
+          </div>
+          
         </div>
-        
       </div>
     </header>
   );
