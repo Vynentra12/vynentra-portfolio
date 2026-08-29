@@ -28,7 +28,7 @@ export function ClosingCTA() {
     // Media Query Check for Responsive Radius
     const isMobile = window.innerWidth < 768;
     const initialRadius = isMobile ? 120 : 250;
-    const finalRadius = isMobile ? 220 : 550; // Increased even more to ensure text easily fits without overlapping images
+    const finalRadius = isMobile ? 220 : 420; // Decreased radius to bring images closer to text
     const images = gsap.utils.toArray('.gallery-item') as HTMLElement[];
     
     // Set initial layout: spread horizontally at the bottom
@@ -36,31 +36,31 @@ export function ClosingCTA() {
       const xOffset = (i - (images.length - 1) / 2) * (isMobile ? 60 : 120);
       gsap.set(img, {
         x: xOffset,
-        y: isMobile ? -100 : -250, // Shifted much higher up so it's visible sooner
+        y: isMobile ? 50 : 100, // Starts near the center
         rotation: 0,
         scale: 0.9,
         opacity: 1, // Visible immediately
       });
     });
 
+    // Separate pin trigger so animation can start earlier while scrolling into view
+    ScrollTrigger.create({
+      trigger: containerRef.current,
+      start: "top top",
+      end: "+=300%",
+      pin: true,
+    });
+
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top top",
-        end: "+=300%", // 3 screens of scrolling distance
-        scrub: 1, // Smooth scrubbing
-        pin: true,
+        start: "top 60%", // Starts animating when section is 40% visible (images enter viewport)
+        end: "+=360%", // 60% scroll distance + 300% pinned distance
+        scrub: 1,
       }
     });
 
-    // Phase 1: Images form a small circle (since they are already visible)
-    tl.to(images, {
-      y: isMobile ? 50 : 100,
-      stagger: 0.05,
-      duration: 1,
-      ease: "power2.out"
-    });
-
+    // Phase 1: Morph from horizontal line into a small circle
     images.forEach((img, i) => {
       // Angle starting from top (Math.PI / 2 offset)
       const angle = (i / images.length) * Math.PI * 2 - Math.PI / 2;
@@ -74,10 +74,10 @@ export function ClosingCTA() {
         scale: 1,
         duration: 2,
         ease: "power2.inOut"
-      }, 1); // Start at 1s in timeline
+      }, 0); // Start immediately
     });
 
-    // Phase 2: Circle expands and spins
+    // Phase 2: Circle expands and spins, background darkens
     tl.to(bgRef.current, {
       opacity: 1,
       duration: 2,
@@ -96,7 +96,7 @@ export function ClosingCTA() {
         scale: 1.1,
         duration: 2,
         ease: "power1.inOut"
-      }, 3);
+      }, 2); // Start at 2s in timeline
     });
 
     // Phase 3: Text fades and scales in
@@ -108,7 +108,7 @@ export function ClosingCTA() {
       scale: 1,
       duration: 1.5,
       ease: "power2.out"
-    }, 4);
+    }, 3); // Start at 3s in timeline
 
   }, { scope: containerRef });
 
