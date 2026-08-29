@@ -61,14 +61,23 @@ export function ImpactSectionV2() {
       
       {/* Header Row */}
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 mb-12 z-20">
-        <div className="border-t border-brand-softwhite/10 pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
-          <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
-            <span className="text-xs font-normal text-brand-softwhite uppercase tracking-wider">IMPACT METRICS</span>
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 md:mb-4 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+              IMPACT METRICS
+            </span>
           </div>
-          <h2 className="text-2xl md:text-[28px] font-light text-brand-softwhite text-left max-w-md leading-[1.25] tracking-tight">
-            We Aim To Drive Environmental Global Impact, Starting With India.
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Measurable Impact
           </h2>
+          {/* Standardized Subtitle */}
+          <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
+            We Aim To Drive Environmental Global Impact, Starting With India.
+          </p>
         </div>
       </div>
 

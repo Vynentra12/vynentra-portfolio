@@ -1,4 +1,5 @@
 'use client';
+import { motion } from 'framer-motion';
 
 export function ProcessSectionV2() {
   const steps = [
@@ -31,13 +32,42 @@ export function ProcessSectionV2() {
       <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[60%] bg-brand-energyblue/15 blur-[140px] rounded-full pointer-events-none" />
 
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-          
-          {/* Left Column: Title */}
-          <div className="lg:col-span-5">
-            <h2 className="text-[28px] md:text-[32px] font-normal text-brand-softwhite/90 tracking-tight">
-              Our Process
-            </h2>
+        <div className="border-t border-brand-softwhite/10 pt-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
+            
+            {/* Left Column: Title */}
+            <div className="lg:col-span-5">
+              {/* Unified Section Header */}
+              <div className="flex flex-col gap-3 mb-10 md:mb-14">
+              {/* Standardized Badge */}
+              <div className="flex items-center gap-2.5">
+                <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+                <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+                  PROCESS
+                </span>
+              </div>
+              {/* Standardized Title */}
+              <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+                Our Process
+              </h2>
+            </div>
+            
+            {/* Floating Image */}
+            <div className="hidden lg:flex items-center justify-center mt-24 xl:mt-32 relative h-[300px]">
+              {/* Glow Effect */}
+              <motion.div 
+                animate={{ opacity: [0.4, 0.7, 0.4], scale: [1, 1.1, 1] }}
+                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
+                className="absolute inset-[20%] rounded-full bg-brand-energyblue/30 blur-[60px] z-0"
+              />
+              <motion.img 
+                animate={{ y: [0, -15, 0] }}
+                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
+                src="/mini-wheel.png" 
+                alt="Mini Wheel" 
+                className="w-[280px] object-contain relative z-10 drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]"
+              />
+            </div>
           </div>
 
           {/* Right Column: List */}
@@ -65,6 +95,7 @@ export function ProcessSectionV2() {
           </div>
 
         </div>
+      </div>
       </div>
     </section>
   );

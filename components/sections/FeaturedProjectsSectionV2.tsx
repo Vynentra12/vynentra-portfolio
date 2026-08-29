@@ -72,25 +72,26 @@ export function FeaturedProjectsSectionV2() {
     <section id="featured-projects" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-24">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
-        {/* Standard Global Header Row */}
-        <div className="border-t border-brand-softwhite/10 pt-6 mb-12 flex flex-col lg:flex-row justify-between items-start gap-8">
+        {/* Unified Section Header */}
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
           
-          <div className="flex flex-col gap-6 lg:w-[60%]">
-            <div className="flex items-center gap-2.5 pt-1 shrink-0">
-              <div className="w-2.5 h-2.5 bg-brand-softwhite"></div>
-              <span className="text-[11px] font-semibold text-brand-softwhite uppercase tracking-wider">
+          <div className="flex flex-col gap-3 lg:w-[60%]">
+            {/* Standardized Badge */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+              <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
                 FEATURED PROJECTS
               </span>
             </div>
             
-            <div className="flex flex-col gap-4">
-              <h2 className="text-[32px] md:text-[44px] lg:text-[52px] font-medium text-brand-softwhite text-left leading-[1.1] tracking-tight">
-                Renewable Developments.<br />Across Global Regions.
-              </h2>
-              <p className="text-[14px] md:text-[15px] font-medium text-brand-titanium leading-relaxed max-w-[500px]">
-                Explore our key wind energy projects delivering clean power, strengthening communities, and shaping a sustainable future.
-              </p>
-            </div>
+            {/* Standardized Title */}
+            <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+              Renewable Developments. Across Global Regions.
+            </h2>
+            {/* Standardized Subtitle */}
+            <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
+              Explore our key wind energy projects delivering clean power, strengthening communities, and shaping a sustainable future.
+            </p>
           </div>
 
           {/* Stats on the right side of header */}

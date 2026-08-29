@@ -28,12 +28,21 @@ export function FAQSectionV2() {
     <section id="faq" className="w-full bg-brand-midnight py-16 md:py-24">
       <div className="max-w-[1000px] mx-auto w-full px-6 md:px-12">
         
-        {/* Header */}
-        <div className="mb-14 flex flex-col items-center text-center mx-auto">
-          <h2 className="text-[32px] md:text-[40px] lg:text-[46px] font-light text-brand-softwhite tracking-tight mb-4">
-            Frequently asked questions
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+              FAQ
+            </span>
+          </div>
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Frequently Asked Questions
           </h2>
-          <p className="text-brand-titanium text-[15px] md:text-[17px] font-normal leading-relaxed max-w-2xl">
+          {/* Standardized Subtitle */}
+          <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
             To help you make informed decisions, we've compiled answers to some of the most commonly asked questions.
           </p>
         </div>

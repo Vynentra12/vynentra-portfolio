@@ -105,36 +105,28 @@ export function BlogSectionV2() {
     <section id="blog" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-24">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
 
-        {/* Header Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12">
-          <h2 className="text-[40px] md:text-[52px] font-light leading-[1.1] tracking-tight text-brand-softwhite">
-            Our Latest <br />
-            Blogs
-          </h2>
+        {/* Unified Section Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          <div className="flex flex-col gap-3 md:max-w-md">
+            {/* Standardized Badge */}
+            <div className="flex items-center gap-2.5">
+              <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+              <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+                BLOG & INSIGHTS
+              </span>
+            </div>
+            {/* Standardized Title */}
+            <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+              Our Latest <br />
+              Blogs
+            </h2>
+          </div>
           
-          <div className="flex items-center gap-3">
-            <button 
-              onClick={() => scroll('left')}
-              disabled={!canScrollLeft}
-              className={`w-11 h-11 flex items-center justify-center border rounded-[2px] transition-colors ${
-                canScrollLeft 
-                  ? 'border-brand-softwhite/20 text-brand-softwhite hover:bg-brand-energyblue hover:border-brand-energyblue hover:text-brand-midnight cursor-pointer' 
-                  : 'border-brand-softwhite/10 text-brand-softwhite/30 cursor-not-allowed'
-              }`}
-            >
-              <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
-            </button>
-            <button 
-              onClick={() => scroll('right')}
-              disabled={!canScrollRight}
-              className={`w-11 h-11 flex items-center justify-center border rounded-[2px] transition-colors shadow-lg ${
-                canScrollRight 
-                  ? 'bg-[#20252B] border-brand-softwhite/10 text-brand-softwhite hover:bg-brand-energyblue hover:border-brand-energyblue hover:text-brand-midnight cursor-pointer' 
-                  : 'bg-[#20252B]/50 border-brand-softwhite/5 text-brand-softwhite/30 cursor-not-allowed'
-              }`}
-            >
-              <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
-            </button>
+          <div className="md:w-[35%] flex items-start md:items-end md:h-full pb-2">
+            {/* Standardized Subtitle */}
+            <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed">
+              Explore how our renewable energy solutions are transforming sites, improving energy performance, and creating long-term value for a sustainable future.
+            </p>
           </div>
         </div>
 
@@ -176,21 +168,37 @@ export function BlogSectionV2() {
           ))}
         </div>
 
-        {/* Pagination Dots */}
-        {dotCount > 1 && (
-          <div className="flex justify-center items-center gap-2 mt-8">
-            {Array.from({ length: dotCount }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => scrollTo(idx)}
-                className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                  activeIndex === idx ? 'bg-brand-energyblue w-4' : 'bg-brand-softwhite/20 hover:bg-brand-softwhite/50'
-                }`}
-                aria-label={`Go to slide ${idx + 1}`}
-              />
-            ))}
+        {/* Footer Navigation (Line + Next/Prev Buttons) */}
+        <div className="flex items-center justify-between gap-8 mt-4">
+          {/* Horizontal Line */}
+          <div className="flex-1 h-[1px] bg-brand-softwhite/10"></div>
+          
+          {/* Next/Prev Buttons */}
+          <div className="flex items-center gap-4 shrink-0">
+            <button 
+              onClick={() => scroll('left')}
+              disabled={!canScrollLeft}
+              className={`w-12 h-12 flex items-center justify-center rounded-full border transition-all duration-300 ${
+                canScrollLeft 
+                  ? 'border-brand-softwhite/20 text-brand-softwhite hover:bg-brand-energyblue hover:border-brand-energyblue hover:text-brand-midnight cursor-pointer shadow-[0_2px_10px_rgb(0,0,0,0.2)]' 
+                  : 'border-brand-softwhite/10 text-brand-softwhite/10 cursor-not-allowed'
+              }`}
+            >
+              <ArrowLeft className="w-5 h-5" strokeWidth={1.5} />
+            </button>
+            <button 
+              onClick={() => scroll('right')}
+              disabled={!canScrollRight}
+              className={`w-12 h-12 flex items-center justify-center rounded-full border transition-all duration-300 ${
+                canScrollRight 
+                  ? 'border-brand-softwhite/20 text-brand-softwhite hover:bg-brand-energyblue hover:border-brand-energyblue hover:text-brand-midnight cursor-pointer shadow-[0_2px_10px_rgb(0,0,0,0.2)]' 
+                  : 'border-brand-softwhite/10 text-brand-softwhite/10 cursor-not-allowed'
+              }`}
+            >
+              <ArrowRight className="w-5 h-5" strokeWidth={1.5} />
+            </button>
           </div>
-        )}
+        </div>
 
       </div>
     </section>

@@ -6,14 +6,19 @@ export function MissionSectionV2() {
     <section id="about" className="w-full bg-brand-midnight py-16 md:py-24">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
-        {/* Header Row */}
-        <div className="border-t border-brand-softwhite/10 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
-          <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
-            <span className="text-xs font-normal text-brand-softwhite uppercase tracking-wider">
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
               MISSION
             </span>
           </div>
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Our Mission
+          </h2>
         </div>
 
         {/* The Main Card */}

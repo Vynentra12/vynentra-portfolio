@@ -30,22 +30,23 @@ export function CaseStudySectionV2() {
     <section id="case-studies" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-32">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
-        {/* Standard Global Header Row */}
-        <div className="border-t border-brand-softwhite/10 pt-6 mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
-          <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
-            <span className="text-xs font-normal text-brand-softwhite uppercase tracking-wider">
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
               CASE STUDIES
             </span>
           </div>
-          <div className="flex flex-col gap-4 max-w-[600px]">
-            <h2 className="text-2xl md:text-[28px] font-light text-brand-softwhite text-left leading-[1.25] tracking-tight">
-              Real Projects. Measurable Impact.
-            </h2>
-            <p className="text-[14px] md:text-[15px] font-medium text-brand-titanium leading-relaxed">
-              Explore how our renewable energy solutions are transforming sites, improving energy performance, and creating long-term value.
-            </p>
-          </div>
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Real Projects. Measurable Impact.
+          </h2>
+          {/* Standardized Subtitle */}
+          <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
+            Explore how our renewable energy solutions are transforming sites, improving energy performance, and creating long-term value.
+          </p>
         </div>
 
         {/* Horizontal Layout Container */}
