@@ -27,23 +27,16 @@ export function Navbar() {
   ];
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center w-full">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pointer-events-auto transition-all duration-500">
+    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 border-b border-brand-softwhite/10 ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md' : 'bg-brand-midnight/40 backdrop-blur-sm'}`}>
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
-        <div className="bg-brand-graphite rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 px-3 md:px-4 h-16 flex items-center justify-between w-full">
+        <div className="h-16 flex items-center justify-between w-full">
           
-          {/* Left: Logo & Divider */}
-          <div className="flex items-center gap-4 lg:gap-6 pl-2 md:pl-4">
+          {/* Left: Logo */}
+          <div className="flex items-center gap-4 lg:gap-6">
             <div className="flex items-center">
               <Logo color="#F5F5F2" className="text-[18px] md:text-[20px]" />
             </div>
-            
-            {/* Very faint vertical divider */}
-            <div className="hidden lg:block w-[1px] h-5 bg-brand-softwhite/10"></div>
-
-            <span className="hidden lg:block text-brand-titanium text-[11px] font-medium tracking-[0.2em] uppercase mt-0.5">
-              RENEWABLE ENERGY
-            </span>
           </div>
 
           {/* Center: Navigation Links */}
@@ -59,15 +52,10 @@ export function Navbar() {
               >
                 <a 
                   href={item.href}
-                  className="relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-brand-softwhite"
+                  className="group relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-brand-softwhite hover:text-brand-energyblue"
                 >
-                  {hoveredLink === item.name && (
-                    <motion.div 
-                      layoutId="nav-pill"
-                      className="absolute inset-0 bg-brand-midnight rounded-[8px] -z-10"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
+                  <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-brand-energyblue origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+
                   {item.name}
                   {item.hasDropdown && (
                     <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${hoveredLink === item.name ? 'rotate-180' : ''}`}>
@@ -90,7 +78,7 @@ export function Navbar() {
           
           {/* Right: CTA & Mobile Menu */}
           <div className="flex items-center gap-3">
-             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-brand-energyblue text-brand-midnight font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
                   <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
@@ -100,7 +88,7 @@ export function Navbar() {
                 Contact Us
              </button>
              
-             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 bg-brand-energyblue text-brand-midnight`}>
+             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight`}>
                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                  <line x1="4" x2="20" y1="12" y2="12"/>
                  <line x1="4" x2="20" y1="6" y2="6"/>
