@@ -26,7 +26,7 @@ export function Navbar() {
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 border-b ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md border-brand-softwhite/10' : 'bg-transparent border-transparent'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
         <div className="h-16 flex items-center justify-between w-full">
@@ -55,8 +55,8 @@ export function Navbar() {
           
           {/* Right: CTA & Mobile Menu */}
           <div className="flex items-center gap-3">
-             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-semibold tracking-wide text-[14px] rounded-[8px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2 px-4 h-9 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-semibold tracking-wide text-[13px] rounded-[6px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
                   <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="0" width="6" height="6" rx="1" fill="currentColor"/>
