@@ -143,11 +143,11 @@ export function FeaturedProjectsSectionV2() {
                 ${isExpanded ? 'lg:flex-[1.8] opacity-100 mb-6 lg:mb-0 lg:mr-6' : ''}
                 ${isCollapsed ? 'lg:flex-[1] opacity-100' : ''}
                 ${isHidden ? 'flex-[0] opacity-0 m-0 w-0 h-0 lg:h-auto overflow-hidden border-0 pointer-events-none' : 'w-full lg:w-auto'}
-                rounded-[20px] relative flex flex-col group shadow-lg min-h-[500px] lg:min-h-[600px] border border-brand-softwhite/10 bg-brand-graphite
+                rounded-[12px] relative flex flex-col group shadow-lg min-h-[500px] lg:min-h-[600px] border border-brand-softwhite/10 bg-brand-graphite
               `}
             >
               {/* Wrapping inner content to prevent squishing during animation */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden rounded-[20px]">
+              <div className="absolute inset-0 w-full h-full overflow-hidden rounded-[12px]">
                 
                 {/* Background Image (Stops before the bottom) */}
                 <div className="absolute top-0 left-0 right-0 bottom-[15%] lg:bottom-[20%]">
@@ -162,7 +162,7 @@ export function FeaturedProjectsSectionV2() {
                 </div>
                 
                 {/* Floating Bottom Content Box */}
-                <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 p-6 md:p-8 flex flex-col bg-brand-graphite rounded-[16px] z-20 shadow-[0_-8px_30px_rgba(0,0,0,0.2),0_8px_30px_rgba(0,0,0,0.3)] border border-brand-softwhite/5 transition-transform duration-500 group-hover:-translate-y-1">
+                <div className="absolute bottom-4 left-4 right-4 md:bottom-6 md:left-6 md:right-6 p-6 md:p-8 flex flex-col bg-brand-graphite rounded-[8px] z-20 shadow-[0_-8px_30px_rgba(0,0,0,0.2),0_8px_30px_rgba(0,0,0,0.3)] border border-brand-softwhite/5 transition-transform duration-500 group-hover:-translate-y-1">
                   
                   {/* Top of content box: Name and Title */}
                   <div className="mb-6">
