@@ -69,7 +69,7 @@ export function FeaturedProjectsSectionV2() {
   const visibleDots = Array.from({ length: maxDots }).map((_, i) => startDot + i);
 
   return (
-    <section id="featured-projects" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-24">
+    <section id="featured-projects" className="relative w-full bg-brand-midnight text-brand-softwhite pt-4 pb-16 md:pt-8 md:pb-24">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
         {/* Unified Section Header */}

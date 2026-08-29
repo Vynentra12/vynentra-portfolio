@@ -1,7 +1,4 @@
 'use client';
-import { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import Image from 'next/image';
 
 const SOLUTIONS_DATA = [
   {
@@ -14,7 +11,7 @@ const SOLUTIONS_DATA = [
     subtitle: "Custom Configuration",
     title: "No two projects need to look the same.",
     description: "From a single turbine to a combination of different capacities, we configure the system around your energy requirement, available space and site conditions.",
-    imgSrc: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop",
+    imgSrc: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1200&auto=format&fit=crop",
   },
   {
     subtitle: "Scalable Capacity",
@@ -30,140 +27,115 @@ const SOLUTIONS_DATA = [
   },
 ];
 
-function WhyChooseUsCard({ item }: { item: typeof SOLUTIONS_DATA[0] }) {
+export function WhyChooseUsSection() {
   return (
-    <motion.div
-      initial="inactive"
-      whileInView="active"
-      viewport={{ margin: "0px -60% 0px 0px", amount: 0.3 }}
-      variants={{
-        inactive: { backgroundColor: "#20252B", borderColor: "rgba(245, 245, 242, 0.1)" },
-        active: { backgroundColor: "#071426", borderColor: "rgba(77, 163, 255, 0.3)" }
-      }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="w-[85vw] sm:w-[420px] md:w-[500px] lg:w-[560px] xl:w-[600px] shrink-0 rounded-[7px] p-7 md:p-8 flex flex-col shadow-sm border-[0.9px] relative overflow-hidden group"
-    >
-      {/* Background Image / Thumbnail Container */}
-      <motion.div
-        className="absolute z-0 overflow-hidden shadow-sm pointer-events-none"
-        variants={{
-          inactive: { width: 85, height: 55, bottom: 24, right: 24, borderRadius: 5 },
-          active: { width: "100%", height: "100%", bottom: 0, right: 0, borderRadius: 7 }
-        }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <img
-          src={item.imgSrc}
-          alt={item.subtitle}
-          className="w-full h-full object-cover object-center"
-        />
-        {/* Dark overlay for text legibility when expanded */}
-        <motion.div
-          className="absolute inset-0 bg-black"
-          variants={{ inactive: { opacity: 0 }, active: { opacity: 0.7 } }}
-          transition={{ duration: 0.6 }}
-        />
-      </motion.div>
-
-      {/* Content Container (z-10 relative) */}
-      <div className="relative z-10 flex flex-col h-full pointer-events-none">
+    <section id="why-choose-us" className="relative w-full bg-brand-midnight py-16 md:py-24">
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 relative z-10">
         
-        {/* Subtitle & Divider */}
-        <motion.div 
-          className="border-b pb-4 mb-6"
-          variants={{
-            inactive: { borderBottomColor: "rgba(245, 245, 242, 0.1)" },
-            active: { borderBottomColor: "rgba(77, 163, 255, 0.3)" }
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          <motion.span 
-            className="text-[14px] md:text-[15px] font-normal"
-            variants={{
-              inactive: { color: "rgba(167, 173, 179, 1)" },
-              active: { color: "rgba(77, 163, 255, 1)" }
-            }}
-            transition={{ duration: 0.5 }}
-          >
-            {item.subtitle}
-          </motion.span>
-        </motion.div>
-
-        {/* Main Title (Crossfade from gradient to solid white) */}
-        <div className="relative mb-6 min-h-[70px]">
-          <motion.h3 
-            className="text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] text-brand-softwhite"
-            variants={{ inactive: { opacity: 1 }, active: { opacity: 0 } }}
-            transition={{ duration: 0.4 }}
-          >
-            {item.title}
-          </motion.h3>
-          <motion.h3 
-            className="absolute top-0 left-0 text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] text-brand-energyblue"
-            variants={{ inactive: { opacity: 0 }, active: { opacity: 1 } }}
-            transition={{ duration: 0.4 }}
-          >
-            {item.title}
-          </motion.h3>
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+              SOLUTIONS
+            </span>
+          </div>
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Renewable Infrastructure<br className="hidden md:block" /> Driven By Innovation.
+          </h2>
         </div>
 
-        {/* Description */}
-        <motion.p 
-          className="text-[14.5px] md:text-[16px] font-normal leading-[1.7] mb-14 max-w-[90%]"
-          variants={{
-            inactive: { color: "rgba(167, 173, 179, 1)" },
-            active: { color: "rgba(245, 245, 242, 0.95)" }
-          }}
-          transition={{ duration: 0.5 }}
-        >
-          {item.description}
-        </motion.p>
-      </div>
-    </motion.div>
-  );
-}
-
-export function WhyChooseUsSection() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-
-  // Horizontal scroll logic:
-  const { scrollYProgress } = useScroll({
-    target: scrollContainerRef,
-    offset: ["start start", "end end"]
-  });
-
-  // Transform scroll progress into horizontal translation
-  // Increased from -50% to -65% so the user can scroll further left to activate the 4th card
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
-
-  return (
-    <section ref={scrollContainerRef} id="why-choose-us" className="relative h-[250vh] bg-brand-midnight">
-      <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
-        <div className="w-full px-6 md:px-12 xl:px-[calc((100vw-1400px)/2+24px)] mx-auto pt-10 pb-8">
+        {/* Asymmetrical Bento Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 w-full auto-rows-[minmax(0,1fr)] lg:h-[800px]">
           
-          {/* Unified Section Header */}
-          <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
-            {/* Standardized Badge */}
-            <div className="flex items-center gap-2.5">
-              <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
-              <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
-                SOLUTIONS
+          {/* Card 1: Tall (Left Column, spans 2 rows) */}
+          <div className="group relative lg:col-span-1 lg:row-span-2 rounded-[12px] overflow-hidden bg-brand-graphite shadow-lg border border-brand-softwhite/10 flex flex-col min-h-[450px] lg:min-h-full">
+            <img 
+              src={SOLUTIONS_DATA[0].imgSrc} 
+              alt={SOLUTIONS_DATA[0].subtitle} 
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+            />
+            {/* Heavy gradient for text legibility */}
+            <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight via-brand-midnight/40 to-transparent pointer-events-none"></div>
+            
+            <div className="relative z-10 flex flex-col justify-end h-full p-8 md:p-10">
+              <span className="text-brand-energyblue text-[11px] md:text-[12px] uppercase tracking-wider font-semibold mb-3">
+                01 — {SOLUTIONS_DATA[0].subtitle}
               </span>
+              <h3 className="text-brand-softwhite text-[28px] md:text-[34px] leading-[1.2] font-semibold mb-4">
+                {SOLUTIONS_DATA[0].title}
+              </h3>
+              <p className="text-brand-titanium text-[14px] md:text-[15px] leading-relaxed">
+                {SOLUTIONS_DATA[0].description}
+              </p>
             </div>
-            {/* Standardized Title */}
-            <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
-              Renewable Infrastructure Driven By Innovation.
-            </h2>
+          </div>
+          
+          {/* Card 2: Wide (Top Right, spans 2 columns, 1 row) */}
+          <div className="group lg:col-span-2 lg:row-span-1 rounded-[12px] overflow-hidden bg-brand-graphite shadow-lg border border-brand-softwhite/10 flex flex-col md:flex-row min-h-[350px] lg:min-h-0 relative">
+            {/* Background graphic/image shifted to the right */}
+            <div className="absolute inset-y-0 right-0 w-full md:w-1/2 overflow-hidden">
+               <img 
+                  src={SOLUTIONS_DATA[1].imgSrc} 
+                  alt={SOLUTIONS_DATA[1].subtitle} 
+                  className="w-full h-full object-cover opacity-30 md:opacity-100 transition-transform duration-1000 group-hover:scale-105"
+               />
+               <div className="absolute inset-0 bg-gradient-to-r from-brand-graphite via-brand-graphite/80 to-transparent"></div>
+            </div>
+            
+            <div className="relative z-10 w-full md:w-[60%] flex flex-col justify-center p-8 md:p-10 lg:p-12">
+              <span className="text-brand-energyblue text-[11px] md:text-[12px] uppercase tracking-wider font-semibold mb-3">
+                02 — {SOLUTIONS_DATA[1].subtitle}
+              </span>
+              <h3 className="text-brand-softwhite text-[26px] md:text-[32px] leading-[1.2] font-semibold mb-4">
+                {SOLUTIONS_DATA[1].title}
+              </h3>
+              <p className="text-brand-titanium text-[14px] md:text-[15px] leading-relaxed max-w-[450px]">
+                {SOLUTIONS_DATA[1].description}
+              </p>
+            </div>
           </div>
 
-          {/* Horizontal Scrolling Track */}
-          <motion.div style={{ x }} className="flex gap-6 w-max pb-8 pt-4 px-2">
-            {SOLUTIONS_DATA.map((item, index) => (
-              <WhyChooseUsCard key={index} item={item} />
-            ))}
-          </motion.div>
-          
+          {/* Card 3: Standard (Bottom Middle, 1 column, 1 row) */}
+          <div className="lg:col-span-1 lg:row-span-1 rounded-[12px] overflow-hidden bg-brand-graphite shadow-lg border border-brand-softwhite/10 p-8 md:p-10 flex flex-col justify-between min-h-[350px] lg:min-h-0 relative group">
+            {/* Subtle glow effect on hover */}
+            <div className="absolute inset-0 bg-brand-energyblue/0 group-hover:bg-brand-energyblue/5 transition-colors duration-500 pointer-events-none"></div>
+            
+            <div>
+              <span className="text-brand-energyblue text-[11px] md:text-[12px] uppercase tracking-wider font-semibold mb-8 block">
+                03 — {SOLUTIONS_DATA[2].subtitle}
+              </span>
+              <h3 className="text-brand-softwhite text-[24px] md:text-[28px] leading-[1.25] font-semibold mb-4">
+                {SOLUTIONS_DATA[2].title}
+              </h3>
+            </div>
+            <p className="text-brand-titanium text-[14px] md:text-[15px] leading-relaxed relative z-10">
+              {SOLUTIONS_DATA[2].description}
+            </p>
+          </div>
+
+          {/* Card 4: Standard (Bottom Right, 1 column, 1 row) */}
+          <div className="lg:col-span-1 lg:row-span-1 rounded-[12px] overflow-hidden bg-[#252A30] shadow-lg border border-brand-softwhite/10 p-8 md:p-10 flex flex-col justify-between min-h-[350px] lg:min-h-0 relative group">
+            {/* Subtle glow effect on hover */}
+            <div className="absolute inset-0 bg-brand-energyblue/0 group-hover:bg-brand-energyblue/5 transition-colors duration-500 pointer-events-none"></div>
+            
+            <div>
+              <span className="text-brand-energyblue text-[11px] md:text-[12px] uppercase tracking-wider font-semibold mb-8 block">
+                04 — {SOLUTIONS_DATA[3].subtitle}
+              </span>
+              <h3 className="text-brand-softwhite text-[24px] md:text-[28px] leading-[1.25] font-semibold mb-4">
+                {SOLUTIONS_DATA[3].title}
+              </h3>
+            </div>
+            <p className="text-brand-titanium text-[14px] md:text-[15px] leading-relaxed relative z-10">
+              {SOLUTIONS_DATA[3].description}
+            </p>
+          </div>
+
         </div>
+        
       </div>
     </section>
   );
