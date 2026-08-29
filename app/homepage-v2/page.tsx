@@ -20,7 +20,6 @@ export default function HomepageV2() {
   ];
 
   const sectionsAfterImpact = [
-    "Solutions Section",
     "Why Choose Us Section",
     "Case Study Section",
     "Featured Projects Section",
@@ -67,9 +66,6 @@ export default function HomepageV2() {
         }
         if (section === "Featured Projects Section") {
           return <FeaturedProjectsSectionV2 key={idx} />;
-        }
-        if (section === "Solutions Section") {
-          return <SolutionsSection key={idx} />;
         }
         if (section === "Why Choose Us Section") {
           return <WhyChooseUsSection key={idx} />;
