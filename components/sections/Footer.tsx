@@ -49,7 +49,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="w-full bg-gradient-to-r from-[#DBEDF7] to-[#BFDBE8] text-[#071426] pt-20 pb-8 overflow-hidden">
+    <footer className="w-full bg-brand-midnight text-brand-softwhite pt-20 pb-8 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 flex flex-col gap-12">
         <motion.div 
           className="flex flex-col lg:flex-row justify-between gap-6"
@@ -59,12 +59,12 @@ export function Footer() {
           viewport={{ once: true, margin: "-100px" }}
         >
           {/* Left Section (Wider) */}
-          <motion.div variants={itemVariants} className="bg-[#FFFFFF] rounded-2xl p-8 lg:p-10 flex flex-col justify-between w-full lg:w-[65%] shadow-sm">
+          <motion.div variants={itemVariants} className="bg-brand-graphite rounded-2xl p-8 lg:p-10 flex flex-col justify-between w-full lg:w-[65%] shadow-sm border border-brand-softwhite/10">
             
             {/* Top area of Left Box */}
             <div className="flex flex-col md:flex-row justify-between items-start gap-8">
-              <Logo color="#071426" className="text-[26px] md:text-[30px]" />
-              <p className="text-[14px] max-w-[320px] text-[#20252B] leading-relaxed md:text-right">
+              <Logo color="#F5F5F2" className="text-[26px] md:text-[30px]" />
+              <p className="text-[14px] max-w-[320px] text-brand-titanium leading-relaxed md:text-right">
                 Powering a sustainable future through innovative wind energy solutions and renewable infrastructure.
               </p>
             </div>
@@ -77,20 +77,20 @@ export function Footer() {
                 <div className="flex flex-col gap-3">
                   <div className="flex flex-wrap gap-2.5">
                     {['About', 'Projects', 'Blog', 'Contact', 'Privacy Policy'].map((link) => (
-                      <a key={link} href="#" className="border border-[#071426]/10 rounded-full px-5 py-2 text-[13px] font-medium text-[#071426] hover:bg-black hover:text-white transition-all duration-300">
+                      <a key={link} href="#" className="border border-brand-softwhite/10 rounded-full px-5 py-2 text-[13px] font-medium text-brand-softwhite hover:bg-brand-softwhite hover:text-brand-midnight transition-all duration-300">
                         {link}
                       </a>
                     ))}
                   </div>
                   <div className="flex">
-                    <a href="#" className="border border-[#071426]/10 rounded-full px-5 py-2 text-[13px] font-medium text-[#071426] hover:bg-black hover:text-white transition-all duration-300">
+                    <a href="#" className="border border-brand-softwhite/10 rounded-full px-5 py-2 text-[13px] font-medium text-brand-softwhite hover:bg-brand-softwhite hover:text-brand-midnight transition-all duration-300">
                       Terms and Conditions
                     </a>
                   </div>
                 </div>
 
                 {/* Credit */}
-                <p className="text-[12px] text-[#20252B]">
+                <p className="text-[12px] text-brand-titanium">
                   © {new Date().getFullYear()} Vynentra. All rights reserved.
                 </p>
               </div>
@@ -99,11 +99,11 @@ export function Footer() {
           </motion.div>
 
           {/* Right Section (Narrower) */}
-          <motion.div variants={itemVariants} className="bg-[#FFFFFF] rounded-2xl p-8 lg:p-10 flex flex-col justify-between w-full lg:w-[35%] shadow-sm">
+          <motion.div variants={itemVariants} className="bg-brand-graphite rounded-2xl p-8 lg:p-10 flex flex-col justify-between w-full lg:w-[35%] shadow-sm border border-brand-softwhite/10">
             <div className="flex flex-col gap-6">
               <div className="flex flex-col xl:flex-row justify-between items-start gap-6">
                 <div>
-                  <h4 className="text-[14px] font-semibold text-[#071426] mb-4">Social</h4>
+                  <h4 className="text-[14px] font-semibold text-brand-softwhite mb-4">Social</h4>
                   <div className="flex gap-4">
                     {[
                       { icon: FacebookIcon, label: 'Facebook', href: '#' },
@@ -111,30 +111,30 @@ export function Footer() {
                       { icon: LinkedinIcon, label: 'LinkedIn', href: '#' },
                       { icon: TwitterIcon, label: 'Twitter', href: '#' }
                     ].map((social, i) => (
-                      <a key={i} href={social.href} aria-label={social.label} className="w-10 h-10 flex items-center justify-center rounded-full border border-[#071426]/10 text-[#071426] hover:bg-black hover:text-white hover:border-black transition-all duration-300 group">
+                      <a key={i} href={social.href} aria-label={social.label} className="w-10 h-10 flex items-center justify-center rounded-full border border-brand-softwhite/10 text-brand-softwhite hover:bg-brand-softwhite hover:text-brand-midnight hover:border-brand-softwhite transition-all duration-300 group">
                         <social.icon className="w-[14px] h-[14px] group-hover:scale-110 transition-transform duration-300" />
                       </a>
                     ))}
                   </div>
                 </div>
                 
-                <div className="flex flex-col gap-1.5 text-[13px] font-medium text-[#20252B] xl:text-right">
-                  <a href="mailto:hello@vynentra.in" className="hover:text-black transition-colors">hello@vynentra.in</a>
-                  <a href="tel:+910000000" className="hover:text-black transition-colors">+91 0000000</a>
+                <div className="flex flex-col gap-1.5 text-[13px] font-medium text-brand-titanium xl:text-right">
+                  <a href="mailto:hello@vynentra.in" className="hover:text-brand-softwhite transition-colors">hello@vynentra.in</a>
+                  <a href="tel:+910000000" className="hover:text-brand-softwhite transition-colors">+91 0000000</a>
                 </div>
               </div>
             </div>
 
             <div className="mt-12 md:mt-16">
-              <h4 className="text-[14px] font-semibold text-[#071426] mb-4">Subscribe to our newsletter</h4>
+              <h4 className="text-[14px] font-semibold text-brand-softwhite mb-4">Subscribe to our newsletter</h4>
               <form className="relative group" onSubmit={(e) => e.preventDefault()}>
                 <input 
                   type="email" 
                   placeholder="Enter your email" 
-                  className="w-full bg-white border border-[#071426]/10 rounded-full py-3.5 pl-5 pr-14 text-[13px] text-[#071426] placeholder:text-[#20252B]/60 focus:outline-none focus:border-black focus:ring-1 focus:ring-black transition-all duration-300"
+                  className="w-full bg-transparent border border-brand-softwhite/10 rounded-full py-3.5 pl-5 pr-14 text-[13px] text-brand-softwhite placeholder:text-brand-titanium/60 focus:outline-none focus:border-brand-energyblue focus:ring-1 focus:ring-brand-energyblue transition-all duration-300"
                   required
                 />
-                <button type="submit" aria-label="Subscribe" className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-black text-white rounded-full overflow-hidden hover:bg-black/90 transition-colors duration-300 group/btn">
+                <button type="submit" aria-label="Subscribe" className="absolute right-1.5 top-1/2 -translate-y-1/2 w-9 h-9 bg-brand-energyblue text-brand-midnight rounded-full overflow-hidden hover:bg-brand-softwhite transition-colors duration-300 group/btn">
                   <div className="w-full h-full relative flex items-center justify-center">
                     <ArrowRight className="w-3.5 h-3.5 absolute transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover/btn:translate-x-8" />
                     <ArrowRight className="w-3.5 h-3.5 absolute -translate-x-8 transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover/btn:translate-x-0" />

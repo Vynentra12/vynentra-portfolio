@@ -43,16 +43,16 @@ export function ImpactSection() {
   ];
 
   return (
-    <section id="impact" className="py-16 md:py-20 px-6 bg-gradient-to-r from-[#DBEDF7] to-[#BFDBE8] overflow-hidden">
+    <section id="impact" className="py-16 md:py-20 px-6 bg-brand-midnight overflow-hidden">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Top White Divider Line & Header Row */}
-        <div className="border-t border-white/60 pt-6 mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
+        <div className="border-t border-brand-softwhite/10 pt-6 mb-16 flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-[#053A64]"></div>
-            <span className="text-xs font-normal text-[#053A64] uppercase tracking-wider">IMPACT METRICS</span>
+            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-xs font-normal text-brand-energyblue uppercase tracking-wider">IMPACT METRICS</span>
           </div>
-          <h2 className="text-2xl md:text-[28px] lg:text-[32px] font-light text-[#053A64] text-left max-w-md leading-[1.25] tracking-tight">
+          <h2 className="text-2xl md:text-[28px] lg:text-[32px] font-light text-brand-softwhite text-left max-w-md leading-[1.25] tracking-tight">
             We Aim To Drive Environmental Global Impact, Starting With India.
           </h2>
         </div>
@@ -150,12 +150,12 @@ export function ImpactSection() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.4, delay: index * 0.1 }}
-                className={`absolute pointer-events-auto bg-[#ECF7FF]/95 backdrop-blur-md rounded-[7px] border border-white p-3.5 md:p-4 px-4 md:px-5 shadow-xl max-w-[180px] sm:max-w-[210px] md:max-w-[240px] ${item.position}`}
+                className={`absolute pointer-events-auto bg-brand-graphite/95 backdrop-blur-md rounded-[7px] border border-brand-softwhite/10 p-3.5 md:p-4 px-4 md:px-5 shadow-xl max-w-[180px] sm:max-w-[210px] md:max-w-[240px] ${item.position}`}
               >
-                <div className="text-xl sm:text-[22px] md:text-[26px] font-light bg-gradient-to-b from-[#004581] to-[#4CA7F6] bg-clip-text text-transparent mb-1">
+                <div className="text-xl sm:text-[22px] md:text-[26px] font-light text-brand-energyblue mb-1">
                   {item.value}
                 </div>
-                <div className="text-[12px] md:text-[13px] font-normal text-[#053A64]/90 leading-snug">
+                <div className="text-[12px] md:text-[13px] font-normal text-brand-titanium leading-snug">
                   {item.label}
                 </div>
               </motion.div>
@@ -166,7 +166,7 @@ export function ImpactSection() {
 
         {/* Bottom Tagline with Reduced Top Margin */}
         <div className="text-center mt-6 pt-2">
-          <p className="text-xl md:text-2xl lg:text-[28px] font-light text-[#053A64] tracking-tight flex items-center justify-center gap-3">
+          <p className="text-xl md:text-2xl lg:text-[28px] font-light tracking-tight flex items-center justify-center gap-3">
             {taglineWords.map((word, idx) => {
               const isActive = activeWordIndex === idx;
               return (
@@ -174,8 +174,8 @@ export function ImpactSection() {
                   key={word}
                   className={`transition-all duration-700 cursor-pointer ${
                     isActive 
-                      ? 'bg-gradient-to-r from-[#024B85] via-[#0066FF] to-[#38bdf8] bg-clip-text text-transparent font-normal scale-105 drop-shadow-sm' 
-                      : 'text-[#053A64] font-light opacity-80'
+                      ? 'text-brand-energyblue font-normal scale-105 drop-shadow-sm' 
+                      : 'text-brand-titanium font-light opacity-80'
                   }`}
                 >
                   {word}

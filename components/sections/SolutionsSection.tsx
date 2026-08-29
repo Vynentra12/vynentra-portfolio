@@ -58,24 +58,24 @@ function ProcessCard({
         opacity,
         y,
         scale,
-        background: 'linear-gradient(180deg, #FEFFFF 0%, #DEF5FF 78%)',
+        background: 'linear-gradient(180deg, #20252B 0%, #071426 100%)',
       }}
-      className="rounded-[07px] border border-white p-6 md:p-7 flex flex-col justify-between shadow-[0_6px_24px_rgba(5,58,100,0.04)] min-h-[260px] md:min-h-[280px]"
+      className="rounded-[07px] border border-brand-softwhite/10 p-6 md:p-7 flex flex-col justify-between shadow-xl min-h-[260px] md:min-h-[280px]"
     >
       {/* Top Row: Title + Number */}
       <div className="flex items-start justify-between gap-3 mb-6">
-        <h3 className="text-[22px] md:text-[25px] font-normal leading-[1.18] tracking-tight whitespace-pre-line bg-gradient-to-b from-[#004581] to-[#4CA7F6] bg-clip-text text-transparent">
+        <h3 className="text-[22px] md:text-[25px] font-normal leading-[1.18] tracking-tight whitespace-pre-line text-brand-softwhite">
           {item.title}
         </h3>
-        <span className="text-[30px] md:text-[34px] font-light text-[#A8D3EE] select-none shrink-0 leading-none">
+        <span className="text-[30px] md:text-[34px] font-light text-brand-energyblue/40 select-none shrink-0 leading-none">
           {item.number}
         </span>
       </div>
 
       {/* Bottom Row: Subtitle + Description */}
       <div className="mt-auto">
-        <p className="text-[13px] md:text-[13.5px] font-normal text-[#053A64]/80 leading-[1.6]">
-          <span className="font-medium text-[#053A64] block mb-1">
+        <p className="text-[13px] md:text-[13.5px] font-normal text-brand-titanium leading-[1.6]">
+          <span className="font-medium text-brand-softwhite block mb-1">
             {item.subtitle}
           </span>
           {item.description}
@@ -96,18 +96,18 @@ export function SolutionsSection() {
   return (
     <div ref={containerRef} id="process" className="relative" style={{ height: '400vh' }}>
       {/* Sticky panel that stays pinned while user scrolls through all 4 cards */}
-      <div className="sticky top-0 h-screen flex flex-col justify-center bg-gradient-to-r from-[#DBEDF7] to-[#BFDBE8] overflow-hidden">
+      <div className="sticky top-0 h-screen flex flex-col justify-center bg-brand-midnight overflow-hidden">
         <div className="max-w-[1400px] mx-auto w-full px-6 md:px-8 py-10">
 
           {/* Top Divider & Header Row */}
-          <div className="border-t border-white/60 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
-            <div className="flex items-center gap-2.5 pt-1 text-[#053A64]">
-              <div className="w-2.5 h-2.5 bg-[#053A64] rounded-[2px]" />
+          <div className="border-t border-brand-softwhite/10 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
+            <div className="flex items-center gap-2.5 pt-1 text-brand-energyblue">
+              <div className="w-2.5 h-2.5 bg-brand-energyblue rounded-[2px]" />
               <span className="text-xs font-normal uppercase tracking-wider">
                 PROCESS
               </span>
             </div>
-            <h2 className="text-2xl md:text-[28px] font-light text-[#053A64] text-left max-w-xl leading-[1.25] tracking-tight">
+            <h2 className="text-2xl md:text-[28px] font-light text-brand-softwhite text-left max-w-xl leading-[1.25] tracking-tight">
               Comprehensive Renewable Tech Energy Solutions.
             </h2>
           </div>

@@ -7,20 +7,20 @@ export function HeroSection() {
   return (
     <section id="home" className="relative min-h-screen w-full overflow-hidden flex flex-col justify-end">
       {/* 1. Background Video */}
-      <div className="absolute inset-0 z-0 bg-[#DBEDF7]">
+      <div className="absolute inset-0 z-0 bg-brand-midnight">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover opacity-60"
         >
           <source src="https://res.cloudinary.com/ooguplih/video/upload/v1787717887/hero-v1.mp4.mp4" type="video/mp4" />
         </video>
       </div>
 
       {/* 2. Delicate Gradient Overlay fading into the next section's background */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#DBEDF7] via-[#DBEDF7]/50 to-transparent z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight via-brand-midnight/50 to-transparent z-10 pointer-events-none" />
 
       {/* 3. Main Content Container */}
       <div className="relative z-20 w-full min-h-screen max-w-[1400px] mx-auto px-6 flex flex-col justify-between pt-32 md:pt-40 pb-12 md:pb-20">
@@ -35,12 +35,12 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="flex items-center gap-3 bg-white/40 backdrop-blur-md rounded-full px-4 py-2 mb-8 w-fit border border-[#071426]/10 shadow-sm"
+              className="flex items-center gap-3 bg-brand-graphite/40 backdrop-blur-md rounded-full px-4 py-2 mb-8 w-fit border border-brand-softwhite/10 shadow-sm"
             >
               <div className="flex -space-x-2">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-white object-cover" />
-                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-white object-cover" />
-                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-white object-cover" />
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-brand-midnight object-cover" />
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-brand-midnight object-cover" />
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop" alt="Partner" className="w-7 h-7 rounded-full border-2 border-brand-midnight object-cover" />
               </div>
               <div className="flex flex-col">
                 <div className="flex gap-0.5">
@@ -50,7 +50,7 @@ export function HeroSection() {
                     </svg>
                   ))}
                 </div>
-                <span className="text-[11px] font-medium text-[#071426] leading-tight mt-0.5">Trusted by 100+ Partners</span>
+                <span className="text-[11px] font-medium text-brand-softwhite leading-tight mt-0.5">Trusted by 100+ Partners</span>
               </div>
             </motion.div>
 
@@ -58,7 +58,7 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
-              className="text-[44px] md:text-[56px] lg:text-[64px] font-medium text-[#071426] leading-[1.05] tracking-tight mb-8 max-w-3xl"
+              className="text-[44px] md:text-[56px] lg:text-[64px] font-medium text-brand-softwhite leading-[1.05] tracking-tight mb-8 max-w-3xl"
             >
               Delivering Sustainable<br />Energy Solutions.
             </motion.h1>
@@ -70,10 +70,10 @@ export function HeroSection() {
               className="flex flex-wrap items-center gap-4"
             >
               {/* Get Started Button */}
-              <button className="group flex items-center justify-center gap-2 px-6 h-11 rounded-full bg-[#071426] text-white text-[14px] font-medium border border-transparent transition-all hover:bg-white hover:text-[#071426] hover:border-[#071426] hover:scale-105 active:scale-95 shadow-lg shadow-[#071426]/10">
+              <button className="group flex items-center justify-center gap-2 px-6 h-11 rounded-full bg-brand-energyblue text-brand-midnight text-[14px] font-medium border border-transparent transition-all hover:bg-brand-softwhite hover:scale-105 active:scale-95 shadow-lg shadow-brand-energyblue/20">
                 <div className="grid grid-cols-2 gap-[2px] w-3 h-3 group-hover:rotate-45 transition-transform duration-300">
                   <span className="w-full h-full rounded-[1px] bg-current" />
-                  <span className="w-full h-full rounded-[1px] bg-sky-400" />
+                  <span className="w-full h-full rounded-[1px] bg-brand-midnight" />
                   <span className="w-full h-full rounded-[1px] bg-current" />
                   <span className="w-full h-full rounded-[1px] bg-current" />
                 </div>
@@ -81,7 +81,7 @@ export function HeroSection() {
               </button>
               
               {/* View Project Button */}
-              <button className="flex items-center justify-center px-6 h-11 rounded-full bg-white text-[#071426] text-[14px] font-medium border border-[#071426]/20 transition-all hover:bg-[#071426] hover:text-white hover:border-[#071426] hover:scale-105 active:scale-95 shadow-sm">
+              <button className="flex items-center justify-center px-6 h-11 rounded-full bg-transparent text-brand-softwhite text-[14px] font-medium border border-brand-softwhite/20 transition-all hover:bg-brand-softwhite hover:text-brand-midnight hover:border-brand-softwhite hover:scale-105 active:scale-95 shadow-sm">
                 View Project
               </button>
             </motion.div>
@@ -95,30 +95,30 @@ export function HeroSection() {
             className="w-full md:w-[320px] flex flex-col"
           >
             {/* Stat 1 */}
-            <div className="border-t border-[#071426]/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-[#071426]/30 transition-colors">
+            <div className="border-t border-brand-softwhite/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-brand-softwhite/40 transition-colors">
               <div>
-                <span className="block text-[13px] text-[#071426]/70 font-normal mb-1.5 uppercase">Location</span>
-                <span className="block text-xl md:text-[22px] text-[#071426] font-light tracking-tight leading-snug">MAHARASHTRA · INDIA</span>
+                <span className="block text-[13px] text-brand-titanium font-normal mb-1.5 uppercase">Location</span>
+                <span className="block text-xl md:text-[22px] text-brand-softwhite font-light tracking-tight leading-snug">MAHARASHTRA · INDIA</span>
               </div>
-              <span className="text-[#071426]/40 group-hover:text-[#071426] transition-colors mb-1 tracking-widest text-xs">•••</span>
+              <span className="text-brand-softwhite/40 group-hover:text-brand-softwhite transition-colors mb-1 tracking-widest text-xs">•••</span>
             </div>
 
             {/* Stat 2 */}
-            <div className="border-t border-[#071426]/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-[#071426]/30 transition-colors">
+            <div className="border-t border-brand-softwhite/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-brand-softwhite/40 transition-colors">
               <div>
-                <span className="block text-[13px] text-[#071426]/70 font-normal mb-1.5 uppercase">Scale</span>
-                <span className="block text-xl md:text-[22px] text-[#071426] font-light tracking-tight leading-snug">Pan-India Project Development</span>
+                <span className="block text-[13px] text-brand-titanium font-normal mb-1.5 uppercase">Scale</span>
+                <span className="block text-xl md:text-[22px] text-brand-softwhite font-light tracking-tight leading-snug">Pan-India Project Development</span>
               </div>
-              <span className="text-[#071426]/40 group-hover:text-[#071426] transition-colors mb-1 tracking-widest text-xs">•••</span>
+              <span className="text-brand-softwhite/40 group-hover:text-brand-softwhite transition-colors mb-1 tracking-widest text-xs">•••</span>
             </div>
 
             {/* Stat 3 */}
-            <div className="border-t border-[#071426]/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-[#071426]/30 transition-colors">
+            <div className="border-t border-brand-softwhite/15 pt-3 pb-5 flex justify-between items-end group cursor-pointer hover:border-brand-softwhite/40 transition-colors">
               <div className="pr-4">
-                <span className="block text-[13px] text-[#071426]/70 font-normal mb-1.5 uppercase">Expertise</span>
-                <span className="block text-xl md:text-[22px] text-[#071426] font-light tracking-tight leading-snug">Integrated Renewable Energy Solutions</span>
+                <span className="block text-[13px] text-brand-titanium font-normal mb-1.5 uppercase">Expertise</span>
+                <span className="block text-xl md:text-[22px] text-brand-softwhite font-light tracking-tight leading-snug">Integrated Renewable Energy Solutions</span>
               </div>
-              <span className="text-[#071426]/40 group-hover:text-[#071426] transition-colors mb-1 tracking-widest text-xs">•••</span>
+              <span className="text-brand-softwhite/40 group-hover:text-brand-softwhite transition-colors mb-1 tracking-widest text-xs">•••</span>
             </div>
           </motion.div>
         </div>
@@ -131,8 +131,8 @@ export function HeroSection() {
         transition={{ duration: 1, delay: 1 }}
         className="absolute bottom-6 md:bottom-10 right-6 md:right-12 z-20 flex items-center gap-2 cursor-pointer group"
       >
-        <span className="text-[13px] font-medium text-[#071426]/70 group-hover:text-[#071426] transition-colors">Scroll To Explore</span>
-        <ArrowDown className="w-4 h-4 text-[#071426]/70 group-hover:text-[#071426] animate-bounce transition-colors" />
+        <span className="text-[13px] font-medium text-brand-titanium group-hover:text-brand-softwhite transition-colors">Scroll To Explore</span>
+        <ArrowDown className="w-4 h-4 text-brand-titanium group-hover:text-brand-softwhite animate-bounce transition-colors" />
       </motion.div>
     </section>
   );

@@ -30,16 +30,16 @@ export function Navbar() {
     <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center w-full">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pointer-events-auto transition-all duration-500">
         
-        <div className="bg-white rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#1D1D1F]/5 px-3 md:px-4 h-16 flex items-center justify-between w-full">
+        <div className="bg-brand-graphite rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 px-3 md:px-4 h-16 flex items-center justify-between w-full">
           
           {/* Left: Logo & Divider */}
           <div className="flex items-center gap-6 pl-2 md:pl-4">
             <div className="flex items-center">
-              <Logo color="#1D1D1F" className="text-[18px] md:text-[20px]" />
+              <Logo color="#F5F5F2" className="text-[18px] md:text-[20px]" />
             </div>
             
             {/* Very faint vertical divider */}
-            <div className="hidden lg:block w-[1px] h-5 bg-[#1D1D1F]/10"></div>
+            <div className="hidden lg:block w-[1px] h-5 bg-brand-softwhite/10"></div>
           </div>
 
           {/* Center: Navigation Links */}
@@ -55,12 +55,12 @@ export function Navbar() {
               >
                 <a 
                   href={item.href}
-                  className="relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-[#1D1D1F]"
+                  className="relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-brand-softwhite"
                 >
                   {hoveredLink === item.name && (
                     <motion.div 
                       layoutId="nav-pill"
-                      className="absolute inset-0 bg-[#F5F5F7] rounded-[8px] -z-10"
+                      className="absolute inset-0 bg-brand-midnight rounded-[8px] -z-10"
                       transition={{ type: "spring", stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -74,10 +74,10 @@ export function Navbar() {
                 
                 {/* Dropdown Menu */}
                 {item.hasDropdown && hoveredLink === item.name && (
-                  <div className="absolute top-full left-0 mt-3 w-[200px] bg-white border border-[#1D1D1F]/10 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-2 z-50">
-                    <a href="#wind-power" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Wind Power</a>
-                    <a href="#solar" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Solar Energy</a>
-                    <a href="#consulting" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Consulting Services</a>
+                  <div className="absolute top-full left-0 mt-3 w-[200px] bg-brand-graphite border border-brand-softwhite/10 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] py-2 z-50">
+                    <a href="#wind-power" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Wind Power</a>
+                    <a href="#solar" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Solar Energy</a>
+                    <a href="#consulting" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Consulting Services</a>
                   </div>
                 )}
               </div>
@@ -86,7 +86,7 @@ export function Navbar() {
           
           {/* Right: CTA & Mobile Menu */}
           <div className="flex items-center gap-3">
-             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-[#1D1D1F] text-white font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_20px_rgb(0,0,0,0.08)]">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-brand-energyblue text-brand-midnight font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
                   <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
@@ -96,7 +96,7 @@ export function Navbar() {
                 Contact Us
              </button>
              
-             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 bg-[#1D1D1F] text-white`}>
+             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 bg-brand-energyblue text-brand-midnight`}>
                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                  <line x1="4" x2="20" y1="12" y2="12"/>
                  <line x1="4" x2="20" y1="6" y2="6"/>

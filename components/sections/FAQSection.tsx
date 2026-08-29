@@ -25,16 +25,16 @@ export function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-16 md:py-20 px-6 bg-gradient-to-r from-[#DBEDF7] to-[#BFDBE8]">
+    <section id="faq" className="py-16 md:py-20 px-6 bg-brand-midnight">
       <div className="max-w-[1400px] mx-auto">
         
         {/* Top White Divider Line & Header Row */}
-        <div className="border-t border-white/60 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
+        <div className="border-t border-brand-softwhite/10 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-[#053A64]"></div>
-            <span className="text-xs font-normal text-[#053A64] uppercase tracking-wider">FAQ</span>
+            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-xs font-normal text-brand-energyblue uppercase tracking-wider">FAQ</span>
           </div>
-          <h2 className="text-2xl md:text-[28px] lg:text-[32px] font-light text-[#053A64] text-left max-w-md leading-[1.25] tracking-tight">
+          <h2 className="text-2xl md:text-[28px] lg:text-[32px] font-light text-brand-softwhite text-left max-w-md leading-[1.25] tracking-tight">
             Answers To Common Questions About Solutions.
           </h2>
         </div>
@@ -45,23 +45,23 @@ export function FAQSection() {
             <div 
               key={index}
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="bg-[#ECF7FF] rounded-[7px] border-[0.9px] border-white px-6 md:px-7 py-4 md:py-4.5 cursor-pointer group transition-all duration-300 hover:shadow-sm"
+              className="bg-brand-graphite rounded-[7px] border-[0.9px] border-brand-softwhite/10 px-6 md:px-7 py-4 md:py-4.5 cursor-pointer group transition-all duration-300 hover:shadow-sm"
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-[17px] md:text-[19px] font-light text-[#053A64] pr-8">
+                <h3 className="text-[17px] md:text-[19px] font-light text-brand-softwhite pr-8">
                   {faq.question}
                 </h3>
                 <Plus 
-                  className="w-5 h-5 text-[#053A64] stroke-[1.25] transition-transform duration-300 shrink-0" 
+                  className="w-5 h-5 text-brand-energyblue stroke-[1.25] transition-transform duration-300 shrink-0" 
                   style={{ transform: openIndex === index ? 'rotate(45deg)' : 'none' }} 
                 />
               </div>
               
               <div 
-                className={`grid transition-all duration-300 ease-in-out ${openIndex === index ? 'grid-rows-[1fr] opacity-100 mt-3.5 border-t border-[#053A64]/10 pt-3.5' : 'grid-rows-[0fr] opacity-0 mt-0 border-t-0 pt-0'}`}
+                className={`grid transition-all duration-300 ease-in-out ${openIndex === index ? 'grid-rows-[1fr] opacity-100 mt-3.5 border-t border-brand-softwhite/10 pt-3.5' : 'grid-rows-[0fr] opacity-0 mt-0 border-t-0 pt-0'}`}
               >
                 <div className="overflow-hidden">
-                  <p className="text-[#053A64]/80 text-xs md:text-[13px] font-light leading-relaxed">
+                  <p className="text-brand-titanium text-xs md:text-[13px] font-light leading-relaxed">
                     {faq.answer}
                   </p>
                 </div>

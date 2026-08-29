@@ -37,8 +37,8 @@ function WhyChooseUsCard({ item }: { item: typeof SOLUTIONS_DATA[0] }) {
       whileInView="active"
       viewport={{ margin: "0px -60% 0px 0px", amount: 0.3 }}
       variants={{
-        inactive: { backgroundColor: "#ECF7FF", borderColor: "#FFFFFF" },
-        active: { backgroundColor: "#111111", borderColor: "#333333" }
+        inactive: { backgroundColor: "#20252B", borderColor: "rgba(245, 245, 242, 0.1)" },
+        active: { backgroundColor: "#071426", borderColor: "rgba(77, 163, 255, 0.3)" }
       }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="w-[85vw] sm:w-[420px] md:w-[500px] lg:w-[560px] xl:w-[600px] shrink-0 rounded-[7px] p-7 md:p-8 flex flex-col shadow-sm border-[0.9px] relative overflow-hidden group"
@@ -72,16 +72,16 @@ function WhyChooseUsCard({ item }: { item: typeof SOLUTIONS_DATA[0] }) {
         <motion.div 
           className="border-b pb-4 mb-6"
           variants={{
-            inactive: { borderBottomColor: "rgba(5, 58, 100, 0.1)" },
-            active: { borderBottomColor: "rgba(255, 255, 255, 0.25)" }
+            inactive: { borderBottomColor: "rgba(245, 245, 242, 0.1)" },
+            active: { borderBottomColor: "rgba(77, 163, 255, 0.3)" }
           }}
           transition={{ duration: 0.5 }}
         >
           <motion.span 
             className="text-[14px] md:text-[15px] font-normal"
             variants={{
-              inactive: { color: "rgba(5, 58, 100, 0.7)" },
-              active: { color: "rgba(255, 255, 255, 0.9)" }
+              inactive: { color: "rgba(167, 173, 179, 1)" },
+              active: { color: "rgba(77, 163, 255, 1)" }
             }}
             transition={{ duration: 0.5 }}
           >
@@ -92,14 +92,14 @@ function WhyChooseUsCard({ item }: { item: typeof SOLUTIONS_DATA[0] }) {
         {/* Main Title (Crossfade from gradient to solid white) */}
         <div className="relative mb-6 min-h-[70px]">
           <motion.h3 
-            className="text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] bg-gradient-to-b from-[#004581] to-[#4CA7F6] bg-clip-text text-transparent"
+            className="text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] text-brand-softwhite"
             variants={{ inactive: { opacity: 1 }, active: { opacity: 0 } }}
             transition={{ duration: 0.4 }}
           >
             {item.title}
           </motion.h3>
           <motion.h3 
-            className="absolute top-0 left-0 text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] text-white"
+            className="absolute top-0 left-0 text-[24px] md:text-[28px] lg:text-[30px] font-normal leading-[1.25] text-brand-energyblue"
             variants={{ inactive: { opacity: 0 }, active: { opacity: 1 } }}
             transition={{ duration: 0.4 }}
           >
@@ -111,8 +111,8 @@ function WhyChooseUsCard({ item }: { item: typeof SOLUTIONS_DATA[0] }) {
         <motion.p 
           className="text-[14.5px] md:text-[16px] font-normal leading-[1.7] mb-14 max-w-[90%]"
           variants={{
-            inactive: { color: "rgba(5, 58, 100, 0.8)" },
-            active: { color: "rgba(255, 255, 255, 0.95)" }
+            inactive: { color: "rgba(167, 173, 179, 1)" },
+            active: { color: "rgba(245, 245, 242, 0.95)" }
           }}
           transition={{ duration: 0.5 }}
         >
@@ -137,19 +137,19 @@ export function WhyChooseUsSection() {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-65%"]);
 
   return (
-    <section ref={scrollContainerRef} id="why-choose-us" className="relative h-[250vh] bg-gradient-to-r from-[#DBEDF7] to-[#BFDBE8]">
+    <section ref={scrollContainerRef} id="why-choose-us" className="relative h-[250vh] bg-brand-midnight">
       <div className="sticky top-0 h-screen overflow-hidden flex flex-col justify-center">
         <div className="w-full px-6 md:px-12 xl:px-[calc((100vw-1400px)/2+24px)] mx-auto pt-10 pb-8">
           
           {/* Header Row */}
-          <div className="border-t border-white/60 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
-            <div className="flex items-center gap-2.5 pt-1 text-[#053A64]">
-              <div className="w-2.5 h-2.5 bg-[#053A64] rounded-[2px]" />
+          <div className="border-t border-brand-softwhite/10 pt-6 mb-12 flex flex-col md:flex-row justify-between items-start gap-6">
+            <div className="flex items-center gap-2.5 pt-1 text-brand-energyblue">
+              <div className="w-2.5 h-2.5 bg-brand-energyblue rounded-[2px]" />
               <span className="text-xs font-normal uppercase tracking-wider">
                 SOLUTIONS
               </span>
             </div>
-            <h2 className="text-2xl md:text-[28px] font-light text-[#053A64] text-left max-w-xl leading-[1.25] tracking-tight">
+            <h2 className="text-2xl md:text-[28px] font-light text-brand-softwhite text-left max-w-xl leading-[1.25] tracking-tight">
               Renewable Infrastructure Driven By Innovation.
             </h2>
           </div>
