@@ -30,16 +30,20 @@ export function Navbar() {
     <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center w-full">
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pointer-events-auto transition-all duration-500">
         
-        <div className="bg-brand-graphite rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 px-3 md:px-4 h-16 flex items-center justify-between w-full">
+        <div className="bg-brand-graphite rounded-[24px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 px-3 md:px-4 h-16 flex items-center justify-between w-full">
           
           {/* Left: Logo & Divider */}
-          <div className="flex items-center gap-6 pl-2 md:pl-4">
+          <div className="flex items-center gap-4 lg:gap-6 pl-2 md:pl-4">
             <div className="flex items-center">
               <Logo color="#F5F5F2" className="text-[18px] md:text-[20px]" />
             </div>
             
             {/* Very faint vertical divider */}
             <div className="hidden lg:block w-[1px] h-5 bg-brand-softwhite/10"></div>
+
+            <span className="hidden lg:block text-brand-titanium text-[11px] font-medium tracking-[0.2em] uppercase mt-0.5">
+              RENEWABLE ENERGY
+            </span>
           </div>
 
           {/* Center: Navigation Links */}
