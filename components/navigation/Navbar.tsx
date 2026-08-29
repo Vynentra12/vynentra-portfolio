@@ -7,12 +7,11 @@ import { Logo } from "@/components/brand/Logo";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const pathname = usePathname();
   
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > (window.innerHeight * 0.2));
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -21,13 +20,13 @@ export function Navbar() {
   const navLinks = [
     { name: "About Us", href: "#about" },
     { name: "Blogs", href: "#blog" },
-    { name: "Services", href: "#services", hasDropdown: true },
+    { name: "Services", href: "#services" },
     { name: "Case Studies", href: "#case-studies" },
     { name: "Contact Us", href: "#contact" },
   ];
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 border-b border-brand-softwhite/10 ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md' : 'bg-brand-midnight/40 backdrop-blur-sm'}`}>
+    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 border-b ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md border-brand-softwhite/10' : 'bg-transparent border-transparent'}`}>
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
         <div className="h-16 flex items-center justify-between w-full">
@@ -40,45 +39,23 @@ export function Navbar() {
           </div>
 
           {/* Center: Navigation Links */}
-          <nav 
-            className="hidden lg:flex items-center gap-1 xl:gap-2 relative"
-            onMouseLeave={() => setHoveredLink(null)}
-          >
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 relative">
             {navLinks.map((item) => (
-              <div 
-                key={item.name}
-                onMouseEnter={() => setHoveredLink(item.name)}
-                className="relative flex-shrink-0"
-              >
+              <div key={item.name} className="relative flex-shrink-0">
                 <a 
                   href={item.href}
                   className="group relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-brand-softwhite hover:text-brand-energyblue"
                 >
                   <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-brand-energyblue origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
-
                   {item.name}
-                  {item.hasDropdown && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${hoveredLink === item.name ? 'rotate-180' : ''}`}>
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  )}
                 </a>
-                
-                {/* Dropdown Menu */}
-                {item.hasDropdown && hoveredLink === item.name && (
-                  <div className="absolute top-full left-0 mt-3 w-[200px] bg-brand-graphite border border-brand-softwhite/10 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.2)] py-2 z-50">
-                    <a href="#wind-power" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Wind Power</a>
-                    <a href="#solar" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Solar Energy</a>
-                    <a href="#consulting" className="block px-4 py-2 text-[14px] text-brand-softwhite/80 hover:bg-brand-midnight hover:text-brand-energyblue transition-colors whitespace-nowrap">Consulting Services</a>
-                  </div>
-                )}
               </div>
             ))}
           </nav>
           
           {/* Right: CTA & Mobile Menu */}
           <div className="flex items-center gap-3">
-             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-semibold tracking-wide text-[14px] rounded-[8px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
                 <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
                   <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
