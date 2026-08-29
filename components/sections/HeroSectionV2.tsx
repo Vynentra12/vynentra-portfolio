@@ -16,8 +16,8 @@ export function HeroSectionV2() {
         </video>
       </div>
 
-      {/* 2. Light Gray and White Gradient Overlay fading into the next section's background (#F5F5F7) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#F5F5F7] via-[#F5F5F7]/60 to-white/30 z-10 pointer-events-none" />
+      {/* 2. Gradient Overlay fading into the next section's background */}
+      <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight via-brand-midnight/60 to-transparent z-10 pointer-events-none" />
       
     </section>
   );

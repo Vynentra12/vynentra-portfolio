@@ -8,6 +8,9 @@ import { ProcessSectionV2 } from '@/components/sections/ProcessSectionV2';
 import { CaseStudySectionV2 } from '@/components/sections/CaseStudySectionV2';
 import { FeaturedProjectsSectionV2 } from '@/components/sections/FeaturedProjectsSectionV2';
 import { HeroSectionV2 } from '@/components/sections/HeroSectionV2';
+import { SolutionsSection } from '@/components/sections/SolutionsSection';
+import { WhyChooseUsSection } from '@/components/sections/WhyChooseUsSection';
+import { ClosingCTA } from '@/components/sections/ClosingCTA';
 
 export default function HomepageV2() {
   const sectionsBeforeImpact = [
@@ -27,7 +30,7 @@ export default function HomepageV2() {
   ];
 
   return (
-    <main className="bg-[#F5F5F7] text-[#1D1D1F] min-h-screen">
+    <main className="bg-brand-midnight text-brand-softwhite min-h-screen">
       {sectionsBeforeImpact.map((section, idx) => {
         if (section === "Hero Section") {
           return <HeroSectionV2 key={idx} />;
@@ -64,6 +67,15 @@ export default function HomepageV2() {
         }
         if (section === "Featured Projects Section") {
           return <FeaturedProjectsSectionV2 key={idx} />;
+        }
+        if (section === "Solutions Section") {
+          return <SolutionsSection key={idx} />;
+        }
+        if (section === "Why Choose Us Section") {
+          return <WhyChooseUsSection key={idx} />;
+        }
+        if (section === "Closing CTA") {
+          return <ClosingCTA key={idx} />;
         }
         return (
           <section 

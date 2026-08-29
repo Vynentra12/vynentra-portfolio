@@ -57,16 +57,16 @@ export function ImpactSectionV2() {
   ];
 
   return (
-    <section className="relative w-full bg-[#F5F5F7] text-[#1D1D1F] py-10 md:py-16 min-h-[700px] md:min-h-[800px] flex flex-col justify-between overflow-hidden">
+    <section className="relative w-full bg-brand-midnight text-brand-softwhite py-10 md:py-16 min-h-[700px] md:min-h-[800px] flex flex-col justify-between overflow-hidden">
       
       {/* Header Row */}
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 mb-12 z-20">
-        <div className="border-t border-[#1D1D1F]/10 pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
+        <div className="border-t border-brand-softwhite/10 pt-6 flex flex-col md:flex-row justify-between items-start gap-6">
           <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-[#1D1D1F]"></div>
-            <span className="text-xs font-normal text-[#1D1D1F] uppercase tracking-wider">IMPACT METRICS</span>
+            <div className="w-2.5 h-2.5 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-xs font-normal text-brand-softwhite uppercase tracking-wider">IMPACT METRICS</span>
           </div>
-          <h2 className="text-2xl md:text-[28px] font-light text-[#1D1D1F] text-left max-w-md leading-[1.25] tracking-tight">
+          <h2 className="text-2xl md:text-[28px] font-light text-brand-softwhite text-left max-w-md leading-[1.25] tracking-tight">
             We Aim To Drive Environmental Global Impact, Starting With India.
           </h2>
         </div>
@@ -76,10 +76,10 @@ export function ImpactSectionV2() {
       <div className="relative max-w-[1200px] mx-auto w-full px-6 md:px-12 h-[450px] md:h-[500px] flex items-center justify-center z-10 mt-6 md:mt-0">
         
         {/* Neuromorphic Plate */}
-        <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] rounded-full bg-[#F5F5F7] shadow-[20px_20px_60px_#d0d0d2,-20px_-20px_60px_#ffffff] flex items-center justify-center group z-10">
+        <div className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[400px] md:h-[400px] rounded-full bg-brand-graphite shadow-[0_0_30px_rgba(77,163,255,0.05)] flex items-center justify-center group z-10 border border-brand-softwhite/5">
           
           {/* Inner inset circle for depth */}
-          <div className="absolute inset-[5%] rounded-full shadow-[inset_10px_10px_20px_#d0d0d2,inset_-10px_-10px_20px_#ffffff] pointer-events-none" />
+          <div className="absolute inset-[5%] rounded-full shadow-[inset_4px_4px_10px_rgba(0,0,0,0.5),inset_-4px_-4px_10px_rgba(255,255,255,0.05)] pointer-events-none" />
 
           {/* India SVG */}
           <div className="relative w-[65%] h-[65%] flex items-center justify-center transition-transform duration-700 hover:scale-[1.02] hover:drop-shadow-[0_0_25px_rgba(56,189,248,0.4)]">
@@ -100,30 +100,30 @@ export function ImpactSectionV2() {
             {/* Connector Line */}
             {card.id <= 3 ? (
               <div 
-                className="hidden md:block absolute top-1/2 -translate-y-1/2 bg-[#1D1D1F]/15 h-[1px]"
+                className="hidden md:block absolute top-1/2 -translate-y-1/2 bg-brand-softwhite/10 h-[1px]"
                 style={{ width: card.connectorWidth, right: `-${card.connectorWidth}` }}
               >
-                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#1D1D1F]/40" />
+                <div className="absolute right-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-energyblue" />
               </div>
             ) : (
               <div 
-                className="hidden md:block absolute top-1/2 -translate-y-1/2 bg-[#1D1D1F]/15 h-[1px]"
+                className="hidden md:block absolute top-1/2 -translate-y-1/2 bg-brand-softwhite/10 h-[1px]"
                 style={{ width: card.connectorWidth, left: `-${card.connectorWidth}` }}
               >
-                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-[#1D1D1F]/40" />
+                <div className="absolute left-0 top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-brand-energyblue" />
               </div>
             )}
 
             {/* Card Content */}
             <div 
-              className="bg-[#ffffff] rounded-[12px] p-3 md:p-4 shadow-[0_4px_20px_rgb(0,0,0,0.04)] border border-[#1D1D1F]/5 w-[260px] md:w-[280px] relative z-20 group-hover:-translate-y-1 transition-transform duration-300 flex items-center gap-3.5"
+              className="bg-brand-graphite rounded-[12px] p-3 md:p-4 shadow-[0_4px_20px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 w-[260px] md:w-[280px] relative z-20 group-hover:-translate-y-1 transition-transform duration-300 flex items-center gap-3.5"
             >
-              <div className="flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-[#F5F5F7] shadow-[inset_2px_2px_5px_#d0d0d2,inset_-2px_-2px_5px_#ffffff] flex items-center justify-center text-[#1D1D1F]">
+              <div className="flex-shrink-0 w-9 h-9 md:w-10 md:h-10 rounded-full bg-brand-midnight border border-brand-softwhite/10 flex items-center justify-center text-brand-energyblue">
                 <card.icon className="w-4 h-4 md:w-[18px] md:h-[18px]" strokeWidth={1.5} />
               </div>
               <div className="flex flex-col">
-                <h4 className="text-[16px] md:text-[18px] font-bold text-[#1D1D1F] leading-tight mb-0.5">{card.value}</h4>
-                <p className="text-[10px] md:text-[11px] leading-tight text-[#1D1D1F]/70 pr-2">{card.label}</p>
+                <h4 className="text-[16px] md:text-[18px] font-bold text-brand-softwhite leading-tight mb-0.5">{card.value}</h4>
+                <p className="text-[10px] md:text-[11px] leading-tight text-brand-titanium pr-2">{card.label}</p>
               </div>
             </div>
           </div>
@@ -132,7 +132,7 @@ export function ImpactSectionV2() {
 
       {/* Footer Text */}
       <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 text-center mt-12 md:mt-0 z-20">
-        <p className="text-lg md:text-xl font-medium tracking-wide text-[#1D1D1F]">
+        <p className="text-lg md:text-xl font-medium tracking-wide text-brand-softwhite">
           Precision. Energy. Sustainability.
         </p>
       </div>
