@@ -1,9 +1,9 @@
 'use client';
 import { useState } from 'react';
-import { Plus } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 export function FAQSectionV2() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // Open first one by default to match image
 
   const faqs = [
     {
@@ -25,43 +25,53 @@ export function FAQSectionV2() {
   ];
 
   return (
-    <section id="faq" className="w-full bg-[#F5F5F7] py-16 md:py-24">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
+    <section id="faq" className="w-full bg-brand-midnight py-16 md:py-24">
+      <div className="max-w-[1000px] mx-auto w-full px-6 md:px-12">
         
-        {/* Header */}
-        <div className="mb-12 flex flex-col md:flex-row justify-between items-start gap-6 border-t border-[#1D1D1F]/10 pt-6">
-          <div className="flex items-center gap-2.5 pt-1">
-            <div className="w-2.5 h-2.5 rounded-[2px] bg-[#1D1D1F]"></div>
-            <span className="text-xs font-normal text-[#1D1D1F] uppercase tracking-wider">FAQ</span>
+        {/* Unified Section Header */}
+        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
+          {/* Standardized Badge */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
+            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+              FAQ
+            </span>
           </div>
-          <h2 className="text-2xl md:text-[28px] font-light text-[#1D1D1F] text-left max-w-md leading-[1.25] tracking-tight">
-            Answers To Common Questions About Solutions.
+          {/* Standardized Title */}
+          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
+            Frequently Asked Questions
           </h2>
+          {/* Standardized Subtitle */}
+          <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
+            To help you make informed decisions, we've compiled answers to some of the most commonly asked questions.
+          </p>
         </div>
 
         {/* FAQ Items */}
-        <div className="max-w-[720px] mx-auto flex flex-col gap-3">
+        <div className="w-full border-t border-brand-softwhite/20">
           {faqs.map((faq, index) => (
             <div 
               key={index}
               onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              className="bg-[#ffffff] rounded-[7px] border border-gray-100 px-6 md:px-7 py-4 md:py-4.5 cursor-pointer group transition-all duration-300 hover:shadow-sm"
+              className="border-b border-brand-softwhite/20 py-6 md:py-8 cursor-pointer group"
             >
-              <div className="flex justify-between items-center">
-                <h3 className="text-[17px] md:text-[19px] font-medium text-[#1D1D1F] pr-8">
+              <div className="flex justify-between items-center gap-4">
+                <h3 className="text-[18px] md:text-[20px] lg:text-[22px] font-normal text-brand-softwhite pr-4 group-hover:text-brand-energyblue transition-colors duration-300">
                   {faq.question}
                 </h3>
-                <Plus 
-                  className="w-5 h-5 text-[#1D1D1F] stroke-[1.25] transition-transform duration-300 shrink-0" 
-                  style={{ transform: openIndex === index ? 'rotate(45deg)' : 'none' }} 
-                />
+                <div className={`w-9 h-9 md:w-11 md:h-11 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 ${openIndex === index ? 'bg-brand-energyblue text-brand-midnight' : 'bg-brand-softwhite/10 text-brand-softwhite group-hover:bg-brand-softwhite/20'}`}>
+                  <ArrowUpRight 
+                    className="w-4 h-4 md:w-5 md:h-5 stroke-[1.5] transition-transform duration-300" 
+                    style={{ transform: openIndex === index ? 'rotate(90deg)' : 'none' }} 
+                  />
+                </div>
               </div>
               
               <div 
-                className={`grid transition-all duration-300 ease-in-out ${openIndex === index ? 'grid-rows-[1fr] opacity-100 mt-3.5 border-t border-[#1D1D1F]/10 pt-3.5' : 'grid-rows-[0fr] opacity-0 mt-0 border-t-0 pt-0'}`}
+                className={`grid transition-all duration-300 ease-in-out ${openIndex === index ? 'grid-rows-[1fr] opacity-100 mt-4' : 'grid-rows-[0fr] opacity-0 mt-0'}`}
               >
                 <div className="overflow-hidden">
-                  <p className="text-[#1D1D1F]/70 text-xs md:text-[13px] font-normal leading-relaxed">
+                  <p className="text-brand-titanium text-[15px] md:text-[16px] font-normal leading-relaxed pr-12 md:pr-20">
                     {faq.answer}
                   </p>
                 </div>

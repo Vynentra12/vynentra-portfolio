@@ -7,16 +7,16 @@
   --color-brand-softwhite: #F5F5F2;
   --color-brand-energyblue: #4DA3FF;
 
-  --color-background: var(--color-brand-softwhite);
-  --color-foreground: var(--color-brand-midnight);
+  --color-background: var(--color-brand-midnight);
+  --color-foreground: var(--color-brand-softwhite);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-heading: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
-  --background: var(--color-brand-softwhite);
-  --foreground: var(--color-brand-midnight);
+  --background: var(--color-brand-midnight);
+  --foreground: var(--color-brand-softwhite);
 }
 
 body {

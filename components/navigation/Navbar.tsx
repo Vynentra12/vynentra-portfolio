@@ -7,12 +7,11 @@ import { Logo } from "@/components/brand/Logo";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const pathname = usePathname();
   
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > (window.innerHeight * 0.2));
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -21,73 +20,43 @@ export function Navbar() {
   const navLinks = [
     { name: "About Us", href: "#about" },
     { name: "Blogs", href: "#blog" },
-    { name: "Services", href: "#services", hasDropdown: true },
+    { name: "Services", href: "#services" },
     { name: "Case Studies", href: "#case-studies" },
     { name: "Contact Us", href: "#contact" },
   ];
 
   return (
-    <header className="fixed top-4 left-0 right-0 z-50 pointer-events-none flex justify-center w-full">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 pointer-events-auto transition-all duration-500">
+    <header className={`fixed top-0 left-0 right-0 z-50 flex justify-center w-full transition-all duration-500 ${isScrolled ? 'bg-brand-midnight/80 backdrop-blur-md shadow-md' : 'bg-transparent'}`}>
+      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
         
-        <div className="bg-white rounded-[16px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-[#1D1D1F]/5 px-3 md:px-4 h-16 flex items-center justify-between w-full">
+        <div className="h-16 flex items-center justify-between w-full">
           
-          {/* Left: Logo & Divider */}
-          <div className="flex items-center gap-6 pl-2 md:pl-4">
+          {/* Left: Logo */}
+          <div className="flex items-center gap-4 lg:gap-6">
             <div className="flex items-center">
-              <Logo color="#1D1D1F" className="text-[18px] md:text-[20px]" />
+              <Logo color="#F5F5F2" className="text-[18px] md:text-[20px]" />
             </div>
-            
-            {/* Very faint vertical divider */}
-            <div className="hidden lg:block w-[1px] h-5 bg-[#1D1D1F]/10"></div>
           </div>
 
           {/* Center: Navigation Links */}
-          <nav 
-            className="hidden lg:flex items-center gap-1 xl:gap-2 relative"
-            onMouseLeave={() => setHoveredLink(null)}
-          >
+          <nav className="hidden lg:flex items-center gap-1 xl:gap-2 relative">
             {navLinks.map((item) => (
-              <div 
-                key={item.name}
-                onMouseEnter={() => setHoveredLink(item.name)}
-                className="relative flex-shrink-0"
-              >
+              <div key={item.name} className="relative flex-shrink-0">
                 <a 
                   href={item.href}
-                  className="relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-[#1D1D1F]"
+                  className="group relative px-4 py-2 text-[14px] font-medium transition-colors z-10 flex items-center gap-1.5 whitespace-nowrap text-brand-softwhite hover:text-brand-energyblue"
                 >
-                  {hoveredLink === item.name && (
-                    <motion.div 
-                      layoutId="nav-pill"
-                      className="absolute inset-0 bg-[#F5F5F7] rounded-[8px] -z-10"
-                      transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                    />
-                  )}
+                  <span className="absolute bottom-1 left-4 right-4 h-[1px] bg-brand-energyblue origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
                   {item.name}
-                  {item.hasDropdown && (
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={`transition-transform duration-200 ${hoveredLink === item.name ? 'rotate-180' : ''}`}>
-                      <polyline points="6 9 12 15 18 9"></polyline>
-                    </svg>
-                  )}
                 </a>
-                
-                {/* Dropdown Menu */}
-                {item.hasDropdown && hoveredLink === item.name && (
-                  <div className="absolute top-full left-0 mt-3 w-[200px] bg-white border border-[#1D1D1F]/10 rounded-[12px] shadow-[0_8px_30px_rgb(0,0,0,0.08)] py-2 z-50">
-                    <a href="#wind-power" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Wind Power</a>
-                    <a href="#solar" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Solar Energy</a>
-                    <a href="#consulting" className="block px-4 py-2 text-[14px] text-[#1D1D1F]/80 hover:bg-[#F5F5F7] hover:text-[#1D1D1F] transition-colors whitespace-nowrap">Consulting Services</a>
-                  </div>
-                )}
               </div>
             ))}
           </nav>
           
           {/* Right: CTA & Mobile Menu */}
           <div className="flex items-center gap-3">
-             <button className="hidden md:inline-flex group items-center justify-center gap-2.5 px-6 h-11 bg-[#1D1D1F] text-white font-medium text-[14px] rounded-[8px] transition-all duration-300 hover:scale-[1.02] shadow-[0_4px_20px_rgb(0,0,0,0.08)]">
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
+             <button className="hidden md:inline-flex group items-center justify-center gap-2 px-4 h-9 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight font-semibold tracking-wide text-[13px] rounded-[6px] transition-all duration-300 hover:shadow-[0_4px_20px_rgb(77,163,255,0.2)]">
+                <svg width="11" height="11" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" className="transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:rotate-45">
                   <rect x="0" y="0" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="8" width="6" height="6" rx="1" fill="currentColor"/>
                   <rect x="8" y="0" width="6" height="6" rx="1" fill="currentColor"/>
@@ -96,7 +65,7 @@ export function Navbar() {
                 Contact Us
              </button>
              
-             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 bg-[#1D1D1F] text-white`}>
+             <button className={`md:hidden p-2 rounded-[8px] backdrop-blur-md transition-colors duration-300 border border-brand-energyblue text-brand-energyblue bg-transparent hover:bg-brand-energyblue hover:text-brand-midnight`}>
                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                  <line x1="4" x2="20" y1="12" y2="12"/>
                  <line x1="4" x2="20" y1="6" y2="6"/>
