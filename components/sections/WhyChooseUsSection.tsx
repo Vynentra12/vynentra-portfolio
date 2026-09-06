@@ -30,7 +30,7 @@ const SOLUTIONS_DATA = [
 export function WhyChooseUsSection() {
   return (
     <section id="why-choose-us" className="relative w-full bg-brand-midnight py-16 md:py-24">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 relative z-10">
+      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 relative z-10">
         
         {/* Unified Section Header */}
         <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
@@ -58,16 +58,16 @@ export function WhyChooseUsSection() {
               className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             {/* Heavy gradient for text legibility */}
-            <div className="absolute inset-0 bg-gradient-to-t from-brand-midnight via-brand-midnight/40 to-transparent pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent pointer-events-none"></div>
             
             <div className="relative z-10 flex flex-col justify-end h-full p-8 md:p-10">
               <span className="text-brand-energyblue text-[11px] md:text-[12px] uppercase tracking-wider font-semibold mb-3">
                 01 — {SOLUTIONS_DATA[0].subtitle}
               </span>
-              <h3 className="text-brand-softwhite text-[28px] md:text-[34px] leading-[1.2] font-semibold mb-4">
+              <h3 className="text-white text-[28px] md:text-[34px] leading-[1.2] font-semibold mb-4">
                 {SOLUTIONS_DATA[0].title}
               </h3>
-              <p className="text-brand-titanium text-[14px] md:text-[15px] leading-relaxed">
+              <p className="text-white/80 text-[14px] md:text-[15px] leading-relaxed">
                 {SOLUTIONS_DATA[0].description}
               </p>
             </div>
@@ -117,7 +117,7 @@ export function WhyChooseUsSection() {
           </div>
 
           {/* Card 4: Standard (Bottom Right, 1 column, 1 row) */}
-          <div className="lg:col-span-1 lg:row-span-1 rounded-[12px] overflow-hidden bg-[#252A30] shadow-lg border border-brand-softwhite/10 p-8 md:p-10 flex flex-col justify-between min-h-[350px] lg:min-h-0 relative group">
+          <div className="lg:col-span-1 lg:row-span-1 rounded-[12px] overflow-hidden bg-brand-graphite shadow-lg border border-brand-softwhite/10 p-8 md:p-10 flex flex-col justify-between min-h-[350px] lg:min-h-0 relative group">
             {/* Subtle glow effect on hover */}
             <div className="absolute inset-0 bg-brand-energyblue/0 group-hover:bg-brand-energyblue/5 transition-colors duration-500 pointer-events-none"></div>
             

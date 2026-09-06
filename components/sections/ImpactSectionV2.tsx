@@ -3,14 +3,6 @@
 import { motion } from "framer-motion";
 import { Zap, PieChart, TrendingUp, Wind, Leaf } from "lucide-react";
 
-const TurbineIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <path d="M12 12c-1.5 0-2.8-1.4-3.5-3.5-.7-2 .5-3.5 2-3.5h3c1.5 0 2.7 1.5 2 3.5C14.8 10.6 13.5 12 12 12z"/>
-    <path d="M12 12c1.3 1.3 2.1 3.2 1.3 5.3-.8 2-2.8 2.5-4.2 1.5l-2.6-1.7c-1.2-.8-.7-2.6.8-3.4 1.5-.7 3.4-.4 4.7 1.7"/>
-    <path d="M12 12c-.2-1.8-1.5-3.5-3.5-4.2-2-.7-3.8.2-4.5 1.5l-1.5 2.6c-.7 1.2 0 2.7 1.5 2.9 1.6.2 3.2-.8 4-2.5"/>
-    <path d="M12 12v10"/>
-  </svg>
-);
 
 export function ImpactSectionV2() {
   const cards = [
@@ -60,7 +52,7 @@ export function ImpactSectionV2() {
     <section className="relative w-full bg-brand-midnight text-brand-softwhite py-10 md:py-16 min-h-[700px] md:min-h-[800px] flex flex-col justify-between overflow-hidden">
       
       {/* Header Row */}
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 mb-12 z-20">
+      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 mb-12 z-20">
         {/* Unified Section Header */}
         <div className="flex flex-col gap-3 md:mb-4 border-t border-brand-softwhite/10 pt-6">
           {/* Standardized Badge */}

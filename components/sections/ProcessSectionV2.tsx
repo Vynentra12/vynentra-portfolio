@@ -31,7 +31,7 @@ export function ProcessSectionV2() {
       {/* Background glowing orb matching the reference image's bottom-left glow */}
       <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[60%] bg-brand-energyblue/15 blur-[140px] rounded-full pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12 relative z-10">
+      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 relative z-10">
         <div className="border-t border-brand-softwhite/10 pt-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
             

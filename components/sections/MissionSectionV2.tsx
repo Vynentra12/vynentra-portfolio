@@ -4,7 +4,7 @@ import { Wind } from 'lucide-react';
 export function MissionSectionV2() {
   return (
     <section id="about" className="w-full bg-brand-midnight py-16 md:py-24">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
+      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
         
         {/* Unified Section Header */}
         <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
