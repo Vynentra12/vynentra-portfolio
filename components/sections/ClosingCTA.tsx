@@ -3,7 +3,6 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,44 +24,55 @@ export function ClosingCTA() {
   const bgRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
-    // Media Query Check for Responsive Radius
-    const isMobile = window.innerWidth < 768;
-    const initialRadius = isMobile ? 120 : 250;
-    const finalRadius = isMobile ? 220 : 420; // Decreased radius to bring images closer to text
+    // Dynamic responsive radius based on viewport to guarantee it fits cleanly in frame
+    const getRadii = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const isMobile = w < 768;
+      
+      const initial = isMobile ? 90 : 160;
+      // Calculate final radius so it stays outside the text box while remaining fully inside viewport
+      const final = isMobile 
+        ? Math.min(w * 0.44, h * 0.38, 220) 
+        : Math.min(w * 0.36, h * 0.42, 460);
+
+      return { initial, final, isMobile };
+    };
+
+    const { initial: initialRadius, final: finalRadius, isMobile } = getRadii();
     const images = gsap.utils.toArray('.gallery-item') as HTMLElement[];
     
-    // Set initial layout: spread horizontally at the bottom
+    // Initial layout: horizontally distributed
     images.forEach((img, i) => {
-      const xOffset = (i - (images.length - 1) / 2) * (isMobile ? 60 : 120);
+      const xOffset = (i - (images.length - 1) / 2) * (isMobile ? 50 : 90);
       gsap.set(img, {
         x: xOffset,
-        y: isMobile ? 50 : 100, // Starts near the center
+        y: isMobile ? 30 : 60,
         rotation: 0,
-        scale: 0.9,
-        opacity: 1, // Visible immediately
+        scale: 0.85,
+        opacity: 1,
       });
     });
 
-    // Separate pin trigger so animation can start earlier while scrolling into view
+    // Shortened, snappy pin trigger
     ScrollTrigger.create({
       trigger: containerRef.current,
       start: "top top",
-      end: "+=300%",
+      end: "+=120%", // Crisp, short scroll distance
       pin: true,
     });
 
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: containerRef.current,
-        start: "top 60%", // Starts animating when section is 40% visible (images enter viewport)
-        end: "+=360%", // 60% scroll distance + 300% pinned distance
-        scrub: 1,
+        start: "top 70%",
+        end: "+=160%",
+        scrub: 0.7,
       }
     });
 
-    // Phase 1: Morph from horizontal line into a small circle
+    // Phase 1: Morph into small circle
     images.forEach((img, i) => {
-      // Angle starting from top (Math.PI / 2 offset)
       const angle = (i / images.length) * Math.PI * 2 - Math.PI / 2;
       const targetX = Math.cos(angle) * initialRadius;
       const targetY = Math.sin(angle) * initialRadius;
@@ -70,22 +80,21 @@ export function ClosingCTA() {
       tl.to(img, {
         x: targetX,
         y: targetY,
-        rotation: angle * (180 / Math.PI) + 90, // Point outward
-        scale: 1,
-        duration: 2,
+        rotation: angle * (180 / Math.PI) + 90,
+        scale: 0.9,
+        duration: 1.2,
         ease: "power2.inOut"
-      }, 0); // Start immediately
+      }, 0);
     });
 
-    // Phase 2: Circle expands and spins, background darkens
+    // Phase 2: Circle expands to frame boundary & rotates smoothly
     tl.to(bgRef.current, {
       opacity: 1,
-      duration: 2,
-    }, 3);
+      duration: 1.2,
+    }, 1);
 
     images.forEach((img, i) => {
-      // Add extra rotation to spin the entire circle
-      const angle = (i / images.length) * Math.PI * 2 - Math.PI / 2 + (Math.PI / 2); // 90 degree spin
+      const angle = (i / images.length) * Math.PI * 2 - Math.PI / 2 + (Math.PI / 3);
       const targetX = Math.cos(angle) * finalRadius;
       const targetY = Math.sin(angle) * finalRadius;
       
@@ -93,36 +102,36 @@ export function ClosingCTA() {
         x: targetX,
         y: targetY,
         rotation: angle * (180 / Math.PI) + 90,
-        scale: 1.1,
-        duration: 2,
+        scale: isMobile ? 0.95 : 1,
+        duration: 1.5,
         ease: "power1.inOut"
-      }, 2); // Start at 2s in timeline
+      }, 1);
     });
 
-    // Phase 3: Text fades and scales in
+    // Phase 3: Text reveals cleanly in the center
     tl.fromTo(textRef.current, {
       opacity: 0,
-      scale: 0.8,
+      scale: 0.92,
     }, {
       opacity: 1,
       scale: 1,
-      duration: 1.5,
+      duration: 1,
       ease: "power2.out"
-    }, 3); // Start at 3s in timeline
+    }, 1.4);
 
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-brand-midnight">
+    <section ref={containerRef} className="relative w-full h-screen overflow-hidden bg-[#0a1922] font-sans">
       {/* Background layer */}
-      <div className="absolute inset-0 bg-brand-midnight w-full h-full z-0"></div>
+      <div ref={bgRef} className="absolute inset-0 bg-[#0a1922] w-full h-full z-0"></div>
       
       {/* Gallery Layer */}
-      <div ref={galleryRef} className="absolute inset-0 flex items-center justify-center z-10 perspective-1000">
+      <div ref={galleryRef} className="absolute inset-0 flex items-center justify-center z-10 perspective-1000 pointer-events-none">
         {IMAGES.map((src, i) => (
           <div 
             key={i} 
-            className="gallery-item absolute w-[100px] h-[100px] md:w-[180px] md:h-[180px] rounded-[12px] overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-white/10"
+            className="gallery-item absolute w-[85px] h-[85px] sm:w-[120px] sm:h-[120px] md:w-[145px] md:h-[145px] lg:w-[155px] lg:h-[155px] rounded-[16px] overflow-hidden shadow-[0_10px_35px_rgba(0,0,0,0.35)] border border-white/15"
           >
             <img 
               src={src} 
@@ -134,26 +143,31 @@ export function ClosingCTA() {
       </div>
 
       {/* Text Layer */}
-      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none opacity-0">
-        <div className="flex items-center gap-2.5 mb-4 pointer-events-auto">
-          <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
-          <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
+      <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none opacity-0 px-6">
+        <div className="flex items-center gap-2.5 mb-3 pointer-events-auto">
+          <div className="w-2 h-2 rounded-full bg-[#AEF977]"></div>
+          <span className="text-[11px] md:text-xs font-semibold text-white/80 uppercase tracking-widest">
             CONTACT US
           </span>
         </div>
-        <h2 className="text-[36px] md:text-[56px] lg:text-[72px] font-semibold text-brand-softwhite tracking-tight leading-[1.1] text-center max-w-4xl px-4 pointer-events-auto">
+        
+        <h2 className="text-[32px] sm:text-[44px] md:text-[54px] lg:text-[62px] font-bold text-white tracking-tight leading-[1.1] text-center max-w-2xl pointer-events-auto">
           Ready to power your future?
         </h2>
-        <p className="text-[15px] md:text-[18px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-6 text-center px-4 pointer-events-auto">
+        
+        <p className="text-[14px] sm:text-[15px] md:text-[16px] text-white/75 max-w-md leading-relaxed mt-4 text-center pointer-events-auto font-normal">
           Get in touch with our team to discuss your renewable energy requirements and explore how Vynentra can help.
         </p>
-        <button className="group mt-8 px-6 h-12 inline-flex items-center justify-center gap-2.5 bg-brand-energyblue text-brand-midnight font-semibold text-[15px] rounded-[8px] hover:bg-brand-softwhite transition-all duration-300 shadow-[0_0_30px_rgba(56,189,248,0.2)] pointer-events-auto">
-          Get in touch
-          <div className="relative w-4 h-4 flex overflow-hidden">
-            <ArrowRight className="w-4 h-4 text-brand-midnight absolute transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover:translate-x-6" strokeWidth={2} />
-            <ArrowRight className="w-4 h-4 text-brand-midnight absolute -translate-x-6 transition-transform duration-500 ease-[0.16,1,0.3,1] group-hover:translate-x-0" strokeWidth={2} />
-          </div>
-        </button>
+        
+        {/* Navbar Header Matching GET IN TOUCH Button */}
+        <div className="mt-7 pointer-events-auto">
+          <a 
+            href="#contact"
+            className="h-11 sm:h-12 px-7 sm:px-8 rounded-full text-[12.5px] font-semibold uppercase tracking-[0.06em] transition-all whitespace-nowrap shadow-sm active:scale-95 flex items-center justify-center border border-white/90 text-white hover:bg-white hover:text-black duration-300"
+          >
+            GET IN TOUCH
+          </a>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import LenisProvider from "@/components/motion/LenisProvider";
 import { Navbar } from "@/components/navigation/Navbar";
@@ -8,6 +7,7 @@ import { Navbar } from "@/components/navigation/Navbar";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${inter.variable}`}>
+    <html lang="en" className={inter.variable}>
       <body className="antialiased font-sans">
         <LenisProvider>
           <Navbar />

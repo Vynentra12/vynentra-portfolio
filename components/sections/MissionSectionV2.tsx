@@ -1,68 +1,124 @@
 'use client';
-import { Wind } from 'lucide-react';
+
+import React, { useRef } from 'react';
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 
 export function MissionSectionV2() {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const textTargetRef = useRef<HTMLDivElement>(null);
+  const maskRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(() => {
+    if (!sectionRef.current || !textTargetRef.current || !maskRef.current) return;
+
+    const section = sectionRef.current;
+    const textTarget = textTargetRef.current;
+    const mask = maskRef.current;
+
+    // Track mask position and radius with buttery-smooth GSAP quickTo
+    const maskState = { x: 0, y: 0, r: 0 };
+
+    const updateClipPath = () => {
+      if (mask) {
+        mask.style.clipPath = `circle(${maskState.r}px at ${maskState.x}px ${maskState.y}px)`;
+      }
+    };
+
+    // Linear-smooth 60fps tracking using GSAP
+    const xTo = gsap.quickTo(maskState, 'x', {
+      duration: 0.28,
+      ease: 'power2.out',
+      onUpdate: updateClipPath,
+    });
+
+    const yTo = gsap.quickTo(maskState, 'y', {
+      duration: 0.28,
+      ease: 'power2.out',
+      onUpdate: updateClipPath,
+    });
+
+    const rTo = gsap.quickTo(maskState, 'r', {
+      duration: 0.38,
+      ease: 'power3.out',
+      onUpdate: updateClipPath,
+    });
+
+    // Handle mouse movement strictly over the text content area
+    const handleMouseMove = (e: MouseEvent) => {
+      const sectionRect = section.getBoundingClientRect();
+      const targetX = e.clientX - sectionRect.left;
+      const targetY = e.clientY - sectionRect.top;
+
+      xTo(targetX);
+      yTo(targetY);
+      rTo(135);
+    };
+
+    const handleMouseEnter = (e: MouseEvent) => {
+      const sectionRect = section.getBoundingClientRect();
+      const targetX = e.clientX - sectionRect.left;
+      const targetY = e.clientY - sectionRect.top;
+
+      maskState.x = targetX;
+      maskState.y = targetY;
+      xTo(targetX);
+      yTo(targetY);
+      rTo(135);
+    };
+
+    const handleMouseLeave = () => {
+      // Smoothly dissolve circle when leaving the text into the white space
+      rTo(0);
+    };
+
+    textTarget.addEventListener('mousemove', handleMouseMove);
+    textTarget.addEventListener('mouseenter', handleMouseEnter);
+    textTarget.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      textTarget.removeEventListener('mousemove', handleMouseMove);
+      textTarget.removeEventListener('mouseenter', handleMouseEnter);
+      textTarget.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, { scope: sectionRef });
+
+  // Reusable statement typography matching the exact proportions & 4-line flow of the reference image
+  const renderTypography = (textColor: string, kickerColor: string) => (
+    <div className="w-full max-w-[960px] mx-auto px-6 sm:px-8 flex flex-col items-center justify-center text-center select-text">
+      {/* Kicker */}
+      <span className={`text-[11px] sm:text-[11.5px] font-bold uppercase tracking-[0.08em] mb-4 sm:mb-6 ${kickerColor}`}>
+        OUR MISSION
+      </span>
+
+      {/* Main Mission Statement (4-line proportional typography) */}
+      <h2 className={`text-[26px] sm:text-[34px] md:text-[40px] lg:text-[46px] xl:text-[48px] font-semibold tracking-[-0.025em] leading-[1.22] sm:leading-[1.26] max-w-[920px] ${textColor}`}>
+        With a focus on innovation and efficiency, we design, build, and operate modern wind farms that bring long-term value to communities, businesses, and the planet.
+      </h2>
+    </div>
+  );
+
   return (
-    <section id="about" className="w-full bg-brand-midnight py-16 md:py-24">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
-        
-        {/* Unified Section Header */}
-        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
-          {/* Standardized Badge */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
-            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
-              MISSION
-            </span>
-          </div>
-          {/* Standardized Title */}
-          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
-            Our Mission
-          </h2>
+    <section 
+      id="about" 
+      ref={sectionRef}
+      className="relative w-full py-16 sm:py-20 md:py-24 lg:py-28 bg-white overflow-hidden"
+    >
+      {/* LAYER 1 (Base): Crisp white background with dark black text and mouse listener restricted to text target */}
+      <div className="w-full flex items-center justify-center">
+        <div ref={textTargetRef} className="cursor-default">
+          {renderTypography("text-neutral-900", "text-neutral-900")}
         </div>
+      </div>
 
-        {/* The Main Card */}
-        <div className="bg-brand-graphite rounded-[24px] p-4 md:p-8 lg:p-10 shadow-[0_8px_30px_rgb(0,0,0,0.2)] border border-brand-softwhite/10 flex flex-col lg:flex-row gap-8 lg:gap-14">
-          
-          {/* Left: Image Area */}
-          <div className="w-full lg:w-1/2 rounded-[16px] overflow-hidden relative min-h-[320px] lg:min-h-[520px]">
-             <img 
-               src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2070&auto=format&fit=crop" 
-               className="absolute inset-0 w-full h-full object-cover" 
-               alt="Wind Turbines" 
-             />
-          </div>
-
-          {/* Right: Content Area */}
-          <div className="w-full lg:w-1/2 flex flex-col justify-center py-4 lg:py-8 lg:pr-8">
-            
-            <h3 className="text-[32px] md:text-[42px] lg:text-[46px] leading-[1.15] tracking-tight text-brand-softwhite/80 font-light mb-6 md:mb-8">
-              Unlock the power of wind energy and <span className="font-semibold text-brand-energyblue">build a sustainable future.</span>
-            </h3>
-            
-            <p className="text-[15px] md:text-[16px] text-brand-titanium leading-relaxed font-medium mb-10 max-w-[500px]">
-              By bringing wind to rooftops, institutions, businesses and captive power projects, Vynentra is expanding where wind can work and what it can power. India holds more than 695 GW of estimated onshore wind potential yet only a fraction has been developed.
-            </p>
-
-            {/* Divider */}
-            <div className="w-full h-[1px] bg-brand-softwhite/10 mb-8 md:mb-10"></div>
-
-            {/* Stats */}
-            <div className="flex gap-16 md:gap-24">
-              <div className="flex flex-col">
-                <h4 className="text-[44px] md:text-[54px] font-normal text-brand-energyblue leading-none tracking-tight mb-3">92%</h4>
-                <p className="text-[13px] text-brand-titanium font-medium tracking-wide uppercase">Performance uplift</p>
-              </div>
-              
-              <div className="flex flex-col">
-                <h4 className="text-[44px] md:text-[54px] font-normal text-brand-energyblue leading-none tracking-tight mb-3">50+</h4>
-                <p className="text-[13px] text-brand-titanium font-medium tracking-wide uppercase">Projects delivered</p>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
+      {/* LAYER 2 (GSAP Inverted Mask Layer): Brand Green #AEF977 with pure white text, clipped to cursor */}
+      <div 
+        ref={maskRef}
+        style={{ clipPath: "circle(0px at 50% 50%)" }}
+        className="absolute inset-0 bg-[#AEF977] flex items-center justify-center pointer-events-none select-none will-change-[clip-path]"
+        aria-hidden="true"
+      >
+        {renderTypography("text-white", "text-white")}
       </div>
     </section>
   );

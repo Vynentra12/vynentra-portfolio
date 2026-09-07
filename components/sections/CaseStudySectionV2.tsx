@@ -1,112 +1,114 @@
 'use client';
-import { ArrowUpRight } from "lucide-react";
+
+import React from "react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 
 export function CaseStudySectionV2() {
-  const cases = [
-    {
-      num: "01",
-      category: "WIND ENERGY",
-      title: "Scaling Wind Power for a Smarter Future",
-      desc: "A large-scale renewable energy deployment designed to improve generation capacity, optimize performance, and support long-term energy independence.",
-      image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1200&auto=format&fit=crop"
-    },
-    {
-      num: "02",
-      category: "SYSTEM DESIGN",
-      title: "Engineered Around Every Site",
-      desc: "Site-specific renewable energy systems designed around local conditions, energy requirements, and long-term performance.",
-      image: "https://images.unsplash.com/photo-1518002054494-3a6f94352e9d?q=80&w=800&auto=format&fit=crop"
-    },
-    {
-      num: "03",
-      category: "PERFORMANCE",
-      title: "Built for Long-Term Impact",
-      desc: "From installation to ongoing maintenance, every system is designed for reliable performance and measurable environmental impact.",
-      image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=800&auto=format&fit=crop"
-    }
+  const marqueeItems = [
+    "Clean & renewable",
+    "—",
+    "Energy independence",
+    "—",
+    "Protects ecosystems",
+    "—",
+    "Sustainable power",
+    "—",
+    "Zero emissions",
+    "—",
+  ];
+
+  // Repeat for continuous seamless loop
+  const repeatedMarquee = [
+    ...marqueeItems,
+    ...marqueeItems,
+    ...marqueeItems,
+    ...marqueeItems,
+    ...marqueeItems,
   ];
 
   return (
-    <section id="case-studies" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-32">
-      <div className="max-w-[1400px] mx-auto w-full px-6 md:px-12">
-        
-        {/* Unified Section Header */}
-        <div className="flex flex-col gap-3 mb-10 md:mb-14 border-t border-brand-softwhite/10 pt-6">
-          {/* Standardized Badge */}
-          <div className="flex items-center gap-2.5">
-            <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
-            <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
-              CASE STUDIES
-            </span>
-          </div>
-          {/* Standardized Title */}
-          <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
-            Real Projects. Measurable Impact.
-          </h2>
-          {/* Standardized Subtitle */}
-          <p className="text-[14px] md:text-[15px] text-brand-softwhite/70 max-w-2xl leading-relaxed mt-2">
-            Explore how our renewable energy solutions are transforming sites, improving energy performance, and creating long-term value.
-          </p>
-        </div>
-
-        {/* Horizontal Layout Container */}
-        <div className="flex gap-6 overflow-x-auto pb-10 snap-x snap-mandatory [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
-          {cases.map((item, idx) => (
-            <div 
-              key={idx} 
-              className="group snap-start bg-brand-graphite rounded-[16px] border border-brand-softwhite/10 overflow-hidden flex flex-col xl:flex-row w-full min-w-[100%] lg:min-w-[calc(50%-12px)] shadow-[0_2px_15px_rgb(0,0,0,0.2)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.3)] transition-all duration-300"
+    <section 
+      id="case-studies" 
+      className="relative w-full bg-white text-neutral-900 py-28 sm:py-32 md:py-40 overflow-hidden select-text font-sans flex items-center justify-center"
+    >
+      
+      {/* 1. LAYER 1 (Base Background): Continuous Deep Teal Marquee */}
+      <div className="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 50 }}
+          className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform"
+        >
+          {repeatedMarquee.map((word, idx) => (
+            <span
+              key={`base-${idx}`}
+              className={`text-[46px] sm:text-[66px] md:text-[84px] lg:text-[98px] font-bold tracking-tight leading-none ${
+                word === "—" ? "text-[#005869]/35" : "text-[#005869]"
+              }`}
             >
-              {/* Image Section */}
-              <div className="w-full xl:w-[40%] h-[160px] xl:h-auto relative overflow-hidden bg-brand-midnight shrink-0">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-1000 ease-out"
-                  style={{ backgroundImage: `url('${item.image}')` }}
-                />
-              </div>
-
-              {/* Content Section */}
-              <div className="p-4 lg:py-5 lg:px-6 flex flex-col flex-1 justify-center">
-                <span className="text-[9.5px] md:text-[10px] font-medium tracking-wider uppercase text-brand-titanium block mb-1.5">
-                  <span className="text-brand-softwhite mr-1.5">{item.num}</span> — <span className="ml-1.5">{item.category}</span>
-                </span>
-                
-                <h3 className="text-[17px] md:text-[18px] lg:text-[20px] font-normal text-brand-softwhite leading-[1.2] mb-2 tracking-tight">
-                  {item.title}
-                </h3>
-                
-                <p className="text-[12px] md:text-[12.5px] text-brand-titanium leading-relaxed font-normal mb-4 max-w-[95%]">
-                  {item.desc}
-                </p>
-
-                {/* Button matching the reference layout */}
-                <div className="mt-auto flex items-center gap-3 cursor-pointer group/btn w-max pt-1">
-                  <div className="w-8 h-8 rounded-full border border-brand-softwhite/20 flex items-center justify-center transition-all duration-300 group-hover/btn:bg-brand-energyblue group-hover/btn:border-brand-energyblue group-hover/btn:text-brand-midnight text-brand-softwhite shrink-0">
-                    <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" strokeWidth={1.5} />
-                  </div>
-                  <span className="text-[12px] font-medium text-brand-softwhite group-hover/btn:text-brand-energyblue transition-colors duration-300">
-                    View Case Study
-                  </span>
-                </div>
-              </div>
-            </div>
+              {word}
+            </span>
           ))}
-        </div>
-        
-        {/* Footer Row (View All) */}
-        <div className="flex flex-col sm:flex-row items-center gap-6 mt-6 lg:mt-8 px-1">
-          <span className="text-[13px] md:text-[13.5px] font-normal text-brand-titanium whitespace-nowrap">
-            Explore all our projects.
-          </span>
-          
-          {/* Divider Line */}
-          <div className="w-full flex-grow border-t border-brand-softwhite/10"></div>
-          
-          <button className="shrink-0 px-6 py-2 bg-brand-energyblue hover:bg-brand-softwhite text-brand-midnight hover:text-brand-midnight rounded-[4px] font-medium text-[13px] transition-colors shadow-sm whitespace-nowrap">
-            View All Projects
-          </button>
-        </div>
-        
+        </motion.div>
       </div>
+
+      {/* 2. LAYER 2: Centered Interactive Capsule Card with Synced Rust/Terracotta Text Masking */}
+      <div className="relative z-10 flex items-center justify-center px-4">
+        <Link
+          href="/contact"
+          className="group relative block w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white cursor-pointer transition-transform duration-500 ease-out hover:scale-105"
+        >
+          {/* Base Turbine Landscape Visual with Subtle Light Blue Atmosphere */}
+          <img
+            src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Renewable Wind Energy Case Study"
+            className="w-full h-full object-cover brightness-[1.02] contrast-[0.98] transition-transform duration-700 ease-out group-hover:scale-110"
+          />
+
+          {/* Gentle Soft Light Overlay */}
+          <div className="absolute inset-0 bg-sky-100/15 pointer-events-none" />
+
+          {/* Masked Foreground Marquee inside Capsule (Color: Terracotta / Warm Rust #C85A32) */}
+          <div className="absolute inset-0 flex items-center justify-center overflow-hidden pointer-events-none select-none">
+            <div className="w-[100vw] absolute left-1/2 -translate-x-1/2 flex items-center">
+              <motion.div
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 50 }}
+                className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform"
+              >
+                {repeatedMarquee.map((word, idx) => (
+                  <span
+                    key={`mask-${idx}`}
+                    className={`text-[46px] sm:text-[66px] md:text-[84px] lg:text-[98px] font-bold tracking-tight leading-none ${
+                      word === "—" ? "text-[#C85A32]/45" : "text-[#C85A32]"
+                    }`}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Minimal, Sleek Floating Hover Overlay */}
+          <div className="absolute inset-0 bg-neutral-950/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col items-center justify-center p-3 text-center pointer-events-none">
+            <span className="text-[10px] sm:text-[11px] font-bold text-[#AEF977] uppercase tracking-widest mb-1 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
+              FEATURED CASE STUDY
+            </span>
+            <p className="text-[14px] sm:text-[16px] font-bold text-white tracking-tight leading-snug mb-2 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 delay-50">
+              120 MW Utility Wind Farm • Rajasthan
+            </p>
+            <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-semibold text-white bg-white/15 px-3 py-1 rounded-full backdrop-blur-sm border border-white/20">
+              <span>View Case Details</span>
+              <ArrowRight className="w-3 h-3 text-[#AEF977]" />
+            </div>
+          </div>
+
+        </Link>
+      </div>
+
     </section>
   );
 }
