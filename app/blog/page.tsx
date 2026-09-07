@@ -4,91 +4,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FooterV2 } from "@/components/sections/FooterV2";
-
-interface BlogPost {
-  id: number;
-  category: string;
-  date: string;
-  title: string;
-  image: string;
-}
-
-const INITIAL_POSTS: BlogPost[] = [
-  {
-    id: 1,
-    category: "RENEWABLE",
-    date: "DECEMBER 10, 2025",
-    title: "Inside the engineering of wind turbines",
-    image: "https://images.pexels.com/photos/32831487/pexels-photo-32831487.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 2,
-    category: "EQUIPMENT",
-    date: "DECEMBER 10, 2025",
-    title: "The environmental impact of wind energy",
-    image: "https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 3,
-    category: "SOLAR",
-    date: "DECEMBER 10, 2025",
-    title: "The real numbers behind green energy",
-    image: "https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 4,
-    category: "SOLAR",
-    date: "DECEMBER 10, 2025",
-    title: "A world powered by wind and sunlight",
-    image: "https://images.pexels.com/photos/9875441/pexels-photo-9875441.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 5,
-    category: "EQUIPMENT",
-    date: "DECEMBER 10, 2025",
-    title: "The economic ripple of renewable energy",
-    image: "https://images.pexels.com/photos/34727208/pexels-photo-34727208.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 6,
-    category: "SOLAR",
-    date: "DECEMBER 10, 2025",
-    title: "Building the future of sustainable power",
-    image: "https://images.pexels.com/photos/7763083/pexels-photo-7763083.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-];
-
-const MORE_POSTS: BlogPost[] = [
-  {
-    id: 7,
-    category: "SOLAR",
-    date: "OCTOBER 14, 2025",
-    title: "Hybrid wind-solar configurations for zero-outage sites",
-    image: "https://images.pexels.com/photos/9875441/pexels-photo-9875441.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 8,
-    category: "RENEWABLE",
-    date: "SEPTEMBER 28, 2025",
-    title: "Life cycle assessment of composite wind turbine blades",
-    image: "https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-  {
-    id: 9,
-    category: "WIND ENERGY",
-    date: "SEPTEMBER 12, 2025",
-    title: "The role of captive wind in corporate decarbonization",
-    image: "https://images.pexels.com/photos/32831487/pexels-photo-32831487.jpeg?auto=compress&cs=tinysrgb&w=1200",
-  },
-];
+import { ALL_BLOG_POSTS } from "@/lib/blog-data";
 
 export default function BlogGridPage() {
-  const [posts, setPosts] = useState<BlogPost[]>(INITIAL_POSTS);
-  const [hasMore, setHasMore] = useState(true);
+  const [visibleCount, setVisibleCount] = useState(3);
+  const posts = ALL_BLOG_POSTS.slice(0, visibleCount);
+  const hasMore = visibleCount < ALL_BLOG_POSTS.length;
 
   const handleLoadMore = () => {
-    setPosts((prev) => [...prev, ...MORE_POSTS]);
-    setHasMore(false);
+    setVisibleCount((prev) => Math.min(prev + 3, ALL_BLOG_POSTS.length));
   };
 
   return (
@@ -144,8 +68,9 @@ export default function BlogGridPage() {
           {/* 3-Column Responsive Cards Grid with Uniform Heights */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-9 lg:gap-10">
             {posts.map((post) => (
-              <article
+              <Link
                 key={post.id}
+                href={`/blog/${post.slug || 'inside-the-engineering-of-wind-turbines'}`}
                 className="flex flex-col justify-between h-full group cursor-pointer"
               >
                 <div>
@@ -194,7 +119,7 @@ export default function BlogGridPage() {
                     READ MORE
                   </span>
                 </div>
-              </article>
+              </Link>
             ))}
           </div>
 
@@ -205,7 +130,7 @@ export default function BlogGridPage() {
                 onClick={handleLoadMore}
                 className="h-[48px] px-9 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-black hover:text-white transition-all duration-300 shadow-sm active:scale-95 flex items-center justify-center cursor-pointer"
               >
-                LOAD MORE NEWS
+                LOAD MORE INSIGHTS
               </button>
             </div>
           )}

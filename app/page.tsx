@@ -23,7 +23,8 @@ export default function Home() {
       <FeaturedProjectsSectionV2 />
       <BlogSectionV2 />
       <FAQSectionV2 />
-      <ClosingCTA />
+      {/* Temporarily hidden for UI review - easily unhide when ready */}
+      {/* <ClosingCTA /> */}
       <FooterV2 />
     </main>
   );

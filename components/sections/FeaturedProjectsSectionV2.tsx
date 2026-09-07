@@ -13,19 +13,19 @@ export function FeaturedProjectsSectionV2() {
 
   const projects: ProjectCard[] = [
     {
-      title: "The Skyline project",
-      tags: ["COMMERCIAL", "ECOLOGY"],
+      title: "Designed for Modern Rooftops",
+      tags: ["COMMERCIAL", "ROOFTOP"],
+      image: "https://i.pinimg.com/736x/e6/7b/99/e67b9951d18c508437f685e64ebd11c1.jpg",
+    },
+    {
+      title: "A Turbine for Every Rooftop",
+      tags: ["URBAN", "CLEAN ENERGY"],
+      image: "https://images.pexels.com/photos/32182706/pexels-photo-32182706.jpeg",
+    },
+    {
+      title: "Engineered for Commercial Wind",
+      tags: ["WIND POWER", "INDUSTRIAL"],
       image: "https://images.pexels.com/photos/32831487/pexels-photo-32831487.jpeg",
-    },
-    {
-      title: "Harvest project",
-      tags: ["ECOLOGY", "PANELS"],
-      image: "https://images.pexels.com/photos/34727208/pexels-photo-34727208.jpeg",
-    },
-    {
-      title: "The Aurora turbines",
-      tags: ["PANELS", "RENEWABLE"],
-      image: "https://images.pexels.com/photos/7763083/pexels-photo-7763083.jpeg",
     },
   ];
 
@@ -36,10 +36,10 @@ export function FeaturedProjectsSectionV2() {
         {/* Top Header Row */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-10 md:mb-12">
           
-          {/* Main Giant Headline */}
+          {/* Main Giant Headline (India-focused) */}
           <div className="flex flex-col">
             <h2 className="text-[44px] sm:text-[60px] md:text-[72px] lg:text-[84px] font-bold text-white tracking-[-0.035em] leading-[0.96]">
-              Global projects.<br />
+              National projects.<br />
               Local impact
             </h2>
           </div>
@@ -76,7 +76,7 @@ export function FeaturedProjectsSectionV2() {
           </span>
         </div>
 
-        {/* Interactive 3-Card Accordion Grid with directional linear stretch */}
+        {/* Interactive 3-Card Accordion Grid with directional linear stretch & Zero Overlap */}
         <div 
           onMouseLeave={() => setHoveredIndex(null)}
           className="flex flex-col md:flex-row gap-5 lg:gap-6 items-start w-full"
@@ -85,14 +85,10 @@ export function FeaturedProjectsSectionV2() {
             const isHovered = hoveredIndex === idx;
             const isAnyHovered = hoveredIndex !== null;
 
-            // Smooth linear expansion:
-            // Static default: 3 equal columns (flex-1)
-            // Left card hovered: expands to right (flex-[2.3])
-            // Middle card hovered: expands proportionally from center (flex-[2.3])
-            // Right card hovered: expands to left (flex-[2.3])
+            // Smooth linear accordion expansion
             let flexClass = "md:flex-1";
             if (isAnyHovered) {
-              flexClass = isHovered ? "md:flex-[2.3]" : "md:flex-[0.85]";
+              flexClass = isHovered ? "md:flex-[1.8]" : "md:flex-[0.9]";
             }
 
             return (
@@ -101,17 +97,17 @@ export function FeaturedProjectsSectionV2() {
                 onMouseEnter={() => setHoveredIndex(idx)}
                 className={`${flexClass} w-full flex flex-col group cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] min-w-0`}
               >
-                {/* Image Container with refined corner radius (Clean static image without hover zoom) */}
+                {/* Image Container with refined corner radius */}
                 <div className="w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] rounded-[16px] sm:rounded-[18px] overflow-hidden relative bg-black/20 shadow-md">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover select-none pointer-events-none"
+                    className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
 
-                {/* Category Outlined Badges (Thinner stroke, smaller refined text) */}
-                <div className="flex items-center gap-2 mt-4 mb-1 overflow-hidden">
+                {/* Category Outlined Badges */}
+                <div className="flex flex-wrap items-center gap-2 mt-4 mb-1 overflow-hidden">
                   {project.tags.map((tag, i) => (
                     <span 
                       key={i}
@@ -122,9 +118,9 @@ export function FeaturedProjectsSectionV2() {
                   ))}
                 </div>
 
-                {/* Project Title (Underline appears when cursor hovers on the title text itself) */}
-                <div className="w-fit">
-                  <h3 className="text-[22px] sm:text-[26px] lg:text-[28px] font-bold text-white tracking-tight mt-2 whitespace-nowrap cursor-pointer hover:underline decoration-white underline-offset-4 transition-all duration-200">
+                {/* Project Title (Hover underline appears strictly on hover without text overlap) */}
+                <div className="w-fit mt-2">
+                  <h3 className="text-[20px] sm:text-[23px] md:text-[24px] lg:text-[26px] font-bold text-white tracking-tight leading-[1.24] cursor-pointer group-hover:underline underline-offset-4 decoration-white/90 decoration-[1.5px] transition-all duration-200">
                     {project.title}
                   </h3>
                 </div>

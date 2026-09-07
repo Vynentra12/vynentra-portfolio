@@ -1,101 +1,154 @@
 'use client';
-import { motion } from 'framer-motion';
+
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+
+interface ProcessPanel {
+  id: number;
+  num: string;
+  title: string;
+  desc: string;
+  bgColor: string;
+  bgImage?: string;
+}
+
+const PANELS: ProcessPanel[] = [
+  {
+    id: 1,
+    num: "1",
+    title: "Reducing carbon emissions and fighting climate change",
+    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    bgColor: "#7FA6B9", // Slate/Steel Blue
+  },
+  {
+    id: 2,
+    num: "2",
+    title: "Cutting greenhouse gases and combating global warming",
+    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    bgColor: "#0B2735", // Deep Navy
+  },
+  {
+    id: 3,
+    num: "3",
+    title: "Lowering CO₂ footprint and tackling climate crisis",
+    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    bgColor: "#1c2e3d",
+    bgImage: "https://images.pexels.com/photos/27382708/pexels-photo-27382708.jpeg?auto=compress&cs=tinysrgb&w=1600",
+  },
+  {
+    id: 4,
+    num: "4",
+    title: "Slashing carbon output and battling rising temperatures",
+    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    bgColor: "#84D447", // Vivid Leaf Green
+  },
+];
 
 export function ProcessSectionV2() {
-  const steps = [
-    { 
-      num: "01", 
-      title: "Site Assessment",
-      desc: "We assess site coordinates, altitude and local wind conditions to determine the feasibility and configuration of a wind energy system.",
-    },
-    { 
-      num: "02", 
-      title: "System Design",
-      desc: "Every system is configured around its energy requirement and wind conditions - from individual turbines to modular arrays.",
-    },
-    { 
-      num: "03", 
-      title: "Installation & Execution",
-      desc: "Complete project execution, including turbine installation, wiring, distribution systems and commissioning.",
-    },
-    { 
-      num: "04", 
-      title: "Operations & Maintenance",
-      desc: "Annual Maintenance Contracts designed to monitor systems, maintain performance and support long-term operation.",
-    },
-  ];
+  const [activeId, setActiveId] = useState<number>(1);
 
   return (
-    <section id="process" className="relative w-full bg-brand-midnight text-brand-softwhite py-16 md:py-24 overflow-hidden">
-      
-      {/* Background glowing orb matching the reference image's bottom-left glow */}
-      <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[60%] bg-brand-energyblue/15 blur-[140px] rounded-full pointer-events-none" />
+    <section 
+      id="process" 
+      className="relative w-full h-[520px] sm:h-[570px] md:h-[620px] lg:h-[660px] overflow-hidden bg-black select-text"
+    >
+      <div className="w-full h-full flex flex-col md:flex-row">
+        {PANELS.map((panel) => {
+          const isActive = activeId === panel.id;
 
-      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 relative z-10">
-        <div className="border-t border-brand-softwhite/10 pt-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
-            
-            {/* Left Column: Title */}
-            <div className="lg:col-span-5">
-              {/* Unified Section Header */}
-              <div className="flex flex-col gap-3 mb-10 md:mb-14">
-              {/* Standardized Badge */}
-              <div className="flex items-center gap-2.5">
-                <div className="w-2 h-2 rounded-[2px] bg-brand-energyblue"></div>
-                <span className="text-[11px] md:text-xs font-medium text-brand-softwhite uppercase tracking-wider">
-                  PROCESS
-                </span>
-              </div>
-              {/* Standardized Title */}
-              <h2 className="text-[32px] md:text-[44px] lg:text-[48px] font-semibold text-brand-softwhite tracking-tight leading-[1.1]">
-                Our Process
-              </h2>
-            </div>
-            
-            {/* Floating Image */}
-            <div className="hidden lg:flex items-center justify-center mt-24 xl:mt-32 relative h-[300px]">
-              {/* Glow Effect */}
-              <motion.div 
-                animate={{ opacity: [0.4, 0.7, 0.4], scale: [1, 1.1, 1] }}
-                transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
-                className="absolute inset-[20%] rounded-full bg-brand-energyblue/30 blur-[60px] z-0"
-              />
-              <motion.img 
-                animate={{ y: [0, -15, 0] }}
-                transition={{ repeat: Infinity, duration: 5, ease: "easeInOut" }}
-                src="/mini-wheel.png" 
-                alt="Mini Wheel" 
-                className="w-[280px] object-contain relative z-10 drop-shadow-[0_0_20px_rgba(56,189,248,0.2)]"
-              />
-            </div>
-          </div>
+          return (
+            <div
+              key={panel.id}
+              onMouseEnter={() => setActiveId(panel.id)}
+              onClick={() => setActiveId(panel.id)}
+              style={{ backgroundColor: panel.bgColor }}
+              className={`relative h-full transition-[flex] duration-900 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden cursor-pointer will-change-[flex] ${
+                isActive 
+                  ? "md:flex-[3.6] flex-[3] z-10" 
+                  : "md:flex-[0.9] flex-[0.9] hover:brightness-105"
+              }`}
+            >
+              {/* Optional Background Image for Panel 3 */}
+              {panel.bgImage && (
+                <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                  <img
+                    src={panel.bgImage}
+                    alt={panel.title}
+                    className={`w-full h-full object-cover object-center transition-transform duration-1200 ease-out ${
+                      isActive ? "scale-105 brightness-95" : "scale-100 brightness-75"
+                    }`}
+                  />
+                  {/* Subtle Contrast Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/25 to-black/35 pointer-events-none" />
+                </div>
+              )}
 
-          {/* Right Column: List */}
-          <div className="lg:col-span-7 flex flex-col">
-            {steps.map((step, index) => (
-              <div 
-                key={index} 
-                className={`${index === 0 ? 'pb-5 md:pb-6' : 'py-5 md:py-6'} flex items-start justify-between gap-6 group transition-colors duration-300 ${
-                  index !== steps.length - 1 ? 'border-b border-brand-softwhite/10' : ''
-                }`}
-              >
-                <div className="flex flex-col gap-1.5">
-                  <h3 className="text-[20px] md:text-[22px] font-medium text-brand-softwhite group-hover:text-brand-energyblue transition-colors">
-                    {step.title}
+              {/* Panel Content Container */}
+              <div className="relative z-10 w-full h-full p-6 sm:p-8 md:p-10 lg:p-12 flex flex-col justify-between pointer-events-auto">
+                
+                {/* Top: Headline (Slightly decreased size with clean leading) */}
+                <div 
+                  className={`w-full max-w-xl transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isActive 
+                      ? "opacity-100 translate-y-0 pointer-events-auto delay-100" 
+                      : "opacity-0 -translate-y-4 pointer-events-none"
+                  }`}
+                >
+                  <h3 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[35px] font-bold text-white tracking-[-0.025em] leading-[1.18]">
+                    {panel.title}
                   </h3>
-                  <p className="text-[14px] md:text-[15px] font-medium text-brand-titanium leading-relaxed max-w-[440px]">
-                    {step.desc}
-                  </p>
                 </div>
-                <div className="text-[13px] md:text-[14px] font-normal group-hover:font-semibold tracking-wider text-brand-energyblue mt-1 shrink-0 transition-all duration-300">
-                  Step {step.num}
-                </div>
-              </div>
-            ))}
-          </div>
 
-        </div>
-      </div>
+                {/* Bottom Left: Description and Overlapping Circle READ MORE button */}
+                <div 
+                  className={`max-w-md pr-4 z-20 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                    isActive 
+                      ? "opacity-100 translate-y-0 pointer-events-auto delay-150" 
+                      : "opacity-0 translate-y-4 pointer-events-none"
+                  }`}
+                >
+                  <p className="text-[13px] sm:text-[14px] md:text-[14.5px] text-white/95 leading-[1.58] font-normal mb-6 max-w-sm sm:max-w-md">
+                    {panel.desc}
+                  </p>
+
+                  {/* Read More Action with Linear Arrow Pass-Through Animation (Right exit -> Left enter) */}
+                  <Link
+                    href="/#case-studies"
+                    className="inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-bold text-white uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
+                  >
+                    <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
+                      <ArrowRight 
+                        className="w-4 h-4 text-white absolute transition-transform duration-300 ease-out group-hover/readmore:translate-x-5" 
+                        strokeWidth={2.5} 
+                      />
+                      <ArrowRight 
+                        className="w-4 h-4 text-white absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/readmore:translate-x-0" 
+                        strokeWidth={2.5} 
+                      />
+                    </div>
+                    <span className="group-hover/readmore:opacity-80 transition-opacity">READ MORE</span>
+                  </Link>
+                </div>
+
+                {/* Giant Number Always Visible at Bottom Right of every panel (font-semibold) */}
+                <div className="absolute bottom-2 right-4 sm:bottom-4 sm:right-6 md:bottom-5 md:right-8 z-10 select-none pointer-events-none leading-none">
+                  <span 
+                    className={`text-[85px] sm:text-[110px] md:text-[140px] lg:text-[180px] xl:text-[200px] font-semibold text-white leading-[0.78] tracking-tight block transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                      isActive ? "scale-100 opacity-100" : "scale-90 opacity-90"
+                    }`}
+                  >
+                    {panel.num}
+                  </span>
+                </div>
+
+              </div>
+
+              {/* Subtle vertical separator border between panels */}
+              <div className="absolute top-0 right-0 bottom-0 w-[1px] bg-white/20 pointer-events-none" />
+            </div>
+          );
+        })}
       </div>
     </section>
   );

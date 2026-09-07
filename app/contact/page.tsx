@@ -35,8 +35,10 @@ export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    website: "",
-    comment: "",
+    orgName: "",
+    serviceInterest: "",
+    additionalNotes: "",
+    marketingConsent: false,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -45,7 +47,14 @@ export default function ContactPage() {
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
-      setFormData({ name: "", email: "", website: "", comment: "" });
+      setFormData({
+        name: "",
+        email: "",
+        orgName: "",
+        serviceInterest: "",
+        additionalNotes: "",
+        marketingConsent: false,
+      });
     }, 4000);
   };
 
@@ -111,7 +120,7 @@ export default function ContactPage() {
               
               {/* Kicker */}
               <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-[0.08em] mb-4 sm:mb-5 select-none">
-                WHERE HERE TO HELP
+                WE ARE HERE TO HELP
               </span>
 
               {/* Headline */}
@@ -123,7 +132,7 @@ export default function ContactPage() {
               <p className="text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-[1.65] font-normal mb-12 sm:mb-14 max-w-xl">
                 Get in touch to discuss your renewable energy requirements today.
                 <br className="hidden sm:inline" />
-                {" "}Please give us a call, drop us an email.
+                {" "}Please give us a call or drop us an email.
               </p>
 
               {/* 2x2 Details Grid - Pure clean spacing without border */}
@@ -143,14 +152,11 @@ export default function ContactPage() {
                 {/* Phone */}
                 <div>
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-2.5">
-                    CALL US:
+                    CONTACT NUMBER:
                   </h3>
                   <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="tel:+9118004324534" className="hover:text-black transition-colors block">
-                      +91 1800 432 45 34
-                    </a>
-                    <a href="tel:+9118004324535" className="hover:text-black transition-colors block">
-                      +91 1800 432 45 35
+                    <a href="tel:+917777024826" className="hover:text-black font-semibold transition-colors block">
+                      +91 77770 24826
                     </a>
                   </p>
                 </div>
@@ -158,16 +164,16 @@ export default function ContactPage() {
                 {/* Email */}
                 <div>
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-2.5">
-                    MAIL US:
+                    EMAIL ID:
                   </h3>
                   <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="mailto:contact@vynentra.in" className="hover:text-black transition-colors block">
-                      contact@vynentra.in
+                    <a href="mailto:hello@vynentra.in" className="hover:text-black font-semibold transition-colors block">
+                      hello@vynentra.in
                     </a>
                   </p>
                 </div>
 
-                {/* Socials - Clean raw icons without borders matching reference image */}
+                {/* Socials */}
                 <div>
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-3">
                     WE ARE IN SOCIALS:
@@ -222,14 +228,14 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="lg:col-span-6 bg-[#F8F7F4] rounded-[28px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 border border-neutral-200/60"
+              className="lg:col-span-6 bg-[#F8F7F4] rounded-[28px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 border border-neutral-200/60 shadow-sm"
             >
               <h3 className="text-[28px] sm:text-[32px] font-bold text-neutral-950 mb-2 tracking-tight">
-                Drop us a line
+                Contact / Leads Form
               </h3>
               
               <p className="text-[13.5px] text-neutral-500 mb-8 sm:mb-10 font-normal">
-                Your email address will not be published. Required fields are marked *
+                Please fill in the details below. Required fields are marked *
               </p>
 
               <form onSubmit={handleSubmit} className="flex flex-col gap-6 sm:gap-7">
@@ -239,7 +245,7 @@ export default function ContactPage() {
                   <input
                     type="text"
                     required
-                    placeholder="Your Name *"
+                    placeholder="Name *"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
@@ -251,43 +257,91 @@ export default function ContactPage() {
                   <input
                     type="email"
                     required
-                    placeholder="Your Email *"
+                    placeholder="Email *"
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
                   />
                 </div>
 
-                {/* Website */}
+                {/* Org Name */}
                 <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
                   <input
                     type="text"
-                    placeholder="Website"
-                    value={formData.website}
-                    onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                    placeholder="Org name"
+                    value={formData.orgName}
+                    onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
                     className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
                   />
                 </div>
 
-                {/* Comment / Message */}
+                {/* “I’d like to know about” dropdown: 3 service options */}
+                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
+                  <label htmlFor="service-dropdown" className="text-[11.5px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                    I’d like to know about
+                  </label>
+                  <select
+                    id="service-dropdown"
+                    required
+                    value={formData.serviceInterest}
+                    onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
+                    className="bg-transparent text-[15px] text-neutral-900 focus:outline-none w-full cursor-pointer py-1"
+                  >
+                    <option value="" disabled className="text-neutral-500">
+                      Select a service option *
+                    </option>
+                    <option value="wind-installation" className="text-neutral-900 bg-white">
+                      1. Wind Turbine Installation &amp; Execution
+                    </option>
+                    <option value="captive-hybrid" className="text-neutral-900 bg-white">
+                      2. Commercial &amp; Industrial (C&amp;I) Captive Hybrid Power
+                    </option>
+                    <option value="maintenance-repowering" className="text-neutral-900 bg-white">
+                      3. Operations, Maintenance &amp; Repowering
+                    </option>
+                  </select>
+                </div>
+
+                {/* Additional notes */}
                 <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
                   <textarea
-                    rows={4}
-                    required
-                    placeholder="Your Comment *"
-                    value={formData.comment}
-                    onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
+                    rows={3}
+                    placeholder="Additional notes"
+                    value={formData.additionalNotes}
+                    onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
                     className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full resize-none"
                   />
                 </div>
 
+                {/* Sign up for marketing emails checkbox */}
+                <div className="flex items-start gap-3 pt-1">
+                  <input
+                    type="checkbox"
+                    id="marketing-emails-checkbox"
+                    checked={formData.marketingConsent}
+                    onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
+                    className="mt-1 w-4 h-4 rounded border-neutral-400 text-black focus:ring-black cursor-pointer accent-[#0E2F3E]"
+                  />
+                  <label 
+                    htmlFor="marketing-emails-checkbox"
+                    className="text-[13px] sm:text-[13.5px] text-neutral-700 leading-snug cursor-pointer select-none font-normal"
+                  >
+                    Sign up for marketing emails
+                  </label>
+                </div>
+
+                {/* Privacy disclaimer notice */}
+                <p className="text-[12px] sm:text-[12.5px] text-neutral-500 leading-relaxed font-normal pt-1">
+                  By clicking Submit, we will store and process your personal data that you have entered above. Our <Link href="/#about" className="underline hover:text-black font-medium">privacy policy is here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
+                </p>
+
                 {/* Submit Action */}
-                <div className="pt-4 flex items-center justify-between">
+                <div className="pt-2 flex items-center justify-between">
                   <button
                     type="submit"
-                    className="h-[50px] px-9 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-black hover:text-white transition-all duration-300 active:scale-95 shadow-sm cursor-pointer"
+                    className="h-[50px] px-10 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-black hover:text-white transition-all duration-300 active:scale-95 shadow-sm cursor-pointer"
                   >
-                    {isSubmitted ? "MESSAGE SENT ✓" : "GET IN TOUCH"}
+                    {isSubmitted ? "SUBMITTED ✓" : "SUBMIT"}
                   </button>
 
                   {isSubmitted && (

@@ -56,7 +56,7 @@ export function FooterV2() {
   const letters = "vynentra".split("");
 
   return (
-    <footer className="w-full bg-[#0E2F3E] text-white pt-20 md:pt-28 pb-16 md:pb-24 relative font-sans overflow-hidden">
+    <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden">
       <div className="w-full max-w-[1380px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col justify-between relative">
         
         {/* Top 3-Column Grid */}
@@ -76,10 +76,10 @@ export function FooterV2() {
                 hello@vynentra.in
               </a>
               <a 
-                href="tel:+910000123456" 
+                href="tel:+917777024826" 
                 className="text-[30px] sm:text-[36px] md:text-[40px] font-bold text-white hover:text-brand-energyblue transition-colors tracking-tight leading-none mt-2"
               >
-                +91 0000 123 456
+                +91 77770 24826
               </a>
             </div>
 
@@ -148,7 +148,7 @@ export function FooterV2() {
             </ul>
 
             <p className="text-[13px] text-white/60 mt-14 font-normal">
-              © {new Date().getFullYear()} Vynentra. All Rights Reserved
+              © {new Date().getFullYear()} Vynentra Energy Solutions. All Rights Reserved
             </p>
           </div>
 
@@ -204,20 +204,20 @@ export function FooterV2() {
         </div>
 
         {/* Bottom Giant Brand Wordmark Logo with Interactive Smooth Wave Animation */}
-        <div className="mt-16 md:mt-24 pt-6 pb-4 flex items-center justify-center relative w-full">
+        <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
           
-          {/* Giant Animated Wordmark - Proportional & Centered */}
+          {/* Giant Animated Wordmark - Hover ONLY triggers strictly on the text itself */}
           <div 
             onMouseEnter={handleWordmarkMouseEnter}
             onMouseLeave={handleWordmarkMouseLeave}
-            className="w-full flex justify-center items-center select-none cursor-pointer py-4 group px-8 sm:px-12 md:px-16"
+            className="inline-flex items-center justify-center select-none cursor-pointer group"
           >
-            <div className="flex items-center justify-center max-w-full overflow-visible py-2">
+            <div className="inline-flex items-center justify-center max-w-full overflow-visible">
               {letters.map((char, index) => (
                 <motion.span
                   key={index}
                   animate={isWordmarkAnimating ? "animating" : "idle"}
-                  className="inline-block text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-[1.08] pb-3 text-white transition-colors duration-300 group-hover:text-brand-energyblue drop-shadow-sm select-none"
+                  className="inline-block text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-colors duration-300 group-hover:text-brand-energyblue drop-shadow-sm select-none"
                   variants={{
                     idle: { y: 0, scale: 1 },
                     animating: {
@@ -243,7 +243,7 @@ export function FooterV2() {
           <button
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="absolute right-0 bottom-0 md:bottom-2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#AEF977] text-black flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 shadow-xl shrink-0 z-30"
+            className="absolute right-0 bottom-0 md:bottom-1 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#AEF977] text-black flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 shadow-xl shrink-0 z-30"
           >
             <ArrowUp className="w-5 h-5 md:w-6 md:h-6 stroke-[2.5]" />
           </button>

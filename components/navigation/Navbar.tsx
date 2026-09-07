@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, Menu } from "lucide-react";
+import { Search, X, Menu, ArrowRight } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { searchItems, SEARCH_INDEX } from "@/lib/search-index";
 
 export function Navbar() {
   const pathname = usePathname();
@@ -20,6 +21,16 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+
+  // Real-time dynamic search results
+  const searchResults = useMemo(() => {
+    return searchItems(searchQuery);
+  }, [searchQuery]);
+
+  // Quick suggestions for initial state
+  const quickSuggestions = useMemo(() => {
+    return SEARCH_INDEX.slice(0, 5);
+  }, []);
 
   // Detect scroll position to switch between transparent hero header and solid white header
   useEffect(() => {
@@ -162,37 +173,119 @@ export function Navbar() {
                 )}
               </button>
 
-              {/* Floating Search Popup Card */}
+              {/* Floating Live Search Dropdown Palette */}
               <AnimatePresence>
                 {isSearchOpen && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.97 }}
+                    initial={{ opacity: 0, y: 10, scale: 0.96 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.97 }}
-                    transition={{ duration: 0.2, ease: "easeOut" }}
-                    className="absolute right-0 top-full mt-3 bg-white rounded-2xl md:rounded-3xl p-5 md:p-6 shadow-[0_20px_50px_rgba(0,0,0,0.18)] border border-black/8 w-72 sm:w-84 z-50"
+                    exit={{ opacity: 0, y: 10, scale: 0.96 }}
+                    transition={{ duration: 0.18, ease: "easeOut" }}
+                    className="absolute right-0 top-full mt-3 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.22)] border border-neutral-200/90 w-[330px] sm:w-[420px] max-w-[90vw] z-50 overflow-hidden"
                   >
-                    <form onSubmit={(e) => { e.preventDefault(); setIsSearchOpen(false); }}>
-                      <div className="flex items-center gap-3 border-b border-black pb-2.5">
-                        <Search className="w-4 h-4 text-black/70 shrink-0 stroke-[1.8]" />
-                        <input 
-                          ref={searchInputRef}
-                          type="text" 
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          placeholder="Search ..." 
-                          className="w-full bg-transparent text-[14px] text-black placeholder:text-black/50 focus:outline-none focus:placeholder-transparent font-normal transition-all"
-                        />
-                      </div>
-                    </form>
+                    {/* Search Input Box */}
+                    <div className="flex items-center gap-3 border-b border-neutral-200 pb-3 px-1">
+                      <Search className="w-4 h-4 text-neutral-500 shrink-0 stroke-[2]" />
+                      <input 
+                        ref={searchInputRef}
+                        type="text" 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Escape") {
+                            setIsSearchOpen(false);
+                          }
+                        }}
+                        placeholder="Search sections, pages, articles..." 
+                        className="w-full bg-transparent text-[13.5px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none font-medium"
+                      />
+                      {searchQuery && (
+                        <button
+                          onClick={() => setSearchQuery("")}
+                          aria-label="Clear search"
+                          className="text-neutral-400 hover:text-neutral-700 p-0.5 cursor-pointer"
+                        >
+                          <X className="w-3.5 h-3.5" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Results Container */}
+                    <div className="mt-3 max-h-[320px] overflow-y-auto no-scrollbar space-y-1 pr-0.5">
+                      {searchResults.length > 0 ? (
+                        <>
+                          <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-2.5 py-1">
+                            Matching Results ({searchResults.length})
+                          </div>
+                          {searchResults.map((item) => (
+                            <Link
+                              key={item.id}
+                              href={item.href}
+                              onClick={() => {
+                                setIsSearchOpen(false);
+                                setSearchQuery("");
+                              }}
+                              className="group/item flex items-start justify-between gap-3 p-2.5 rounded-xl hover:bg-neutral-100/90 transition-colors cursor-pointer"
+                            >
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-800 group-hover/item:bg-[#AEF977] group-hover/item:text-neutral-950 transition-colors">
+                                    {item.category}
+                                  </span>
+                                  <h4 className="text-[13px] font-bold text-neutral-900 truncate group-hover/item:text-black">
+                                    {item.title}
+                                  </h4>
+                                </div>
+                                <p className="text-[11.5px] text-neutral-500 line-clamp-1">
+                                  {item.description}
+                                </p>
+                              </div>
+                              <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/item:text-neutral-900 group-hover/item:translate-x-0.5 transition-all mt-1.5 shrink-0" />
+                            </Link>
+                          ))}
+                        </>
+                      ) : searchQuery.trim() ? (
+                        <div className="py-8 text-center text-neutral-500">
+                          <p className="text-[13px] font-semibold text-neutral-800">No results found</p>
+                          <p className="text-[11.5px] mt-1">Try searching for &quot;Services&quot;, &quot;Wind&quot;, or &quot;Mission&quot;</p>
+                        </div>
+                      ) : (
+                        <>
+                          <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-2.5 py-1">
+                            Quick Destinations
+                          </div>
+                          {quickSuggestions.map((item) => (
+                            <Link
+                              key={item.id}
+                              href={item.href}
+                              onClick={() => {
+                                setIsSearchOpen(false);
+                                setSearchQuery("");
+                              }}
+                              className="group/item flex items-center justify-between p-2.5 rounded-xl hover:bg-neutral-100 transition-colors cursor-pointer"
+                            >
+                              <div className="flex items-center gap-2.5 min-w-0">
+                                <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 group-hover/item:bg-[#AEF977] group-hover/item:text-neutral-950 transition-colors">
+                                  {item.category}
+                                </span>
+                                <span className="text-[13px] font-medium text-neutral-800 group-hover/item:text-black truncate">
+                                  {item.title}
+                                </span>
+                              </div>
+                              <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/item:text-neutral-900 group-hover/item:translate-x-0.5 transition-all shrink-0" />
+                            </Link>
+                          ))}
+                        </>
+                      )}
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
 
             {/* GET IN TOUCH CTA Button */}
-            <a 
-              href="#contact"
+            <Link 
+              href="/contact"
               className={`h-11 px-6 sm:px-7 rounded-full text-[12.5px] font-semibold uppercase tracking-[0.06em] transition-all whitespace-nowrap shadow-sm active:scale-95 shrink-0 flex items-center justify-center ${
                 isScrolled
                   ? "border border-black/85 text-black hover:bg-[#111111] hover:text-white"
@@ -200,7 +293,7 @@ export function Navbar() {
               }`}
             >
               GET IN TOUCH
-            </a>
+            </Link>
 
             {/* Mobile Menu Toggle */}
             <button 
@@ -230,23 +323,23 @@ export function Navbar() {
           >
             <div className="flex flex-col gap-2">
               {navLinks.map((item) => (
-                <a
+                <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="py-2.5 px-3 rounded-xl text-[14px] font-semibold uppercase tracking-wider text-black hover:bg-zinc-100 transition-colors"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="pt-4 border-t border-black/10 mt-2">
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   onClick={() => setIsMobileMenuOpen(false)}
                   className="w-full h-11 inline-flex items-center justify-center rounded-full bg-[#111111] text-white text-[13px] font-semibold uppercase tracking-wider shadow-sm hover:bg-black transition-colors"
                 >
                   GET IN TOUCH
-                </a>
+                </Link>
               </div>
             </div>
           </motion.div>
