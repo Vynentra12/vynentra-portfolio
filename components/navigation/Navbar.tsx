@@ -35,16 +35,24 @@ export function Navbar() {
   // Detect scroll position to switch between transparent hero header and solid white header
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      // On the homepage, the Hero section is 400vh. We wait until the user scrolls past it.
+      // On other pages (like /blog), we switch to the solid header after just 50px.
+      const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
+      const threshold = isHomePage ? window.innerHeight * 3.8 : 50;
+
+      if (window.scrollY > threshold) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     };
+    
+    // Initial check
     handleScroll();
+    
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [pathname]);
 
   // Focus search input when open
   useEffect(() => {
