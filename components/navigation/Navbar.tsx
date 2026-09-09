@@ -89,7 +89,7 @@ export function Navbar() {
           : "bg-transparent border-b border-transparent shadow-none py-1 md:py-2"
       }`}
     >
-      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
+      <div className="w-full px-5 md:px-8 lg:px-12 xl:px-14">
         <div className="h-20 flex items-center justify-between gap-4 w-full">
           
           {/* Left: Brand Logo (White on Hero, Black on Scrolled) */}
@@ -156,7 +156,7 @@ export function Navbar() {
           <div className="flex items-center gap-3 sm:gap-3.5 shrink-0">
             
             {/* Search Toggle Button & Modal */}
-            <div className="relative" ref={searchRef}>
+            <div className="relative hidden min-[850px]:block" ref={searchRef}>
               <button 
                 onClick={() => setIsSearchOpen(!isSearchOpen)}
                 aria-label={isSearchOpen ? "Close search" : "Open search"}
@@ -286,7 +286,7 @@ export function Navbar() {
             {/* GET IN TOUCH CTA Button */}
             <Link 
               href="/contact"
-              className={`h-11 px-6 sm:px-7 rounded-full text-[12.5px] font-semibold uppercase tracking-[0.06em] transition-all whitespace-nowrap shadow-sm active:scale-95 shrink-0 flex items-center justify-center ${
+              className={`hidden sm:flex h-11 px-6 sm:px-7 rounded-full text-[12.5px] font-semibold uppercase tracking-[0.06em] transition-all whitespace-nowrap shadow-sm active:scale-95 shrink-0 items-center justify-center ${
                 isScrolled
                   ? "border border-black/85 text-black hover:bg-[#111111] hover:text-white"
                   : "border border-white/90 text-white hover:bg-white hover:text-black"
@@ -322,6 +322,41 @@ export function Navbar() {
             className="min-[1040px]:hidden bg-white border-t border-black/5 px-6 py-6 shadow-xl"
           >
             <div className="flex flex-col gap-2">
+              {/* Mobile Search Bar */}
+              <div className="relative mb-2">
+                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-500 stroke-[2]" />
+                <input 
+                  type="text" 
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search articles, pages..." 
+                  className="w-full bg-neutral-100/80 border border-neutral-200 text-black text-[14px] rounded-xl h-11 pl-10 pr-4 focus:outline-none focus:ring-1 focus:ring-neutral-300 transition-shadow"
+                />
+                {searchQuery && searchResults.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-neutral-100 max-h-[200px] overflow-y-auto z-50 p-2 flex flex-col gap-1">
+                    {searchResults.map((item) => (
+                      <Link
+                        key={item.id}
+                        href={item.href}
+                        onClick={() => {
+                          setIsMobileMenuOpen(false);
+                          setSearchQuery("");
+                        }}
+                        className="flex flex-col p-2 rounded-lg hover:bg-neutral-50 transition-colors"
+                      >
+                        <span className="text-[10px] font-bold text-neutral-400 uppercase tracking-wider mb-0.5">{item.category}</span>
+                        <span className="text-[13px] font-bold text-black">{item.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
+                {searchQuery && searchResults.length === 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-xl border border-neutral-100 p-4 text-center z-50">
+                    <span className="text-[13px] text-neutral-500">No results found</span>
+                  </div>
+                )}
+              </div>
+
               {navLinks.map((item) => (
                 <Link
                   key={item.name}
