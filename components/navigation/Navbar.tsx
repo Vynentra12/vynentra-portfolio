@@ -35,12 +35,8 @@ export function Navbar() {
   // Detect scroll position to switch between transparent hero header and solid white header
   useEffect(() => {
     const handleScroll = () => {
-      // On the homepage, the Hero section is 400vh. We wait until the user scrolls past it.
-      // On other pages (like /blog), we switch to the solid header after just 50px.
-      const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
-      const threshold = isHomePage ? window.innerHeight * 3.8 : 50;
-
-      if (window.scrollY > threshold) {
+      // Switch to the solid background as soon as the user scrolls down 40px
+      if (window.scrollY > 40) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);

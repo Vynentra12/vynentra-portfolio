@@ -33,27 +33,10 @@ const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function FooterV2() {
   const [subscribeEmail, setSubscribeEmail] = React.useState("");
   const [isInputFocused, setIsInputFocused] = React.useState(false);
-  const [isWordmarkAnimating, setIsWordmarkAnimating] = React.useState(false);
-  const wordmarkTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
-
-  const handleWordmarkMouseEnter = () => {
-    setIsWordmarkAnimating(true);
-    if (wordmarkTimeoutRef.current) clearTimeout(wordmarkTimeoutRef.current);
-    wordmarkTimeoutRef.current = setTimeout(() => {
-      setIsWordmarkAnimating(false);
-    }, 1500); // Automatically stops after 1.5 seconds
-  };
-
-  const handleWordmarkMouseLeave = () => {
-    if (wordmarkTimeoutRef.current) clearTimeout(wordmarkTimeoutRef.current);
-    setIsWordmarkAnimating(false); // Immediately stops when mouse leaves
-  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
-
-  const letters = "vynentra".split("");
 
   return (
     <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden">
@@ -203,41 +186,20 @@ export function FooterV2() {
 
         </div>
 
-        {/* Bottom Giant Brand Wordmark Logo with Interactive Smooth Wave Animation */}
+        {/* Bottom Giant Brand Wordmark Logo with Smooth Hover Transition */}
         <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
           
-          {/* Giant Animated Wordmark - Hover ONLY triggers strictly on the text itself */}
-          <div 
-            onMouseEnter={handleWordmarkMouseEnter}
-            onMouseLeave={handleWordmarkMouseLeave}
+          {/* Giant Animated Wordmark - Smooth Interactive Hover Effect */}
+          <motion.div 
+            whileHover={{ scale: 1.025, y: -4 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center justify-center select-none cursor-pointer group"
           >
-            <div className="inline-flex items-center justify-center max-w-full overflow-visible">
-              {letters.map((char, index) => (
-                <motion.span
-                  key={index}
-                  animate={isWordmarkAnimating ? "animating" : "idle"}
-                  className="inline-block text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-colors duration-300 group-hover:text-brand-energyblue drop-shadow-sm select-none"
-                  variants={{
-                    idle: { y: 0, scale: 1 },
-                    animating: {
-                      y: [-2, -12, 0],
-                      scale: [1, 1.02, 1],
-                      transition: {
-                        repeat: Infinity,
-                        duration: 0.75,
-                        delay: index * 0.04,
-                        ease: "easeInOut",
-                      },
-                    },
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {char}
-                </motion.span>
-              ))}
-            </div>
-          </div>
+            <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-all duration-300 ease-out group-hover:text-[#AEF977] group-hover:drop-shadow-[0_10px_35px_rgba(174,249,119,0.3)] select-none">
+              vynentra
+            </span>
+          </motion.div>
 
           {/* Floating Solid Green Scroll-to-Top Button (Fixed to bottom-right with balanced spacing) */}
           <button
