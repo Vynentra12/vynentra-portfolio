@@ -14,7 +14,7 @@ export function Navbar() {
   const isBlog = pathname === "/blog" || pathname?.startsWith("/blog");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
   const [userSelectedLink, setUserSelectedLink] = useState<string | null>(null);
-  const activeLink = userSelectedLink ?? (isContact ? "Contacts" : isBlog ? "Blogs" : "About Us");
+  const activeLink = userSelectedLink ?? (isContact ? "Contacts" : isBlog ? "Blogs" : null);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,12 +35,8 @@ export function Navbar() {
   // Detect scroll position to switch between transparent hero header and solid white header
   useEffect(() => {
     const handleScroll = () => {
-      // On the homepage, the Hero section is 400vh. We wait until the user scrolls past it.
-      // On other pages (like /blog), we switch to the solid header after just 50px.
-      const isHomePage = window.location.pathname === '/' || window.location.pathname === '';
-      const threshold = isHomePage ? window.innerHeight * 3.8 : 50;
-
-      if (window.scrollY > threshold) {
+      // Switch to the solid background as soon as the user scrolls down 40px
+      if (window.scrollY > 40) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -90,7 +86,10 @@ export function Navbar() {
   const currentPillTarget = hoveredLink || activeLink;
 
   return (
-    <header 
+    <motion.header 
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans ${
         isScrolled 
           ? "bg-white/95 backdrop-blur-md border-b border-black/5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] py-0" 
@@ -98,61 +97,38 @@ export function Navbar() {
       }`}
     >
       <div className="w-full px-5 md:px-8 lg:px-12 xl:px-14">
-        <div className="h-20 flex items-center justify-between gap-4 w-full">
+        <div className="h-20 grid grid-cols-2 min-[1040px]:grid-cols-3 items-center gap-4 w-full">
           
-          {/* Left: Brand Logo (White on Hero, Black on Scrolled) */}
-          <div className="flex items-center shrink-0">
+          {/* Left: Brand Logo */}
+          <div className="flex items-center justify-self-start shrink-0">
             <Logo 
               color={isScrolled ? "#000000" : "#FFFFFF"} 
               className="text-[20px] md:text-[23px] font-extrabold tracking-tight transition-colors duration-300" 
             />
           </div>
 
-          {/* Center: Navigation Links with Silky Smooth Sliding Pill Hover Animation */}
-          <nav 
-            className="hidden min-[1040px]:flex items-center gap-1.5 lg:gap-3 xl:gap-5 relative shrink-0"
-            onMouseLeave={() => {
-              setHoveredLink(null);
-            }}
-          >
+          {/* Center: Navigation Links with Standard Hover */}
+          <nav className="hidden min-[1040px]:flex items-center justify-center gap-1.5 lg:gap-3 xl:gap-5 relative shrink-0 justify-self-center">
             {navLinks.map((item) => {
               const isSelected = currentPillTarget === item.name;
 
               return (
-                <div 
-                  key={item.name} 
-                  className="relative py-1"
-                  onMouseEnter={() => {
-                    setHoveredLink(item.name);
-                  }}
-                >
+                <div key={item.name} className="relative py-1">
                   <Link 
                     href={item.href}
-                    onClick={() => {
-                      setUserSelectedLink(item.name);
-                    }}
-                    className={`relative h-[42px] px-5 sm:px-6 flex items-center justify-center text-[13px] font-semibold uppercase tracking-[0.05em] transition-colors duration-200 z-10 whitespace-nowrap rounded-full select-none ${
+                    onClick={() => setUserSelectedLink(item.name)}
+                    onMouseEnter={() => setHoveredLink(item.name)}
+                    onMouseLeave={() => setHoveredLink(null)}
+                    className={`relative h-[38px] px-4 sm:px-5 flex items-center justify-center text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
                       isSelected 
-                        ? (isScrolled ? "text-white" : "text-black") 
-                        : (isScrolled ? "text-[#111111] hover:text-black/70" : "text-white hover:text-white/80")
+                        ? (isScrolled 
+                            ? "text-white bg-[#0B2735] shadow-sm border-transparent" 
+                            : "text-white bg-white/20 border-white shadow-sm")
+                        : (isScrolled 
+                            ? "text-[#111111] hover:text-white hover:bg-[#0B2735] hover:border-[#0B2735]" 
+                            : "text-white hover:bg-white/20 hover:border-white/50")
                     }`}
                   >
-                    {isSelected && (
-                      <motion.span 
-                        layoutId="navbar-pill" 
-                        className={`absolute inset-0 rounded-full -z-10 ${
-                          isScrolled 
-                            ? "bg-[#111111] shadow-[0_2px_10px_rgba(0,0,0,0.12)]" 
-                            : "bg-white shadow-[0_2px_12px_rgba(0,0,0,0.18)]"
-                        }`}
-                        transition={{ 
-                          type: "spring", 
-                          stiffness: 180, 
-                          damping: 24, 
-                          mass: 0.8 
-                        }}
-                      />
-                    )}
                     <span>{item.name}</span>
                   </Link>
                 </div>
@@ -160,147 +136,30 @@ export function Navbar() {
             })}
           </nav>
           
-          {/* Right: Search Button & GET IN TOUCH CTA */}
-          <div className="flex items-center gap-3 sm:gap-3.5 shrink-0">
+          {/* Right: GET IN TOUCH CTA & Mobile Toggle */}
+          <div className="flex items-center gap-3 sm:gap-3.5 shrink-0 justify-self-end">
             
-            {/* Search Toggle Button & Modal */}
-            <div className="relative hidden min-[850px]:block" ref={searchRef}>
-              <button 
-                onClick={() => setIsSearchOpen(!isSearchOpen)}
-                aria-label={isSearchOpen ? "Close search" : "Open search"}
-                className={`w-11 h-11 rounded-full flex items-center justify-center transition-all active:scale-95 shadow-sm shrink-0 cursor-pointer ${
-                  isScrolled 
-                    ? "bg-[#111111] text-white hover:bg-black" 
-                    : "bg-white text-black hover:bg-white/90"
-                }`}
-              >
-                {isSearchOpen ? (
-                  <X className="w-4 h-4 stroke-[2]" />
-                ) : (
-                  <Search className="w-4 h-4 stroke-[1.8]" />
-                )}
-              </button>
 
-              {/* Floating Live Search Dropdown Palette */}
-              <AnimatePresence>
-                {isSearchOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.96 }}
-                    transition={{ duration: 0.18, ease: "easeOut" }}
-                    className="absolute right-0 top-full mt-3 bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-[0_20px_60px_rgba(0,0,0,0.22)] border border-neutral-200/90 w-[330px] sm:w-[420px] max-w-[90vw] z-50 overflow-hidden"
-                  >
-                    {/* Search Input Box */}
-                    <div className="flex items-center gap-3 border-b border-neutral-200 pb-3 px-1">
-                      <Search className="w-4 h-4 text-neutral-500 shrink-0 stroke-[2]" />
-                      <input 
-                        ref={searchInputRef}
-                        type="text" 
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Escape") {
-                            setIsSearchOpen(false);
-                          }
-                        }}
-                        placeholder="Search sections, pages, articles..." 
-                        className="w-full bg-transparent text-[13.5px] text-neutral-900 placeholder:text-neutral-400 focus:outline-none font-medium"
-                      />
-                      {searchQuery && (
-                        <button
-                          onClick={() => setSearchQuery("")}
-                          aria-label="Clear search"
-                          className="text-neutral-400 hover:text-neutral-700 p-0.5 cursor-pointer"
-                        >
-                          <X className="w-3.5 h-3.5" />
-                        </button>
-                      )}
-                    </div>
 
-                    {/* Results Container */}
-                    <div className="mt-3 max-h-[320px] overflow-y-auto no-scrollbar space-y-1 pr-0.5">
-                      {searchResults.length > 0 ? (
-                        <>
-                          <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-2.5 py-1">
-                            Matching Results ({searchResults.length})
-                          </div>
-                          {searchResults.map((item) => (
-                            <Link
-                              key={item.id}
-                              href={item.href}
-                              onClick={() => {
-                                setIsSearchOpen(false);
-                                setSearchQuery("");
-                              }}
-                              className="group/item flex items-start justify-between gap-3 p-2.5 rounded-xl hover:bg-neutral-100/90 transition-colors cursor-pointer"
-                            >
-                              <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-0.5">
-                                  <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-800 group-hover/item:bg-[#AEF977] group-hover/item:text-neutral-950 transition-colors">
-                                    {item.category}
-                                  </span>
-                                  <h4 className="text-[13px] font-bold text-neutral-900 truncate group-hover/item:text-black">
-                                    {item.title}
-                                  </h4>
-                                </div>
-                                <p className="text-[11.5px] text-neutral-500 line-clamp-1">
-                                  {item.description}
-                                </p>
-                              </div>
-                              <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/item:text-neutral-900 group-hover/item:translate-x-0.5 transition-all mt-1.5 shrink-0" />
-                            </Link>
-                          ))}
-                        </>
-                      ) : searchQuery.trim() ? (
-                        <div className="py-8 text-center text-neutral-500">
-                          <p className="text-[13px] font-semibold text-neutral-800">No results found</p>
-                          <p className="text-[11.5px] mt-1">Try searching for &quot;Services&quot;, &quot;Wind&quot;, or &quot;Mission&quot;</p>
-                        </div>
-                      ) : (
-                        <>
-                          <div className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest px-2.5 py-1">
-                            Quick Destinations
-                          </div>
-                          {quickSuggestions.map((item) => (
-                            <Link
-                              key={item.id}
-                              href={item.href}
-                              onClick={() => {
-                                setIsSearchOpen(false);
-                                setSearchQuery("");
-                              }}
-                              className="group/item flex items-center justify-between p-2.5 rounded-xl hover:bg-neutral-100 transition-colors cursor-pointer"
-                            >
-                              <div className="flex items-center gap-2.5 min-w-0">
-                                <span className="text-[9.5px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-700 border border-neutral-200 group-hover/item:bg-[#AEF977] group-hover/item:text-neutral-950 transition-colors">
-                                  {item.category}
-                                </span>
-                                <span className="text-[13px] font-medium text-neutral-800 group-hover/item:text-black truncate">
-                                  {item.title}
-                                </span>
-                              </div>
-                              <ArrowRight className="w-3.5 h-3.5 text-neutral-400 group-hover/item:text-neutral-900 group-hover/item:translate-x-0.5 transition-all shrink-0" />
-                            </Link>
-                          ))}
-                        </>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
-            {/* GET IN TOUCH CTA Button */}
+            {/* GET IN TOUCH CTA Button with Linear Stretching Circle-to-Pill Animation */}
             <Link 
               href="/contact"
-              className={`hidden sm:flex h-11 px-6 sm:px-7 rounded-full text-[12.5px] font-semibold uppercase tracking-[0.06em] transition-all whitespace-nowrap shadow-sm active:scale-95 shrink-0 items-center justify-center ${
-                isScrolled
-                  ? "border border-black/85 text-black hover:bg-[#111111] hover:text-white"
-                  : "border border-white/90 text-white hover:bg-white hover:text-black"
+              className={`group relative hidden sm:inline-flex items-center h-10 px-6 select-none cursor-pointer shrink-0 transition-colors ${
+                isScrolled ? "text-[#111111] hover:text-white" : "text-white"
               }`}
             >
-              GET IN TOUCH
+              {/* The Stretching Circle Outline */}
+              <div 
+                className={`absolute right-0 sm:left-0 top-0 h-10 w-10 rounded-full border pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full ${
+                  isScrolled
+                    ? "border-black/50 group-hover:bg-[#0B2735] group-hover:border-[#0B2735]"
+                    : "border-white/50 group-hover:bg-white/20 group-hover:border-white"
+                }`}
+              />
+              
+              <span className="relative z-10 text-[11.5px] font-semibold tracking-[0.06em] uppercase sm:pl-3.5 pr-2 whitespace-nowrap">
+                GET IN TOUCH
+              </span>
             </Link>
 
             {/* Mobile Menu Toggle */}
@@ -388,6 +247,6 @@ export function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </motion.header>
   );
 }

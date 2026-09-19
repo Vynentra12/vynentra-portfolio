@@ -36,28 +36,28 @@ export function FeaturedProjectsSectionV2() {
         {/* Top Header Row */}
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-10 md:mb-12">
           
-          {/* Main Giant Headline (India-focused) */}
+          {/* Main Giant Headline matching reference: Global projects. Local impact */}
           <div className="flex flex-col">
-            <h2 className="text-[44px] sm:text-[60px] md:text-[72px] lg:text-[84px] font-bold text-white tracking-[-0.035em] leading-[0.96]">
-              National projects.<br />
+            <h2 className="text-[44px] sm:text-[62px] md:text-[76px] lg:text-[88px] font-bold text-white tracking-[-0.035em] leading-[0.94]">
+              Global projects.<br />
               Local impact
             </h2>
           </div>
 
           {/* Right Column: Subtitle + Linear Stretching VIEW ALL CASES CTA */}
           <div className="flex flex-col items-start lg:items-end justify-between gap-6 lg:pb-1">
-            <p className="text-[18px] sm:text-[21px] lg:text-[23px] font-medium text-white/95 leading-[1.28] max-w-[330px] text-left lg:text-right">
+            <p className="text-[18px] sm:text-[21px] lg:text-[23px] font-medium text-white/95 leading-[1.28] max-w-[340px] text-left lg:text-right">
               Each project we complete is more than infrastructure
             </p>
 
             {/* Linear Stretching Circle-to-Pill Button */}
             <a
               href="#case-studies"
-              className="group relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
+              className="group/cta relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
             >
               {/* Animated morph outline */}
               <div 
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-white pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-white/10"
+                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-white pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover/cta:w-full group-hover/cta:bg-white/10"
               />
               
               {/* Text */}
@@ -69,14 +69,14 @@ export function FeaturedProjectsSectionV2() {
 
         </div>
 
-        {/* Horizontal Divider Line with Left Kicker */}
-        <div className="w-full border-t border-white/20 pt-4 mb-8 sm:mb-10">
-          <span className="text-[11px] sm:text-[12px] font-bold text-white/90 uppercase tracking-[0.08em]">
+        {/* Horizontal Divider Line with Left Kicker Sitting Above the Line */}
+        <div className="w-full border-b border-white/20 pb-4 mb-8 sm:mb-10">
+          <span className="text-[11px] sm:text-[11.5px] font-bold text-white uppercase tracking-[0.1em] select-text">
             REAL RESULTS POWERED BY THE WIND
           </span>
         </div>
 
-        {/* Interactive 3-Card Accordion Grid with directional linear stretch & Zero Overlap */}
+        {/* Interactive 3-Card Accordion Grid: Center-anchored stationary images without zoom */}
         <div 
           onMouseLeave={() => setHoveredIndex(null)}
           className="flex flex-col md:flex-row gap-5 lg:gap-6 items-start w-full"
@@ -88,22 +88,25 @@ export function FeaturedProjectsSectionV2() {
             // Smooth linear accordion expansion
             let flexClass = "md:flex-1";
             if (isAnyHovered) {
-              flexClass = isHovered ? "md:flex-[1.8]" : "md:flex-[0.9]";
+              flexClass = isHovered ? "md:flex-[1.85]" : "md:flex-[0.88]";
             }
 
             return (
               <div
                 key={idx}
                 onMouseEnter={() => setHoveredIndex(idx)}
-                className={`${flexClass} w-full flex flex-col group cursor-pointer transition-all duration-700 ease-[0.16,1,0.3,1] min-w-0`}
+                className={`${flexClass} w-full flex flex-col group cursor-pointer transition-[flex] duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-0`}
               >
-                {/* Image Container with refined corner radius */}
+                {/* Image Container: Center-locked canvas keeps turbine framed in the center as card expands */}
                 <div className="w-full h-[360px] sm:h-[420px] md:h-[460px] lg:h-[480px] rounded-[16px] sm:rounded-[18px] overflow-hidden relative bg-black/20 shadow-md">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+                  <div className="absolute left-1/2 -translate-x-1/2 top-0 h-full w-[650px] md:w-[750px] lg:w-[850px] pointer-events-none">
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-full h-full object-cover object-center select-none"
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
 
                 {/* Category Outlined Badges */}
