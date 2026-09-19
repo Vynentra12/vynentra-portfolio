@@ -189,14 +189,14 @@ export function FooterV2() {
         {/* Bottom Giant Brand Wordmark Logo with Smooth Hover Transition */}
         <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
           
-          {/* Giant Animated Wordmark - Smooth Interactive Hover Effect */}
+          {/* Giant Animated Wordmark - Smooth Interactive Hover Effect (Clean Color, No Glow) */}
           <motion.div 
             whileHover={{ scale: 1.025, y: -4 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
             className="inline-flex items-center justify-center select-none cursor-pointer group"
           >
-            <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-all duration-300 ease-out group-hover:text-[#AEF977] group-hover:drop-shadow-[0_10px_35px_rgba(174,249,119,0.3)] select-none">
+            <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-colors duration-300 ease-out group-hover:text-[#AEF977] select-none">
               vynentra
             </span>
           </motion.div>

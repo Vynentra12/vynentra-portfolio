@@ -1,213 +1,263 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import Link from "next/link";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
+import { Compass, Layers, Zap, ShieldCheck } from "lucide-react";
 
-interface SolutionCard {
-  id: number;
-  title: string;
-  description: string;
-  icon: () => React.ReactNode;
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-// Custom crisp SVG icons
-const SiteAssessmentIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className="w-6 h-6"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Compass / Location radar pin with energy pulse */}
-    <circle cx="12" cy="12" r="9" />
-    <path d="M12 3v4" />
-    <path d="M12 17v4" />
-    <path d="M3 12h4" />
-    <path d="M17 12h4" />
-    <circle cx="12" cy="12" r="3" fill="currentColor" fillOpacity="0.25" />
-  </svg>
-);
+interface ProcessStep {
+  step: string;
+  title: string;
+  description: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
 
-const SystemDesignIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className="w-6 h-6"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Lightbulb with sprout */}
-    <path d="M9 18h6" />
-    <path d="M10 22h4" />
-    <path d="M12 2a7 7 0 0 0-7 7c0 2.5 1.5 4.5 3 5.5v1.5h8V14.5c1.5-1 3-3 3-5.5a7 7 0 0 0-7-7z" />
-    <path d="M12 6a3 3 0 0 1 3 3c0 1.5-1.5 3-3 3s-3-1.5-3-3a3 3 0 0 1 3-3z" fill="currentColor" fillOpacity="0.2" />
-    <line x1="12" y1="0.5" x2="12" y2="2" />
-    <line x1="4.5" y1="4.5" x2="5.5" y2="5.5" />
-    <line x1="19.5" y1="4.5" x2="18.5" y2="5.5" />
-  </svg>
-);
-
-const InstallationIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className="w-6 h-6"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Wind turbine */}
-    <line x1="12" y1="12" x2="12" y2="22" />
-    <path d="M12 12L12 3c1.5 0 2.5 1 2.5 3L12 12z" />
-    <path d="M12 12L4.5 16.5c-0.8-1.2-0.5-2.6 1.2-3.6L12 12z" />
-    <path d="M12 12L19.5 16.5c0.8-1.2 0.5-2.6-1.2-3.6L12 12z" />
-    <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-  </svg>
-);
-
-const MaintenanceIcon = () => (
-  <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    className="w-6 h-6"
-    stroke="currentColor"
-    strokeWidth="1.8"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    {/* Globe with eco loop */}
-    <circle cx="12" cy="12" r="9" />
-    <path d="M3.6 9h16.8" />
-    <path d="M3.6 15h16.8" />
-    <path d="M11.5 3a14 14 0 0 0 0 18" />
-    <path d="M12.5 3a14 14 0 0 1 0 18" />
-  </svg>
-);
-
-const SOLUTIONS: SolutionCard[] = [
+const PROCESS_STEPS: ProcessStep[] = [
   {
-    id: 0,
-    title: "Site Assessment",
+    step: "01 - Site Assessment",
+    title: "Know the wind before you build.",
     description:
       "We assess site coordinates, altitude and local wind conditions to determine the feasibility and configuration of a wind energy system.",
-    icon: () => <SiteAssessmentIcon />,
+    icon: Compass,
   },
   {
-    id: 1,
-    title: "System Design",
+    step: "02 - System Design",
+    title: "Designed for the site.",
     description:
-      "Every system is configured around its energy requirement and wind conditions — from individual turbines to modular arrays and captive installations.",
-    icon: () => <SystemDesignIcon />,
+      "Every system is configured around its energy requirement and wind conditions - from individual turbines to modular arrays and larger captive installations.",
+    icon: Layers,
   },
   {
-    id: 2,
-    title: "Installation & Execution",
+    step: "03 - Installation & Execution",
+    title: "From specification to generation.",
     description:
       "Complete project execution, including turbine installation, wiring, distribution systems and commissioning.",
-    icon: () => <InstallationIcon />,
+    icon: Zap,
   },
   {
-    id: 3,
-    title: "Operations & Maintenance",
+    step: "04 - Operations & Maintenance",
+    title: "Performance that lasts.",
     description:
       "Annual Maintenance Contracts designed to monitor systems, maintain performance and support long-term operation.",
-    icon: () => <MaintenanceIcon />,
+    icon: ShieldCheck,
   },
 ];
 
 export function SolutionsSectionV2() {
-  // First card highlighted by default matching reference style
-  const [hoveredCard, setHoveredCard] = useState<number | null>(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+
+      // ── Desktop Pinned Scroll Animation (min-width: 1024px) ──
+      // When user reaches section, it locks in place:
+      // User sees Title & Subtitle first.
+      // As user scrolls down: Box 1 animates from bottom to top,
+      // then Box 2, then Box 3, then Box 4.
+      // Once all 4 boxes are shown, section unlocks smoothly to next section.
+      mm.add("(min-width: 1024px)", () => {
+        // All 4 boxes start hidden below
+        gsap.set(cardsRef.current, {
+          opacity: 0,
+          y: 40,
+          scale: 0.96,
+        });
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top top",
+            end: "+=1800",
+            pin: true,
+            scrub: 0.8,
+            anticipatePin: 1,
+          },
+        });
+
+        // Step 1: User scrolls -> Box 1 animates from down to top
+        tl.to(cardsRef.current[0], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        }, 0.1);
+
+        // Step 2: User scrolls more -> Box 2 animates from down to top
+        tl.to(cardsRef.current[1], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        }, 0.35);
+
+        // Step 3: User scrolls more -> Box 3 animates from down to top
+        tl.to(cardsRef.current[2], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        }, 0.6);
+
+        // Step 4: User scrolls more -> Box 4 animates from down to top
+        tl.to(cardsRef.current[3], {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 1,
+          ease: "power2.out",
+        }, 0.85);
+
+        // Hold pause so all 4 boxes are admired before transitioning to next section
+        tl.to({}, { duration: 0.35 });
+      });
+
+      // ── Mobile / Tablet Scroll Reveal (max-width: 1023px) ──
+      mm.add("(max-width: 1023px)", () => {
+        cardsRef.current.forEach((card) => {
+          if (!card) return;
+          gsap.fromTo(
+            card,
+            { opacity: 0, y: 25 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.6,
+              scrollTrigger: {
+                trigger: card,
+                start: "top 85%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+      });
+    },
+    { scope: sectionRef }
+  );
 
   return (
-    <section id="solutions" className="w-full bg-white text-neutral-900 py-16 md:py-24 lg:py-28 font-sans relative">
-      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
-
-        {/* Main 2-Column Layout: Sticky Left, Scrolling Right */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
-
-          {/* Left Column: Pinned Sticky */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 xl:top-32 self-start flex flex-col items-start pr-0 lg:pr-2">
-
-            {/* Tagline / Kicker matching user request */}
-            <span className="text-[12px] sm:text-[12.5px] font-bold text-black uppercase tracking-[0.08em] mb-4 select-none">
-              SOLUTIONS
+    <section
+      id="process-overview"
+      ref={sectionRef}
+      className="w-full bg-white text-neutral-900 min-h-screen flex flex-col justify-center py-14 sm:py-16 md:py-20 font-sans select-text relative overflow-hidden"
+    >
+      <div ref={containerRef} className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 relative z-10">
+        
+        {/* Top Header Row: Left Title/Subtitle & Right CTA Button */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 lg:mb-12">
+          
+          {/* Top Left: Badge Name, Title & Subtitle */}
+          <div className="flex flex-col max-w-[760px]">
+            {/* Badge Name (Matching FAQ section kicker) */}
+            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5 select-text">
+              PROCESS
             </span>
 
-            {/* Main Headline styled and sized precisely like the FAQ section */}
-            <h2 className="text-[34px] sm:text-[42px] md:text-[46px] lg:text-[50px] font-semibold text-neutral-900 tracking-tight leading-[1.14] mb-8 lg:mb-10 max-w-[500px]">
-              Engineering the wind into the world’s strongest force for change
+            {/* Main Headline (Matching FAQ section headline size) */}
+            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
+              Harnessing the power of nature to build a sustainable tomorrow
             </h2>
 
-            {/* Morphing Linear Stretch "MORE ABOUT US" CTA Button */}
-            <a
-              href="#about"
-              className="group relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
-            >
-              {/* Morphing Circle/Pill Outline */}
-              <div
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-black pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-black/5"
-              />
-
-              {/* Button Text */}
-              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-black uppercase pl-3.5 pr-2 whitespace-nowrap">
-                MORE ABOUT US
-              </span>
-            </a>
-
+            {/* Subtitle (Matching FAQ section body text size) */}
+            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[560px] font-normal">
+              From initial site assessment to ongoing maintenance, our structured methodology ensures maximum aerodynamic yield and reliable performance.
+            </p>
           </div>
 
-          {/* Right Column: Cards Grid (no drop shadow, pure stroke and color hover, less rounded corners) */}
-          <div
-            onMouseLeave={() => setHoveredCard(0)}
-            className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6"
-          >
-            {SOLUTIONS.map((item) => {
-              const isHighlighted = hoveredCard === item.id;
+          {/* Top Right: CTA Button */}
+          <div className="shrink-0 pb-1">
+            <Link
+              href="#contact"
+              className="group/btn relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer w-fit"
+            >
+              {/* Expanding circle outline that stretches into full pill on hover */}
+              <div 
+                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-neutral-900 pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover/btn:w-full group-hover/btn:bg-neutral-900/5"
+              />
+              
+              {/* Button text */}
+              <span className="relative z-10 text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] text-neutral-900 uppercase pl-3 pr-1 whitespace-nowrap">
+                READ MORE
+              </span>
+            </Link>
+          </div>
 
-              return (
-                <div
-                  key={item.id}
-                  onMouseEnter={() => setHoveredCard(item.id)}
-                  className={`rounded-[16px] p-6 sm:p-7 flex flex-col justify-start transition-colors duration-200 cursor-pointer ${isHighlighted
-                      ? "bg-[#AEF977] border border-black"
-                      : "bg-white border border-black"
-                    }`}
-                >
-                  {/* Top Row: Icon Badge directly beside Title */}
-                  <div className="flex items-center gap-4 mb-4">
+        </div>
+
+        {/* Four Compact Horizontal Process Boxes */}
+        <div 
+          onMouseLeave={() => setHoveredCard(null)}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-5.5 items-stretch"
+        >
+          {PROCESS_STEPS.map((step, idx) => {
+            const Icon = step.icon;
+            const isActive = hoveredCard === idx;
+
+            return (
+              <div
+                key={idx}
+                ref={(el) => {
+                  cardsRef.current[idx] = el;
+                }}
+                onMouseEnter={() => setHoveredCard(idx)}
+                className={`group rounded-[20px] sm:rounded-[22px] p-5 sm:p-5.5 flex flex-col justify-between transition-all duration-300 ease-out shadow-xs hover:shadow-md hover:-translate-y-1 min-h-[210px] sm:min-h-[220px] cursor-pointer ${
+                  isActive
+                    ? "bg-[#AEF977] border border-[#9DEB62]"
+                    : "bg-white border border-neutral-200/90 hover:border-neutral-300"
+                }`}
+              >
+                <div className="flex flex-col">
+                  {/* Top Row: Squircle Icon Badge + Step Number */}
+                  <div className="flex items-center justify-between gap-3 mb-3.5">
                     <div
-                      className={`w-12 h-12 rounded-[12px] flex items-center justify-center shrink-0 transition-colors duration-200 ${isHighlighted
-                          ? "bg-white text-black"
-                          : "bg-[#AEF977] text-black"
-                        }`}
+                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] flex items-center justify-center transition-all duration-300 shrink-0 ${
+                        isActive
+                          ? "bg-white text-neutral-950 shadow-xs"
+                          : "bg-[#AEF977] text-neutral-950"
+                      }`}
                     >
-                      {item.icon()}
+                      <Icon className="w-5 h-5 text-neutral-950" />
                     </div>
 
-                    <h3 className="text-[20px] sm:text-[22px] font-bold text-black tracking-tight leading-[1.2]">
-                      {item.title}
-                    </h3>
+                    <span className="text-xs sm:text-[13px] font-medium text-neutral-400">
+                      {step.step.slice(0, 2)}
+                    </span>
                   </div>
 
-                  {/* Card Description */}
-                  <p className="text-[14px] sm:text-[14.5px] leading-relaxed font-normal text-black/80">
-                    {item.description}
+                  {/* Tiny Pre-title */}
+                  <span className="text-[10px] sm:text-[10.5px] font-bold text-neutral-600 uppercase tracking-wider mb-1">
+                    {step.step}
+                  </span>
+
+                  {/* Step Title */}
+                  <h3 className="text-[16px] sm:text-[17px] font-semibold text-neutral-950 tracking-tight leading-snug mb-2">
+                    {step.title}
+                  </h3>
+
+                  {/* Step Description */}
+                  <p className="text-[12px] sm:text-[12.5px] text-neutral-600 leading-[1.5] font-normal line-clamp-4">
+                    {step.description}
                   </p>
                 </div>
-              );
-            })}
-          </div>
-
+              </div>
+            );
+          })}
         </div>
 
       </div>
     </section>
   );
 }
-

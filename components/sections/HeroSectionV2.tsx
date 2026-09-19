@@ -8,7 +8,7 @@ export function HeroSectionV2() {
   return (
     <section
       id="home"
-      className="relative w-full h-screen min-h-[640px] bg-black select-text overflow-hidden flex flex-col justify-between"
+      className="relative w-full h-screen min-h-[80vh] md:min-h-[850px] bg-black select-text overflow-hidden flex flex-col justify-between"
     >
       {/* 1. LAYER 1: The Looping Background Video */}
       <div className="absolute inset-0 z-0 overflow-hidden bg-[#0A0A0A] pointer-events-none">
@@ -24,8 +24,8 @@ export function HeroSectionV2() {
           Your browser does not support the video tag.
         </video>
         {/* Cinematic gradient overlay to ensure text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80 pointer-events-none" />
-        <div className="absolute inset-0 bg-black/15 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/70 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/10 pointer-events-none" />
       </div>
 
       {/* 2. LAYER 2: UI Content Container */}
@@ -35,7 +35,7 @@ export function HeroSectionV2() {
           <motion.h1
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="text-[14vw] sm:text-[9.4vw] lg:text-[8.9vw] font-bold text-white tracking-[-0.035em] leading-[1.05] sm:leading-[0.96] pb-2 select-none pointer-events-none drop-shadow-[0_4px_42px_rgba(0,0,0,0.35)] sm:whitespace-nowrap w-full text-left max-w-[90vw] sm:max-w-none"
           >
             Powering<br className="sm:hidden" /> Tomorrow
@@ -48,9 +48,9 @@ export function HeroSectionV2() {
           <div className="w-full flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10">
             {/* Left: Supporting Text */}
             <motion.div
-              initial={{ opacity: 0, y: 25, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, x: -50, y: 0, filter: 'blur(6px)' }}
+              animate={{ opacity: 1, x: 0, y: 0, filter: 'blur(0px)' }}
+              transition={{ duration: 0.8, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="max-w-[100%] sm:max-w-[560px] md:max-w-[640px] lg:max-w-[700px]"
             >
               <p className="text-[16px] sm:text-[21px] md:text-[23px] lg:text-[24px] font-medium text-white/95 leading-[1.4] sm:leading-[1.3] tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)]">
@@ -60,9 +60,9 @@ export function HeroSectionV2() {
 
             {/* Right: Two Action Cards (OUR SERVICES & ABOUT COMPANY) */}
             <motion.div
-              initial={{ opacity: 0, y: 25, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, x: 50, y: 0, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
               className="flex items-center gap-3 sm:gap-4 shrink-0 self-start lg:self-end origin-bottom"
             >
               {/* Card 1: White Card -> Turns Green on Hover */}
@@ -109,9 +109,9 @@ export function HeroSectionV2() {
 
           {/* Bottom Horizontal Metadata Strip */}
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.8, delay: 0.9, ease: [0.16, 1, 0.3, 1] }}
             className="w-full border-t border-white/20 pt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between text-[10px] sm:text-[12px] font-semibold tracking-wider text-white/80 uppercase gap-3 sm:gap-2 select-none"
           >
             <a href="mailto:hello@vynentra.in" className="hover:text-white transition-colors">

@@ -38,7 +38,7 @@ export function CaseStudySectionV2() {
       <div className="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ repeat: Infinity, ease: "linear", duration: 50 }}
+          transition={{ repeat: Infinity, ease: "linear", duration: 110 }}
           className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform"
         >
           {repeatedMarquee.map((word, idx) => (
@@ -75,7 +75,7 @@ export function CaseStudySectionV2() {
             <div className="w-[100vw] absolute left-1/2 -translate-x-1/2 flex items-center">
               <motion.div
                 animate={{ x: ["0%", "-50%"] }}
-                transition={{ repeat: Infinity, ease: "linear", duration: 50 }}
+                transition={{ repeat: Infinity, ease: "linear", duration: 110 }}
                 className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform"
               >
                 {repeatedMarquee.map((word, idx) => (

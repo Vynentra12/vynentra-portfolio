@@ -52,7 +52,7 @@ export function MissionSectionV2() {
 
       xTo(targetX);
       yTo(targetY);
-      rTo(69);
+      rTo(115);
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
@@ -64,7 +64,7 @@ export function MissionSectionV2() {
       maskState.y = targetY;
       xTo(targetX);
       yTo(targetY);
-      rTo(69);
+      rTo(115);
     };
 
     const handleMouseLeave = () => {
@@ -83,17 +83,17 @@ export function MissionSectionV2() {
     };
   }, { scope: sectionRef });
 
-  // Reusable statement typography with original Vynentra mission content
+  // Reusable statement typography with high-impact editorial presence
   const renderTypography = (textColor: string, kickerColor: string) => (
-    <div className="flex flex-col items-center justify-center text-center select-text">
+    <div className="flex flex-col items-center justify-center text-center select-text max-w-[1120px] mx-auto">
       {/* Kicker */}
-      <span className={`text-[11px] sm:text-[11.5px] font-bold uppercase tracking-[0.08em] mb-4 sm:mb-5 ${kickerColor}`}>
+      <span className={`text-[11px] sm:text-[12px] md:text-[12.5px] font-bold uppercase tracking-[0.14em] mb-6 sm:mb-8 ${kickerColor}`}>
         OUR MISSION
       </span>
 
       {/* Main Mission Statement */}
-      <h2 className={`text-[22px] sm:text-[28px] md:text-[32px] lg:text-[36px] font-semibold tracking-[-0.02em] leading-[1.3] max-w-[840px] mx-auto ${textColor}`}>
-        Unlock the power of wind energy and build a sustainable future. By bringing wind to rooftops, institutions, businesses and captive power projects, Vynentra is expanding where wind can work and what it can power.
+      <h2 className={`text-[24px] sm:text-[32px] md:text-[40px] lg:text-[45px] xl:text-[48px] font-semibold tracking-[-0.025em] leading-[1.28] sm:leading-[1.25] ${textColor}`}>
+        Unlock wind energy for a sustainable future. From rooftops to businesses and captive projects, Vynentra is expanding where wind can work and what it can power.
       </h2>
     </div>
   );
@@ -102,11 +102,11 @@ export function MissionSectionV2() {
     <section
       id="about"
       ref={sectionRef}
-      className="relative w-full py-[110px] bg-white flex items-center justify-center overflow-hidden"
+      className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[600px] lg:min-h-[640px] py-24 sm:py-32 md:py-40 lg:py-48 bg-white flex items-center justify-center overflow-hidden"
     >
       {/* LAYER 1 (Base): Crisp white background with dark text and cursor listener bounded strictly to the text */}
-      <div className="w-full max-w-[960px] mx-auto px-6 sm:px-8 flex items-center justify-center">
-        <div ref={textTargetRef} className="cursor-default inline-block">
+      <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 flex items-center justify-center">
+        <div ref={textTargetRef} className="cursor-default w-full">
           {renderTypography("text-neutral-900", "text-neutral-900")}
         </div>
       </div>
@@ -118,8 +118,8 @@ export function MissionSectionV2() {
         className="absolute inset-0 bg-[#AEF977] flex items-center justify-center pointer-events-none select-none will-change-[clip-path]"
         aria-hidden="true"
       >
-        <div className="w-full max-w-[960px] mx-auto px-6 sm:px-8 flex items-center justify-center">
-          <div className="inline-block">
+        <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 flex items-center justify-center">
+          <div className="w-full">
             {renderTypography("text-white", "text-white")}
           </div>
         </div>

@@ -52,32 +52,38 @@ export function BlogSectionV2() {
       <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
         
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-8 mb-12 md:mb-16">
-          <div className="flex flex-col gap-2.5 max-w-[760px]">
-            {/* Tagline (1 Line) */}
-            <span className="text-[11px] sm:text-xs font-bold text-neutral-800 uppercase tracking-widest">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 md:mb-14">
+          <div className="flex flex-col max-w-[820px]">
+            {/* Tagline / Section Name (Matching FAQ section) */}
+            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
               ENERGY INSIGHTS
             </span>
             
-            {/* Main Title (2 Lines) */}
-            <h2 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[50px] font-semibold text-neutral-900 tracking-tight leading-[1.12]">
-              Insights, ideas, and stories shaping the future of renewable energy
+            {/* Main Title (Matching FAQ section) */}
+            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
+              Insights, ideas, and stories shaping <br className="hidden sm:inline" />
+              the future of renewable energy
             </h2>
+
+            {/* Subtitle / Body Text (Matching FAQ section) */}
+            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[560px] font-normal">
+              Exploring the innovations, environmental impacts, and project developments driving the global energy transition.
+            </p>
           </div>
 
           {/* Top Right "VIEW ALL INSIGHTS" Linear Stretching Button */}
           <div className="shrink-0 pb-1">
             <Link
               href="/blog"
-              className="group relative inline-flex items-center h-[48px] px-6 select-none cursor-pointer"
+              className="group relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
             >
               {/* The Linear Stretching Circle-to-Pill Outline Animation */}
               <div 
-                className="absolute left-0 top-0 h-[48px] w-[48px] rounded-full border border-neutral-900 pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-neutral-900/5"
+                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-neutral-900 pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-neutral-900/5"
               />
               
               {/* Text with natural positioning */}
-              <span className="relative z-10 text-[12.5px] sm:text-[13px] font-bold tracking-[0.06em] text-neutral-900 uppercase pl-3.5 pr-2 whitespace-nowrap">
+              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-neutral-900 uppercase pl-3.5 pr-2 whitespace-nowrap">
                 VIEW ALL INSIGHTS
               </span>
             </Link>
@@ -103,28 +109,28 @@ export function BlogSectionV2() {
 
                   {/* Category Lime Badge */}
                   <div className="absolute top-3.5 left-3.5 z-10">
-                    <span className="inline-block bg-[#AEF977] text-black text-[10.5px] sm:text-[11px] font-bold tracking-wider uppercase px-3.5 py-1 rounded-full shadow-sm">
+                    <span className="inline-block bg-[#AEF977] text-black text-[10px] sm:text-[10.5px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
                       {blog.category}
                     </span>
                   </div>
                 </div>
 
                 {/* Card Meta (DECEMBER 10, 2025 · 5 MIN READ) */}
-                <div className="mt-5 mb-2.5">
-                  <p className="text-[11px] sm:text-[12px] font-bold text-neutral-800 uppercase tracking-[0.02em]">
+                <div className="mt-4 mb-2">
+                  <p className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-700 uppercase tracking-[0.04em]">
                     {blog.date} · {blog.readTime}
                   </p>
                 </div>
 
-                {/* Card Title (Uniform multi-line alignment) */}
-                <h3 className="text-[20px] sm:text-[22px] lg:text-[23px] font-semibold text-neutral-900 leading-[1.24] tracking-tight group-hover/blog:text-neutral-700 transition-colors min-h-[58px] sm:min-h-[64px] lg:min-h-[76px]">
+                {/* Card Title (Uniform multi-line alignment matching FAQ h3 font size) */}
+                <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-semibold text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-neutral-700 transition-colors min-h-[48px] sm:min-h-[54px] lg:min-h-[60px]">
                   {blog.title}
                 </h3>
               </div>
 
               {/* Read Insight Action with Linear Arrow Pass-Through Animation (Aligned at bottom) */}
               <div 
-                className="mt-6 inline-flex items-center gap-2.5 text-xs sm:text-[13px] font-bold text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
+                className="mt-5 inline-flex items-center gap-2 text-xs sm:text-[12.5px] font-semibold text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
               >
                 <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
                   <ArrowRight 
