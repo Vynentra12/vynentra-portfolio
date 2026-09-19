@@ -231,6 +231,8 @@ export function ImpactSectionV2() {
                         inset 0 0 15px rgba(0, 0, 0, 0.8)
                       `,
                       border: "1.5px solid rgba(133, 174, 194, 0.22)",
+                      WebkitMaskImage: "-webkit-radial-gradient(white, black)",
+                      transform: "translateZ(0)",
                     }}
                   >
                     {/* DYNAMIC INNER SURFACE: 360° Continuously Rotating 3D Dot Matrix & Beacons */}

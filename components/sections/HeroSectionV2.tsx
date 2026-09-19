@@ -20,7 +20,7 @@ export function HeroSectionV2() {
           preload="auto"
           className="w-full h-full object-cover scale-[1.01]"
         >
-          <source src="/hero-video-02.mp4" type="video/mp4" />
+          <source src="/hero-video-03.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         {/* Cinematic gradient overlay to ensure text readability */}

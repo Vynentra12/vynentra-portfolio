@@ -82,7 +82,7 @@ export function CaseStudySectionV2() {
                   <span
                     key={`mask-${idx}`}
                     className={`text-[46px] sm:text-[66px] md:text-[84px] lg:text-[98px] font-bold tracking-tight leading-none ${
-                      word === "—" ? "text-[#C85A32]/45" : "text-[#C85A32]"
+                      word === "—" ? "text-white/45" : "text-white"
                     }`}
                   >
                     {word}
@@ -92,18 +92,39 @@ export function CaseStudySectionV2() {
             </div>
           </div>
 
-          {/* Minimal, Sleek Floating Hover Overlay */}
-          <div className="absolute inset-0 bg-neutral-950/60 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col items-center justify-center p-3 text-center pointer-events-none">
-            <span className="text-[10px] sm:text-[11px] font-bold text-[#AEF977] uppercase tracking-widest mb-1 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300">
-              FEATURED CASE STUDY
-            </span>
-            <p className="text-[14px] sm:text-[16px] font-bold text-white tracking-tight leading-snug mb-2 transform translate-y-1 group-hover:translate-y-0 transition-transform duration-300 delay-50">
-              120 MW Utility Wind Farm • Rajasthan
-            </p>
-            <div className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-semibold text-white bg-white/15 px-3 py-1 rounded-full backdrop-blur-sm border border-white/20">
-              <span>View Case Details</span>
-              <ArrowRight className="w-3 h-3 text-[#AEF977]" />
+          {/* Minimal, Sleek Floating Hover Overlay (Left-Aligned Layout) */}
+          <div className="absolute inset-0 bg-neutral-950/70 backdrop-blur-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col items-start justify-center pl-12 sm:pl-16 md:pl-20 lg:pl-24 pr-8 pointer-events-none">
+            
+            {/* Inner Wrapper to keep everything tightly grouped and vertically centered */}
+            <div className="flex flex-col max-w-[85%]">
+              {/* Top Badge: Vertical Line + Text */}
+              <div className="flex items-center gap-2 sm:gap-2.5 mb-1.5 sm:mb-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="w-[2px] h-[10px] sm:h-[12px] bg-[#AEF977]" />
+                <span className="text-[9px] sm:text-[10px] md:text-[11px] font-semibold text-[#AEF977] uppercase tracking-[0.14em]">
+                  FEATURED CASE STUDY
+                </span>
+              </div>
+
+              {/* Main Title */}
+              <h3 className="text-[16px] sm:text-[18px] md:text-[22px] lg:text-[24px] font-medium text-white tracking-tight leading-[1.1] mb-0.5 sm:mb-1 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-[50ms]">
+                120 MW Utility Wind Farm
+              </h3>
+
+              {/* Subtitle / Location */}
+              <p className="text-[14px] sm:text-[16px] md:text-[18px] lg:text-[20px] font-light text-[#85AEC2]/80 tracking-tight leading-snug mb-3 sm:mb-5 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-[75ms]">
+                Rajasthan
+              </p>
+
+              {/* Stretching Circle-to-Pill CTA (Circle on the Left, stretches Right) */}
+              <div className="group/btn relative inline-flex items-center h-[38px] sm:h-[42px] px-5 sm:px-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-[100ms] pointer-events-auto w-fit cursor-pointer">
+                <div className="absolute left-0 top-0 h-full w-[38px] sm:w-[42px] rounded-full border border-white/30 transition-[width,background-color,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-full group-hover/btn:bg-white/10 group-hover/btn:border-white/80" />
+                <span className="relative z-10 text-[11.5px] sm:text-[13px] font-normal text-white pl-1 sm:pl-2 pr-3">
+                  View Case Details
+                </span>
+                <ArrowRight className="relative z-10 w-3.5 h-3.5 text-white group-hover/btn:translate-x-1 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+              </div>
             </div>
+
           </div>
 
         </Link>

@@ -46,12 +46,12 @@ const PANELS: ProcessPanel[] = [
 ];
 
 export function ProcessSectionV2() {
-  const [activeId, setActiveId] = useState<number>(3);
+  const [activeId, setActiveId] = useState<number>(1);
 
   return (
     <section 
       id="process" 
-      className="relative w-full h-[500px] sm:h-[540px] md:h-[580px] lg:h-[620px] overflow-hidden bg-black select-text"
+      className="relative w-full h-[650px] sm:h-[650px] md:h-[580px] lg:h-[620px] overflow-hidden bg-black select-text"
     >
       <div className="w-full h-full flex flex-col md:flex-row">
         {PANELS.map((panel) => {
@@ -65,15 +65,15 @@ export function ProcessSectionV2() {
               style={{ backgroundColor: panel.bgColor }}
               className={`relative h-full transition-[flex] duration-950 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden cursor-pointer will-change-[flex] ${
                 isActive 
-                  ? "md:flex-[3.8] flex-[3.2] z-10" 
-                  : "md:flex-[1] flex-[0.85] hover:brightness-105"
+                  ? "md:flex-[3.8] flex-[4] z-10" 
+                  : "md:flex-[1] flex-[1] hover:brightness-105"
               }`}
             >
               {/* FIXED INNER CANVAS: 
                   Maintains absolute dimensions so the image and text NEVER reflow, stretch, zoom, or jump. 
                   The outer panel acts strictly as a sliding curtain/window reveal. 
               */}
-              <div className="absolute left-0 top-0 h-full w-[650px] sm:w-[750px] md:w-[850px] lg:w-[950px] pointer-events-none">
+              <div className="absolute left-0 top-0 h-full w-full md:w-[850px] lg:w-[950px] pointer-events-none">
                 
                 {/* Background Image (Locked in static coordinate space) */}
                 {panel.bgImage && (
@@ -133,11 +133,15 @@ export function ProcessSectionV2() {
               <div 
                 className={`absolute z-20 select-none pointer-events-none leading-none transition-all duration-950 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                   isActive 
-                    ? "bottom-2 right-4 sm:bottom-4 sm:right-6 md:bottom-5 md:right-8 translate-x-0" 
-                    : "bottom-3 sm:bottom-5 md:bottom-6 left-1/2 -translate-x-1/2"
+                    ? "bottom-2 right-4 sm:bottom-4 sm:right-6 md:bottom-5 md:right-8 translate-x-0 translate-y-0" 
+                    : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-auto md:bottom-6 md:translate-y-0"
                 }`}
               >
-                <span className="text-[85px] sm:text-[110px] md:text-[140px] lg:text-[170px] xl:text-[190px] font-bold text-white leading-[0.78] tracking-tight block">
+                <span className={`font-bold text-white leading-[0.78] tracking-tight block transition-all duration-950 ${
+                  isActive
+                    ? "text-[85px] sm:text-[110px] md:text-[140px] lg:text-[170px] xl:text-[190px]"
+                    : "text-[65px] sm:text-[110px] md:text-[140px] lg:text-[170px] xl:text-[190px]"
+                }`}>
                   {panel.num}
                 </span>
               </div>

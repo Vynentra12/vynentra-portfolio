@@ -144,20 +144,20 @@ export function Navbar() {
             {/* GET IN TOUCH CTA Button with Linear Stretching Circle-to-Pill Animation */}
             <Link 
               href="/contact"
-              className={`group relative hidden sm:inline-flex items-center h-10 px-6 select-none cursor-pointer shrink-0 transition-colors ${
+              className={`group relative hidden sm:inline-flex items-center h-[44px] px-6 select-none cursor-pointer shrink-0 transition-colors ${
                 isScrolled ? "text-[#111111] hover:text-white" : "text-white"
               }`}
             >
               {/* The Stretching Circle Outline */}
               <div 
-                className={`absolute right-0 sm:left-0 top-0 h-10 w-10 rounded-full border pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full ${
+                className={`absolute left-0 top-0 h-[44px] w-[44px] rounded-full border pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full ${
                   isScrolled
                     ? "border-black/50 group-hover:bg-[#0B2735] group-hover:border-[#0B2735]"
                     : "border-white/50 group-hover:bg-white/20 group-hover:border-white"
                 }`}
               />
               
-              <span className="relative z-10 text-[11.5px] font-semibold tracking-[0.06em] uppercase sm:pl-3.5 pr-2 whitespace-nowrap">
+              <span className="relative z-10 text-[12.5px] font-semibold tracking-[0.06em] uppercase pl-4 pr-2 whitespace-nowrap">
                 GET IN TOUCH
               </span>
             </Link>
