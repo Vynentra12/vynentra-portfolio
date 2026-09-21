@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface BlogPost {
   slug: string;
@@ -53,7 +54,13 @@ export function BlogSectionV2() {
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 md:mb-14">
-          <div className="flex flex-col max-w-[820px]">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="flex flex-col max-w-[820px]"
+          >
             {/* Tagline / Section Name (Matching FAQ section) */}
             <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
               ENERGY INSIGHTS
@@ -69,35 +76,48 @@ export function BlogSectionV2() {
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[560px] font-normal">
               Exploring the innovations, environmental impacts, and project developments driving the global energy transition.
             </p>
-          </div>
+          </motion.div>
 
           {/* Top Right "VIEW ALL INSIGHTS" Linear Stretching Button */}
-          <div className="shrink-0 pb-1">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="shrink-0 pb-1"
+          >
             <Link
               href="/blog"
               className="group relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
             >
               {/* The Linear Stretching Circle-to-Pill Outline Animation */}
               <div 
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-neutral-900 pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-neutral-900/5"
+                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-[#0B2735] pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-[#0B2735]/5"
               />
               
               {/* Text with natural positioning */}
-              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-neutral-900 uppercase pl-3.5 pr-2 whitespace-nowrap">
+              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-[#0B2735] uppercase pl-3.5 pr-2 whitespace-nowrap">
                 VIEW ALL INSIGHTS
               </span>
             </Link>
-          </div>
+          </motion.div>
         </div>
 
         {/* 4-Column Blog Cards Grid with Uniform Equal Card Heights */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7 items-stretch">
           {blogs.map((blog, idx) => (
-            <Link 
+            <motion.div
               key={idx}
-              href={`/blog/${blog.slug}`}
-              className="flex flex-col justify-between h-full group/blog cursor-pointer"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: 0.2 + idx * 0.15, ease: "easeOut" }}
+              className="h-full"
             >
+              <Link 
+                href={`/blog/${blog.slug}`}
+                className="flex flex-col justify-between h-full group/blog cursor-pointer"
+              >
               <div className="flex flex-col">
                 {/* Image Container */}
                 <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-300 select-none">
@@ -145,6 +165,7 @@ export function BlogSectionV2() {
                 <span className="group-hover/readmore:opacity-80 transition-opacity">READ INSIGHT</span>
               </div>
             </Link>
+            </motion.div>
           ))}
         </div>
 

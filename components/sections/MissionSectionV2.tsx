@@ -3,9 +3,10 @@
 import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { motion } from 'framer-motion';
 
 export function MissionSectionV2() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const textTargetRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
 
@@ -99,9 +100,13 @@ export function MissionSectionV2() {
   );
 
   return (
-    <section
+    <motion.section
       id="about"
       ref={sectionRef}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.3 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[600px] lg:min-h-[640px] py-24 sm:py-32 md:py-40 lg:py-48 bg-white flex items-center justify-center overflow-hidden"
     >
       {/* LAYER 1 (Base): Crisp white background with dark text and cursor listener bounded strictly to the text */}
@@ -124,6 +129,6 @@ export function MissionSectionV2() {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 }

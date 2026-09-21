@@ -122,10 +122,10 @@ export function Navbar() {
                     className={`relative h-[38px] px-4 sm:px-5 flex items-center justify-center text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
                       isSelected 
                         ? (isScrolled 
-                            ? "text-white bg-[#0B2735] shadow-sm border-transparent" 
+                            ? "text-[#111111] bg-neutral-200 shadow-sm border-transparent" 
                             : "text-white bg-white/20 border-white shadow-sm")
                         : (isScrolled 
-                            ? "text-[#111111] hover:text-white hover:bg-[#0B2735] hover:border-[#0B2735]" 
+                            ? "text-[#111111] hover:bg-neutral-100 hover:text-[#111111]" 
                             : "text-white hover:bg-white/20 hover:border-white/50")
                     }`}
                   >
@@ -145,14 +145,14 @@ export function Navbar() {
             <Link 
               href="/contact"
               className={`group relative hidden sm:inline-flex items-center h-[44px] px-6 select-none cursor-pointer shrink-0 transition-colors ${
-                isScrolled ? "text-[#111111] hover:text-white" : "text-white"
+                isScrolled ? "text-[#0B2735]" : "text-white"
               }`}
             >
               {/* The Stretching Circle Outline */}
               <div 
                 className={`absolute left-0 top-0 h-[44px] w-[44px] rounded-full border pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full ${
                   isScrolled
-                    ? "border-black/50 group-hover:bg-[#0B2735] group-hover:border-[#0B2735]"
+                    ? "border-[#0B2735] group-hover:bg-[#0B2735]/5 group-hover:border-[#0B2735]"
                     : "border-white/50 group-hover:bg-white/20 group-hover:border-white"
                 }`}
               />

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface FAQItem {
   question: string;
@@ -92,7 +93,13 @@ export function FAQSectionV2() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
           
           {/* Left Column: Wind Turbine Image with Silky Smooth Liquid Ripple on Hover */}
-          <div className="lg:col-span-5 w-full">
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-5 w-full"
+          >
             <div 
               onMouseEnter={() => setIsImageHovered(true)}
               onMouseLeave={() => setIsImageHovered(false)}
@@ -110,10 +117,16 @@ export function FAQSectionV2() {
                 }`}
               />
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Title, Kicker & Accordion */}
-          <div className="lg:col-span-7 flex flex-col justify-start">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="lg:col-span-7 flex flex-col justify-start"
+          >
             
             {/* Tagline */}
             <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
@@ -131,7 +144,11 @@ export function FAQSectionV2() {
                 const isOpen = openIndex === index;
 
                 return (
-                  <div 
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, amount: 0.1 }}
+                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
                     key={index}
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     className="border-b border-neutral-200/90 py-4 sm:py-5 cursor-pointer group select-none transition-colors"
@@ -172,12 +189,12 @@ export function FAQSectionV2() {
                         </p>
                       </div>
                     </div>
-                  </div>
+                  </motion.div>
                 );
               })}
             </div>
 
-          </div>
+          </motion.div>
 
         </div>
 

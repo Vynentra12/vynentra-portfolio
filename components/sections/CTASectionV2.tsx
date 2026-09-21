@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -34,152 +34,186 @@ export function CTASectionV2() {
 
   useGSAP(
     () => {
-      const vw = window.innerWidth;
-      const vh = window.innerHeight;
+      const mm = gsap.matchMedia();
 
-      // ─── Responsive sizing ───────────────────────────────────────────────
-      const isMobile = vw < 640;
-      const isTablet = vw >= 640 && vw < 1024;
+      mm.add(
+        {
+          isMobile: "(max-width: 639px)",
+          isTablet: "(min-width: 640px) and (max-width: 1023px)",
+          isDesktop: "(min-width: 1024px)",
+        },
+        (context) => {
+          const { isMobile, isTablet } = context.conditions as {
+            isMobile: boolean;
+            isTablet: boolean;
+            isDesktop: boolean;
+          };
 
-      // Enlarged image card dimensions
-      const imgW = isMobile ? 86 : isTablet ? 124 : 160;
-      const imgH = isMobile ? 66 : isTablet ? 94 : 120;
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
 
-      // Circle radius: keeps images comfortably inside viewport with balanced spacing
-      const minDimension = Math.min(vw, vh);
-      const maxR = minDimension * 0.38;
-      const radius = Math.min(maxR, isMobile ? 165 : isTablet ? 235 : 300);
+          // Fixed navbar height is 80px
+          const navH = 80;
 
-      // ─── Utility: circle position for index i (out of 12) ───────────────
-      const circlePos = (i: number) => {
-        const deg = (i / 12) * 360 - 90; // -90 so index 0 is at top (12 o'clock)
-        const rad = (deg * Math.PI) / 180;
-        return {
-          x: Math.cos(rad) * radius,
-          y: Math.sin(rad) * radius,
-          rotation: deg + 90, // each card faces outward
-        };
-      };
+          // Gentle adaptive scale factor for short laptop viewports to preserve large cards
+          const fitScale = isMobile
+            ? 1
+            : isTablet
+            ? Math.min(1, Math.max(0.85, (vh - 80) / 720))
+            : Math.min(1, Math.max(0.85, (vh - 80) / 760));
 
-      // ─── Starting positions (Framed to footer left & right bounds) ────────
-      // Matches footer content constraints: max-w-[1380px] with responsive padding
-      const maxContentW = 1380;
-      const paddingX = isMobile ? 24 : isTablet ? 48 : 64;
-      const contentWidth = Math.min(vw - paddingX * 2, maxContentW - paddingX * 2);
+          // ─── Responsive card dimensions (Increased image size, tighter perimeter ring) ───
+          const imgW = Math.round((isMobile ? 88 : isTablet ? 128 : 164) * fitScale);
+          const imgH = Math.round((isMobile ? 60 : isTablet ? 88 : 112) * fitScale);
 
-      // Top 7 images spread smoothly to fit the left and right margin boundaries
-      const topStep = (contentWidth - imgW) / 6;
-      const topBaseY = -vh * 0.28; // Upper screen
+          // Card corner diagonal half-extent for rotation safety
+          const halfDiag = Math.sqrt((imgW / 2) ** 2 + (imgH / 2) ** 2);
 
-      // Bottom 5 images starting below viewport
-      const botStep = (contentWidth * 0.65 - imgW) / 4;
-      const botBaseY = vh * 0.70;
+          // Available vertical half-extent in the visible area below the 80px navbar
+          const usableHalfH = (vh - navH) / 2;
+          const safeMarginY = isMobile ? 10 : 14;
+          const safeMarginX = isMobile ? 10 : 18;
 
-      imagesRef.current.forEach((el, i) => {
-        if (!el) return;
+          const maxRadiusY = Math.max(120, usableHalfH - halfDiag - safeMarginY);
+          const maxRadiusX = Math.max(120, (vw / 2) - halfDiag - safeMarginX);
 
-        let sx: number, sy: number;
+          // Circle radius: calibrated to tighten gaps between cards while leaving clean space for center text
+          const targetRadius = isMobile ? 136 : isTablet ? 220 : 262;
+          const radius = Math.min(maxRadiusX, maxRadiusY, targetRadius);
 
-        if (i <= 6) {
-          sx = (i - 3) * topStep;
-          sy = topBaseY;
-        } else {
-          sx = (i - 9) * botStep;
-          sy = botBaseY;
+          // ─── Utility: circle position for index i (out of 12) ───────────────
+          const circlePos = (i: number) => {
+            const deg = (i / 12) * 360 - 90; // -90 so index 0 is at top (12 o'clock)
+            const rad = (deg * Math.PI) / 180;
+            return {
+              x: Math.cos(rad) * radius,
+              y: Math.sin(rad) * radius,
+              rotation: deg + 90, // each card faces outward
+            };
+          };
+
+          // ─── Starting positions (Framed to content bounds) ───────────────────
+          const maxContentW = 1380;
+          const paddingX = isMobile ? 16 : isTablet ? 48 : 64;
+          const contentWidth = Math.min(vw - paddingX * 2, maxContentW - paddingX * 2);
+
+          const topStep = (contentWidth - imgW) / 6;
+          const topBaseY = isMobile ? -vh * 0.35 : -vh * 0.28;
+
+          const botStep = (contentWidth * (isMobile ? 0.85 : 0.65) - imgW) / 4;
+          const botBaseY = isMobile ? vh * 0.75 : vh * 0.70;
+
+          imagesRef.current.forEach((el, i) => {
+            if (!el) return;
+
+            let sx: number, sy: number;
+
+            if (i <= 6) {
+              sx = (i - 3) * topStep;
+              sy = topBaseY;
+            } else {
+              sx = (i - 9) * botStep;
+              sy = botBaseY;
+            }
+
+            gsap.set(el, {
+              x: sx,
+              y: sy,
+              rotation: 0,
+              xPercent: -50,
+              yPercent: -50,
+              width: imgW,
+              height: imgH,
+              willChange: "transform",
+            });
+          });
+
+          // CTA content starts hidden below with centered anchor
+          gsap.set(ctaRef.current, {
+            xPercent: -50,
+            yPercent: -50,
+            y: 35,
+            opacity: 0,
+            scale: 0.95,
+          });
+
+          gsap.set(orbitRef.current, { rotation: 0 });
+
+          // ─── Master timeline ─────────────────────────────────────────────────
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top top",
+              end: isMobile ? "+=140%" : "+=180%",
+              scrub: 0.6,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          // ── Background transition: Light White (#FFFFFF) → Deep Brand Navy (#0B2735) ──
+          tl.fromTo(
+            sectionRef.current,
+            { backgroundColor: "#FFFFFF" },
+            { backgroundColor: "#0B2735", ease: "power1.inOut", duration: 3.5 },
+            0
+          );
+
+          if (gradientOverlayRef.current) {
+            tl.fromTo(
+              gradientOverlayRef.current,
+              { opacity: 0 },
+              { opacity: 1, ease: "power1.inOut", duration: 3.5 },
+              0
+            );
+          }
+
+          // ── PHASE 1: Images smoothly travel to their circle coordinates ───────
+          imagesRef.current.forEach((el, i) => {
+            if (!el) return;
+            const { x, y, rotation } = circlePos(i);
+            const startAt = i <= 6 ? 0 : 0.2;
+
+            tl.to(
+              el,
+              {
+                x,
+                y,
+                rotation,
+                ease: "power2.inOut",
+                duration: 2.8,
+              },
+              startAt
+            );
+          });
+
+          // ── PHASE 2: Orbit ring rotates 120 degrees ──────────────────────────
+          tl.to(
+            orbitRef.current,
+            {
+              rotation: 120,
+              ease: "power1.inOut",
+              duration: 2.2,
+            },
+            2.8
+          );
+
+          // ── PHASE 3: CTA rises into the center ────────────────────────────────
+          tl.to(
+            ctaRef.current,
+            {
+              xPercent: -50,
+              yPercent: -50,
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              ease: "power2.out",
+              duration: 2.0,
+            },
+            2.9
+          );
         }
-
-        gsap.set(el, {
-          x: sx,
-          y: sy,
-          rotation: 0,
-          xPercent: -50,
-          yPercent: -50,
-          width: imgW,
-          height: imgH,
-          willChange: "transform",
-        });
-      });
-
-      // CTA content starts hidden below
-      gsap.set(ctaRef.current, {
-        y: 60,
-        opacity: 0,
-        scale: 0.92,
-      });
-
-      gsap.set(orbitRef.current, { rotation: 0 });
-
-      // ─── Master timeline ─────────────────────────────────────────────────
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: "top top",
-          end: "+=180%", // Crisp scroll distance
-          scrub: 0.6,
-          pin: true,
-          anticipatePin: 1,
-        },
-      });
-
-      // ── Background transition: Light White (#FFFFFF) → Deep Brand Navy (#0B2735) ──
-      // Starts clean white matching the FAQ section above, smoothly transitioning into dark blue gradient
-      tl.fromTo(
-        sectionRef.current,
-        { backgroundColor: "#FFFFFF" },
-        { backgroundColor: "#0B2735", ease: "power1.inOut", duration: 3.5 },
-        0
-      );
-
-      if (gradientOverlayRef.current) {
-        tl.fromTo(
-          gradientOverlayRef.current,
-          { opacity: 0 },
-          { opacity: 1, ease: "power1.inOut", duration: 3.5 },
-          0
-        );
-      }
-
-      // ── PHASE 1: Images smoothly travel to their circle coordinates ───────
-      imagesRef.current.forEach((el, i) => {
-        if (!el) return;
-        const { x, y, rotation } = circlePos(i);
-        const startAt = i <= 6 ? 0 : 0.2;
-
-        tl.to(
-          el,
-          {
-            x,
-            y,
-            rotation,
-            ease: "power2.inOut",
-            duration: 2.8,
-          },
-          startAt
-        );
-      });
-
-      // ── PHASE 2: Orbit ring rotates 120 degrees ──────────────────────────
-      tl.to(
-        orbitRef.current,
-        {
-          rotation: 120,
-          ease: "power1.inOut",
-          duration: 2.2,
-        },
-        2.8
-      );
-
-      // ── PHASE 3: CTA rises into the center ────────────────────────────────
-      tl.to(
-        ctaRef.current,
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          ease: "power2.out",
-          duration: 2.0,
-        },
-        2.9
       );
     },
     { scope: sectionRef }
@@ -188,7 +222,7 @@ export function CTASectionV2() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-screen overflow-hidden flex items-center justify-center select-none"
+      className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center"
       style={{ backgroundColor: "#FFFFFF" }}
     >
       {/* ── Rich Dark Blue Radial Gradient Overlay (fades in smoothly as you scroll) ── */}
@@ -200,12 +234,12 @@ export function CTASectionV2() {
         }}
       />
 
-      {/* ── Orbit ring (rotates as a group in Phase 2) ──────────────── */}
+      {/* ── Orbit ring (centered at true midpoint below 80px fixed navbar, non-interactive) ── */}
       <div
         ref={orbitRef}
-        className="absolute z-10"
+        className="absolute z-10 select-none pointer-events-none"
         style={{
-          top: "50%",
+          top: "calc(50% + 40px)",
           left: "50%",
           width: 0,
           height: 0,
@@ -217,7 +251,7 @@ export function CTASectionV2() {
             ref={(el) => {
               imagesRef.current[idx] = el;
             }}
-            className="absolute rounded-[16px] sm:rounded-[20px] overflow-hidden shadow-2xl"
+            className="absolute rounded-[14px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl pointer-events-none select-none"
             style={{
               top: 0,
               left: 0,
@@ -227,38 +261,49 @@ export function CTASectionV2() {
             <img
               src={src}
               alt={`Wind energy project ${idx + 1}`}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover select-none pointer-events-none"
               draggable={false}
             />
           </div>
         ))}
       </div>
 
-      {/* ── CTA content (z-above circle, centered and scaled to fit circle with breathing room) ─────────── */}
+      {/* ── CTA content (z-30 above orbit, centered with GSAP xPercent/yPercent) ── */}
       <div
         ref={ctaRef}
-        className="absolute z-20 flex flex-col items-center justify-center text-center px-4"
+        className="absolute z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-auto select-text cursor-text"
         style={{
-          top: "50%",
+          top: "calc(50% + 40px)",
           left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: "min(84vw, 410px)",
-          pointerEvents: "auto",
+          width: "max-content",
+          userSelect: "text",
+          WebkitUserSelect: "text",
         }}
       >
-        <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.16em] text-[#AEF977] mb-3">
+        <h2
+          className="text-[17px] min-[380px]:text-[18.5px] sm:text-[22px] md:text-[24px] lg:text-[25px] font-bold text-white tracking-tight leading-tight mb-5 sm:mb-6 whitespace-nowrap text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)] select-text cursor-text"
+          style={{
+            userSelect: "text",
+            WebkitUserSelect: "text",
+          }}
+        >
           Clean Energy Starts Here
-        </p>
-        <h2 className="text-[21px] sm:text-[25px] md:text-[29px] lg:text-[32px] font-bold text-white tracking-tight leading-[1.22] mb-6 max-w-[390px]">
-          Start Your Renewable Energy Project And Build The Future
         </h2>
 
-        <button className="group relative h-[48px] sm:h-[50px] flex items-center overflow-hidden rounded-full bg-[#AEF977] text-[#0B2735] px-6 font-semibold text-[13.5px] sm:text-[14px] transition-all duration-300 hover:pr-4 hover:shadow-lg hover:shadow-[#AEF977]/20 active:scale-95">
-          <span className="mr-3">Get Started</span>
-          <div className="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full bg-[#0B2735] transition-transform duration-300 group-hover:rotate-45">
-            <ArrowUpRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#AEF977]" />
-          </div>
-        </button>
+        {/* Header-matching CTA button with linear stretching circle-to-pill animation */}
+        <Link
+          href="/contact"
+          className="group relative inline-flex items-center h-[46px] sm:h-[48px] md:h-[50px] px-6 sm:px-7 select-none cursor-pointer text-white transition-colors"
+        >
+          {/* The Stretching Circle Outline */}
+          <div 
+            className="absolute left-0 top-0 h-full w-[46px] sm:w-[48px] md:w-[50px] rounded-full border border-white/60 pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full group-hover:bg-white/20 group-hover:border-white"
+          />
+          
+          <span className="relative z-10 text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase pl-3.5 sm:pl-4 pr-2 sm:pr-2.5 whitespace-nowrap select-none">
+            GET STARTED
+          </span>
+        </Link>
       </div>
     </section>
   );
