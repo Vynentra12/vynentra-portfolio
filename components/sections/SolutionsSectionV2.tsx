@@ -1,262 +1,226 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { Compass, Layers, Zap, ShieldCheck } from "lucide-react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
-interface ProcessStep {
-  step: string;
+interface SolutionItem {
+  number: string;
   title: string;
   description: string;
-  icon: React.ComponentType<{ className?: string }>;
+  image: string;
+  alt: string;
 }
 
-const PROCESS_STEPS: ProcessStep[] = [
+const SOLUTIONS: SolutionItem[] = [
   {
-    step: "01 - Site Assessment",
-    title: "Know the wind before you build.",
+    number: "01",
+    title: "Solar installation",
     description:
-      "We assess site coordinates, altitude and local wind conditions to determine the feasibility and configuration of a wind energy system.",
-    icon: Compass,
+      "We offer complete solar installation services that ensure maximum energy efficiency and lasting performance for homes and businesses.",
+    image: "/solutions/solar-installation.jpg",
+    alt: "Professional solar technician installing solar panel array",
   },
   {
-    step: "02 - System Design",
-    title: "Designed for the site.",
+    number: "02",
+    title: "Battery storage",
     description:
-      "Every system is configured around its energy requirement and wind conditions - from individual turbines to modular arrays and larger captive installations.",
-    icon: Layers,
+      "We provide advanced battery storage solutions that boost energy resilience, reduce grid reliance, and keep homes and businesses powered continuously.",
+    image: "/solutions/battery-storage.jpg",
+    alt: "High-tech modular home battery energy storage system",
   },
   {
-    step: "03 - Installation & Execution",
-    title: "From specification to generation.",
+    number: "03",
+    title: "EV charging setup",
     description:
-      "Complete project execution, including turbine installation, wiring, distribution systems and commissioning.",
-    icon: Zap,
-  },
-  {
-    step: "04 - Operations & Maintenance",
-    title: "Performance that lasts.",
-    description:
-      "Annual Maintenance Contracts designed to monitor systems, maintain performance and support long-term operation.",
-    icon: ShieldCheck,
+      "We provide EV charging solutions for homes and businesses, ensuring reliable performance, efficient energy use, and long-term durability.",
+    image: "/solutions/ev-charging.jpg",
+    alt: "Modern electric vehicle charging at solar-powered charging station",
   },
 ];
 
 export function SolutionsSectionV2() {
   const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useGSAP(
     () => {
-      const mm = gsap.matchMedia();
+      const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+      const container = containerRef.current;
+      if (cards.length < 3 || !container) return;
 
-      // ── Desktop Pinned Scroll Animation (min-width: 1024px) ──
-      // When user reaches section, it locks in place:
-      // User sees Title & Subtitle first.
-      // As user scrolls down: Box 1 animates from bottom to top,
-      // then Box 2, then Box 3, then Box 4.
-      // Once all 4 boxes are shown, section unlocks smoothly to next section.
-      mm.add("(min-width: 1024px)", () => {
-        // All 4 boxes start hidden below
-        gsap.set(cardsRef.current, {
-          opacity: 0,
-          y: 40,
-          scale: 0.96,
-        });
+      // ── Initial positions ─────────────────────────────────────────────
+      // Card 01: already visible and centered
+      // Card 02, 03: fully below the screen (120vh)
+      gsap.set(cards[0], { y: 0, scale: 1, opacity: 1 });
+      gsap.set(cards[1], { y: "120vh", scale: 1, opacity: 1 });
+      gsap.set(cards[2], { y: "120vh", scale: 1, opacity: 1 });
 
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "+=1800",
-            pin: true,
-            scrub: 0.8,
-            anticipatePin: 1,
-          },
-        });
-
-        // Step 1: User scrolls -> Box 1 animates from down to top
-        tl.to(cardsRef.current[0], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-        }, 0.1);
-
-        // Step 2: User scrolls more -> Box 2 animates from down to top
-        tl.to(cardsRef.current[1], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-        }, 0.35);
-
-        // Step 3: User scrolls more -> Box 3 animates from down to top
-        tl.to(cardsRef.current[2], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-        }, 0.6);
-
-        // Step 4: User scrolls more -> Box 4 animates from down to top
-        tl.to(cardsRef.current[3], {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 1,
-          ease: "power2.out",
-        }, 0.85);
-
-        // Hold pause so all 4 boxes are admired before transitioning to next section
-        tl.to({}, { duration: 0.35 });
+      // ── Master pinned scroll timeline ─────────────────────────────────
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=250%",   // 100% per card transition (x2) + 50% pause at the end
+          pin: true,
+          scrub: 1.2,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
       });
 
-      // ── Mobile / Tablet Scroll Reveal (max-width: 1023px) ──
-      mm.add("(max-width: 1023px)", () => {
-        cardsRef.current.forEach((card) => {
-          if (!card) return;
-          gsap.fromTo(
-            card,
-            { opacity: 0, y: 25 },
-            {
-              opacity: 1,
-              y: 0,
-              duration: 0.6,
-              scrollTrigger: {
-                trigger: card,
-                start: "top 85%",
-                toggleActions: "play none none reverse",
-              },
-            }
-          );
-        });
-      });
+      // ── Transition 1 (timeline 0 → 1): Card 02 enters, Card 01 recedes ──
+      //
+      // Card 01: scale down + move up (goes "behind" into the stack)
+      tl.to(
+        cards[0],
+        { y: -55, scale: 0.9, opacity: 0.65, ease: "none", duration: 1 },
+        0
+      );
+      // Card 02: sweeps up from below screen → takes center stage
+      tl.fromTo(
+        cards[1],
+        { y: "120vh" },
+        { y: 0, ease: "none", duration: 1 },
+        0
+      );
+
+      // ── Transition 2 (timeline 1 → 2): Card 03 enters, stack shifts back ──
+      //
+      // Card 01: recedes further (barely visible, deep in stack)
+      tl.to(
+        cards[0],
+        { y: -100, scale: 0.82, opacity: 0.3, ease: "none", duration: 1 },
+        1
+      );
+      // Card 02: scales down + moves up (goes "behind" Card 03)
+      tl.to(
+        cards[1],
+        { y: -55, scale: 0.9, opacity: 0.65, ease: "none", duration: 1 },
+        1
+      );
+      // Card 03: sweeps up from below screen → takes center stage
+      tl.fromTo(
+        cards[2],
+        { y: "120vh" },
+        { y: 0, ease: "none", duration: 1 },
+        1
+      );
+
+      // ── Pause at the end (timeline 2 → 2.5) ──
+      // This gives the user more "bottom space" to scroll while the 3rd image rests
+      tl.set({}, {}, 2.5);
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [] }
   );
+
+  // Let Lenis finish its first tick before refreshing ScrollTrigger positions
+  useEffect(() => {
+    const t = setTimeout(() => ScrollTrigger.refresh(), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <section
-      id="process-overview"
+      id="solutions"
       ref={sectionRef}
-      className="w-full bg-white text-neutral-900 min-h-screen flex flex-col justify-center py-14 sm:py-16 md:py-20 font-sans select-text relative overflow-hidden"
+      className="w-full bg-[#EBE7E0] font-sans relative select-text flex flex-col overflow-hidden"
+      style={{
+        userSelect: "text",
+        WebkitUserSelect: "text",
+        minHeight: "100dvh",
+        paddingTop: "clamp(28px, 4vw, 52px)",
+        paddingBottom: "clamp(28px, 4vw, 52px)",
+      }}
     >
-      <div ref={containerRef} className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 relative z-10">
-        
-        {/* Top Header Row: Left Title/Subtitle & Right CTA Button */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 lg:mb-12">
-          
-          {/* Top Left: Badge Name, Title & Subtitle */}
-          <div className="flex flex-col max-w-[760px]">
-            {/* Badge Name (Matching FAQ section kicker) */}
-            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5 select-text">
-              PROCESS
-            </span>
+      {/* ── Symmetrical spacing matching WhyChooseUsSectionV2 ── */}
+      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14 flex flex-col flex-1">
 
-            {/* Main Headline (Matching FAQ section headline size) */}
-            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
-              Harnessing the power of nature to build a sustainable tomorrow
-            </h2>
-
-            {/* Subtitle (Matching FAQ section body text size) */}
-            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[560px] font-normal">
-              From initial site assessment to ongoing maintenance, our structured methodology ensures maximum aerodynamic yield and reliable performance.
-            </p>
-          </div>
-
-          {/* Top Right: CTA Button */}
-          <div className="shrink-0 pb-1">
-            <Link
-              href="#contact"
-              className="group/btn relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer w-fit"
-            >
-              {/* Expanding circle outline that stretches into full pill on hover */}
-              <div 
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-neutral-900 pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover/btn:w-full group-hover/btn:bg-neutral-900/5"
-              />
-              
-              {/* Button text */}
-              <span className="relative z-10 text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] text-neutral-900 uppercase pl-3 pr-1 whitespace-nowrap">
-                READ MORE
-              </span>
-            </Link>
-          </div>
-
+        {/* "Our service" header */}
+        <div className="w-full text-center pb-8 sm:pb-12 shrink-0">
+          <span className="text-[13px] sm:text-[14px] font-medium text-neutral-700 tracking-wide">
+            Our service
+          </span>
         </div>
 
-        {/* Four Compact Horizontal Process Boxes */}
-        <div 
-          onMouseLeave={() => setHoveredCard(null)}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-5.5 items-stretch"
+        {/* ── Card canvas ── */}
+        <div
+          ref={containerRef}
+          className="relative w-full flex-1 min-h-[550px] sm:min-h-[650px] md:min-h-[75vh] rounded-[16px] sm:rounded-[20px] md:rounded-[24px]"
         >
-          {PROCESS_STEPS.map((step, idx) => {
-            const Icon = step.icon;
-            const isActive = hoveredCard === idx;
+          {SOLUTIONS.map((solution, idx) => (
+            <div
+              key={solution.number}
+              ref={(el) => {
+                cardRefs.current[idx] = el;
+              }}
+              className="absolute inset-0 w-full h-full will-change-transform rounded-[16px] sm:rounded-[20px] md:rounded-[24px] overflow-hidden flex flex-col justify-center"
+              style={{
+                zIndex: idx + 1,
+                // CSS initial transform prevents flash before GSAP initialises
+                transform: idx === 0 ? "none" : "translateY(120vh)",
+              }}
+            >
+              {/* Background image */}
+              <img
+                src={solution.image}
+                alt={solution.alt}
+                className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+                draggable={false}
+              />
 
-            return (
-              <div
-                key={idx}
-                ref={(el) => {
-                  cardsRef.current[idx] = el;
-                }}
-                onMouseEnter={() => setHoveredCard(idx)}
-                className={`group rounded-[20px] sm:rounded-[22px] p-5 sm:p-5.5 flex flex-col justify-between transition-all duration-300 ease-out shadow-xs hover:shadow-md hover:-translate-y-1 min-h-[210px] sm:min-h-[220px] cursor-pointer ${
-                  isActive
-                    ? "bg-[#AEF977] border border-[#9DEB62]"
-                    : "bg-white border border-neutral-200/90 hover:border-neutral-300"
-                }`}
-              >
-                <div className="flex flex-col">
-                  {/* Top Row: Squircle Icon Badge + Step Number */}
-                  <div className="flex items-center justify-between gap-3 mb-3.5">
-                    <div
-                      className={`w-10 h-10 sm:w-11 sm:h-11 rounded-[14px] flex items-center justify-center transition-all duration-300 shrink-0 ${
-                        isActive
-                          ? "bg-white text-neutral-950 shadow-xs"
-                          : "bg-[#AEF977] text-neutral-950"
-                      }`}
-                    >
-                      <Icon className="w-5 h-5 text-neutral-950" />
-                    </div>
+              {/* Subtle dark overlay for text legibility (darkened for better visibility) */}
+              <div className="absolute inset-0 bg-black/40 pointer-events-none" />
 
-                    <span className="text-xs sm:text-[13px] font-medium text-neutral-400">
-                      {step.step.slice(0, 2)}
-                    </span>
-                  </div>
+              {/* Card content - Fully centered as a single block */}
+              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-6 sm:px-14 select-text">
 
-                  {/* Tiny Pre-title */}
-                  <span className="text-[10px] sm:text-[10.5px] font-bold text-neutral-600 uppercase tracking-wider mb-1">
-                    {step.step}
+                {/* ── Number + Title ── */}
+                <div className="flex flex-col items-center cursor-text">
+                  <span className="text-[11.5px] sm:text-[13px] font-semibold text-white/85 tracking-widest uppercase mb-1.5 drop-shadow-sm">
+                    {solution.number}
                   </span>
-
-                  {/* Step Title */}
-                  <h3 className="text-[16px] sm:text-[17px] font-semibold text-neutral-950 tracking-tight leading-snug mb-2">
-                    {step.title}
+                  <h3 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[46px] font-bold text-white tracking-tight leading-tight drop-shadow-[0_2px_14px_rgba(0,0,0,0.6)]">
+                    {solution.title}
                   </h3>
+                </div>
 
-                  {/* Step Description */}
-                  <p className="text-[12px] sm:text-[12.5px] text-neutral-600 leading-[1.5] font-normal line-clamp-4">
-                    {step.description}
+                {/* Vertical accent line (extended for central layout) */}
+                <div className="w-[1px] h-12 sm:h-16 md:h-20 bg-white/35 my-4 sm:my-6 pointer-events-none" />
+
+                {/* ── Description + CTA ── */}
+                <div className="flex flex-col items-center max-w-[640px] w-full">
+                  <p className="text-[13px] sm:text-[15px] md:text-[16px] text-white/90 leading-[1.7] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] mb-6 sm:mb-8">
+                    {solution.description}
                   </p>
+
+                  {/* Stretching circle-to-pill animation button (styled with lime green accent) */}
+                  <Link
+                    href="/contact"
+                    className="group relative inline-flex items-center h-[46px] sm:h-[48px] md:h-[50px] px-6 sm:px-7 select-none cursor-pointer text-white transition-colors"
+                  >
+                    {/* The Stretching Circle Outline */}
+                    <div 
+                      className="absolute left-0 top-0 h-full w-[46px] sm:w-[48px] md:w-[50px] rounded-full border border-[#AEF977]/60 pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full group-hover:bg-[#AEF977]/20 group-hover:border-[#AEF977]"
+                    />
+                    
+                    <span className="relative z-10 text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase pl-3.5 sm:pl-4 pr-2 sm:pr-2.5 whitespace-nowrap select-none">
+                      Request a quote
+                    </span>
+                  </Link>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
-
       </div>
     </section>
   );

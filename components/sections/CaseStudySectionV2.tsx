@@ -56,11 +56,17 @@ export function CaseStudySectionV2() {
 
       {/* 2. LAYER 2: Centered Interactive Capsule Card with Synced Rust/Terracotta Text Masking */}
       <div className="relative z-10 flex items-center justify-center px-4">
-        <Link
-          href="/contact"
-          className="group relative block w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white cursor-pointer transition-transform duration-500 ease-out hover:scale-105"
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          {/* Base Turbine Landscape Visual with Subtle Light Blue Atmosphere */}
+          <Link
+            href="/contact"
+            className="group relative block w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white cursor-pointer transition-transform duration-500 ease-out hover:scale-105"
+          >
+            {/* Base Turbine Landscape Visual with Subtle Light Blue Atmosphere */}
           <img
             src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=1200"
             alt="Renewable Wind Energy Case Study"
@@ -127,7 +133,8 @@ export function CaseStudySectionV2() {
 
           </div>
 
-        </Link>
+          </Link>
+        </motion.div>
       </div>
 
     </section>

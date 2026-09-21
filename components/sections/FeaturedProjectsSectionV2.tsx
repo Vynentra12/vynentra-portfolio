@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 
 interface ProjectCard {
   title: string;
@@ -13,9 +14,9 @@ export function FeaturedProjectsSectionV2() {
 
   const projects: ProjectCard[] = [
     {
-      title: "Designed for Modern Rooftops",
+      title: "Designed for Commercial Solar Plants",
       tags: ["COMMERCIAL", "ROOFTOP"],
-      image: "https://i.pinimg.com/736x/e6/7b/99/e67b9951d18c508437f685e64ebd11c1.jpg",
+      image: "/solar_panels.jpg",
     },
     {
       title: "A Turbine for Every Rooftop",
@@ -37,15 +38,27 @@ export function FeaturedProjectsSectionV2() {
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-8 mb-10 md:mb-12">
           
           {/* Main Giant Headline matching reference: Global projects. Local impact */}
-          <div className="flex flex-col">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
+            className="flex flex-col"
+          >
             <h2 className="text-[44px] sm:text-[62px] md:text-[76px] lg:text-[88px] font-bold text-white tracking-[-0.035em] leading-[0.94]">
               Global projects.<br />
               Local impact
             </h2>
-          </div>
+          </motion.div>
 
           {/* Right Column: Subtitle + Linear Stretching VIEW ALL CASES CTA */}
-          <div className="flex flex-col items-start lg:items-end justify-between gap-6 lg:pb-1">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            className="flex flex-col items-start lg:items-end justify-between gap-6 lg:pb-1"
+          >
             <p className="text-[18px] sm:text-[21px] lg:text-[23px] font-medium text-white/95 leading-[1.28] max-w-[340px] text-left lg:text-right">
               Each project we complete is more than infrastructure
             </p>
@@ -65,16 +78,22 @@ export function FeaturedProjectsSectionV2() {
                 VIEW ALL CASES
               </span>
             </a>
-          </div>
+          </motion.div>
 
         </div>
 
         {/* Horizontal Divider Line with Left Kicker Sitting Above the Line */}
-        <div className="w-full border-b border-white/20 pb-4 mb-8 sm:mb-10">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 1, delay: 0.4 }}
+          className="w-full border-b border-white/20 pb-4 mb-8 sm:mb-10"
+        >
           <span className="text-[11px] sm:text-[11.5px] font-bold text-white uppercase tracking-[0.1em] select-text">
             REAL RESULTS POWERED BY THE WIND
           </span>
-        </div>
+        </motion.div>
 
         {/* Interactive 3-Card Accordion Grid: Center-anchored stationary images without zoom */}
         <div 
@@ -92,7 +111,11 @@ export function FeaturedProjectsSectionV2() {
             }
 
             return (
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.7, delay: 0.2 + idx * 0.15, ease: "easeOut" }}
                 key={idx}
                 onMouseEnter={() => setHoveredIndex(idx)}
                 className={`${flexClass} w-full flex flex-col group cursor-pointer transition-[flex] duration-800 ease-[cubic-bezier(0.16,1,0.3,1)] min-w-0`}
@@ -127,7 +150,7 @@ export function FeaturedProjectsSectionV2() {
                     {project.title}
                   </h3>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
