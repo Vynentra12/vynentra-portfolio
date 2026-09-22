@@ -19,9 +19,9 @@ export function FeaturedProjectsSectionV2() {
       image: "/solar_panels.jpg",
     },
     {
-      title: "A Turbine for Every Rooftop",
+      title: "Solar Power for Every Rooftop",
       tags: ["URBAN", "CLEAN ENERGY"],
-      image: "https://images.pexels.com/photos/32182706/pexels-photo-32182706.jpeg",
+      image: "/rooftop_solar.jpg",
     },
     {
       title: "Engineered for Commercial Wind",
