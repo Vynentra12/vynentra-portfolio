@@ -121,13 +121,12 @@ export function CaseStudySectionV2() {
                 Rajasthan
               </p>
 
-              {/* Stretching Circle-to-Pill CTA (Circle on the Left, stretches Right) */}
-              <div className="group/btn relative inline-flex items-center h-[38px] sm:h-[42px] px-5 sm:px-6 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300 delay-[100ms] pointer-events-auto w-fit cursor-pointer">
-                <div className="absolute left-0 top-0 h-full w-[38px] sm:w-[42px] rounded-full border border-white/30 transition-[width,background-color,border-color] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover/btn:w-full group-hover/btn:bg-white/10 group-hover/btn:border-white/80" />
-                <span className="relative z-10 text-[11.5px] sm:text-[13px] font-normal text-white pl-1 sm:pl-2 pr-3">
+              {/* Clean stroke CTA button in default & matching hover */}
+              <div className="group/btn inline-flex items-center justify-center gap-2 h-[38px] sm:h-[42px] px-5 sm:px-6 rounded-full border border-white/50 text-white transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-[100ms] pointer-events-auto w-fit cursor-pointer hover:bg-white hover:text-black hover:border-white">
+                <span className="text-[11.5px] sm:text-[13px] font-normal">
                   View Case Details
                 </span>
-                <ArrowRight className="relative z-10 w-3.5 h-3.5 text-white group-hover/btn:translate-x-1 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]" />
+                <ArrowRight className="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform duration-300" />
               </div>
             </div>
 

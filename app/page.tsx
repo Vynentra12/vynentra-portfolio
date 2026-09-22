@@ -19,10 +19,10 @@ export default function Home() {
     <div className="bg-brand-midnight text-brand-softwhite min-h-screen">
       <HeroSectionV2 />
       <MissionSectionV2 />
-      <ImpactSectionV2 />
+      {/* <ImpactSectionV2 /> */}
+      <ProcessSectionV2 />
       <WhyChooseUsSectionV2 />
       <SolutionsSectionV2 />
-      {/* <ProcessSectionV2 /> */}
       <CaseStudySectionV2 />
       <FeaturedProjectsSectionV2 />
       <BlogSectionV2 />

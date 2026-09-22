@@ -290,19 +290,12 @@ export function CTASectionV2() {
           Clean Energy Starts Here
         </h2>
 
-        {/* Header-matching CTA button with linear stretching circle-to-pill animation */}
+        {/* CTA button with clean stroke by default, matching hover */}
         <Link
           href="/contact"
-          className="group relative inline-flex items-center h-[46px] sm:h-[48px] md:h-[50px] px-6 sm:px-7 select-none cursor-pointer text-white transition-colors"
+          className="inline-flex items-center justify-center h-[46px] sm:h-[48px] md:h-[50px] px-7 sm:px-8 rounded-full border border-white/70 text-white text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] hover:border-white active:scale-[0.98]"
         >
-          {/* The Stretching Circle Outline */}
-          <div 
-            className="absolute left-0 top-0 h-full w-[46px] sm:w-[48px] md:w-[50px] rounded-full border border-white/60 pointer-events-none transition-[width,background-color,border-color] duration-500 ease-out group-hover:w-full group-hover:bg-white/20 group-hover:border-white"
-          />
-          
-          <span className="relative z-10 text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase pl-3.5 sm:pl-4 pr-2 sm:pr-2.5 whitespace-nowrap select-none">
-            GET STARTED
-          </span>
+          GET STARTED
         </Link>
       </div>
     </section>
