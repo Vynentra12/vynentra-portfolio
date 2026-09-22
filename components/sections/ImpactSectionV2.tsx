@@ -161,12 +161,9 @@ export function ImpactSectionV2() {
             >
               <Link
                 href="/contact"
-                className="group relative inline-flex items-center h-[44px] sm:h-[46px] px-6 select-none cursor-pointer w-fit"
+                className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
               >
-                <div className="absolute left-0 top-0 h-[44px] sm:h-[46px] w-[44px] sm:w-[46px] rounded-full border border-[#0B2735] pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-[#0B2735]/5" />
-                <span className="relative z-10 text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] text-[#0B2735] uppercase pl-3.5 pr-2 whitespace-nowrap">
-                  EXPLORE SOLUTIONS
-                </span>
+                EXPLORE SOLUTIONS
               </Link>
             </motion.div>
           </div>

@@ -63,20 +63,12 @@ export function FeaturedProjectsSectionV2() {
               Each project we complete is more than infrastructure
             </p>
 
-            {/* Linear Stretching Circle-to-Pill Button */}
+            {/* Clean stroke button in default, matching hover */}
             <a
               href="#case-studies"
-              className="group/cta relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
+              className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-white text-white text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] active:scale-[0.98]"
             >
-              {/* Animated morph outline */}
-              <div 
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-white pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover/cta:w-full group-hover/cta:bg-white/10"
-              />
-              
-              {/* Text */}
-              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-white uppercase pl-3.5 pr-2 whitespace-nowrap">
-                VIEW ALL CASES
-              </span>
+              VIEW ALL CASES
             </a>
           </motion.div>
 

@@ -88,17 +88,9 @@ export function BlogSectionV2() {
           >
             <Link
               href="/blog"
-              className="group relative inline-flex items-center h-[46px] px-6 select-none cursor-pointer"
+              className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
-              {/* The Linear Stretching Circle-to-Pill Outline Animation */}
-              <div 
-                className="absolute left-0 top-0 h-[46px] w-[46px] rounded-full border border-[#0B2735] pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover:w-full group-hover:bg-[#0B2735]/5"
-              />
-              
-              {/* Text with natural positioning */}
-              <span className="relative z-10 text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] text-[#0B2735] uppercase pl-3.5 pr-2 whitespace-nowrap">
-                VIEW ALL INSIGHTS
-              </span>
+              VIEW ALL INSIGHTS
             </Link>
           </motion.div>
         </div>

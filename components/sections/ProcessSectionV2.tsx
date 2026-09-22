@@ -109,20 +109,12 @@ export function ProcessSectionV2() {
                       {panel.desc}
                     </p>
 
-                    {/* Blog-Style Stretching Circle-to-Pill Button */}
+                    {/* Clean stroke button in default, matching hover */}
                     <Link
                       href="/#case-studies"
-                      className="group/readmore relative inline-flex items-center h-[44px] px-5 select-none cursor-pointer w-fit"
+                      className="inline-flex items-center justify-center h-[44px] px-6 rounded-full border border-white text-white text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-black active:scale-[0.98]"
                     >
-                      {/* Morphing circle outline that stretches into full pill on hover */}
-                      <div 
-                        className="absolute left-0 top-0 h-[44px] w-[44px] rounded-full border border-white pointer-events-none transition-[width,background-color] duration-500 ease-out group-hover/readmore:w-full group-hover/readmore:bg-white/10"
-                      />
-                      
-                      {/* Button text */}
-                      <span className="relative z-10 text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] text-white uppercase pl-3 pr-1 whitespace-nowrap">
-                        READ MORE
-                      </span>
+                      READ MORE
                     </Link>
                   </div>
 
