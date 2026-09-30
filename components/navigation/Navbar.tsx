@@ -58,7 +58,7 @@ export function Navbar() {
   // Clean 5 navigation items
   const navLinks = [
     { name: "About Us", href: "/#about" },
-    { name: "Services", href: "/#process" },
+    { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/#case-studies" },
     { name: "Blogs", href: "/blog" },
     { name: "Contacts", href: "/contact" },
