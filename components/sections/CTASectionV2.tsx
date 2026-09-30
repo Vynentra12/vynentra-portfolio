@@ -25,7 +25,17 @@ const ctaImages = [
   "https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=800",
 ];
 
-export function CTASectionV2() {
+export function CTASectionV2({
+  title = "Clean Energy Starts Here",
+  description,
+  buttonText = "GET STARTED",
+  buttonLink = "/contact"
+}: {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
   const gradientOverlayRef = useRef<HTMLDivElement>(null);
   const orbitRef = useRef<HTMLDivElement>(null);
@@ -271,7 +281,7 @@ export function CTASectionV2() {
       {/* ── CTA content (z-30 above orbit, centered with GSAP xPercent/yPercent) ── */}
       <div
         ref={ctaRef}
-        className="absolute z-30 flex flex-col items-center justify-center text-center px-4 pointer-events-auto select-text cursor-text"
+        className="absolute z-30 flex flex-col items-center justify-center text-center px-4 max-w-[800px] pointer-events-auto select-text cursor-text"
         style={{
           top: "calc(50% + 40px)",
           left: "50%",
@@ -281,21 +291,27 @@ export function CTASectionV2() {
         }}
       >
         <h2
-          className="text-[17px] min-[380px]:text-[18.5px] sm:text-[22px] md:text-[24px] lg:text-[25px] font-bold text-white tracking-tight leading-tight mb-5 sm:mb-6 whitespace-nowrap text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)] select-text cursor-text"
+          className="text-[17px] min-[380px]:text-[18.5px] sm:text-[22px] md:text-[28px] lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-5 sm:mb-6 whitespace-nowrap text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)] select-text cursor-text"
           style={{
             userSelect: "text",
             WebkitUserSelect: "text",
           }}
         >
-          Clean Energy Starts Here
+          {title}
         </h2>
+        
+        {description && (
+          <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/90 leading-[1.6] mb-8 max-w-[600px] whitespace-normal text-center drop-shadow-sm select-text cursor-text">
+            {description}
+          </p>
+        )}
 
         {/* CTA button with clean stroke by default, matching hover */}
         <Link
-          href="/contact"
+          href={buttonLink}
           className="inline-flex items-center justify-center h-[46px] sm:h-[48px] md:h-[50px] px-7 sm:px-8 rounded-full border border-white/70 text-white text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] hover:border-white active:scale-[0.98]"
         >
-          GET STARTED
+          {buttonText}
         </Link>
       </div>
     </section>
