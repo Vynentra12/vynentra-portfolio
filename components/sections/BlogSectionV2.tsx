@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface BlogPost {
   slug: string;
@@ -61,10 +62,9 @@ export function BlogSectionV2() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col max-w-[820px]"
           >
-            {/* Tagline / Section Name (Matching FAQ section) */}
-            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
+            <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
               ENERGY INSIGHTS
-            </span>
+            </SectionBadge>
             
             {/* Main Title (Matching FAQ section) */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-2.5">

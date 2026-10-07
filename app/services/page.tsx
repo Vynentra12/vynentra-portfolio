@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SERVICES } from "@/lib/services-data";
@@ -73,9 +74,9 @@ export default function ServicesPage() {
           
           {/* Mobile Title (Hidden on Desktop) */}
           <div className="w-full lg:hidden flex flex-col mb-2">
-            <span className="text-[12px] sm:text-[13px] font-bold tracking-[0.1em] text-neutral-500 uppercase block">
-              ENERGY SOLUTIONS TAILORED TO YOUR NEEDS
-            </span>
+            <SectionBadge theme="dark" className="w-fit mb-3">
+              OUR SERVICES
+            </SectionBadge>
             <h2 className="text-[28px] sm:text-[34px] font-bold text-neutral-900 mt-4 leading-[1.2] max-w-lg">
               Powering communities with clean, reliable, and renewable energy
             </h2>
@@ -109,9 +110,9 @@ export default function ServicesPage() {
           {/* Desktop Left Column: Titles (Hidden on Mobile) */}
           <div className="hidden lg:flex w-[60%] flex-col relative z-20 mix-blend-difference text-white">
             <div className="mb-16">
-              <span className="text-[13px] font-bold tracking-[0.1em] text-white/60 uppercase block">
-                ENERGY SOLUTIONS TAILORED TO YOUR NEEDS
-              </span>
+              <SectionBadge theme="light" className="w-fit mb-4">
+                OUR SERVICES
+              </SectionBadge>
               <h2 className="text-[38px] font-bold mt-4 leading-[1.2] max-w-lg">
                 Powering communities with clean, reliable, and renewable energy
               </h2>

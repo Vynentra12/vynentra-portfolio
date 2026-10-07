@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { motion } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface FeatureItem {
   id: string;
@@ -169,13 +170,9 @@ export function WhyChooseUsSectionV2() {
               className="flex flex-col mb-8 lg:mb-10"
             >
               
-              {/* Badge Name: Matched to FAQ Section Typography & fully selectable */}
-              <span
-                className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5 select-text cursor-text w-fit"
-                style={{ userSelect: "text", WebkitUserSelect: "text" }}
-              >
+              <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
                 WHY CHOOSE US
-              </span>
+              </SectionBadge>
 
               {/* Main Headline: Exact requested copy & fully selectable */}
               <h2

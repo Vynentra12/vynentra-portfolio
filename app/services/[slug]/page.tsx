@@ -6,6 +6,7 @@ import { notFound, useParams } from "next/navigation";
 import { ArrowRight, CheckCircle2, Zap, Lightbulb, Leaf, ShieldCheck, Settings } from "lucide-react";
 import { SERVICES } from "@/lib/services-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 export default function ServiceDetailPage() {
   const params = useParams();
@@ -89,6 +90,9 @@ export default function ServiceDetailPage() {
 
             {/* Right Main Content */}
             <div className="w-full lg:flex-1 flex flex-col">
+              <SectionBadge theme="dark" className="w-fit mb-4">
+                SERVICE OVERVIEW
+              </SectionBadge>
               <h2 className="text-[32px] sm:text-[38px] md:text-[44px] font-bold text-neutral-900 tracking-tight leading-[1.15] mb-8">
                 {currentService.subtitle}
               </h2>

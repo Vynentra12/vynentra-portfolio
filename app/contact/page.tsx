@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -118,10 +119,9 @@ export default function ContactPage() {
               className="lg:col-span-6 flex flex-col justify-start"
             >
               
-              {/* Kicker */}
-              <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-[0.08em] mb-4 sm:mb-5 select-none">
-                WE ARE HERE TO HELP
-              </span>
+              <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
+                GET IN TOUCH
+              </SectionBadge>
 
               {/* Headline */}
               <h2 className="text-[38px] sm:text-[48px] md:text-[54px] lg:text-[60px] font-bold text-neutral-950 tracking-[-0.03em] leading-[1.06] mb-6 sm:mb-7">

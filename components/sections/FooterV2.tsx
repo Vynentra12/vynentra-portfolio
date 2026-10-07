@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { ArrowUp, Mail } from "lucide-react";
+import { Mail } from "lucide-react";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -33,10 +33,6 @@ const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function FooterV2() {
   const [subscribeEmail, setSubscribeEmail] = React.useState("");
   const [isInputFocused, setIsInputFocused] = React.useState(false);
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden">
@@ -200,15 +196,6 @@ export function FooterV2() {
               vynentra
             </span>
           </motion.div>
-
-          {/* Floating Solid Green Scroll-to-Top Button (Fixed to bottom-right with balanced spacing) */}
-          <button
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-            className="absolute right-0 bottom-0 md:bottom-1 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#AEF977] text-black flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 shadow-xl shrink-0 z-30"
-          >
-            <ArrowUp className="w-5 h-5 md:w-6 md:h-6 stroke-[2.5]" />
-          </button>
         </div>
 
       </div>

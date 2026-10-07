@@ -6,6 +6,7 @@ import { ArrowRight } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -146,9 +147,9 @@ export function SolutionsSectionV2() {
 
         {/* "Our service" header */}
         <div className="w-full text-center pb-8 sm:pb-12 shrink-0">
-          <span className="text-[13px] sm:text-[14px] font-medium text-neutral-700 tracking-wide">
-            Our service
-          </span>
+          <SectionBadge theme="dark">
+            OUR SERVICES
+          </SectionBadge>
         </div>
 
         {/* ── Card canvas ── */}

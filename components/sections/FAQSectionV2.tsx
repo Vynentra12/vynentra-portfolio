@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUp, ArrowDown } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface FAQItem {
   question: string;
@@ -128,10 +129,9 @@ export function FAQSectionV2() {
             className="lg:col-span-7 flex flex-col justify-start"
           >
             
-            {/* Tagline */}
-            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
-              ENERGY SOLUTIONS TAILORED TO YOUR NEEDS
-            </span>
+            <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
+              FREQUENTLY ASKED QUESTIONS
+            </SectionBadge>
 
             {/* Main Headline */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[520px]">

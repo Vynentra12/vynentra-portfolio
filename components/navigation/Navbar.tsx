@@ -9,10 +9,10 @@ import { Logo } from "@/components/brand/Logo";
 
 export function Navbar() {
   const pathname = usePathname();
+  const isServices = pathname === "/services" || pathname?.startsWith("/services");
   const isBlog = pathname === "/blog" || pathname?.startsWith("/blog");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
-  const [userSelectedLink, setUserSelectedLink] = useState<string | null>(null);
-  const activeLink = userSelectedLink ?? (isContact ? "Contacts" : isBlog ? "Blogs" : null);
+  const activeLink = isServices ? "Services" : isBlog ? "Blogs" : isContact ? "Contacts" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -97,7 +97,6 @@ export function Navbar() {
                 <div key={item.name} className="relative py-1">
                   <Link 
                     href={item.href}
-                    onClick={() => setUserSelectedLink(item.name)}
                     onMouseEnter={() => setHoveredLink(item.name)}
                     onMouseLeave={() => setHoveredLink(null)}
                     className={`relative h-[38px] px-4 sm:px-5 flex items-center justify-center text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${

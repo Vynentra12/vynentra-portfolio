@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface ProjectCard {
   title: string;
@@ -45,6 +46,9 @@ export function FeaturedProjectsSectionV2() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col"
           >
+            <SectionBadge theme="light" className="mb-4 sm:mb-6 w-fit">
+              FEATURED PROJECTS
+            </SectionBadge>
             <h2 className="text-[44px] sm:text-[62px] md:text-[76px] lg:text-[88px] font-bold text-white tracking-[-0.035em] leading-[0.94]">
               Global projects.<br />
               Local impact

@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -290,6 +291,9 @@ export function CTASectionV2({
           WebkitUserSelect: "text",
         }}
       >
+        <SectionBadge theme="light" className="mb-4 sm:mb-5">
+          START YOUR JOURNEY
+        </SectionBadge>
         <h2
           className="text-[17px] min-[380px]:text-[18.5px] sm:text-[22px] md:text-[28px] lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-5 sm:mb-6 whitespace-nowrap text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)] select-text cursor-text"
           style={{
