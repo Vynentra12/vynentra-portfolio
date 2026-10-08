@@ -103,10 +103,9 @@ export function BlogSectionV2() {
           >
             <Link
               href="/blog"
-              className="inline-flex items-center justify-center gap-2 h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+              className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
-              <span>VIEW ALL INSIGHTS</span>
-              <span className="text-[13px] leading-none">→</span>
+              VIEW ALL INSIGHTS
             </Link>
           </motion.div>
         </div>

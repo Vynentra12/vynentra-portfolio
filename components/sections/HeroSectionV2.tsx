@@ -57,7 +57,7 @@ export function HeroSectionV2() {
 
           {/* Right: Authentic Translucent Liquid Glassmorphic Solar Card matching UI reference */}
           <motion.a
-            href="#featured-projects"
+            href="/case-studies"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}

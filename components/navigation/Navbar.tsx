@@ -87,9 +87,9 @@ export function Navbar() {
 
   // Clean 5 navigation items
   const navLinks = [
-    { name: "About Us", href: "/#about" },
+    { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
-    { name: "Case Studies", href: "/#case-studies" },
+    { name: "Case Studies", href: "/case-studies" },
     { name: "Blogs", href: "/blog" },
     { name: "Contacts", href: "/contact" },
   ];
@@ -108,7 +108,7 @@ export function Navbar() {
           : "bg-transparent border-b border-transparent shadow-none"
       }`}
     >
-      <div className="relative z-50 w-full px-5 md:px-8 lg:px-12 xl:px-14">
+      <div className="relative z-50 w-full px-6 sm:px-10 lg:px-12 xl:px-14">
         <div className="h-16 grid grid-cols-2 min-[1040px]:grid-cols-3 items-center gap-4 w-full">
           
           {/* Left: Brand Logo */}

@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Calendar } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface ProjectCard {
@@ -58,7 +59,7 @@ export function FeaturedProjectsSectionV2() {
             className="shrink-0 pb-1"
           >
             <Link
-              href="/contact"
+              href="/case-studies"
               className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-white text-white text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#087589] active:scale-[0.98]"
             >
               VIEW ALL CASES
@@ -67,26 +68,14 @@ export function FeaturedProjectsSectionV2() {
 
         </div>
 
-        {/* Horizontal Divider Line with Left Kicker */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="w-full border-b border-white/20 pb-4 mb-8 sm:mb-10"
-        >
-          <span className="text-[11px] sm:text-[11.5px] font-medium text-white uppercase tracking-[0.1em] select-text">
-            REAL RESULTS POWERED BY CLEAN ENERGY
-          </span>
-        </motion.div>
-
         {/* Single Featured Project Showcase */}
-        <motion.div
+        <motion.a
+          href="/case-studies"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full flex flex-col group cursor-pointer"
+          className="w-full flex flex-col group cursor-pointer block"
         >
           {/* Hero Image Container: completely clean without drop shadow or dark tint */}
           <div className="w-full h-[210px] xs:h-[230px] sm:h-[320px] md:h-[460px] lg:h-[520px] rounded-[18px] sm:rounded-[22px] md:rounded-[28px] overflow-hidden relative shadow-none">
@@ -109,13 +98,20 @@ export function FeaturedProjectsSectionV2() {
             ))}
           </div>
 
-          {/* Title with hover underline */}
-          <div className="w-fit mt-1">
-            <h3 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[32px] font-medium text-white tracking-tight leading-[1.2] cursor-pointer group-hover:underline underline-offset-4 decoration-white/90 decoration-[1.5px] transition-all duration-200">
+          {/* Title and Date Area */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1 w-full">
+            <h3 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[32px] font-medium text-white tracking-tight leading-[1.2] cursor-pointer transition-all duration-200">
               {project.title}
             </h3>
+            
+            <div className="flex items-center gap-2.5 text-white/90 shrink-0 pr-4">
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
+              <span className="text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.05em]">
+                OCT 09, 2026 - 10:30 AM
+              </span>
+            </div>
           </div>
-        </motion.div>
+        </motion.a>
 
       </div>
     </section>

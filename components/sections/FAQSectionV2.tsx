@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
@@ -173,18 +173,16 @@ export function FAQSectionV2() {
                         {faq.question}
                       </h3>
 
-                      {/* Arrow Morph from "What We Do" section (ArrowUpRight ↗ to ArrowRight →) */}
+                      {/* Plus/Minus Toggle */}
                       <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
-                        {/* Inactive Diagonal Arrow ↗ */}
-                        <ArrowUpRight
-                          className={`w-4 h-4 text-neutral-800 absolute transition-all duration-300 ease-out ${
-                            isOpen ? "opacity-0 scale-75 rotate-45" : "opacity-100 scale-100 rotate-0 group-hover:text-[#087589]"
+                        <Plus
+                          className={`w-5 h-5 text-neutral-800 absolute transition-all duration-300 ease-out ${
+                            isOpen ? "opacity-0 scale-75 rotate-90" : "opacity-100 scale-100 rotate-0 group-hover:text-[#087589]"
                           }`}
                         />
-                        {/* Active / Expanded Horizontal Arrow → */}
-                        <ArrowRight
-                          className={`w-4 h-4 text-[#087589] absolute transition-all duration-300 ease-out ${
-                            isOpen ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-75 -translate-x-1"
+                        <Minus
+                          className={`w-5 h-5 text-[#087589] absolute transition-all duration-300 ease-out ${
+                            isOpen ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-75 -rotate-90"
                           }`}
                         />
                       </div>

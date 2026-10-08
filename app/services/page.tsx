@@ -109,62 +109,7 @@ export default function ServicesPage() {
       tl.set({}, {}, cards.length - 0.7);
     });
 
-    // ── MOBILE (< 768px): Smooth stacked card deck animation ─────────────
-    mm.add("(max-width: 767px)", () => {
-      cards.forEach((card, index) => {
-        if (index === 0) {
-          gsap.set(card, { y: 0, scale: 1, opacity: 1, zIndex: 10 });
-        } else {
-          gsap.set(card, { y: "115vh", scale: 1, opacity: 1, zIndex: 10 + index });
-        }
-      });
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top top",
-          end: `+=${(cards.length - 1) * 65 + 30}%`,
-          pin: true,
-          scrub: 0.8,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          refreshPriority: 1,
-        },
-      });
-
-      cards.forEach((_, index) => {
-        if (index === 0) return;
-        const timePos = index - 1;
-
-        tl.fromTo(
-          cards[index],
-          { y: "115vh" },
-          { y: 0, ease: "none", duration: 1 },
-          timePos
-        );
-
-        for (let i = 0; i < index; i++) {
-          const diff = index - i;
-          const targetY = diff === 1 ? -20 : -45;
-          const targetScale = diff === 1 ? 0.96 : 0.9;
-          const targetOpacity = diff === 1 ? 0.4 : 0;
-
-          tl.to(
-            cards[i],
-            {
-              y: targetY,
-              scale: targetScale,
-              opacity: targetOpacity,
-              ease: "none",
-              duration: 1,
-            },
-            timePos
-          );
-        }
-      });
-
-      tl.set({}, {}, cards.length - 0.7);
-    });
+    // Mobile view handles stacking natively through CSS (no GSAP animation)
 
   }, { scope: sectionRef, dependencies: [] });
 
@@ -190,9 +135,8 @@ export default function ServicesPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 pt-24">
-          
-          <div className="max-w-4xl">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+          <div className="max-w-[1380px] mx-auto">
             <div className="mb-4 sm:mb-6">
               <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
                 OUR SERVICES
@@ -226,11 +170,11 @@ export default function ServicesPage() {
       {/* Services Scroll Section (Pinned Stacking Deck matching homepage) */}
       <section
         ref={sectionRef}
-        className="w-full bg-[#F4F6F8] font-sans relative select-text flex flex-col justify-center overflow-hidden h-[100dvh] min-h-[640px] max-h-[1080px]"
+        className="w-full bg-[#F4F6F8] font-sans relative select-text flex flex-col justify-center overflow-hidden py-16 md:py-0 h-auto md:h-[100dvh] md:min-h-[640px] md:max-h-[1080px]"
       >
-        <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col flex-1 justify-center py-4 sm:py-6">
+        <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col flex-1 justify-center py-4 sm:py-6 h-full">
 
-          <div className="w-full text-center pb-3 sm:pb-5 md:pb-6 shrink-0">
+          <div className="w-full text-center pb-6 sm:pb-8 md:pb-6 shrink-0">
             <SectionBadge theme="dark">
               OUR SERVICES
             </SectionBadge>
@@ -238,13 +182,13 @@ export default function ServicesPage() {
 
           <div
             ref={containerRef}
-            className="relative w-full flex-1 max-h-[500px] xs:max-h-[540px] sm:max-h-[580px] md:max-h-[72vh] lg:max-h-[76vh] flex items-center justify-center"
+            className="relative w-full flex flex-col gap-4 sm:gap-5 md:block md:flex-1 md:max-h-[72vh] lg:max-h-[76vh]"
           >
             {SERVICES.map((service, idx) => (
               <div
                 key={service.id}
                 ref={(el) => { cardRefs.current[idx] = el; }}
-                className="absolute inset-0 w-full h-full rounded-[22px] xs:rounded-[26px] sm:rounded-[30px] md:rounded-[34px] overflow-hidden flex flex-col justify-center shadow-xl md:shadow-2xl bg-black will-change-transform"
+                className="relative w-full rounded-[20px] xs:rounded-[22px] sm:rounded-[26px] overflow-hidden flex flex-col justify-center shadow-lg md:absolute md:inset-0 md:min-h-0 md:rounded-[34px] md:shadow-2xl bg-black will-change-transform"
                 style={{ zIndex: 10 + idx }}
               >
                 {/* Background image */}
@@ -318,8 +262,8 @@ export default function ServicesPage() {
               const Icon = step.icon;
               return (
                 <div key={step.id} className="flex flex-col items-start group">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#AEF977] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:scale-110 group-hover:rounded-[20px]">
-                    <Icon strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#0A6B88] group-hover:scale-110 group-hover:rounded-[20px]">
+                    <Icon strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-white" />
                   </div>
                   
                   <h3 className="text-[17px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2 sm:mb-2.5 leading-[1.2]">
@@ -334,8 +278,8 @@ export default function ServicesPage() {
             
             {/* Adding a 6th item to complete the 3-column grid for symmetry, mapping to the 6th service area */}
             <div className="flex flex-col items-start group">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#AEF977] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:scale-110 group-hover:rounded-[20px]">
-                <Zap strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#0A6B88] group-hover:scale-110 group-hover:rounded-[20px]">
+                <Zap strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-white" />
               </div>
               
               <h3 className="text-[18px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2.5 leading-[1.2]">

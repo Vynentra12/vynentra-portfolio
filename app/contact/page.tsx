@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
+import { ChevronDown, MapPin, Phone, Mail } from "lucide-react";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -42,6 +43,24 @@ export default function ContactPage() {
     marketingConsent: false,
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const serviceOptions = [
+    { value: "wind-installation", label: "1. Wind Turbine Installation & Execution" },
+    { value: "captive-hybrid", label: "2. Commercial & Industrial (C&I) Captive Hybrid Power" },
+    { value: "maintenance-repowering", label: "3. Operations, Maintenance & Repowering" }
+  ];
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,17 +86,16 @@ export default function ContactPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=2200"
-            alt="Engineer with wind turbine background"
+            src="https://images.pexels.com/photos/10041227/pexels-photo-10041227.jpeg"
+            alt="Customer support contact background"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 pt-24">
-          
-          <div className="max-w-4xl">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+          <div className="w-full">
             <div className="mb-4 sm:mb-6">
               <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
                 CONTACT US
@@ -111,8 +129,8 @@ export default function ContactPage() {
       </section>
 
       {/* Main 2-Column Contact Info & Form Section */}
-      <section className="w-full py-20 sm:py-24 md:py-28 lg:py-32 bg-white overflow-x-hidden">
-        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
+      <section className="w-full py-14 sm:py-24 md:py-28 lg:py-32 bg-white overflow-x-hidden">
+        <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
             
             {/* Left Column: Contact Info (Slides in from Left) */}
@@ -121,7 +139,7 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-6 flex flex-col justify-start"
+              className="lg:col-span-5 flex flex-col justify-start"
             >
               
               <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
@@ -129,25 +147,28 @@ export default function ContactPage() {
               </SectionBadge>
 
               {/* Headline */}
-              <h2 className="text-[38px] sm:text-[48px] md:text-[54px] lg:text-[60px] font-bold text-neutral-950 tracking-[-0.03em] leading-[1.06] mb-6 sm:mb-7">
+              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.1] mb-6 sm:mb-7">
                 Reach out to us<br className="hidden sm:inline" /> anytime for support<br className="hidden sm:inline" /> and guidance
               </h2>
 
               {/* Subtitle */}
-              <p className="text-[15.5px] sm:text-[16.5px] text-neutral-600 leading-[1.65] font-normal mb-12 sm:mb-14 max-w-xl">
+              <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium mb-8 sm:mb-14 max-w-xl">
                 Get in touch to discuss your renewable energy requirements today.
                 <br className="hidden sm:inline" />
                 {" "}Please give us a call or drop us an email.
               </p>
 
               {/* 2x2 Details Grid - Pure clean spacing without border */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 sm:gap-x-14 gap-y-10 sm:gap-y-12">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 sm:gap-x-14 gap-y-7 sm:gap-y-12">
                 
                 {/* Location */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-2.5">
-                    WE ARE HERE:
-                  </h3>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <MapPin className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
+                      WE ARE HERE:
+                    </h3>
+                  </div>
                   <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
                     Vynentra Clean Energy HQ,<br />
                     Gujarat &amp; Rajasthan Corridor, India
@@ -156,11 +177,14 @@ export default function ContactPage() {
 
                 {/* Phone */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-2.5">
-                    CONTACT NUMBER:
-                  </h3>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Phone className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
+                      CONTACT NUMBER:
+                    </h3>
+                  </div>
                   <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="tel:+917777024826" className="hover:text-black font-semibold transition-colors block">
+                    <a href="tel:+917777024826" className="hover:text-[#0A6B88] font-semibold transition-colors block">
                       +91 77770 24826
                     </a>
                   </p>
@@ -168,11 +192,14 @@ export default function ContactPage() {
 
                 {/* Email */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-2.5">
-                    EMAIL ID:
-                  </h3>
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Mail className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
+                      EMAIL ID:
+                    </h3>
+                  </div>
                   <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="mailto:hello@vynentra.in" className="hover:text-black font-semibold transition-colors block">
+                    <a href="mailto:hello@vynentra.in" className="hover:text-[#0A6B88] font-semibold transition-colors block">
                       hello@vynentra.in
                     </a>
                   </p>
@@ -185,40 +212,22 @@ export default function ContactPage() {
                   </h3>
                   <div className="flex items-center gap-5 pt-1">
                     <a 
-                      href="https://x.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      aria-label="X (Twitter)"
-                      className="text-neutral-900 hover:opacity-60 transition-opacity"
-                    >
-                      <TwitterIcon className="w-[18px] h-[18px]" />
-                    </a>
-                    <a 
-                      href="https://facebook.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      aria-label="Facebook"
-                      className="text-neutral-900 hover:opacity-60 transition-opacity"
-                    >
-                      <FacebookIcon className="w-[18px] h-[18px]" />
-                    </a>
-                    <a 
                       href="https://instagram.com" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="Instagram"
-                      className="text-neutral-900 hover:opacity-60 transition-opacity"
+                      className="text-neutral-900 hover:text-[#0A6B88] transition-colors"
                     >
-                      <InstagramIcon className="w-[18px] h-[18px]" />
+                      <InstagramIcon className="w-[22px] h-[22px]" />
                     </a>
                     <a 
                       href="https://linkedin.com" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="LinkedIn"
-                      className="text-neutral-900 hover:opacity-60 transition-opacity"
+                      className="text-neutral-900 hover:text-[#0A6B88] transition-colors"
                     >
-                      <LinkedinIcon className="w-[18px] h-[18px]" />
+                      <LinkedinIcon className="w-[22px] h-[22px]" />
                     </a>
                   </div>
                 </div>
@@ -233,9 +242,9 @@ export default function ContactPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="lg:col-span-6 bg-[#F4F6F8] rounded-[28px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 border border-neutral-200/60 shadow-sm"
+              className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60"
             >
-              <h3 className="text-[28px] sm:text-[32px] font-bold text-neutral-950 mb-2 tracking-tight">
+              <h3 className="text-[22px] sm:text-[24px] font-normal text-neutral-950 mb-2 tracking-tight">
                 Contact / Leads Form
               </h3>
               
@@ -243,78 +252,108 @@ export default function ContactPage() {
                 Please fill in the details below. Required fields are marked *
               </p>
 
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6 sm:gap-7">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
                 
-                {/* Name */}
-                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
-                  <input
-                    type="text"
-                    required
-                    placeholder="Name *"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
-                  />
-                </div>
+                {/* 2-Column Grid for Name and Email */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                  {/* Name */}
+                  <div className="flex flex-col">
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name *</label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="Enter your full name"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
+                    />
+                  </div>
 
-                {/* Email */}
-                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
-                  <input
-                    type="email"
-                    required
-                    placeholder="Email *"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
-                  />
+                  {/* Email */}
+                  <div className="flex flex-col">
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email *</label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@company.com"
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
+                    />
+                  </div>
                 </div>
 
                 {/* Org Name */}
-                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
+                <div className="flex flex-col">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Company</label>
                   <input
                     type="text"
-                    placeholder="Org name"
+                    placeholder="Company name"
                     value={formData.orgName}
                     onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
-                    className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full"
+                    className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
                   />
                 </div>
 
-                {/* “I’d like to know about” dropdown: 3 service options */}
-                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
-                  <label htmlFor="service-dropdown" className="text-[11.5px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
-                    I’d like to know about
+                {/* “I’d like to know about” dropdown: Custom UI */}
+                <div className="flex flex-col relative" ref={dropdownRef}>
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                    What do you need help with?
                   </label>
-                  <select
-                    id="service-dropdown"
-                    required
-                    value={formData.serviceInterest}
-                    onChange={(e) => setFormData({ ...formData, serviceInterest: e.target.value })}
-                    className="bg-transparent text-[15px] text-neutral-900 focus:outline-none w-full cursor-pointer py-1"
-                  >
-                    <option value="" disabled className="text-neutral-500">
-                      Select a service option *
-                    </option>
-                    <option value="wind-installation" className="text-neutral-900 bg-white">
-                      1. Wind Turbine Installation &amp; Execution
-                    </option>
-                    <option value="captive-hybrid" className="text-neutral-900 bg-white">
-                      2. Commercial &amp; Industrial (C&amp;I) Captive Hybrid Power
-                    </option>
-                    <option value="maintenance-repowering" className="text-neutral-900 bg-white">
-                      3. Operations, Maintenance &amp; Repowering
-                    </option>
-                  </select>
+                  <div className="relative w-full">
+                    <button
+                      type="button"
+                      onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                      className={`flex items-center justify-between w-full bg-white border ${isDropdownOpen ? 'border-[#0A6B88]' : 'border-neutral-300'} rounded-full px-4 py-2.5 text-[14.5px] focus:outline-none transition-colors text-left ${formData.serviceInterest ? 'text-neutral-900' : 'text-neutral-500'}`}
+                    >
+                      <span className="truncate pr-4">
+                        {formData.serviceInterest 
+                          ? serviceOptions.find(o => o.value === formData.serviceInterest)?.label 
+                          : "Select a service option *"}
+                      </span>
+                      <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform duration-200 shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {/* Dropdown Menu */}
+                    <motion.div 
+                      initial={{ opacity: 0, y: -5 }}
+                      animate={{ opacity: isDropdownOpen ? 1 : 0, y: isDropdownOpen ? 0 : -5 }}
+                      transition={{ duration: 0.15 }}
+                      className={`absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50 ${isDropdownOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
+                    >
+                      <div className="py-1">
+                        <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
+                          Select a service option *
+                        </div>
+                        {serviceOptions.map((option) => (
+                          <button
+                            key={option.value}
+                            type="button"
+                            onClick={() => {
+                              setFormData({ ...formData, serviceInterest: option.value });
+                              setIsDropdownOpen(false);
+                            }}
+                            className="w-full text-left px-4 py-2.5 text-[14.5px] text-neutral-800 hover:bg-[#EAF3F6] hover:text-[#0A6B88] transition-colors"
+                          >
+                            {option.label}
+                          </button>
+                        ))}
+                      </div>
+                    </motion.div>
+                  </div>
                 </div>
 
                 {/* Additional notes */}
-                <div className="flex flex-col border-b border-neutral-300 pb-2.5 focus-within:border-black transition-colors">
+                <div className="flex flex-col">
+                  <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                    Tell us about your requirements
+                  </label>
                   <textarea
                     rows={3}
-                    placeholder="Additional notes"
+                    placeholder="Write your message here..."
                     value={formData.additionalNotes}
                     onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
-                    className="bg-transparent text-[15px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none w-full resize-none"
+                    className="bg-white border border-neutral-300 rounded-[16px] px-4 py-3 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full resize-none"
                   />
                 </div>
 
@@ -325,7 +364,7 @@ export default function ContactPage() {
                     id="marketing-emails-checkbox"
                     checked={formData.marketingConsent}
                     onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
-                    className="mt-1 w-4 h-4 rounded border-neutral-400 text-black focus:ring-black cursor-pointer accent-[#0E2F3E]"
+                    className="mt-1 w-4 h-4 rounded border-neutral-400 text-[#0A6B88] focus:ring-[#0A6B88] cursor-pointer accent-[#0A6B88]"
                   />
                   <label 
                     htmlFor="marketing-emails-checkbox"
@@ -344,7 +383,7 @@ export default function ContactPage() {
                 <div className="pt-2 flex items-center justify-between">
                   <button
                     type="submit"
-                    className="h-[50px] px-10 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-black hover:text-white transition-all duration-300 active:scale-95 shadow-sm cursor-pointer"
+                    className="h-[50px] px-10 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-[#0A6B88] hover:border-[#0A6B88] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
                   >
                     {isSubmitted ? "SUBMITTED ✓" : "SUBMIT"}
                   </button>
@@ -361,23 +400,6 @@ export default function ContactPage() {
 
           </div>
         </div>
-      </section>
-
-      {/* Full-Width Interactive Grayscale Map Section (Matching reference Image 2) */}
-      <section className="w-full relative h-[460px] sm:h-[520px] md:h-[580px] overflow-hidden bg-neutral-100 border-t border-neutral-200">
-        
-        {/* Embedded Clean Google Map */}
-        <iframe
-          title="Vynentra Clean Energy Location Map"
-          src="https://maps.google.com/maps?q=Gujarat%2C%20India&t=&z=7&ie=UTF8&iwloc=&output=embed"
-          width="100%"
-          height="100%"
-          style={{ border: 0, filter: "grayscale(100%) contrast(0.95)" }}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          className="w-full h-full"
-        />
-
       </section>
 
       {/* Footer */}
