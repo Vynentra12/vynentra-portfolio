@@ -94,7 +94,7 @@ export function MissionSectionV2() {
       </SectionBadge>
 
       {/* Main Mission Headline - Symmetrically balanced line break */}
-      <h2 className={`text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-bold tracking-[-0.03em] leading-[1.18] sm:leading-[1.16] max-w-[920px] mx-auto ${textColor}`}>
+      <h2 className={`text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-medium tracking-[-0.03em] leading-[1.18] sm:leading-[1.16] max-w-[920px] mx-auto ${textColor}`}>
         Renewable energy, designed around<br className="hidden sm:inline" /> the way India lives and works.
       </h2>
 

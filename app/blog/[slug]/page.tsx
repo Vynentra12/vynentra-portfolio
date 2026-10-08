@@ -56,33 +56,25 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
-      {/* 1. Full-Bleed Panoramic Hero Section (Matching Screenshot 1) */}
-      <section className="relative w-full min-h-[500px] sm:min-h-[580px] md:min-h-[640px] lg:min-h-[720px] flex flex-col justify-end overflow-hidden bg-[#0A1926]">
+      {/* 1. Full-Bleed Panoramic Hero Section (Half Frame) */}
+      <section className="relative w-full min-h-[50vh] flex flex-col justify-end overflow-hidden bg-black">
         
         {/* Panoramic Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={post.image}
             alt={post.title}
-            className="w-full h-full object-cover object-[center_35%]"
+            className="w-full h-full object-cover object-[center_40%] opacity-60"
           />
-          {/* Cinematic dark gradient overlay to ensure text contrast while keeping sky vibrant */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/25 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Area */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
             
-            {/* Category Lime Badge */}
-            <div className="mb-5 sm:mb-6">
-              <span className="inline-block bg-[#AEF977] text-neutral-950 text-[11px] sm:text-[11.5px] font-bold tracking-wider uppercase px-3.5 py-1 rounded-full shadow-sm">
-                {post.category}
-              </span>
-            </div>
-
-            {/* Giant Title */}
-            <h1 className="text-[34px] sm:text-[46px] md:text-[58px] lg:text-[68px] font-bold text-white tracking-[-0.03em] leading-[1.08] max-w-5xl mb-8 sm:mb-10 drop-shadow-sm">
+            {/* Service-style Title */}
+            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-8 sm:mb-10 select-text">
               {post.title}
             </h1>
 
@@ -131,7 +123,7 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="space-y-10 sm:space-y-12">
           {post.content.sections.map((section, idx) => (
             <section key={idx} className="space-y-4">
-              <h2 className="text-[26px] sm:text-[30px] md:text-[34px] font-bold text-neutral-950 tracking-tight leading-[1.2]">
+              <h2 className="text-[24px] sm:text-[28px] md:text-[32px] font-medium text-neutral-900 tracking-tight leading-[1.2]">
                 {section.heading}
               </h2>
 
@@ -166,7 +158,7 @@ export default async function BlogPostPage({ params }: Props) {
             {["energy", "renewable", "solar"].map((tag) => (
               <span
                 key={tag}
-                className="px-3.5 py-1 rounded-full border border-neutral-900 text-[12px] font-medium text-neutral-900 cursor-pointer hover:bg-neutral-900 hover:text-white transition-colors"
+                className="px-3.5 py-1 rounded-full border border-neutral-900 text-[12px] font-medium text-neutral-900 cursor-pointer hover:bg-[#087589] hover:border-[#087589] hover:text-white transition-colors"
               >
                 {tag}
               </span>
@@ -180,7 +172,7 @@ export default async function BlogPostPage({ params }: Props) {
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Share on X"
-              className="hover:opacity-60 transition-opacity"
+              className="hover:text-[#087589] transition-colors"
             >
               <TwitterIcon className="w-4 h-4" />
             </a>
@@ -189,7 +181,7 @@ export default async function BlogPostPage({ params }: Props) {
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Share on Facebook"
-              className="hover:opacity-60 transition-opacity"
+              className="hover:text-[#087589] transition-colors"
             >
               <FacebookIcon className="w-4 h-4" />
             </a>
@@ -198,7 +190,7 @@ export default async function BlogPostPage({ params }: Props) {
               target="_blank" 
               rel="noopener noreferrer" 
               aria-label="Share on Instagram"
-              className="hover:opacity-60 transition-opacity"
+              className="hover:text-[#087589] transition-colors"
             >
               <InstagramIcon className="w-4 h-4" />
             </a>
@@ -214,7 +206,7 @@ export default async function BlogPostPage({ params }: Props) {
             className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shrink-0 grayscale"
           />
           <div>
-            <h3 className="text-[22px] sm:text-[24px] font-bold text-neutral-950 mb-2.5">
+            <h3 className="text-[22px] sm:text-[24px] font-medium text-neutral-900 mb-2.5">
               About {post.author}
             </h3>
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.65] font-normal mb-4">
@@ -222,9 +214,9 @@ export default async function BlogPostPage({ params }: Props) {
             </p>
             {/* Social Text Links */}
             <div className="flex items-center gap-5 text-[11.5px] font-bold uppercase tracking-wider text-neutral-950">
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer">X</a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer">FACEBOOK</a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:underline cursor-pointer">INSTAGRAM</a>
+              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">X</a>
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">FACEBOOK</a>
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">INSTAGRAM</a>
             </div>
           </div>
         </div>
@@ -236,10 +228,10 @@ export default async function BlogPostPage({ params }: Props) {
             href={`/blog/${prevPost.slug}`}
             className="group flex flex-col items-start text-left cursor-pointer"
           >
-            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-neutral-900 transition-colors">
+            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-[#087589] transition-colors">
               ← PREV
             </span>
-            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-neutral-900 transition-colors line-clamp-1">
+            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-[#087589] transition-colors line-clamp-1">
               {prevPost.title}
             </span>
           </Link>
@@ -249,10 +241,10 @@ export default async function BlogPostPage({ params }: Props) {
             href={`/blog/${nextPost.slug}`}
             className="group flex flex-col items-start sm:items-end text-left sm:text-right cursor-pointer"
           >
-            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-neutral-900 transition-colors">
+            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-[#087589] transition-colors">
               NEXT →
             </span>
-            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-neutral-900 transition-colors line-clamp-1">
+            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-[#087589] transition-colors line-clamp-1">
               {nextPost.title}
             </span>
           </Link>
@@ -264,53 +256,67 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="w-full bg-white pb-20 sm:pb-24 md:pb-28 max-w-[940px] mx-auto px-6 sm:px-10">
         
         {/* Heading */}
-        <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-bold text-neutral-950 tracking-tight mb-8 sm:mb-10">
+        <h2 className="text-[28px] sm:text-[32px] md:text-[36px] font-medium text-neutral-900 tracking-tight mb-8 sm:mb-10">
           Related posts
         </h2>
 
-        {/* 2-Column Responsive Cards Grid */}
+        {/* 2-Column Responsive Cards Grid matching sleek UI */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-9">
-          {relatedPosts.map((relPost) => (
-            <Link
-              key={relPost.id}
-              href={`/blog/${relPost.slug}`}
-              className="group flex flex-col justify-between cursor-pointer"
-            >
-              <div>
-                {/* Image Container */}
-                <div className="w-full aspect-[16/9.5] rounded-[20px] sm:rounded-[22px] overflow-hidden relative bg-neutral-200 mb-5 select-none">
-                  <img
-                    src={relPost.image}
-                    alt={relPost.title}
-                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
+          {relatedPosts.map((relPost, idx) => {
+            const stepStr = String(idx + 1).padStart(2, '0');
+            return (
+              <Link
+                key={relPost.id}
+                href={`/blog/${relPost.slug}`}
+                className="flex flex-col justify-between h-full group/blog cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                  <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 mb-4 select-none">
+                    <img
+                      src={relPost.image}
+                      alt={relPost.title}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                    />
 
-                  {/* Category Lime Badge */}
-                  <div className="absolute top-4 left-4 z-10">
-                    <span className="inline-block bg-[#AEF977] text-black text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
-                      {relPost.category}
-                    </span>
+                    {/* Small Glassmorphism Badge with hyphen (-) */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="inline-flex items-center gap-1.5 bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        <span>{stepStr}</span>
+                        <span className="opacity-60 font-normal">-</span>
+                        <span>{relPost.category}</span>
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Date & Read Time */}
+                  <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em] mb-2">
+                    {relPost.date} · {relPost.readTime}
+                  </p>
+
+                  {/* Title */}
+                  <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 tracking-tight leading-[1.3] group-hover/blog:text-[#087589] transition-colors mb-4">
+                    {relPost.title}
+                  </h3>
                 </div>
 
-                {/* Date */}
-                <p className="text-[11.5px] font-bold text-neutral-800 uppercase tracking-[0.04em] mb-2">
-                  {relPost.date}
-                </p>
-
-                {/* Title */}
-                <h3 className="text-[22px] sm:text-[25px] font-bold text-neutral-950 tracking-tight leading-[1.2] group-hover:text-neutral-700 transition-colors mb-4">
-                  {relPost.title}
-                </h3>
-              </div>
-
-              {/* READ MORE with Linear Continuous Arrow Pass-Through Animation */}
-              <div className="mt-1 inline-flex items-center gap-2 text-xs sm:text-[13px] font-bold text-neutral-900 uppercase tracking-wider group/readmore w-fit py-1 select-none">
-                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-                <span>READ MORE</span>
-              </div>
-            </Link>
-          ))}
+                {/* Read Insight CTA */}
+                <div className="mt-1 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
+                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
+                    <ArrowRight
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
+                      strokeWidth={1.8}
+                    />
+                    <ArrowRight
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
+                      strokeWidth={1.8}
+                    />
+                  </div>
+                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
       </section>

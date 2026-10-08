@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
@@ -11,11 +11,11 @@ interface FAQItem {
 }
 
 export function FAQSectionV2() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default matching reference
+  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
   const [isImageHovered, setIsImageHovered] = useState(false);
   const turbulenceRef = React.useRef<SVGFETurbulenceElement>(null);
 
-  // Silky-smooth, organic continuous water ripple animation while hovered
+  // Organic liquid water ripple animation on hover
   useEffect(() => {
     if (!isImageHovered) return;
 
@@ -25,7 +25,6 @@ export function FAQSectionV2() {
 
     const animateWater = (now: number) => {
       const elapsed = (now - startTime) / 1000;
-      // Gentle, low-frequency smooth liquid flow waves
       const freqX = 0.005 + Math.sin(elapsed * 1.6) * 0.002;
       const freqY = 0.009 + Math.cos(elapsed * 1.4) * 0.003;
       if (turbElement) {
@@ -46,27 +45,36 @@ export function FAQSectionV2() {
 
   const faqs: FAQItem[] = [
     {
-      question: "What kind of wind energy systems does Vynentra offer?",
-      answer: "We offer wind solutions all and any scales you'll ever need - from Vertical Axis Wind Turbines to large-scale captive wind power projects.",
+      question: "How does Vynentra determine which renewable energy solution is right for a site?",
+      answer:
+        "We begin by understanding the site's location, available space, renewable resource potential and energy requirements. Based on these factors, we evaluate the suitability of wind, solar, hybrid and storage solutions before recommending an approach.",
     },
     {
-      question: "How do I know if my property is suitable for a wind turbine?",
-      answer: "We offer a free initial site assessment. Just reach out through our Contact Us page and our team will get in touch with you.",
+      question: "Does Vynentra provide both wind and solar solutions?",
+      answer:
+        "Yes. We are developing solutions across wind, solar and wind-solar hybrid systems, allowing us to evaluate different generation options based on the requirements and conditions of each project.",
     },
     {
-      question: "Can the system be customised for my energy requirement?",
-      answer: "Yes. We offer advisory services to recommend the right configuration, including when wind needs to work alongside other energy sources such as solar.",
+      question: "Can Vynentra develop a wind-solar hybrid system for my project?",
+      answer:
+        "Yes. We are developing hybrid projects that combine wind and solar generation where the two resources can complement each other and create a more suitable generation profile for the project's requirements.",
     },
     {
-      question: "Can you work on larger wind power requirements?",
-      answer: "Yes. Beyond smaller distributed systems, Vynentra works on captive wind power projects for larger commercial and industrial energy requirements.",
+      question: "What types of projects does Vynentra work with?",
+      answer:
+        "We work across residential, commercial, industrial, hospitality, institutional, infrastructure and other captive energy applications, with solutions designed around the project's scale and energy requirements.",
+    },
+    {
+      question: "Does Vynentra only work with small distributed wind projects?",
+      answer:
+        "No. While distributed wind is an important part of our focus, we are also working across larger captive wind projects, hybrid renewable systems and other renewable energy applications.",
     },
   ];
 
   return (
-    <section id="faq" className="w-full bg-white text-neutral-900 py-14 md:py-20 font-sans relative">
+    <section id="faq" className="w-full bg-white text-neutral-900 py-16 md:py-24 font-sans relative select-text">
       
-      {/* SVG Ultra-Smooth Liquid Wave Filter */}
+      {/* SVG Liquid Wave Distortion Filter */}
       <svg className="absolute w-0 h-0 pointer-events-none opacity-0" aria-hidden="true">
         <defs>
           <filter id="faq-water-wave-distortion" x="-5%" y="-5%" width="110%" height="110%">
@@ -88,23 +96,21 @@ export function FAQSectionV2() {
         </defs>
       </svg>
 
-      <div className="w-full max-w-[1380px] mx-auto px-6 md:px-12 lg:px-16">
-        
-        {/* 2-Column Grid with aligned spacing */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
+      <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-stretch">
           
-          {/* Left Column: Wind Turbine Image with Silky Smooth Liquid Ripple on Hover */}
+          {/* Left Column: Liquid Ripple Image on Hover (precisely leveled with right column content) */}
           <motion.div 
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="lg:col-span-5 w-full"
+            className="lg:col-span-5 w-full h-full min-h-0 flex flex-col"
           >
             <div 
               onMouseEnter={() => setIsImageHovered(true)}
               onMouseLeave={() => setIsImageHovered(false)}
-              className="w-full aspect-[4/3] sm:aspect-square lg:aspect-[4/5] lg:h-[460px] xl:h-[480px] rounded-[20px] sm:rounded-[24px] overflow-hidden relative shadow-sm bg-neutral-100 cursor-pointer select-none group"
+              className="w-full h-[260px] xs:h-[300px] sm:h-[340px] lg:h-full min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shadow-sm bg-neutral-100 cursor-pointer select-none group flex-1"
             >
               <img
                 src="https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1200"
@@ -113,65 +119,74 @@ export function FAQSectionV2() {
                   filter: isImageHovered ? "url(#faq-water-wave-distortion)" : "none",
                   transition: "filter 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
                 }}
-                className={`w-full h-full object-cover transition-transform duration-700 ease-out ${
+                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
                   isImageHovered ? "scale-[1.02]" : "scale-100"
                 }`}
               />
             </div>
           </motion.div>
 
-          {/* Right Column: Title, Kicker & Accordion */}
+          {/* Right Column: Badge, Title & Accordion */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
             className="lg:col-span-7 flex flex-col justify-start"
           >
-            
+            {/* Badge: FAQ'S */}
             <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-              FREQUENTLY ASKED QUESTIONS
+              FAQ&apos;S
             </SectionBadge>
 
-            {/* Main Headline */}
-            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[520px]">
-              Everything you need to know about wind power
+            {/* Main Title */}
+            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[560px]">
+              Understanding renewable energy for your project
             </h2>
 
-            {/* FAQ Accordion List */}
+            {/* FAQ Accordion List (Without 01,02,03 numbers, with What-We-Do arrows) */}
             <div className="w-full flex flex-col">
               {faqs.map((faq, index) => {
                 const isOpen = openIndex === index;
 
                 return (
                   <motion.div 
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.1 }}
-                    transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
+                    transition={{ duration: 0.4, delay: 0.1 + index * 0.06 }}
                     key={index}
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="border-b border-neutral-200/90 py-4 sm:py-5 cursor-pointer group select-none transition-colors"
+                    className={`py-4 sm:py-5 cursor-pointer group select-none transition-colors duration-200 ${
+                      index !== faqs.length - 1 ? "border-b border-neutral-200/90" : ""
+                    }`}
                   >
-                    {/* Question Row */}
-                    <div className="flex justify-between items-center gap-4">
+                    {/* Question Row with What-We-Do Arrow */}
+                    <div className="flex justify-between items-center gap-4 sm:gap-6">
                       <h3 
                         className={`text-[17px] sm:text-[18px] lg:text-[19px] font-medium tracking-tight leading-[1.3] transition-colors duration-200 ${
                           isOpen 
-                            ? "text-[#0A6B88]" 
-                            : "text-neutral-900 group-hover:text-neutral-700"
+                            ? "text-[#087589]" 
+                            : "text-neutral-900 group-hover:text-[#087589]"
                         }`}
                       >
                         {faq.question}
                       </h3>
 
-                      {/* Expand / Collapse Icon */}
-                      <div className="shrink-0">
-                        {isOpen ? (
-                          <ArrowUp className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-[#0A6B88] stroke-[2.5]" />
-                        ) : (
-                          <ArrowDown className="w-4 h-4 sm:w-4.5 sm:h-4.5 text-neutral-900 stroke-[2.5] group-hover:translate-y-0.5 transition-transform duration-200" />
-                        )}
+                      {/* Arrow Morph from "What We Do" section (ArrowUpRight ↗ to ArrowRight →) */}
+                      <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
+                        {/* Inactive Diagonal Arrow ↗ */}
+                        <ArrowUpRight
+                          className={`w-4 h-4 text-neutral-800 absolute transition-all duration-300 ease-out ${
+                            isOpen ? "opacity-0 scale-75 rotate-45" : "opacity-100 scale-100 rotate-0 group-hover:text-[#087589]"
+                          }`}
+                        />
+                        {/* Active / Expanded Horizontal Arrow → */}
+                        <ArrowRight
+                          className={`w-4 h-4 text-[#087589] absolute transition-all duration-300 ease-out ${
+                            isOpen ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-75 -translate-x-1"
+                          }`}
+                        />
                       </div>
                     </div>
 
@@ -184,7 +199,7 @@ export function FAQSectionV2() {
                       }`}
                     >
                       <div className="overflow-hidden">
-                        <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[540px] font-normal">
+                        <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.65] max-w-[560px] font-normal">
                           {faq.answer}
                         </p>
                       </div>
@@ -197,7 +212,6 @@ export function FAQSectionV2() {
           </motion.div>
 
         </div>
-
       </div>
     </section>
   );

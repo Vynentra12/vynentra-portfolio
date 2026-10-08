@@ -1,16 +1,18 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
+import { CTASectionV2 } from "@/components/sections/CTASectionV2";
+import { SERVICES } from "@/lib/services-data";
+import { Search, PenTool, Wrench, Truck, Activity, ArrowRight, Zap } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { SERVICES } from "@/lib/services-data";
-import { Search, PenTool, Wrench, Truck, Activity, ArrowRight } from "lucide-react";
+import { useGSAP } from "@gsap/react";
 
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
 const PROCESS_STEPS = [
@@ -22,294 +24,340 @@ const PROCESS_STEPS = [
 ];
 
 export default function ServicesPage() {
-  const [activeServiceIdx, setActiveServiceIdx] = useState(0);
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useGSAP(() => {
+    const cards = cardRefs.current.filter(Boolean) as HTMLDivElement[];
+    const section = sectionRef.current;
+    if (cards.length < 2 || !section) return;
+
+    const mm = gsap.matchMedia();
+
+    // ── DESKTOP & TABLET (>= 768px): Pinned Stacking Card Deck ─────────────
+    mm.add("(min-width: 768px)", () => {
+      // Set initial positions
+      cards.forEach((card, index) => {
+        if (index === 0) {
+          gsap.set(card, { y: 0, scale: 1, opacity: 1, zIndex: 10 });
+        } else {
+          gsap.set(card, { y: "120vh", scale: 1, opacity: 1, zIndex: 10 + index });
+        }
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${(cards.length - 1) * 70 + 40}%`,
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: 1,
+        },
+      });
+
+      cards.forEach((_, index) => {
+        if (index === 0) return;
+        const timePos = index - 1;
+
+        // Bring current card smoothly up to center
+        tl.fromTo(
+          cards[index],
+          { y: "120vh" },
+          { y: 0, ease: "none", duration: 1 },
+          timePos
+        );
+
+        // Adjust previous cards:
+        // Card immediately behind (diff = 1): subtle tab behind (y: -35px, scale: 0.94, opacity: 0.5)
+        // Card 2 behind (diff = 2): fades out (opacity: 0, scale: 0.88, y: -65px)
+        // Further cards: remain opacity: 0
+        for (let i = 0; i < index; i++) {
+          const diff = index - i;
+          let targetY = -35;
+          let targetScale = 0.94;
+          let targetOpacity = 0.5;
+
+          if (diff === 2) {
+            targetY = -65;
+            targetScale = 0.88;
+            targetOpacity = 0;
+          } else if (diff > 2) {
+            targetY = -80;
+            targetScale = 0.84;
+            targetOpacity = 0;
+          }
+
+          tl.to(
+            cards[i],
+            {
+              y: targetY,
+              scale: targetScale,
+              opacity: targetOpacity,
+              ease: "none",
+              duration: 1,
+            },
+            timePos
+          );
+        }
+      });
+
+      // Brief hold on final card before unpinning
+      tl.set({}, {}, cards.length - 0.7);
+    });
+
+    // ── MOBILE (< 768px): Smooth stacked card deck animation ─────────────
+    mm.add("(max-width: 767px)", () => {
+      cards.forEach((card, index) => {
+        if (index === 0) {
+          gsap.set(card, { y: 0, scale: 1, opacity: 1, zIndex: 10 });
+        } else {
+          gsap.set(card, { y: "115vh", scale: 1, opacity: 1, zIndex: 10 + index });
+        }
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: `+=${(cards.length - 1) * 65 + 30}%`,
+          pin: true,
+          scrub: 0.8,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          refreshPriority: 1,
+        },
+      });
+
+      cards.forEach((_, index) => {
+        if (index === 0) return;
+        const timePos = index - 1;
+
+        tl.fromTo(
+          cards[index],
+          { y: "115vh" },
+          { y: 0, ease: "none", duration: 1 },
+          timePos
+        );
+
+        for (let i = 0; i < index; i++) {
+          const diff = index - i;
+          const targetY = diff === 1 ? -20 : -45;
+          const targetScale = diff === 1 ? 0.96 : 0.9;
+          const targetOpacity = diff === 1 ? 0.4 : 0;
+
+          tl.to(
+            cards[i],
+            {
+              y: targetY,
+              scale: targetScale,
+              opacity: targetOpacity,
+              ease: "none",
+              duration: 1,
+            },
+            timePos
+          );
+        }
+      });
+
+      tl.set({}, {}, cards.length - 0.7);
+    });
+
+  }, { scope: sectionRef, dependencies: [] });
+
+  // Let Lenis finish its first tick before refreshing ScrollTrigger positions
+  React.useEffect(() => {
+    const t = setTimeout(() => ScrollTrigger.refresh(), 600);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
-    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen">
+    <div className="w-full bg-white text-black font-sans min-h-screen selection:bg-[#AEF977] selection:text-black">
 
       {/* Hero Section */}
-      <section className="relative w-full min-h-screen flex flex-col justify-end overflow-hidden bg-[#0e2736]">
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.pexels.com/photos/35105436/pexels-photo-35105436.jpeg"
             alt="Renewable energy services hero"
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-center opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-8 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32">
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 pt-24">
           
-          <div className="max-w-5xl">
-            <h1 className="text-[36px] sm:text-[44px] md:text-[52px] lg:text-[64px] font-bold text-white tracking-tight leading-[1.05] drop-shadow-sm mb-6 sm:mb-8 select-none">
-              <span className="text-[#AEF977]">Building renewable</span> energy solutions around your requirements.
+          <div className="max-w-4xl">
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
+                OUR SERVICES
+              </span>
+            </div>
+            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
+              Building renewable energy solutions around your requirements.
             </h1>
 
-            <p className="text-[14px] sm:text-[15px] md:text-[16px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm mb-12 sm:mb-16">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
               From renewable energy generation and storage to project development, engineering and execution, we are bringing together the capabilities required to develop practical and commercially viable energy solutions across India.
             </p>
           </div>
 
           {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/25 pb-3 sm:pb-3.5">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11.5px] sm:text-[12px] font-bold uppercase tracking-[0.06em]">
+          <div className="w-full border-b border-white/20 pb-4">
+            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
               <Link
                 href="/"
-                className="text-white/85 hover:text-white transition-colors"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 HOME
               </Link>
-              <span className="text-white/60 font-normal select-none">→</span>
-              <span className="text-white select-none">SERVICES</span>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <span className="text-[#AEF977] select-none">SERVICES</span>
             </nav>
           </div>
         </div>
       </section>
 
-      {/* Services List Section (Hover UI) - Mix Blend Difference for overlapping text */}
-      <section className="relative w-full min-h-screen py-16 sm:py-20 lg:py-24 bg-white flex flex-col justify-center overflow-hidden">
-        <div className="max-w-[1440px] w-full mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 flex flex-col lg:flex-row lg:items-center gap-10 lg:gap-0">
-          
-          {/* Mobile Title (Hidden on Desktop) */}
-          <div className="w-full lg:hidden flex flex-col mb-2">
-            <SectionBadge theme="dark" className="w-fit mb-3">
+      {/* Services Scroll Section (Pinned Stacking Deck matching homepage) */}
+      <section
+        ref={sectionRef}
+        className="w-full bg-[#F4F6F8] font-sans relative select-text flex flex-col justify-center overflow-hidden h-[100dvh] min-h-[640px] max-h-[1080px]"
+      >
+        <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col flex-1 justify-center py-4 sm:py-6">
+
+          <div className="w-full text-center pb-3 sm:pb-5 md:pb-6 shrink-0">
+            <SectionBadge theme="dark">
               OUR SERVICES
             </SectionBadge>
-            <h2 className="text-[28px] sm:text-[34px] font-bold text-neutral-900 mt-4 leading-[1.2] max-w-lg">
-              Powering communities with clean, reliable, and renewable energy
-            </h2>
           </div>
 
-          {/* Mobile Services List (Hidden on Desktop) */}
-          <div className="w-full lg:hidden flex flex-col gap-6 relative z-10">
-            {SERVICES.map((service) => (
-              <Link href={`/services/${service.slug}`} key={service.id} className="flex items-center gap-5 group bg-white rounded-2xl">
-                <img src={service.image} alt={service.title} className="w-[90px] h-[90px] sm:w-[110px] sm:h-[110px] rounded-[20px] object-cover flex-shrink-0 shadow-[0_8px_30px_rgba(0,0,0,0.06)]" />
-                <div className="flex flex-col">
-                  <h3 className="text-[20px] sm:text-[22px] font-bold text-neutral-900 leading-[1.2] mb-2 group-hover:text-neutral-600 transition-colors">
-                    {service.title.charAt(0) + service.title.slice(1).toLowerCase()}
-                  </h3>
-                  <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.06em] uppercase text-neutral-500 leading-[1.4] max-w-[200px]">
-                    OUR EXPERT TEAM HANDLES THE FULL PROCESS
-                  </p>
-                </div>
-              </Link>
-            ))}
-            <div className="mt-8">
-              <Link 
-                href="/services/solar-energy" 
-                className="inline-flex items-center justify-center h-[52px] px-8 rounded-full border border-neutral-900 text-neutral-900 text-[13px] font-bold tracking-[0.08em] uppercase transition-all duration-300 hover:bg-[#AEF977] hover:border-[#AEF977] hover:text-neutral-900 active:scale-[0.98]"
+          <div
+            ref={containerRef}
+            className="relative w-full flex-1 max-h-[500px] xs:max-h-[540px] sm:max-h-[580px] md:max-h-[72vh] lg:max-h-[76vh] flex items-center justify-center"
+          >
+            {SERVICES.map((service, idx) => (
+              <div
+                key={service.id}
+                ref={(el) => { cardRefs.current[idx] = el; }}
+                className="absolute inset-0 w-full h-full rounded-[22px] xs:rounded-[26px] sm:rounded-[30px] md:rounded-[34px] overflow-hidden flex flex-col justify-center shadow-xl md:shadow-2xl bg-black will-change-transform"
+                style={{ zIndex: 10 + idx }}
               >
-                View all services
-              </Link>
-            </div>
-          </div>
-          
-          {/* Desktop Left Column: Titles (Hidden on Mobile) */}
-          <div className="hidden lg:flex w-[60%] flex-col relative z-20 mix-blend-difference text-white">
-            <div className="mb-16">
-              <SectionBadge theme="light" className="w-fit mb-4">
-                OUR SERVICES
-              </SectionBadge>
-              <h2 className="text-[38px] font-bold mt-4 leading-[1.2] max-w-lg">
-                Powering communities with clean, reliable, and renewable energy
-              </h2>
-            </div>
-
-            <div className="flex flex-col space-y-4">
-              {SERVICES.map((service, idx) => (
-                <Link
-                  key={service.id}
-                  href={`/services/${service.slug}`}
-                  onMouseEnter={() => setActiveServiceIdx(idx)}
-                  className={`group block w-fit py-1`}
-                >
-                  <h3 
-                    className={`text-[54px] xl:text-[60px] font-bold tracking-tight leading-[1] whitespace-nowrap transition-all duration-500 ease-out ${
-                      activeServiceIdx === idx 
-                        ? 'opacity-100 translate-x-6' 
-                        : 'opacity-30 hover:opacity-50'
-                    }`}
-                  >
-                    {service.title}
-                  </h3>
-                </Link>
-              ))}
-            </div>
-            
-            <div className="mt-16">
-              <Link 
-                href="/services/solar-energy" 
-                className="inline-flex items-center justify-center h-[52px] px-8 rounded-full border border-white text-white text-[13px] font-bold tracking-[0.08em] uppercase transition-all duration-300 hover:bg-white hover:text-[#0B2735] active:scale-[0.98]"
-              >
-                View all services
-              </Link>
-            </div>
-          </div>
-
-          {/* Desktop Right Column: Dynamic Image (Hidden on Mobile) */}
-          <div className="hidden lg:flex w-[50%] justify-end -ml-[10%] relative z-10 pointer-events-none">
-            <div className="w-full max-w-[500px] xl:max-w-[550px] aspect-[4/5] rounded-[24px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.15)] relative bg-neutral-100">
-              {SERVICES.map((service, idx) => (
+                {/* Background image */}
                 <img
-                  key={service.id}
                   src={service.image}
                   alt={service.title}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
-                    activeServiceIdx === idx ? 'opacity-100 z-10' : 'opacity-0 z-0'
-                  }`}
+                  className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none opacity-90"
+                  draggable={false}
                 />
-              ))}
-              <div className="absolute inset-0 bg-black/10 pointer-events-none z-20" />
-            </div>
-          </div>
 
+                {/* Gradient dark overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/40 to-black/20 pointer-events-none" />
+
+                {/* Card content */}
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-5 py-6 xs:px-6 xs:py-7 sm:px-10 sm:py-9 md:px-14 md:py-14 select-text">
+
+                  {/* ── Number + Title ── */}
+                  <div className="flex flex-col items-center cursor-text">
+                    <span className="text-[10px] xs:text-[11px] sm:text-[12.5px] font-medium text-white/90 tracking-[0.2em] uppercase mb-1 drop-shadow-sm">
+                      {service.id}
+                    </span>
+                    <h3 className="text-[20px] xs:text-[23px] sm:text-[30px] md:text-[40px] lg:text-[48px] font-medium text-white tracking-tight leading-[1.14] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] mb-1.5 md:mb-0">
+                      {service.title}
+                    </h3>
+                  </div>
+
+                  {/* Vertical accent divider line */}
+                  <div className="hidden md:block w-[1.5px] md:h-10 bg-white/45 md:my-3 pointer-events-none" />
+
+                  {/* ── Lead + Description + CTA ── */}
+                  <div className="flex flex-col items-center max-w-[700px] w-full cursor-text">
+                    <p className="text-[12px] xs:text-[13px] sm:text-[14.5px] md:text-[16.5px] text-white font-medium leading-[1.38] drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] mb-1 sm:mb-1.5 max-w-[660px]">
+                      {service.subtitle}
+                    </p>
+                    <p className="text-[10.5px] xs:text-[11px] sm:text-[12.5px] md:text-[14px] text-white/80 leading-[1.48] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] mb-3 xs:mb-4 sm:mb-5 md:mb-6 max-w-[620px] line-clamp-3 md:line-clamp-none">
+                      {service.desc}
+                    </p>
+
+                    <Link
+                      href={`/services/${service.slug}`}
+                      className="inline-flex items-center justify-center h-[34px] xs:h-[38px] sm:h-[42px] md:h-[46px] px-5 xs:px-6 sm:px-7 md:px-8 rounded-full bg-white/10 backdrop-blur-md border border-white/35 text-white text-[10px] xs:text-[10.5px] sm:text-[11.5px] md:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_10px_35px_rgba(255,255,255,0.25)] active:scale-[0.98]"
+                    >
+                      LEARN MORE
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Process Section (HOW WE BRING IT TOGETHER) */}
-      <section className="w-full py-24 sm:py-32 bg-white">
+      <section className="w-full py-16 sm:py-20 lg:py-24 bg-white">
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
           
-          {/* Top Row: Title */}
-          <div className="flex flex-col md:flex-row gap-6 md:gap-10 mb-16 lg:mb-20">
-            <div className="w-full md:w-1/3 pt-2">
-              <span className="text-[12px] sm:text-[13px] font-bold tracking-[0.1em] text-neutral-500 uppercase block mb-4">
-                HOW WE BRING IT TOGETHER
-              </span>
-              <h3 className="text-[20px] sm:text-[24px] font-bold text-neutral-900 leading-[1.2]">
-                One connected approach, from requirement to renewable energy.
-              </h3>
-            </div>
-            <div className="w-full md:w-2/3">
-              <h2 className="text-[26px] sm:text-[32px] md:text-[36px] font-bold text-neutral-900 tracking-tight leading-[1.2] max-w-3xl">
-                We are not starting with a predetermined technology. We are starting with the site, the energy requirement and the objective. From there, we are evaluating the available resources, selecting the appropriate solution and bringing together the partners required to develop and deliver it.
-              </h2>
-            </div>
+          <div className="mb-10 sm:mb-14 md:mb-16 flex flex-col items-start text-left">
+            <SectionBadge theme="dark" className="w-fit mb-3 sm:mb-4 uppercase">
+              HOW WE BRING IT TOGETHER
+            </SectionBadge>
+            <h2 className="text-[26px] sm:text-[32px] md:text-[38px] font-medium text-black tracking-tight leading-[1.14] max-w-4xl">
+              One connected approach, from requirement to renewable energy
+            </h2>
+            <p className="mt-3 sm:mt-5 text-[14px] sm:text-[16px] text-neutral-600 max-w-2xl leading-[1.6]">
+              We start with the site, the energy requirement and the objective. From there, we evaluate the available resources, select the appropriate solution and bring together the partners required to develop and deliver it.
+            </p>
           </div>
 
-          {/* Bottom Row: 2-column Layout (Cards on Left, Image on Right) */}
-          <div className="flex flex-col lg:flex-row gap-6 xl:gap-8">
-            
-            {/* Left: 5 Cards Grid */}
-            <div className="w-full lg:w-[60%] grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 xl:gap-6">
-              {PROCESS_STEPS.map((step, idx) => {
-                const Icon = step.icon;
-                const isWhite = idx === 1 || idx === 2; // 2nd (1), 3rd (2) are white. 1st (0), 4th (3), 5th (4) are skin color. This creates a checkerboard for the 2x2 part!
-                
-                return (
-                  <div 
-                    key={step.id} 
-                    className={`rounded-[24px] p-6 sm:p-10 flex flex-col justify-between min-h-[200px] sm:min-h-[280px] transition-colors duration-300 ${
-                      isWhite 
-                        ? "bg-white shadow-[0_8px_30px_rgba(0,0,0,0.04)] hover:bg-[#F9F9F9]" 
-                        : "bg-[#F4F0EA] hover:bg-[#EAE6DF]"
-                    } ${
-                      idx === 4 ? "sm:col-span-2 sm:flex-row sm:items-center sm:min-h-[auto] sm:py-8" : ""
-                    }`}
-                  >
-                    <div className={`flex justify-between items-start ${idx === 4 ? "sm:w-[30%]" : ""}`}>
-                      <span className="text-[36px] sm:text-[44px] font-bold text-neutral-900 tracking-tighter leading-none">
-                        {step.id}
-                      </span>
-                      <div className="text-neutral-300">
-                        <Icon strokeWidth={1.5} className="w-8 h-8 sm:w-10 sm:h-10" />
-                      </div>
-                    </div>
-                    
-                    {/* Divider Lines */}
-                    {idx !== 4 && <div className="w-full h-[1px] bg-black/10 my-4 sm:my-8" />}
-                    {idx === 4 && <div className="hidden sm:block w-[1px] h-20 bg-black/10 mx-8" />}
-                    {idx === 4 && <div className="block sm:hidden w-full h-[1px] bg-black/10 my-4" />}
-                    
-                    <div className={idx === 4 ? "sm:w-[70%]" : ""}>
-                      <h3 className="text-[17px] sm:text-[18px] font-bold text-neutral-900 mb-2.5">
-                        {step.title}
-                      </h3>
-                      <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-[1.6]">
-                        {step.desc}
-                      </p>
-                    </div>
+          <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-14">
+            {PROCESS_STEPS.map((step) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.id} className="flex flex-col items-start group">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#AEF977] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:scale-110 group-hover:rounded-[20px]">
+                    <Icon strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
                   </div>
-                );
-              })}
+                  
+                  <h3 className="text-[17px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2 sm:mb-2.5 leading-[1.2]">
+                    {step.title}
+                  </h3>
+                  <p className="text-[13.5px] sm:text-[15px] text-neutral-600 leading-[1.6]">
+                    {step.desc}
+                  </p>
+                </div>
+              );
+            })}
+            
+            {/* Adding a 6th item to complete the 3-column grid for symmetry, mapping to the 6th service area */}
+            <div className="flex flex-col items-start group">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#AEF977] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:scale-110 group-hover:rounded-[20px]">
+                <Zap strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-black" />
+              </div>
+              
+              <h3 className="text-[18px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2.5 leading-[1.2]">
+                OPTIMISE
+              </h3>
+              <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-[1.6]">
+                Continuously improving system efficiency and output through advanced energy management and analytics.
+              </p>
             </div>
-
-            {/* Right: Large Vertical Image */}
-            <div className="w-full lg:w-[40%] h-[300px] sm:h-[400px] lg:h-auto rounded-[24px] overflow-hidden relative">
-              <img 
-                src="https://images.pexels.com/photos/10180236/pexels-photo-10180236.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                alt="Wind turbine field"
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
-
           </div>
 
         </div>
       </section>
 
-      {/* CTA Section - Floating Team Layout */}
-      <section className="relative w-full py-40 sm:py-56 md:py-64 lg:py-[280px] bg-white overflow-hidden flex items-center justify-center">
-        
-        {/* Floating Images (Static layout) */}
-        <div className="absolute inset-0 w-full h-full pointer-events-none max-w-[1440px] mx-auto z-0 hidden sm:block">
-          {/* Top Left Image */}
-          <div className="absolute sm:top-[15%] lg:top-[20%] sm:left-[5%] lg:left-[8%] sm:w-[140px] sm:h-[180px] lg:w-[180px] lg:h-[220px] rounded-[20px] overflow-hidden shadow-2xl animate-float">
-            <img src="https://images.pexels.com/photos/1036936/pexels-photo-1036936.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Omar Bergson" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-center pb-4">
-              <span className="text-white text-[12px] font-semibold">Omar Bergson</span>
-            </div>
-          </div>
-          
-          {/* Top Right Image */}
-          <div className="absolute sm:top-[12%] lg:top-[15%] sm:right-[5%] lg:right-[8%] sm:w-[150px] sm:h-[190px] lg:w-[200px] lg:h-[240px] rounded-[24px] overflow-hidden shadow-2xl animate-float-alt">
-            <img src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Anika Bergson" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-center pb-4">
-              <span className="text-white text-[12px] font-semibold">Anika Bergson</span>
-            </div>
-          </div>
-
-          {/* Bottom Left Image */}
-          <div className="absolute sm:bottom-[15%] lg:bottom-[20%] sm:left-[8%] lg:left-[12%] sm:w-[160px] sm:h-[160px] lg:w-[200px] lg:h-[200px] rounded-[20px] overflow-hidden shadow-2xl animate-float-alt">
-            <img src="https://images.pexels.com/photos/114979/pexels-photo-114979.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Ruben Geidt" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-center pb-4">
-              <span className="text-white text-[12px] font-semibold">Ruben Geidt</span>
-            </div>
-          </div>
-
-          {/* Bottom Right Image */}
-          <div className="absolute sm:bottom-[18%] lg:bottom-[25%] sm:right-[10%] lg:right-[12%] sm:w-[150px] sm:h-[180px] lg:w-[190px] lg:h-[230px] rounded-[20px] overflow-hidden shadow-2xl animate-float">
-            <img src="https://images.pexels.com/photos/20853488/pexels-photo-20853488.jpeg?auto=compress&cs=tinysrgb&w=400" alt="Emerson Bergson" className="w-full h-full object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end justify-center pb-4">
-              <span className="text-white text-[12px] font-semibold">Emerson Bergson</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Centered Content */}
-        <div className="relative z-10 w-full max-w-2xl mx-auto px-6 text-center flex flex-col items-center">
-          <span className="text-[12px] sm:text-[13px] font-bold tracking-[0.1em] text-neutral-500 uppercase mb-4 sm:mb-8">
-            FINAL CTA
-          </span>
-          <h2 className="text-[32px] sm:text-[38px] md:text-[44px] font-bold text-neutral-900 tracking-tight leading-[1.15] mb-6">
-            Let's develop the right energy solution for your requirement.
-          </h2>
-          <p className="text-[15px] sm:text-[16px] md:text-[17px] text-neutral-600 leading-[1.6] mb-10 max-w-xl">
-            We are building renewable energy solutions across wind, solar, hybrid generation and storage, supported by the project development and execution capabilities required to take them forward.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center h-[52px] px-8 rounded-full border border-neutral-900 text-neutral-900 bg-transparent text-[13px] font-bold tracking-[0.08em] uppercase transition-all duration-300 hover:bg-[#AEF977] hover:border-[#AEF977] active:scale-[0.98] shadow-sm hover:shadow-md"
-          >
-            GET IN TOUCH
-            <ArrowRight className="ml-2 w-4 h-4" />
-          </Link>
-        </div>
-
-      </section>
+      {/* CTA Section */}
+      <CTASectionV2 
+        badgeText="FINAL CTA"
+        title="Let's develop the right energy solution for your requirement."
+        description="We are building renewable energy solutions across wind, solar, hybrid generation and storage, supported by the project development and execution capabilities required to take them forward."
+        buttonText="GET IN TOUCH"
+        buttonLink="/contact"
+      />
 
       {/* Footer */}
       <FooterV2 />

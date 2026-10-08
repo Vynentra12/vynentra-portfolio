@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { motion, AnimatePresence } from "framer-motion";
@@ -16,24 +16,53 @@ export function Navbar() {
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollYRef = useRef(0);
 
-  // Detect scroll position to switch between transparent hero header and solid white header
+  // Detect scroll direction (hide on scroll down, show on scroll up) & background style toggle
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      // Switch to the solid background as soon as the user scrolls down 40px
-      if (window.scrollY > 40) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // Toggle solid vs transparent background style
+          if (currentScrollY > 40) {
+            setIsScrolled(true);
+          } else {
+            setIsScrolled(false);
+          }
+
+          // Near top of the page: always keep visible
+          if (currentScrollY <= 40) {
+            setIsVisible(true);
+          } else {
+            const diff = currentScrollY - lastScrollYRef.current;
+            // Scroll down -> hide header (require minimum 6px movement to avoid micro-scroll jitter)
+            if (diff > 6) {
+              setIsVisible(false);
+            }
+            // Scroll up -> show header
+            else if (diff < -6) {
+              setIsVisible(true);
+            }
+          }
+
+          lastScrollYRef.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
       }
     };
-    
+
     // Initial check
     handleScroll();
-    
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [pathname]);
+  }, []);
 
   // Lock background scrolling and interaction when mobile menu is open
   useEffect(() => {
@@ -50,9 +79,10 @@ export function Navbar() {
     };
   }, [isMobileMenuOpen]);
 
-  // Close mobile menu on route change
+  // Close mobile menu and ensure header is visible on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setIsVisible(true);
   }, [pathname]);
 
   // Clean 5 navigation items
@@ -65,41 +95,42 @@ export function Navbar() {
   ];
 
   const currentPillTarget = hoveredLink || activeLink;
+  const showHeader = isVisible || isMobileMenuOpen;
 
   return (
     <motion.header 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-sans ${
+      initial={{ y: 0 }}
+      animate={{ y: showHeader ? 0 : "-100%" }}
+      transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 font-sans transition-colors duration-300 ${
         isScrolled 
-          ? "bg-white/95 backdrop-blur-md border-b border-black/5 shadow-[0_2px_15px_rgba(0,0,0,0.03)] py-0" 
-          : "bg-transparent border-b border-transparent shadow-none py-1 md:py-2"
+          ? "bg-white/95 backdrop-blur-md border-b border-black/5 shadow-[0_2px_15px_rgba(0,0,0,0.03)]" 
+          : "bg-transparent border-b border-transparent shadow-none"
       }`}
     >
       <div className="relative z-50 w-full px-5 md:px-8 lg:px-12 xl:px-14">
-        <div className="h-20 grid grid-cols-2 min-[1040px]:grid-cols-3 items-center gap-4 w-full">
+        <div className="h-16 grid grid-cols-2 min-[1040px]:grid-cols-3 items-center gap-4 w-full">
           
           {/* Left: Brand Logo */}
           <div className="flex items-center justify-self-start shrink-0">
             <Logo 
               color={isScrolled ? "#000000" : "#FFFFFF"} 
-              className="text-[20px] md:text-[23px] font-extrabold tracking-tight transition-colors duration-300" 
+              className="text-[19px] md:text-[21px] font-extrabold tracking-tight transition-colors duration-300" 
             />
           </div>
 
           {/* Center: Navigation Links with Standard Hover */}
-          <nav className="hidden min-[1040px]:flex items-center justify-center gap-1.5 lg:gap-3 xl:gap-5 relative shrink-0 justify-self-center">
+          <nav className="hidden min-[1040px]:flex items-center justify-center gap-1 lg:gap-2.5 xl:gap-4 relative shrink-0 justify-self-center">
             {navLinks.map((item) => {
               const isSelected = currentPillTarget === item.name;
 
               return (
-                <div key={item.name} className="relative py-1">
+                <div key={item.name} className="relative">
                   <Link 
                     href={item.href}
                     onMouseEnter={() => setHoveredLink(item.name)}
                     onMouseLeave={() => setHoveredLink(null)}
-                    className={`relative h-[38px] px-4 sm:px-5 flex items-center justify-center text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
+                    className={`relative h-[34px] sm:h-[35px] px-3.5 sm:px-4 flex items-center justify-center text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
                       isSelected 
                         ? (isScrolled 
                             ? "text-[#111111] bg-neutral-200 shadow-sm border-transparent" 
@@ -117,14 +148,12 @@ export function Navbar() {
           </nav>
           
           {/* Right: GET IN TOUCH CTA & Mobile Toggle */}
-          <div className="flex items-center gap-3 sm:gap-3.5 shrink-0 justify-self-end">
+          <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 justify-self-end">
             
-
-
             {/* GET IN TOUCH CTA Button with clean stroke in default & matching hover */}
             <Link 
               href="/contact"
-              className={`hidden sm:inline-flex items-center justify-center h-[44px] px-6 rounded-full border text-[12.5px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer shrink-0 whitespace-nowrap transition-all duration-300 active:scale-[0.98] ${
+              className={`hidden sm:inline-flex items-center justify-center h-[38px] sm:h-[39px] px-5 sm:px-5.5 rounded-full border text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer shrink-0 whitespace-nowrap transition-all duration-300 active:scale-[0.98] ${
                 isScrolled
                   ? "border-[#0B2735] text-[#0B2735] hover:bg-[#0B2735] hover:text-white"
                   : "border-white/70 text-white hover:bg-white hover:text-[#0B2735] hover:border-white"
@@ -136,14 +165,14 @@ export function Navbar() {
             {/* Mobile Menu Toggle */}
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className={`min-[1040px]:hidden w-10 h-10 rounded-full border transition-colors shrink-0 flex items-center justify-center ${
+              className={`min-[1040px]:hidden w-9 h-9 rounded-full border transition-colors shrink-0 flex items-center justify-center ${
                 isScrolled
                   ? "border-black/10 text-black hover:bg-black/5"
                   : "border-white/30 text-white hover:bg-white/10"
               }`}
               aria-label="Toggle mobile menu"
             >
-              {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMobileMenuOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
             </button>
           </div>
           

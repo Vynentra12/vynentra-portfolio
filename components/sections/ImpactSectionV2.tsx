@@ -91,7 +91,7 @@ export function ImpactSectionV2() {
   return (
     <section
       ref={sectionRef}
-      className="w-full bg-[#EBE7E0] text-neutral-900 min-h-[480px] sm:min-h-[540px] md:min-h-[600px] lg:min-h-[640px] py-16 md:py-24 flex items-center font-sans relative overflow-hidden select-text"
+      className="w-full bg-[#F4F6F8] text-neutral-900 min-h-[480px] sm:min-h-[540px] md:min-h-[600px] lg:min-h-[640px] py-16 md:py-24 flex items-center font-sans relative overflow-hidden select-text"
       style={{ userSelect: "text", WebkitUserSelect: "text" }}
     >
       {/* Soft teal atmospheric ambient glow for light mode */}
@@ -214,7 +214,7 @@ export function ImpactSectionV2() {
                   <div
                     className="relative w-[280px] h-[280px] sm:w-[310px] sm:h-[310px] lg:w-[335px] lg:h-[335px] xl:w-[355px] xl:h-[355px] rounded-full overflow-hidden shrink-0 select-none"
                     style={{
-                      background: "radial-gradient(circle at 45% 40%, #FFFFFF 0%, #F5F3ED 55%, #EBE7E0 100%)",
+                      background: "radial-gradient(circle at 45% 40%, #FFFFFF 0%, #F8F9FA 55%, #F4F6F8 100%)",
                       boxShadow: `
                         0 24px 50px -12px rgba(11, 39, 53, 0.15),
                         0 0 38px rgba(174, 249, 119, 0.15),
@@ -558,7 +558,7 @@ function AppleStatCard({
       className={`relative w-full rounded-[16px] transition-all duration-300 cursor-default select-text border p-3.5 flex flex-col justify-between min-h-[96px] shadow-sm ${
         isHovered
           ? "bg-white border-[#AEF977] shadow-[0_8px_30px_rgba(11,39,53,0.06),0_0_20px_rgba(174,249,119,0.3)] -translate-y-0.5"
-          : "bg-[#F9F7F3] border-neutral-200 hover:border-neutral-300"
+          : "bg-[#F4F6F8] border-neutral-200 hover:border-neutral-300"
       }`}
     >
       {/* Top Row: Big Value + Unit & Icon */}
@@ -577,7 +577,7 @@ function AppleStatCard({
         <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${
           isHovered
             ? "bg-[#AEF977] text-[#0B2735]"
-            : "bg-[#EBE7E0] text-neutral-600"
+            : "bg-[#EAECEF] text-neutral-600"
         }`}>
           <Icon className="w-2.5 h-2.5" />
         </div>

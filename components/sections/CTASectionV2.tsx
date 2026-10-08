@@ -27,11 +27,13 @@ const ctaImages = [
 ];
 
 export function CTASectionV2({
-  title = "Clean Energy Starts Here",
+  badgeText = "START A PROJECT",
+  title = "Have an energy requirement in mind?",
   description,
-  buttonText = "GET STARTED",
+  buttonText = "GET IN TOUCH",
   buttonLink = "/contact"
 }: {
+  badgeText?: string;
   title?: string;
   description?: string;
   buttonText?: string;
@@ -42,6 +44,9 @@ export function CTASectionV2({
   const orbitRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const imagesRef = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Clean button text: ensure no arrow is present
+  const cleanButtonText = buttonText.replace(/[→\->]/g, "").trim();
 
   useGSAP(
     () => {
@@ -63,34 +68,42 @@ export function CTASectionV2({
           const vw = window.innerWidth;
           const vh = window.innerHeight;
 
-          // Fixed navbar height is 80px
-          const navH = 80;
-
-          // Gentle adaptive scale factor for short laptop viewports to preserve large cards
-          const fitScale = isMobile
-            ? 1
+          // ─── Responsive card dimensions ───
+          // Cards are sized to maintain clear visible gaps between all 12 cards
+          const imgW = isMobile
+            ? (vw < 375 ? 58 : 64)
             : isTablet
-            ? Math.min(1, Math.max(0.85, (vh - 80) / 720))
-            : Math.min(1, Math.max(0.85, (vh - 80) / 760));
+            ? 92
+            : Math.round(Math.min(122, Math.max(96, vw * 0.085)));
 
-          // ─── Responsive card dimensions (Increased image size, tighter perimeter ring) ───
-          const imgW = Math.round((isMobile ? 88 : isTablet ? 128 : 164) * fitScale);
-          const imgH = Math.round((isMobile ? 60 : isTablet ? 88 : 112) * fitScale);
+          const imgH = isMobile
+            ? (vw < 375 ? 40 : 44)
+            : isTablet
+            ? 64
+            : Math.round(Math.min(84, Math.max(68, vw * 0.058)));
 
-          // Card corner diagonal half-extent for rotation safety
+          // Diagonal half of card for rotation collision safety
           const halfDiag = Math.sqrt((imgW / 2) ** 2 + (imgH / 2) ** 2);
 
-          // Available vertical half-extent in the visible area below the 80px navbar
-          const usableHalfH = (vh - navH) / 2;
-          const safeMarginY = isMobile ? 10 : 14;
-          const safeMarginX = isMobile ? 10 : 18;
+          // Boundaries from screen edges
+          const edgeMarginX = isMobile ? 8 : 24;
+          const edgeMarginY = isMobile ? 12 : 24;
 
-          const maxRadiusY = Math.max(120, usableHalfH - halfDiag - safeMarginY);
-          const maxRadiusX = Math.max(120, (vw / 2) - halfDiag - safeMarginX);
+          const maxRadiusX = (vw / 2) - halfDiag - edgeMarginX;
+          const maxRadiusY = (vh / 2) - halfDiag - edgeMarginY;
 
-          // Circle radius: calibrated to tighten gaps between cards while leaving clean space for center text
-          const targetRadius = isMobile ? 136 : isTablet ? 220 : 262;
-          const radius = Math.min(maxRadiusX, maxRadiusY, targetRadius);
+          // Radius calculation:
+          // 12 cards -> perimeter step = (2 * PI * radius) / 12 = 0.5236 * radius
+          // For mobile: target ~146px -> step is 76.4px, card width is 64px -> clean 12.4px gap!
+          // For tablet: target ~210px -> step is 110px, card width is 92px -> clean 18px gap!
+          // For desktop: target ~260px -> step is 136px, card width is 122px -> clean 14px gap!
+          const targetRadius = isMobile
+            ? (vw < 375 ? 134 : 146)
+            : isTablet
+            ? 210
+            : 260;
+
+          const radius = Math.max(110, Math.min(targetRadius, maxRadiusX, maxRadiusY));
 
           // ─── Utility: circle position for index i (out of 12) ───────────────
           const circlePos = (i: number) => {
@@ -127,6 +140,7 @@ export function CTASectionV2({
               sy = botBaseY;
             }
 
+            // Start invisible — images only appear when pinned animation fires
             gsap.set(el, {
               x: sx,
               y: sy,
@@ -143,14 +157,14 @@ export function CTASectionV2({
           gsap.set(ctaRef.current, {
             xPercent: -50,
             yPercent: -50,
-            y: 35,
+            y: 25,
             opacity: 0,
-            scale: 0.95,
+            scale: 0.96,
           });
 
           gsap.set(orbitRef.current, { rotation: 0 });
 
-          // ─── Master timeline ─────────────────────────────────────────────────
+          // ─── Master timeline (tied to pin — nothing fires until section is pinned at top) ───
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: sectionRef.current,
@@ -163,24 +177,19 @@ export function CTASectionV2({
             },
           });
 
-          // ── Background transition: Light White (#FFFFFF) → Deep Brand Navy (#0B2735) ──
-          tl.fromTo(
-            sectionRef.current,
-            { backgroundColor: "#FFFFFF" },
-            { backgroundColor: "#0B2735", ease: "power1.inOut", duration: 3.5 },
-            0
-          );
+          // ── Background is immediately dark so there is NO white gap when scrolling to this section ──
+          gsap.set(sectionRef.current, { backgroundColor: "#0B2735" });
 
           if (gradientOverlayRef.current) {
             tl.fromTo(
               gradientOverlayRef.current,
               { opacity: 0 },
-              { opacity: 1, ease: "power1.inOut", duration: 3.5 },
+              { opacity: 1, ease: "power1.inOut", duration: 2.5 },
               0
             );
           }
 
-          // ── PHASE 1: Images smoothly travel to their circle coordinates ───────
+          // ── PHASE 1: Images fade in and fly to their circle coordinates ───────
           imagesRef.current.forEach((el, i) => {
             if (!el) return;
             const { x, y, rotation } = circlePos(i);
@@ -227,14 +236,14 @@ export function CTASectionV2({
         }
       );
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [] }
   );
 
   return (
     <section
       ref={sectionRef}
       className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#0B2735" }}
     >
       {/* ── Rich Dark Blue Radial Gradient Overlay (fades in smoothly as you scroll) ── */}
       <div
@@ -245,12 +254,12 @@ export function CTASectionV2({
         }}
       />
 
-      {/* ── Orbit ring (centered at true midpoint below 80px fixed navbar, non-interactive) ── */}
+      {/* ── Orbit ring (centered exactly at 50%/50%, non-interactive) ── */}
       <div
         ref={orbitRef}
         className="absolute z-10 select-none pointer-events-none"
         style={{
-          top: "calc(50% + 40px)",
+          top: "50%",
           left: "50%",
           width: 0,
           height: 0,
@@ -262,7 +271,7 @@ export function CTASectionV2({
             ref={(el) => {
               imagesRef.current[idx] = el;
             }}
-            className="absolute rounded-[14px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-2xl pointer-events-none select-none"
+            className="absolute rounded-[8px] sm:rounded-[12px] md:rounded-[16px] overflow-hidden shadow-xl pointer-events-none select-none"
             style={{
               top: 0,
               left: 0,
@@ -271,7 +280,7 @@ export function CTASectionV2({
           >
             <img
               src={src}
-              alt={`Wind energy project ${idx + 1}`}
+              alt={`Energy project ${idx + 1}`}
               className="w-full h-full object-cover select-none pointer-events-none"
               draggable={false}
             />
@@ -279,23 +288,32 @@ export function CTASectionV2({
         ))}
       </div>
 
-      {/* ── CTA content (z-30 above orbit, centered with GSAP xPercent/yPercent) ── */}
+      {/* ── CTA content (concentric with orbit ring, strictly sized to fit inside clearing) ── */}
       <div
         ref={ctaRef}
-        className="absolute z-30 flex flex-col items-center justify-center text-center px-4 max-w-[800px] pointer-events-auto select-text cursor-text"
+        className="absolute z-30 flex flex-col items-center justify-center text-center px-2 sm:px-4 w-full max-w-[210px] min-[390px]:max-w-[225px] sm:max-w-[320px] md:max-w-[390px] pointer-events-auto select-text cursor-text"
         style={{
-          top: "calc(50% + 40px)",
+          top: "50%",
           left: "50%",
-          width: "max-content",
+          transform: "translate(-50%, -50%)",
           userSelect: "text",
           WebkitUserSelect: "text",
         }}
       >
-        <SectionBadge theme="light" className="mb-4 sm:mb-5">
-          START YOUR JOURNEY
-        </SectionBadge>
+        {/* Badge */}
+        <div className="mb-1.5 min-[390px]:mb-2 sm:mb-2.5 pointer-events-auto">
+          <SectionBadge
+            theme="light"
+            size="xs"
+            className="!px-2.5 !py-[2.5px] sm:!px-3 sm:!py-1 !text-[7.5px] min-[390px]:!text-[8px] sm:!text-[9px] md:!text-[9.5px] tracking-[0.14em]"
+          >
+            {badgeText}
+          </SectionBadge>
+        </div>
+
+        {/* Title */}
         <h2
-          className="text-[17px] min-[380px]:text-[18.5px] sm:text-[22px] md:text-[28px] lg:text-[34px] font-bold text-white tracking-tight leading-tight mb-5 sm:mb-6 whitespace-nowrap text-center drop-shadow-[0_2px_14px_rgba(0,0,0,0.4)] select-text cursor-text"
+          className="text-[14px] min-[390px]:text-[16px] sm:text-[21px] md:text-[25px] lg:text-[28px] font-bold text-white tracking-tight leading-[1.2] mb-1.5 min-[390px]:mb-2 sm:mb-2.5 whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text"
           style={{
             userSelect: "text",
             WebkitUserSelect: "text",
@@ -303,19 +321,20 @@ export function CTASectionV2({
         >
           {title}
         </h2>
-        
+
+        {/* Description */}
         {description && (
-          <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/90 leading-[1.6] mb-8 max-w-[600px] whitespace-normal text-center drop-shadow-sm select-text cursor-text">
+          <p className="text-[9px] min-[390px]:text-[10px] sm:text-[11px] md:text-[12.5px] text-white/80 leading-[1.35] sm:leading-[1.4] mb-2.5 min-[390px]:mb-3 sm:mb-4 md:mb-5 max-w-[205px] min-[390px]:max-w-[220px] sm:max-w-[300px] md:max-w-[350px] whitespace-normal text-center font-normal drop-shadow-sm select-text cursor-text">
             {description}
           </p>
         )}
 
-        {/* CTA button with clean stroke by default, matching hover */}
+        {/* Button - NO ARROW, compact and refined */}
         <Link
           href={buttonLink}
-          className="inline-flex items-center justify-center h-[46px] sm:h-[48px] md:h-[50px] px-7 sm:px-8 rounded-full border border-white/70 text-white text-[11.5px] sm:text-[12.5px] md:text-[13px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] hover:border-white active:scale-[0.98]"
+          className="inline-flex items-center justify-center h-[30px] min-[390px]:h-[32px] sm:h-[36px] md:h-[40px] px-4 min-[390px]:px-5 sm:px-6 rounded-full border border-white/65 text-white text-[9.5px] min-[390px]:text-[10px] sm:text-[11px] md:text-[11.5px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] hover:border-white active:scale-[0.98]"
         >
-          {buttonText}
+          {cleanButtonText}
         </Link>
       </div>
     </section>
