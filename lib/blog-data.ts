@@ -37,9 +37,9 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     authorAvatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
     authorBio: "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing.",
     readTime: "5 MIN READ",
-    title: "Designing wind projects for long-term performance",
-    excerpt: "Explore how cutting-edge pitch control, carbon-reinforced composite blades, and smart yaw systems maximize energy yield even in low-wind corridors.",
-    image: "https://images.pexels.com/photos/32831487/pexels-photo-32831487.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Why wind energy is becoming an important part of India's energy mix",
+    excerpt: "Exploring the changing role of wind energy and how it can complement solar generation as India's energy requirements continue to grow.",
+    image: "/wind_farm_sunset.jpg",
     content: {
       intro: "Modern wind turbines are marvels of mechanical, aerodynamic, and electrical engineering. What appears as a serene, slow-turning white blade in the landscape is actually an ultra-sophisticated kinetic conversion machine rotating at blade-tip speeds exceeding 290 km/h.",
       sections: [
@@ -80,9 +80,9 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     authorAvatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=400&auto=format&fit=crop",
     authorBio: "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing.",
     readTime: "5 MIN READ",
-    title: "From planning to power: building renewable energy projects",
-    excerpt: "A comprehensive life-cycle carbon accounting of modern wind farms, exploring emissions offsets, land co-existence, and blade recyclability.",
-    image: "https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "What actually goes into developing a renewable energy project",
+    excerpt: "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
+    image: "/why-choose-us/expert-guidance.jpg",
     content: {
       intro: "Wind power produces zero operational emissions during electricity generation. However, a rigorous analysis must account for the full life cycle — from steel smelting and composite manufacturing to logistics, foundation pouring, and eventual decommissioning.",
       sections: [
@@ -123,9 +123,9 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     authorAvatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop",
     authorBio: "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing.",
     readTime: "5 MIN READ",
-    title: "The innovations making clean energy more efficient",
-    excerpt: "Unpacking Levelized Cost of Energy (LCOE), grid balancing economics, and the financial ROI of captive commercial wind-solar installations.",
-    image: "https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Why the right renewable technology starts with the site",
+    excerpt: "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
+    image: "/solutions/solar-installation.jpg",
     content: {
       intro: "The transition to renewable energy is no longer propelled purely by sustainability mandates — it is driven by sheer economic superiority. On a pure Levelized Cost of Energy (LCOE) basis, new-build wind and solar projects outcompete existing coal and gas generators globally.",
       sections: [
@@ -158,16 +158,16 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 4,
     slug: "a-world-powered-by-wind-and-sunlight",
-    category: "ENERGY INFRASTRUCTURE",
+    category: "WIND + SOLAR",
     date: "DECEMBER 10, 2025",
     author: "Harry Wuko",
     authorRole: "Principal Systems Engineer",
     authorAvatar: "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?q=80&w=400&auto=format&fit=crop",
     authorBio: "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing.",
     readTime: "5 MIN READ",
-    title: "Building the infrastructure for a cleaner energy future",
-    excerpt: "How grid-forming inverters and synchronous condensers enable 100% renewable grid stability without spinning thermal reserves.",
-    image: "https://images.pexels.com/photos/9875441/pexels-photo-9875441.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    title: "Wind and solar are not competing technologies",
+    excerpt: "Exploring how different generation profiles can work together through hybrid renewable energy systems and create more effective solutions for different energy requirements.",
+    image: "/hybrid-wind-solar.jpg",
     content: {
       intro: "The vision of a zero-carbon electricity grid depends on synchronizing distributed kinetic and photovoltaic generators with national transmission backbones without compromising frequency stability.",
       sections: [

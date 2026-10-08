@@ -21,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="antialiased font-sans">
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
+      <body className="antialiased font-sans" suppressHydrationWarning>
         <LenisProvider>
           <Navbar />
           <main className="min-h-screen">

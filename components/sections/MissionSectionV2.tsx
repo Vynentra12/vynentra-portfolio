@@ -4,6 +4,7 @@ import React, { useRef } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { motion } from 'framer-motion';
+import { SectionBadge } from '@/components/ui/SectionBadge';
 
 export function MissionSectionV2() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -86,16 +87,21 @@ export function MissionSectionV2() {
 
   // Reusable statement typography with high-impact editorial presence
   const renderTypography = (textColor: string, kickerColor: string) => (
-    <div className="flex flex-col items-center justify-center text-center select-text max-w-[1120px] mx-auto">
-      {/* Kicker */}
-      <span className={`text-[11px] sm:text-[12px] md:text-[12.5px] font-bold uppercase tracking-[0.14em] mb-6 sm:mb-8 ${kickerColor}`}>
+    <div className="flex flex-col items-center justify-center text-center select-text max-w-[1040px] mx-auto">
+      {/* Kicker Badge */}
+      <SectionBadge className={`mb-7 sm:mb-9 ${kickerColor}`}>
         OUR MISSION
-      </span>
+      </SectionBadge>
 
-      {/* Main Mission Statement */}
-      <h2 className={`text-[24px] sm:text-[32px] md:text-[40px] lg:text-[45px] xl:text-[48px] font-semibold tracking-[-0.025em] leading-[1.28] sm:leading-[1.25] ${textColor}`}>
-        Unlock wind energy for a sustainable future. From rooftops to businesses and captive projects, Vynentra is expanding where wind can work and what it can power.
+      {/* Main Mission Headline - Symmetrically balanced line break */}
+      <h2 className={`text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-medium tracking-[-0.03em] leading-[1.18] sm:leading-[1.16] max-w-[920px] mx-auto ${textColor}`}>
+        Renewable energy, designed around<br className="hidden sm:inline" /> the way India lives and works.
       </h2>
+
+      {/* Supporting Mission Statement - Balanced typography without dangling orphans */}
+      <p className={`mt-6 sm:mt-8 md:mt-9 text-[15px] sm:text-[17px] md:text-[19px] lg:text-[20px] font-normal leading-[1.65] sm:leading-[1.7] max-w-[760px] mx-auto opacity-75 ${textColor}`}>
+        We are bringing together wind, solar and hybrid energy solutions to help businesses, institutions and infrastructure move towards cleaner, more efficient and commercially viable power.
+      </p>
     </div>
   );
 

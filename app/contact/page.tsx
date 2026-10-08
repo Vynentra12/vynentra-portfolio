@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -61,46 +62,51 @@ export default function ContactPage() {
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen">
       
-      {/* Hero Section matching Blog Hero height & style */}
-      <section className="relative w-full min-h-[390px] sm:min-h-[450px] md:min-h-[490px] lg:min-h-[530px] flex flex-col justify-end overflow-hidden bg-[#0e2736]">
-        
-        {/* Panoramic Background Image */}
+      {/* ── HERO SECTION (100vh Matching Services Page exactly) ── */}
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
+        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src="https://images.pexels.com/photos/8853502/pexels-photo-8853502.jpeg?auto=compress&cs=tinysrgb&w=2200"
             alt="Engineer with wind turbine background"
-            className="w-full h-full object-cover object-[center_35%]"
+            className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
-          {/* Subtle natural contrast overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/25 to-black/15 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-8 sm:px-10 lg:px-12 xl:px-14 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-36">
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 pt-24">
           
-          {/* Giant Title */}
-          <h1 className="text-[52px] sm:text-[66px] md:text-[76px] lg:text-[86px] font-bold text-white tracking-[-0.035em] leading-[0.98] drop-shadow-sm mb-6 sm:mb-8 md:mb-10 select-none">
-            Contacts
-          </h1>
+          <div className="max-w-4xl">
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
+                CONTACT US
+              </span>
+            </div>
+            {/* Same font size as ServicesPage Hero Title */}
+            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
+              Let's develop the right energy solution for your requirement.
+            </h1>
 
-          {/* Breadcrumbs Navigation with sleek horizontal dividing line UNDERNEATH */}
-          <div className="w-full border-b border-white/25 pb-3 sm:pb-3.5">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11.5px] sm:text-[12px] font-bold uppercase tracking-[0.06em]">
-              <Link 
-                href="/" 
-                className="text-white/85 hover:text-white transition-colors"
+            {/* Subtitle matching ServicesPage Hero Paragraph */}
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
+              Tell us about your site, your energy needs and what you are looking to achieve. Our team will help you explore the renewable energy solution that makes sense for your project.
+            </p>
+          </div>
+
+          {/* Breadcrumbs Navigation */}
+          <div className="w-full border-b border-white/20 pb-4">
+            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
+              <Link
+                href="/"
+                className="text-white/70 hover:text-white transition-colors"
               >
                 HOME
               </Link>
-              
-              <span className="text-white/60 font-normal select-none">→</span>
-              
-              <span className="text-white select-none">
-                CONTACTS
-              </span>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <span className="text-[#AEF977] select-none">CONTACTS</span>
             </nav>
           </div>
-
         </div>
       </section>
 
@@ -118,10 +124,9 @@ export default function ContactPage() {
               className="lg:col-span-6 flex flex-col justify-start"
             >
               
-              {/* Kicker */}
-              <span className="text-[12px] font-bold text-neutral-900 uppercase tracking-[0.08em] mb-4 sm:mb-5 select-none">
-                WE ARE HERE TO HELP
-              </span>
+              <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
+                GET IN TOUCH
+              </SectionBadge>
 
               {/* Headline */}
               <h2 className="text-[38px] sm:text-[48px] md:text-[54px] lg:text-[60px] font-bold text-neutral-950 tracking-[-0.03em] leading-[1.06] mb-6 sm:mb-7">
@@ -222,13 +227,13 @@ export default function ContactPage() {
 
             </motion.div>
 
-            {/* Right Column: Warm Beige Form Card (Slides in from Right) */}
+            {/* Right Column: Clean Light Gray Form Card (Slides in from Right) */}
             <motion.div 
               initial={{ opacity: 0, x: 70 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="lg:col-span-6 bg-[#F8F7F4] rounded-[28px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 border border-neutral-200/60 shadow-sm"
+              className="lg:col-span-6 bg-[#F4F6F8] rounded-[28px] sm:rounded-[32px] p-8 sm:p-12 lg:p-14 border border-neutral-200/60 shadow-sm"
             >
               <h3 className="text-[28px] sm:text-[32px] font-bold text-neutral-950 mb-2 tracking-tight">
                 Contact / Leads Form

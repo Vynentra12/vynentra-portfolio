@@ -17,30 +17,30 @@ const PANELS: ProcessPanel[] = [
   {
     id: 1,
     num: "1",
-    title: "Reducing carbon emissions and fighting climate change",
-    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    title: "Reducing energy costs and improving long-term efficiency",
+    desc: "By integrating renewable energy into business and institutional energy systems, we are helping reduce dependence on conventional power sources while creating more efficient energy solutions.",
     bgColor: "#7FA6B9", // Slate/Steel Blue
   },
   {
     id: 2,
     num: "2",
-    title: "Cutting greenhouse gases and combating global warming",
-    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    title: "Combining wind and solar for more efficient generation",
+    desc: "By integrating complementary renewable energy sources, we are designing hybrid systems that make better use of available wind and solar resources across different site conditions.",
     bgColor: "#0B2735", // Deep Navy
   },
   {
     id: 3,
     num: "3",
-    title: "Lowering CO₂ footprint and tackling climate crisis",
-    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    title: "Building more resilient and reliable energy systems",
+    desc: "By combining renewable generation, storage and project expertise, we are developing energy solutions that help businesses and institutions build greater resilience into their power infrastructure.",
     bgColor: "#1c2e3d",
     bgImage: "https://images.pexels.com/photos/27382708/pexels-photo-27382708.jpeg?auto=compress&cs=tinysrgb&w=1600",
   },
   {
     id: 4,
     num: "4",
-    title: "Slashing carbon output and battling rising temperatures",
-    desc: "By replacing traditional energy sources, wind power significantly cuts greenhouse gas emissions, helping to slow down global warming and protect ecosystems.",
+    title: "Accelerating India's transition to renewable energy",
+    desc: "By developing practical renewable energy projects across businesses, institutions and infrastructure, we are expanding access to cleaner and more commercially viable energy solutions across India.",
     bgColor: "#84D447", // Vivid Leaf Green
   },
 ];
@@ -98,7 +98,7 @@ export function ProcessSectionV2() {
                   
                   {/* Top: Headline */}
                   <div className="w-full max-w-lg">
-                    <h3 className="text-[22px] sm:text-[26px] md:text-[32px] lg:text-[36px] font-bold text-white tracking-[-0.025em] leading-[1.18]">
+                    <h3 className="text-[22px] sm:text-[26px] md:text-[32px] lg:text-[36px] font-medium text-white tracking-[-0.025em] leading-[1.18]">
                       {panel.title}
                     </h3>
                   </div>
@@ -112,7 +112,7 @@ export function ProcessSectionV2() {
                     {/* Clean stroke button in default, matching hover */}
                     <Link
                       href="/#case-studies"
-                      className="inline-flex items-center justify-center h-[44px] px-6 rounded-full border border-white text-white text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-black active:scale-[0.98]"
+                      className="inline-flex items-center justify-center h-[44px] px-6 rounded-full border border-white text-white text-[11.5px] sm:text-[12px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-black active:scale-[0.98]"
                     >
                       READ MORE
                     </Link>
@@ -129,7 +129,7 @@ export function ProcessSectionV2() {
                     : "top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 md:top-auto md:bottom-6 md:translate-y-0"
                 }`}
               >
-                <span className={`font-bold text-white leading-[0.78] tracking-tight block transition-all duration-950 ${
+                <span className={`font-medium text-white leading-[0.78] tracking-tight block transition-all duration-950 ${
                   isActive
                     ? "text-[85px] sm:text-[110px] md:text-[140px] lg:text-[170px] xl:text-[190px]"
                     : "text-[65px] sm:text-[110px] md:text-[140px] lg:text-[170px] xl:text-[190px]"

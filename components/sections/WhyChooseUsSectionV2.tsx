@@ -4,17 +4,20 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import gsap from "gsap";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface FeatureItem {
   id: string;
   title: string;
+  desc: string;
   image: string;
   alt: string;
 }
 
 export function WhyChooseUsSectionV2() {
-  const [activeIndex, setActiveIndex] = useState<number>(1); // Default to item 1 ("Eco-friendly impact")
+  const [activeIndex, setActiveIndex] = useState<number>(1); // Default to item 1 ("Wind-Solar Hybrid Solutions")
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(1); // Expanded by default matching reference
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   // Image element refs for GSAP wind turbine momentum animation
@@ -24,26 +27,30 @@ export function WhyChooseUsSectionV2() {
   // 4 Features: Left Big Hero Image dynamically changes to these on hover
   const features: FeatureItem[] = [
     {
-      id: "reliable-performance",
-      title: "Reliable performance",
+      id: "wind-energy-solutions",
+      title: "Wind Energy Solutions",
+      desc: "We are developing distributed and captive wind solutions across vertical and horizontal axis technologies, designed around different site conditions and energy requirements.",
       image: "/why-choose-us/reliable-performance.jpg",
       alt: "Reliable wind energy turbine rotating in breeze over hills",
     },
     {
-      id: "eco-friendly-impact",
-      title: "Eco-friendly impact",
+      id: "wind-solar-hybrid",
+      title: "Wind-Solar Hybrid Solutions",
+      desc: "We are integrating wind and solar generation to create hybrid renewable energy systems that make better use of available resources and complement different generation profiles.",
       image: "/why-choose-us/hero-windmill.jpg",
       alt: "Architectural windmill house with solar panels on rotor blades",
     },
     {
-      id: "expert-guidance",
-      title: "Expert guidance",
+      id: "energy-storage-solutions",
+      title: "Energy Storage Solutions",
+      desc: "We are incorporating battery energy storage systems where appropriate to support renewable generation, energy management and more resilient power infrastructure",
       image: "/why-choose-us/expert-guidance.jpg",
       alt: "Renewable energy engineers reviewing architectural plans on site",
     },
     {
-      id: "long-term-savings",
-      title: "Long-term savings",
+      id: "project-development-advisory",
+      title: "Project Development & Advisory",
+      desc: "We are supporting projects from energy audits and feasibility studies through technology evaluation, regulatory coordination, financing facilitation and EPC partner management.",
       image: "/why-choose-us/long-term-savings.jpg",
       alt: "Modern architectural home with solar roof and vertical wind turbine",
     },
@@ -111,12 +118,12 @@ export function WhyChooseUsSectionV2() {
       className="w-full bg-white text-neutral-900 py-16 md:py-24 font-sans relative overflow-hidden select-text"
       style={{ userSelect: "text", WebkitUserSelect: "text" }}
     >
-      {/* Symmetrical left and right padding exactly matching BlogSectionV2 */}
-      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
+      {/* Symmetrical left and right padding matching other sections */}
+      <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         {/* Main Grid: Left Dynamic Big Hero Card (5 cols) + Right Content Section (7 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-stretch">
           
-          {/* ─── LEFT COLUMN: Dynamic Big Hero Card (Increased Height, Lessened Corner Radius, No Badges) ─── */}
+          {/* ─── LEFT COLUMN: Dynamic Big Hero Card (Responsive Height on Mobile) ─── */}
           <motion.div 
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -124,7 +131,7 @@ export function WhyChooseUsSectionV2() {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="lg:col-span-5 flex flex-col w-full"
           >
-            <div className="relative w-full h-[520px] sm:h-[600px] lg:h-[650px] xl:h-[700px] rounded-[14px] sm:rounded-[16px] md:rounded-[18px] overflow-hidden shadow-sm bg-neutral-100 group/hero">
+            <div className="relative w-full h-[320px] sm:h-[440px] md:h-[520px] lg:h-[650px] xl:h-[700px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm bg-neutral-100 group/hero">
               
               {/* Dynamic Images Layered for GSAP Wind Turbine Motion */}
               {features.map((feature, idx) => {
@@ -169,28 +176,24 @@ export function WhyChooseUsSectionV2() {
               className="flex flex-col mb-8 lg:mb-10"
             >
               
-              {/* Badge Name: Matched to FAQ Section Typography & fully selectable */}
-              <span
-                className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5 select-text cursor-text w-fit"
-                style={{ userSelect: "text", WebkitUserSelect: "text" }}
-              >
-                WHY CHOOSE US
-              </span>
+              <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
+                WHAT WE DO
+              </SectionBadge>
 
               {/* Main Headline: Exact requested copy & fully selectable */}
               <h2
-                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[620px] select-text cursor-text"
+                className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[640px] select-text cursor-text"
                 style={{ userSelect: "text", WebkitUserSelect: "text" }}
               >
-                Trusted clean energy solutions powering homes and businesses sustainably.
+                Developing integrated renewable energy solutions for a changing energy landscape.
               </h2>
 
               {/* CTA Button with clean stroke in default & matching hover */}
               <Link
-                href="/contact"
-                className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+                href="/services"
+                className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
               >
-                FIND OUT MORE
+                <span>EXPLORE OUR SERVICES</span>
               </Link>
             </motion.div>
 
@@ -200,21 +203,25 @@ export function WhyChooseUsSectionV2() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-end pt-3"
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start pt-3"
             >
               
-              {/* ── Feature Rows (Only ONE line with linear fill; turns teal-blue #0A6B88 on hover) ── */}
+              {/* ── Feature Rows (Expandable Accordion on click with smooth arrow morph) ── */}
               <div 
                 className="md:col-span-7 flex flex-col justify-between"
                 onMouseLeave={() => setHoveredIndex(null)}
               >
                 {features.map((feature, idx) => {
                   const isCurrent = activeLineIndex === idx;
+                  const isExpanded = expandedIndex === idx;
 
                   return (
                     <div
                       key={feature.id}
-                      onClick={() => setActiveIndex(idx)}
+                      onClick={() => {
+                        setActiveIndex(idx);
+                        setExpandedIndex(expandedIndex === idx ? null : idx);
+                      }}
                       onMouseEnter={() => setHoveredIndex(idx)}
                       className="group/item relative py-3.5 sm:py-4 cursor-pointer transition-colors"
                     >
@@ -223,7 +230,7 @@ export function WhyChooseUsSectionV2() {
                         <span
                           className={`text-[17px] sm:text-[18px] lg:text-[19px] tracking-tight transition-colors duration-200 select-text cursor-text ${
                             isCurrent
-                              ? "text-[#0A6B88] font-semibold"
+                              ? "text-[#0A6B88] font-medium"
                               : "text-neutral-900 group-hover/item:text-[#0A6B88]"
                           }`}
                           style={{ userSelect: "text", WebkitUserSelect: "text" }}
@@ -233,20 +240,40 @@ export function WhyChooseUsSectionV2() {
 
                         {/* Arrow with Smooth Morph & Color Shift to Teal-Blue */}
                         <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
-                          {/* Inactive Diagonal Arrow */}
+                          {/* Inactive Diagonal Arrow ↗ */}
                           <ArrowUpRight
                             className={`w-4 h-4 text-neutral-800 absolute transition-all duration-300 ease-out ${
-                              isCurrent ? "opacity-0 scale-75 rotate-45" : "opacity-100 scale-100 rotate-0"
+                              isExpanded ? "opacity-0 scale-75 rotate-45" : "opacity-100 scale-100 rotate-0"
                             }`}
                           />
-                          {/* Active / Hovered Horizontal Arrow */}
+                          {/* Active / Expanded Horizontal Arrow → */}
                           <ArrowRight
                             className={`w-4 h-4 text-[#0A6B88] absolute transition-all duration-300 ease-out ${
-                              isCurrent ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-75 -translate-x-1"
+                              isExpanded ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-75 -translate-x-1"
                             }`}
                           />
                         </div>
                       </div>
+
+                      {/* Expandable Answer / Description */}
+                      <AnimatePresence initial={false}>
+                        {isExpanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                            className="overflow-hidden"
+                          >
+                            <p
+                              className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal pb-3.5 pt-0.5 select-text cursor-text"
+                              style={{ userSelect: "text", WebkitUserSelect: "text" }}
+                            >
+                              {feature.desc}
+                            </p>
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
 
                       {/* ── Single Unified Border Line with Linear Fill (No double lines) ── */}
                       <div className="relative w-full h-[1.5px] bg-neutral-200 overflow-hidden">
@@ -261,7 +288,7 @@ export function WhyChooseUsSectionV2() {
                 })}
               </div>
 
-              {/* ── Fixed Solar Energy Preview Card & Description (Stays unchanged as requested) ── */}
+              {/* ── Fixed Solar Energy Preview Card & Description (Dynamic sync with active item) ── */}
               <div className="md:col-span-5 flex flex-col justify-between">
                 
                 {/* Fixed Solar Panel Sunset Image */}
@@ -274,17 +301,18 @@ export function WhyChooseUsSectionV2() {
                   />
                 </div>
 
-                {/* Fixed Clean Energy Solutions Description (Selectable) */}
+                {/* Clean Energy Solutions Description (Selectable) */}
                 <div className="mt-3.5 min-h-[58px] flex items-start">
                   <p
                     className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text"
                     style={{ userSelect: "text", WebkitUserSelect: "text" }}
                   >
-                    Our clean energy solutions merge innovation and sustainability to help homes and businesses thrive while minimizing environmental impact
+                    {features[activeLineIndex]?.desc || "Our clean energy solutions merge innovation and sustainability to help homes and businesses thrive while minimizing environmental impact"}
                   </p>
                 </div>
 
               </div>
+
 
             </motion.div>
 

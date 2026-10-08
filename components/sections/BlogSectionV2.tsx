@@ -1,56 +1,73 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface BlogPost {
+  step: string;
   slug: string;
   image: string;
   category: string;
   date: string;
   readTime: string;
   title: string;
+  description: string;
 }
 
 export function BlogSectionV2() {
   const blogs: BlogPost[] = [
     {
+      step: "01",
       slug: "inside-the-engineering-of-wind-turbines",
-      image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1200&auto=format&fit=crop",
+      image: "/wind_farm_sunset.jpg",
       category: "WIND ENERGY",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
-      title: "Designing wind projects for long-term performance",
+      title: "Why wind energy is becoming an important part of India's energy mix",
+      description:
+        "Exploring the changing role of wind energy and how it can complement solar generation as India's energy requirements continue to grow.",
     },
     {
+      step: "02",
       slug: "the-environmental-impact-of-wind-energy",
-      image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1200&auto=format&fit=crop",
+      image: "/why-choose-us/expert-guidance.jpg",
       category: "PROJECT DEVELOPMENT",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
-      title: "From planning to power: building renewable energy projects",
+      title: "What actually goes into developing a renewable energy project",
+      description:
+        "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
     },
     {
+      step: "03",
       slug: "the-real-numbers-behind-green-energy",
-      image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1200&auto=format&fit=crop",
+      image: "/solutions/solar-installation.jpg",
       category: "RENEWABLE TECHNOLOGY",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
-      title: "The innovations making clean energy more efficient",
+      title: "Why the right renewable technology starts with the site",
+      description:
+        "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
     },
     {
+      step: "04",
       slug: "a-world-powered-by-wind-and-sunlight",
-      image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1200&auto=format&fit=crop",
-      category: "ENERGY INFRASTRUCTURE",
+      image: "/hybrid-wind-solar.jpg",
+      category: "WIND + SOLAR",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
-      title: "Building the infrastructure for a cleaner energy future",
+      title: "Wind and solar are not competing technologies",
+      description:
+        "Exploring how different generation profiles can work together through hybrid renewable energy systems and create more effective solutions for different energy requirements.",
     },
   ];
 
   return (
-    <section id="blog" className="w-full bg-[#EBE7E0] text-neutral-900 py-16 md:py-24 font-sans select-text">
-      <div className="w-full px-8 sm:px-10 lg:px-12 xl:px-14">
+    <section id="blog" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
+      <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         
         {/* Section Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-10 md:mb-14">
@@ -61,24 +78,22 @@ export function BlogSectionV2() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col max-w-[820px]"
           >
-            {/* Tagline / Section Name (Matching FAQ section) */}
-            <span className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-800 uppercase tracking-[0.06em] mb-2.5">
+            <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
               ENERGY INSIGHTS
-            </span>
+            </SectionBadge>
             
-            {/* Main Title (Matching FAQ section) */}
-            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-semibold text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
-              Insights, ideas, and stories shaping <br className="hidden sm:inline" />
-              the future of renewable energy
+            {/* Main Title */}
+            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
+              Exploring the ideas shaping India&apos;s renewable energy landscape.
             </h2>
 
-            {/* Subtitle / Body Text (Matching FAQ section) */}
-            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[560px] font-normal">
-              Exploring the innovations, environmental impacts, and project developments driving the global energy transition.
+            {/* Subtitle / Description */}
+            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[580px] font-normal">
+              We are sharing perspectives on wind, solar, hybrid energy, project development and the technologies shaping how India generates and uses power.
             </p>
           </motion.div>
 
-          {/* Top Right "VIEW ALL INSIGHTS" Linear Stretching Button */}
+          {/* Top Right "VIEW ALL INSIGHTS" Button */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -88,16 +103,17 @@ export function BlogSectionV2() {
           >
             <Link
               href="/blog"
-              className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-bold tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
-              VIEW ALL INSIGHTS
+              <span>VIEW ALL INSIGHTS</span>
+              <span className="text-[13px] leading-none">→</span>
             </Link>
           </motion.div>
         </div>
 
-        {/* 4-Column Blog Cards Grid with Uniform Equal Card Heights */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-7 items-stretch">
-          {blogs.map((blog, idx) => (
+        {/* 3-Column Blog Cards Grid with Clean Layout (No White Box Enclosure) */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 items-stretch">
+          {blogs.slice(0, 3).map((blog, idx) => (
             <motion.div
               key={idx}
               initial={{ opacity: 0, y: 40 }}
@@ -110,53 +126,55 @@ export function BlogSectionV2() {
                 href={`/blog/${blog.slug}`}
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
-              <div className="flex flex-col">
-                {/* Image Container */}
-                <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-300 select-none">
-                  <img
-                    src={blog.image}
-                    alt={blog.title}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
-                  />
+                <div className="flex flex-col">
+                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                  <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
+                    <img
+                      src={blog.image}
+                      alt={blog.title}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                    />
 
-                  {/* Category Lime Badge */}
-                  <div className="absolute top-3.5 left-3.5 z-10">
-                    <span className="inline-block bg-[#AEF977] text-black text-[10px] sm:text-[10.5px] font-bold tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
-                      {blog.category}
-                    </span>
+                    {/* Small Glassmorphism Badge with hyphen (-) */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="inline-flex items-center gap-1.5 bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        <span>{blog.step}</span>
+                        <span className="opacity-60 font-normal">-</span>
+                        <span>{blog.category}</span>
+                      </span>
+                    </div>
                   </div>
+
+                  {/* Card Meta Date & Read Time */}
+                  <div className="mt-4 mb-2">
+                    <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em]">
+                      {blog.date} · {blog.readTime}
+                    </p>
+                  </div>
+
+                  {/* Card Title (font-medium matching FAQ section question font weight) */}
+                  <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-[#087589] transition-colors min-h-[46px] sm:min-h-[50px]">
+                    {blog.title}
+                  </h3>
                 </div>
 
-                {/* Card Meta (DECEMBER 10, 2025 · 5 MIN READ) */}
-                <div className="mt-4 mb-2">
-                  <p className="text-[11px] sm:text-[11.5px] font-semibold text-neutral-700 uppercase tracking-[0.04em]">
-                    {blog.date} · {blog.readTime}
-                  </p>
+                {/* Read Insight CTA: Regular weight font matching user request */}
+                <div 
+                  className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
+                >
+                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
+                    <ArrowRight 
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5" 
+                      strokeWidth={1.8} 
+                    />
+                    <ArrowRight 
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0" 
+                      strokeWidth={1.8} 
+                    />
+                  </div>
+                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
                 </div>
-
-                {/* Card Title (Uniform multi-line alignment matching FAQ h3 font size) */}
-                <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-semibold text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-neutral-700 transition-colors min-h-[48px] sm:min-h-[54px] lg:min-h-[60px]">
-                  {blog.title}
-                </h3>
-              </div>
-
-              {/* Read Insight Action with Linear Arrow Pass-Through Animation (Aligned at bottom) */}
-              <div 
-                className="mt-5 inline-flex items-center gap-2 text-xs sm:text-[12.5px] font-semibold text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
-              >
-                <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
-                  <ArrowRight 
-                    className="w-4 h-4 text-neutral-900 absolute transition-transform duration-300 ease-out group-hover/readmore:translate-x-5" 
-                    strokeWidth={2.5} 
-                  />
-                  <ArrowRight 
-                    className="w-4 h-4 text-neutral-900 absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/readmore:translate-x-0" 
-                    strokeWidth={2.5} 
-                  />
-                </div>
-                <span className="group-hover/readmore:opacity-80 transition-opacity">READ INSIGHT</span>
-              </div>
-            </Link>
+              </Link>
             </motion.div>
           ))}
         </div>

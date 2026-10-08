@@ -3,12 +3,11 @@
 import React from 'react';
 import { HeroSectionV2 } from '@/components/sections/HeroSectionV2';
 import { MissionSectionV2 } from '@/components/sections/MissionSectionV2';
-import { ImpactSectionV2 } from '@/components/sections/ImpactSectionV2';
-import { SolutionsSectionV2 } from '@/components/sections/SolutionsSectionV2';
 import { ProcessSectionV2 } from '@/components/sections/ProcessSectionV2';
+import { WhyChooseUsSectionV2 } from '@/components/sections/WhyChooseUsSectionV2';
+import { SolutionsSectionV2 } from '@/components/sections/SolutionsSectionV2';
 import { CaseStudySectionV2 } from '@/components/sections/CaseStudySectionV2';
 import { FeaturedProjectsSectionV2 } from '@/components/sections/FeaturedProjectsSectionV2';
-import { WhyChooseUsSectionV2 } from '@/components/sections/WhyChooseUsSectionV2';
 import { BlogSectionV2 } from '@/components/sections/BlogSectionV2';
 import { FAQSectionV2 } from '@/components/sections/FAQSectionV2';
 import { CTASectionV2 } from '@/components/sections/CTASectionV2';
@@ -19,7 +18,6 @@ export default function Home() {
     <div className="bg-brand-midnight text-brand-softwhite min-h-screen">
       <HeroSectionV2 />
       <MissionSectionV2 />
-      {/* <ImpactSectionV2 /> */}
       <ProcessSectionV2 />
       <WhyChooseUsSectionV2 />
       <SolutionsSectionV2 />
@@ -27,7 +25,11 @@ export default function Home() {
       <FeaturedProjectsSectionV2 />
       <BlogSectionV2 />
       <FAQSectionV2 />
-      <CTASectionV2 />
+      <CTASectionV2 
+        title="Have an energy requirement in mind?"
+        description="Tell us about your site, your energy needs and what you are looking to achieve. We will help you explore the renewable energy solution that makes sense for your project."
+        buttonText="GET IN TOUCH"
+      />
       <FooterV2 />
     </div>
   );

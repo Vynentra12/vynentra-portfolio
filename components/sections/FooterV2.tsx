@@ -1,14 +1,8 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowUp, Mail } from "lucide-react";
-
-const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z" />
-  </svg>
-);
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -24,172 +18,150 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
 export function FooterV2() {
-  const [subscribeEmail, setSubscribeEmail] = React.useState("");
-  const [isInputFocused, setIsInputFocused] = React.useState(false);
+  const companyLinks = [
+    { name: "About Vynentra", href: "/#about" },
+    { name: "Our Approach", href: "/#process" },
+    { name: "Getting Started", href: "/contact" },
+  ];
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const solutionsLinks = [
+    { name: "Wind Energy", href: "/#solutions" },
+    { name: "Solar Energy", href: "/#solutions" },
+    { name: "Wind-Solar Hybrid", href: "/#solutions" },
+    { name: "Energy Storage", href: "/#solutions" },
+    { name: "Project Development", href: "/#solutions" },
+  ];
+
+  const resourcesLinks = [
+    { name: "Energy Insights", href: "/blog" },
+    { name: "FAQs", href: "/#faq" },
+    { name: "Contact Us", href: "/contact" },
+  ];
 
   return (
-    <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden">
+    <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden select-text">
       <div className="w-full max-w-[1380px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col justify-between relative">
         
-        {/* Top 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
+        {/* Top Content Grid: Left Contact Column & Right Structured Links */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           
-          {/* Column 1: Left Info & Contact */}
+          {/* Left Column: Mission, Direct Contact & Socials */}
           <div className="lg:col-span-5 flex flex-col justify-between">
-            <p className="text-[17px] md:text-[18px] text-white/90 leading-[1.4] max-w-[340px] font-normal">
-              Driven by passion. Grounded in purpose. Focused on results.
+            <p className="text-[17px] sm:text-[18px] text-white/90 leading-[1.5] max-w-[380px] font-normal">
+              Building a more sustainable and energy-efficient future across India.
             </p>
 
-            <div className="flex flex-col gap-2 mt-8 mb-10">
+            <div className="flex flex-col gap-2 mt-8 mb-8 sm:mb-10">
               <a 
                 href="mailto:hello@vynentra.in" 
-                className="text-[30px] sm:text-[36px] md:text-[40px] font-bold text-white hover:text-brand-energyblue transition-colors tracking-tight leading-none"
+                className="text-[28px] sm:text-[34px] md:text-[38px] font-bold text-white hover:text-[#AEF977] transition-colors tracking-tight leading-none"
               >
                 hello@vynentra.in
               </a>
               <a 
                 href="tel:+917777024826" 
-                className="text-[30px] sm:text-[36px] md:text-[40px] font-bold text-white hover:text-brand-energyblue transition-colors tracking-tight leading-none mt-2"
+                className="text-[28px] sm:text-[34px] md:text-[38px] font-bold text-white hover:text-[#AEF977] transition-colors tracking-tight leading-none mt-2"
               >
                 +91 77770 24826
               </a>
             </div>
 
-            {/* Social Icons */}
-            <div className="flex items-center gap-5">
+            {/* Social Icons (LinkedIn & Instagram) */}
+            <div className="flex items-center gap-4">
               <a 
-                href="https://x.com" 
+                href="https://linkedin.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                aria-label="X (Twitter)"
-                className="text-white hover:text-brand-energyblue transition-colors"
+                aria-label="LinkedIn"
+                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-[#AEF977] hover:border-[#AEF977] transition-all duration-200"
               >
-                <TwitterIcon className="w-[18px] h-[18px]" />
-              </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="Facebook"
-                className="text-white hover:text-brand-energyblue transition-colors"
-              >
-                <FacebookIcon className="w-[18px] h-[18px]" />
+                <LinkedinIcon className="w-[18px] h-[18px]" />
               </a>
               <a 
                 href="https://instagram.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
-                className="text-white hover:text-brand-energyblue transition-colors"
+                className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-[#AEF977] hover:border-[#AEF977] transition-all duration-200"
               >
                 <InstagramIcon className="w-[18px] h-[18px]" />
-              </a>
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label="LinkedIn"
-                className="text-white hover:text-brand-energyblue transition-colors"
-              >
-                <LinkedinIcon className="w-[18px] h-[18px]" />
               </a>
             </div>
           </div>
 
-          {/* Column 2: Useful Links with Vertical Divider */}
-          <div className="lg:col-span-3 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12">
-            <h4 className="text-[20px] md:text-[22px] font-bold text-white mb-6 tracking-tight">Useful Links</h4>
-            
-            <ul className="flex flex-col gap-2.5">
-              {[
-                { name: "Company", href: "#about" },
-                { name: "Services", href: "#process" },
-                { name: "Features", href: "#why-choose-us" },
-                { name: "FAQs", href: "#faq" },
-                { name: "Getting Started", href: "#contact" },
-              ].map((link) => (
-                <li key={link.name}>
-                  <a 
-                    href={link.href}
-                    className="text-[15px] text-white/80 hover:text-brand-energyblue transition-colors py-0.5 inline-block font-normal"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          {/* Right Column: 3 Navigation Groups (Company, Solutions, Resources) */}
+          <div className="lg:col-span-7 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12 pt-1 lg:pt-0">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-8">
+              
+              {/* Company */}
+              <div className="flex flex-col">
+                <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
+                  Company
+                </h4>
+                <ul className="flex flex-col gap-2.5">
+                  {companyLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        href={link.href}
+                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-            <p className="text-[13px] text-white/60 mt-14 font-normal">
+              {/* Solutions */}
+              <div className="flex flex-col">
+                <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
+                  Solutions
+                </h4>
+                <ul className="flex flex-col gap-2.5">
+                  {solutionsLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        href={link.href}
+                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Resources */}
+              <div className="flex flex-col">
+                <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
+                  Resources
+                </h4>
+                <ul className="flex flex-col gap-2.5">
+                  {resourcesLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        href={link.href}
+                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+            </div>
+
+            <p className="text-[13px] text-white/60 mt-10 md:mt-12 font-normal">
               © {new Date().getFullYear()} Vynentra Energy Solutions. All Rights Reserved
             </p>
           </div>
 
-          {/* Column 3: Subscribe */}
-          <div className="lg:col-span-4 flex flex-col pl-0 lg:pl-4 xl:pl-6">
-            <h4 className="text-[20px] md:text-[22px] font-bold text-white mb-6 tracking-tight">Subscribe</h4>
-            
-            <form onSubmit={(e) => e.preventDefault()} className="w-full max-w-sm">
-              <div className="relative border-b border-white/30 pb-2.5 pt-4 flex items-center justify-between group focus-within:border-white transition-colors">
-                {/* Floating Animated Placeholder / Label that moves up smoothly when clicked/focused */}
-                <label 
-                  htmlFor="footer-subscribe-input"
-                  className={`absolute left-0 pointer-events-none transition-all duration-200 select-none ${
-                    isInputFocused || subscribeEmail
-                      ? "-top-1 text-[11px] font-semibold text-[#AEF977] uppercase tracking-wider"
-                      : "top-4 text-[14.5px] text-white/60 font-normal"
-                  }`}
-                >
-                  Get news & updates
-                </label>
-
-                <input 
-                  id="footer-subscribe-input"
-                  type="email" 
-                  name="vynentra_footer_subscribe"
-                  value={subscribeEmail}
-                  onChange={(e) => setSubscribeEmail(e.target.value)}
-                  onFocus={() => setIsInputFocused(true)}
-                  onBlur={() => setIsInputFocused(false)}
-                  autoComplete="off"
-                  autoCorrect="off"
-                  spellCheck="false"
-                  data-lpignore="true"
-                  data-form-type="other"
-                  required
-                  className="bg-transparent text-white text-[14.5px] focus:outline-none w-full pr-8 font-normal z-10"
-                />
-                <button 
-                  type="submit" 
-                  aria-label="Subscribe" 
-                  className="text-white hover:text-brand-energyblue transition-colors z-10 shrink-0"
-                >
-                  <Mail className="w-[18px] h-[18px]" />
-                </button>
-              </div>
-              
-              <p className="text-[13px] text-white/70 mt-4 leading-relaxed font-normal">
-                Our expertise, as well as our passion for renewable energy, sets us apart from other agencies.
-              </p>
-            </form>
-          </div>
-
         </div>
 
-        {/* Bottom Giant Brand Wordmark Logo with Smooth Hover Transition */}
+        {/* Bottom Giant Brand Wordmark Logo */}
         <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
-          
-          {/* Giant Animated Wordmark - Smooth Interactive Hover Effect (Clean Color, No Glow) */}
           <motion.div 
             whileHover={{ scale: 1.025, y: -4 }}
             whileTap={{ scale: 0.98 }}
@@ -200,15 +172,6 @@ export function FooterV2() {
               vynentra
             </span>
           </motion.div>
-
-          {/* Floating Solid Green Scroll-to-Top Button (Fixed to bottom-right with balanced spacing) */}
-          <button
-            onClick={scrollToTop}
-            aria-label="Scroll to top"
-            className="absolute right-0 bottom-0 md:bottom-1 w-12 h-12 md:w-14 md:h-14 rounded-full bg-[#AEF977] text-black flex items-center justify-center hover:bg-white hover:scale-110 transition-all duration-300 shadow-xl shrink-0 z-30"
-          >
-            <ArrowUp className="w-5 h-5 md:w-6 md:h-6 stroke-[2.5]" />
-          </button>
         </div>
 
       </div>

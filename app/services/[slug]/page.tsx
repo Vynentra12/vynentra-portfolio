@@ -1,136 +1,197 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { notFound, useParams } from "next/navigation";
-import { ArrowRight, CheckCircle2, Zap, Lightbulb, Leaf, ShieldCheck, Settings } from "lucide-react";
 import { SERVICES } from "@/lib/services-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { ArrowRight } from "lucide-react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 export default function ServiceDetailPage() {
   const params = useParams();
   const slug = params.slug as string;
-  
   const currentService = SERVICES.find((s) => s.slug === slug);
+  const currentIndex = SERVICES.findIndex((s) => s.slug === slug);
+  
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  if (!currentService) {
-    return notFound();
-  }
+  useGSAP(() => {
+    // Subtle fade up for content
+    if (contentRef.current) {
+      const elements = contentRef.current.querySelectorAll(".gsap-fade-up");
+      elements.forEach((el) => {
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }
+  }, { dependencies: [slug] });
+
+  if (!currentService) return notFound();
+
+  const nextService = SERVICES[(currentIndex + 1) % SERVICES.length];
 
   return (
-    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen">
+    <div className="w-full bg-[#F4F6F8] text-black font-sans min-h-screen selection:bg-[#AEF977] selection:text-black flex flex-col">
       
-      {/* Hero Section with Panoramic Image (Blog UI Style) */}
-      <section className="relative w-full min-h-[450px] sm:min-h-[500px] md:min-h-[550px] lg:min-h-[600px] flex flex-col justify-end overflow-hidden bg-[#0e2736]">
+      {/* ── 1. HERO SECTION (Half Frame) ── */}
+      <section className="relative w-full min-h-[50vh] flex flex-col justify-end overflow-hidden bg-black">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={currentService.image}
             alt={currentService.title}
-            className="w-full h-full object-cover object-center"
+            className="w-full h-full object-cover object-[center_40%] opacity-60"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-8 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32">
-          
-          <h1 className="text-[42px] sm:text-[56px] md:text-[66px] lg:text-[76px] font-bold text-white tracking-tight leading-[0.98] drop-shadow-sm mb-6 sm:mb-8 md:mb-10 select-none max-w-5xl">
-            {currentService.title}
-          </h1>
+        {/* Hero Content Area (Matching Blog Detail Hero Layout exactly) */}
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+          <div className="max-w-[1380px] mx-auto">
+            
+            {/* Service-style Title */}
+            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
+              {currentService.title}
+            </h1>
 
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/25 pb-3 sm:pb-3.5">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11.5px] sm:text-[12px] font-bold uppercase tracking-[0.06em]">
-              <Link href="/" className="text-white/85 hover:text-white transition-colors">HOME</Link>
-              <span className="text-white/60 font-normal select-none">→</span>
-              <Link href="/services" className="text-white/85 hover:text-white transition-colors">SERVICES</Link>
-              <span className="text-white/60 font-normal select-none">→</span>
-              <span className="text-white select-none">{currentService.title}</span>
-            </nav>
+            {/* Subtitle */}
+            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-8 sm:mb-10 font-medium">
+              {currentService.subtitle}
+            </p>
+
+            {/* Breadcrumbs Navigation with top border (Matching Blog Meta Bar) */}
+            <div className="w-full border-t border-white/20 pt-4 flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
+              <Link
+                href="/"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                HOME
+              </Link>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <Link
+                href="/services"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                SERVICES
+              </Link>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <span className="text-[#AEF977] select-none truncate">
+                {currentService.title.toUpperCase()}
+              </span>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* Main Content */}
-      <section className="relative w-full py-20 sm:py-28 md:py-36 bg-white px-6 sm:px-10 lg:px-14 xl:px-16">
-        <div className="max-w-[1440px] mx-auto">
+      {/* ── 2. MAIN CONTENT (Minimalist Professional UI/UX with SWAPPED columns) ── */}
+      <section ref={contentRef} className="w-full bg-[#F4F6F8] pt-20 sm:pt-28 pb-24 sm:pb-40 overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
           
-          {/* Two Column Layout */}
-          <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 xl:gap-28 max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24">
             
-            {/* Left Sidebar: Services Navigation */}
-            <div className="w-full lg:w-[320px] flex-shrink-0">
-              <div className="flex flex-col border-t border-neutral-200">
-                {SERVICES.map((service) => {
-                  const isActive = service.slug === currentService.slug;
-                  return (
-                    <Link
-                      key={service.id}
-                      href={`/services/${service.slug}`}
-                      className={`group flex items-center justify-between py-6 border-b border-neutral-200 transition-colors ${
-                        isActive ? "text-neutral-900" : "text-neutral-500 hover:text-neutral-900"
-                      }`}
-                    >
-                      <div className="flex items-center gap-6">
-                        <span className={`text-[15px] font-medium ${isActive ? 'text-neutral-900' : 'text-neutral-400'}`}>
-                          {service.id}
-                        </span>
-                        <span className={`text-[18px] sm:text-[20px] font-semibold tracking-tight ${isActive ? 'font-bold' : ''}`}>
-                          {service.title.charAt(0) + service.title.slice(1).toLowerCase()}
-                        </span>
-                      </div>
-                      <ArrowRight className={`w-5 h-5 transition-transform ${isActive ? 'translate-x-0 text-neutral-900' : '-translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 group-hover:text-neutral-900'}`} />
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Right Main Content */}
-            <div className="w-full lg:flex-1 flex flex-col">
-              <h2 className="text-[32px] sm:text-[38px] md:text-[44px] font-bold text-neutral-900 tracking-tight leading-[1.15] mb-8">
-                {currentService.subtitle}
-              </h2>
+            {/* LEFT COLUMN: CAPABILITIES (Point-wise) */}
+            <div className="lg:col-span-7 flex flex-col order-2 lg:order-1">
               
-              <div className="text-[16px] sm:text-[17px] text-neutral-600 leading-[1.7] space-y-6 mb-16">
-                <p>{currentService.desc}</p>
-              </div>
-
               {currentService.features && currentService.features.length > 0 && (
                 <>
-                  <div className="w-full h-[1px] bg-neutral-200 mb-12"></div>
+                  <div className="mb-6 gsap-fade-up">
+                    <span className="inline-flex items-center gap-2.5 bg-transparent border border-black/15 text-black text-[10px] font-bold tracking-[0.15em] uppercase px-4 py-1.5 rounded-full">
+                      <div className="w-[5px] h-[5px] rounded-full bg-black" />
+                      OUR CAPABILITIES
+                    </span>
+                  </div>
                   
-                  <h3 className="text-[26px] sm:text-[30px] font-bold text-neutral-900 tracking-tight leading-[1.2] mb-8">
-                    Get a closer look at our expert services engineered for maximum efficiency and long-term savings
-                  </h3>
-                  
-                  <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-10 mt-12">
-                    {currentService.features.map((feature, idx) => {
-                      const icons = [CheckCircle2, Zap, Lightbulb, Leaf, ShieldCheck, Settings];
-                      const Icon = icons[idx % icons.length];
-                      
-                      return (
-                        <div key={idx} className="flex flex-col items-start">
-                          <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-[14px] sm:rounded-[16px] bg-[#162024] text-[#AEF977] flex items-center justify-center mb-4 sm:mb-6 shadow-lg">
-                            <Icon className="w-6 h-6 sm:w-7 sm:h-7" strokeWidth={1.5} />
-                          </div>
-                          <h4 className="text-[15px] sm:text-[18px] md:text-[20px] font-bold text-neutral-900 mb-2 sm:mb-3 tracking-tight">
-                            {feature.name}
-                          </h4>
-                          {feature.desc && (
-                            <p className="text-[13px] sm:text-[15px] md:text-[16px] text-neutral-600 leading-[1.5] sm:leading-[1.6]">
-                              {feature.desc}
-                            </p>
-                          )}
-                        </div>
-                      );
-                    })}
+                  <div className="flex flex-col w-full divide-y divide-black/10">
+                    {currentService.features.map((feature, idx) => (
+                      <div 
+                        key={idx} 
+                        className="flex flex-col py-6 sm:py-7 gsap-fade-up group transition-colors duration-300"
+                      >
+                        <h3 className="text-[20px] sm:text-[22px] font-medium text-black tracking-tight leading-[1.3] group-hover:text-[#087589] transition-colors duration-300">
+                          {feature.name}
+                        </h3>
+                        {feature.desc && (
+                          <p className="text-[15px] sm:text-[16px] text-neutral-600 mt-2.5 leading-[1.6]">
+                            {feature.desc}
+                          </p>
+                        )}
+                      </div>
+                    ))}
                   </div>
                 </>
               )}
+
+              {/* Next Service Block - HORIZONTAL BOX WITH IMAGE PREVIEW */}
+              <div className="mt-20 sm:mt-28 w-full pt-10 flex flex-col gsap-fade-up">
+                <span className="text-[10px] text-neutral-500 tracking-[0.15em] uppercase mb-5 font-bold">
+                  NEXT SERVICE
+                </span>
+                
+                <Link 
+                  href={`/services/${nextService.slug}`}
+                  className="group/next flex flex-col sm:flex-row items-center w-full gap-6 bg-white p-4 sm:p-6 rounded-[24px] border border-black/5 transition-all duration-300 hover:border-black/15"
+                >
+                  {/* Image Preview */}
+                  <div className="w-full sm:w-[140px] h-[140px] sm:h-[100px] shrink-0 rounded-[16px] overflow-hidden">
+                    <img 
+                      src={nextService.image} 
+                      alt={nextService.title}
+                      className="w-full h-full object-cover group-hover/next:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  
+                  {/* Text Content */}
+                  <div className="flex flex-col flex-1">
+                    <h3 className="text-[22px] sm:text-[28px] font-medium text-black tracking-tight leading-[1.2] mb-1 group-hover/next:text-[#087589] transition-colors">
+                      {nextService.title}
+                    </h3>
+                    <p className="text-[14px] text-neutral-500 line-clamp-2 pr-4">
+                      {nextService.subtitle}
+                    </p>
+                  </div>
+                  
+                  {/* Animated Arrow Icon */}
+                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center bg-[#F4F6F8] group-hover/next:bg-[#AEF977] group-hover/next:border-[#AEF977] transition-all duration-300 shrink-0 mx-2 hidden sm:flex overflow-hidden">
+                    <div className="relative w-5 h-5 flex items-center justify-center">
+                      <ArrowRight className="w-5 h-5 text-black absolute transition-transform duration-300 ease-out group-hover/next:translate-x-8" />
+                      <ArrowRight className="w-5 h-5 text-black absolute -translate-x-8 transition-transform duration-300 ease-out group-hover/next:translate-x-0" />
+                    </div>
+                  </div>
+                </Link>
+              </div>
+
             </div>
-            
+
+            {/* RIGHT COLUMN: DESCRIPTION (Paragraph) */}
+            <div className="lg:col-span-5 flex flex-col items-start order-1 lg:order-2">
+              <div className="sticky top-32 w-full gsap-fade-up">
+                <p className="text-[20px] sm:text-[22px] md:text-[24px] font-medium text-black leading-[1.45] tracking-tight">
+                  {currentService.desc}
+                </p>
+              </div>
+            </div>
+
           </div>
 
         </div>
