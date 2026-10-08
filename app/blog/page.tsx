@@ -41,9 +41,8 @@ export default function BlogGridPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 pt-24">
-          
-          <div className="max-w-4xl">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+          <div className="max-w-[1380px] mx-auto">
             <div className="mb-4 sm:mb-6">
               <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
                 OUR BLOG
@@ -81,7 +80,7 @@ export default function BlogGridPage() {
         <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
 
           {/* FILTER & SEARCH ROW */}
-          <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5 sm:gap-6 mb-10 sm:mb-14">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 sm:gap-6 mb-10 sm:mb-14">
             
             {/* CATEGORY FILTER */}
             <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:flex-1">

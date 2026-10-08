@@ -45,10 +45,6 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-  // Find index for Prev/Next navigation
-  const currentIndex = ALL_BLOG_POSTS.findIndex((p) => p.slug === post.slug);
-  const prevPost = currentIndex > 0 ? ALL_BLOG_POSTS[currentIndex - 1] : ALL_BLOG_POSTS[ALL_BLOG_POSTS.length - 1];
-  const nextPost = currentIndex < ALL_BLOG_POSTS.length - 1 ? ALL_BLOG_POSTS[currentIndex + 1] : ALL_BLOG_POSTS[0];
 
   // Related posts (2 items matching Screenshot 4)
   const relatedPosts = ALL_BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
@@ -74,25 +70,38 @@ export default async function BlogPostPage({ params }: Props) {
           <div className="max-w-[1380px] mx-auto">
             
             {/* Service-style Title */}
-            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-8 sm:mb-10 select-text">
+            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
               {post.title}
             </h1>
 
-            {/* Meta Bar on a Divider Line (Matching Screenshot 1) */}
-            <div className="w-full border-t border-white/20 pt-4 flex items-center justify-between gap-4 text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.05em] text-white/90">
-              <div className="flex items-center gap-2 truncate">
-                <span>{post.date}</span>
-                <span>_</span>
-                <span>BY {post.author.toUpperCase()}</span>
-                <span>_</span>
-                <span>2 COMMENTS</span>
-              </div>
+            {/* Subtitle / Meta Bar */}
+            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-8 sm:mb-10 font-medium flex items-center gap-3 flex-wrap">
+              <span>{post.date}</span>
+              <span className="w-1 h-1 rounded-full bg-white/40"></span>
+              <span>BY {post.author.toUpperCase()}</span>
+              <span className="w-1 h-1 rounded-full bg-white/40"></span>
+              <span>2 COMMENTS</span>
+            </p>
 
-              {/* Heart Likes Counter */}
-              <div className="flex items-center gap-1.5 text-white shrink-0 cursor-pointer hover:text-[#AEF977] transition-colors">
-                <Heart className="w-3.5 h-3.5 fill-white/20" />
-                <span>1</span>
-              </div>
+            {/* Breadcrumbs Navigation with top border */}
+            <div className="w-full border-t border-white/20 pt-4 flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
+              <Link
+                href="/"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                HOME
+              </Link>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <Link
+                href="/blog"
+                className="text-white/70 hover:text-white transition-colors"
+              >
+                BLOGS
+              </Link>
+              <span className="text-white/40 font-normal select-none">/</span>
+              <span className="text-[#AEF977] select-none truncate">
+                {post.title.toUpperCase()}
+              </span>
             </div>
 
           </div>
@@ -110,11 +119,11 @@ export default async function BlogPostPage({ params }: Props) {
         {/* Checkmark Bullet Points List */}
         <div className="space-y-3 mb-12 sm:mb-14">
           <div className="flex items-center gap-3 text-[15px] sm:text-[16px] text-neutral-800">
-            <Check className="w-4 h-4 text-neutral-900 shrink-0 stroke-[2.5]" />
+            <Check className="w-4 h-4 text-[#7FA6B9] shrink-0 stroke-[2.5]" />
             <span>The rotor drives the main shaft, which transfers motion to the generator.</span>
           </div>
           <div className="flex items-center gap-3 text-[15px] sm:text-[16px] text-neutral-800">
-            <Check className="w-4 h-4 text-neutral-900 shrink-0 stroke-[2.5]" />
+            <Check className="w-4 h-4 text-[#7FA6B9] shrink-0 stroke-[2.5]" />
             <span>The generator converts mechanical rotation into electrical power.</span>
           </div>
         </div>
@@ -134,8 +143,8 @@ export default async function BlogPostPage({ params }: Props) {
               ))}
 
               {section.keyHighlight && (
-                <div className="my-6 p-5 sm:p-6 bg-neutral-50 rounded-[16px] border border-neutral-200/80 flex items-start gap-4">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#AEF977] mt-2 shrink-0" />
+                <div className="my-6 p-5 sm:p-6 bg-neutral-100 rounded-[16px] flex items-start gap-4">
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#7FA6B9] mt-2 shrink-0" />
                   <p className="text-[14.5px] sm:text-[15.5px] font-semibold text-neutral-900 leading-[1.6]">
                     {section.keyHighlight}
                   </p>
@@ -147,11 +156,11 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* Closing Paragraph */}
         <p className="text-[15.5px] sm:text-[16.5px] text-neutral-700 leading-[1.75] font-normal mt-10">
-          The engineering behind wind turbines represents the perfect balance of science and sustainability — transforming invisible air currents into tangible progress. <strong className="text-neutral-950 font-bold">As materials improve and digital systems evolve, wind energy will only become more efficient, accessible, and vital to the world’s clean energy transition.</strong>
+          The engineering behind wind turbines represents the perfect balance of science and sustainability transforming invisible air currents into tangible progress. <strong className="text-[#7FA6B9] font-bold">As materials improve and digital systems evolve, wind energy will only become more efficient, accessible, and vital to the world’s clean energy transition.</strong>
         </p>
 
         {/* Tags & Social Share Row (Matching Screenshot 2) */}
-        <div className="mt-12 sm:mt-14 pt-8 border-t border-neutral-200 flex flex-wrap items-center justify-between gap-4">
+        <div className="mt-12 sm:mt-14 pt-8 flex flex-wrap items-center justify-between gap-4">
           
           {/* Tags Pills on Left */}
           <div className="flex flex-wrap items-center gap-2">
@@ -199,7 +208,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
 
         {/* 3. About Author Card (Matching Screenshot 2 & 3) */}
-        <div className="mt-12 sm:mt-14 pt-10 border-t border-neutral-300 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
+        <div className="mt-8 sm:mt-10 py-8 border-t border-b border-neutral-200 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
           <img
             src={post.authorAvatar}
             alt={post.author}
@@ -212,43 +221,11 @@ export default async function BlogPostPage({ params }: Props) {
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.65] font-normal mb-4">
               {post.authorBio || "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing."}
             </p>
-            {/* Social Text Links */}
-            <div className="flex items-center gap-5 text-[11.5px] font-bold uppercase tracking-wider text-neutral-950">
-              <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">X</a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">FACEBOOK</a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-[#087589] transition-colors cursor-pointer">INSTAGRAM</a>
-            </div>
+
           </div>
         </div>
 
-        {/* 4. Prev / Next Post Navigation (Matching Screenshot 3) */}
-        <div className="mt-14 pt-8 pb-8 border-t border-b border-neutral-300 grid grid-cols-1 sm:grid-cols-2 gap-8">
-          {/* PREV Link */}
-          <Link
-            href={`/blog/${prevPost.slug}`}
-            className="group flex flex-col items-start text-left cursor-pointer"
-          >
-            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-[#087589] transition-colors">
-              ← PREV
-            </span>
-            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-[#087589] transition-colors line-clamp-1">
-              {prevPost.title}
-            </span>
-          </Link>
 
-          {/* NEXT Link */}
-          <Link
-            href={`/blog/${nextPost.slug}`}
-            className="group flex flex-col items-start sm:items-end text-left sm:text-right cursor-pointer"
-          >
-            <span className="text-[12px] font-bold text-neutral-500 uppercase tracking-wider mb-1.5 group-hover:text-[#087589] transition-colors">
-              NEXT →
-            </span>
-            <span className="text-[16px] sm:text-[18px] font-bold text-neutral-400 group-hover:text-[#087589] transition-colors line-clamp-1">
-              {nextPost.title}
-            </span>
-          </Link>
-        </div>
 
       </main>
 

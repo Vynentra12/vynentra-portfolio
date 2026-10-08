@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import { Plus, Minus } from "lucide-react";
 import gsap from "gsap";
 import { motion, AnimatePresence } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
@@ -203,7 +203,7 @@ export function WhyChooseUsSectionV2() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start pt-3"
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-stretch pt-3"
             >
               
               {/* ── Feature Rows (Expandable Accordion on click with smooth arrow morph) ── */}
@@ -238,18 +238,16 @@ export function WhyChooseUsSectionV2() {
                           {feature.title}
                         </span>
 
-                        {/* Arrow with Smooth Morph & Color Shift to Teal-Blue */}
+                        {/* Plus/Minus Toggle */}
                         <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
-                          {/* Inactive Diagonal Arrow ↗ */}
-                          <ArrowUpRight
-                            className={`w-4 h-4 text-neutral-800 absolute transition-all duration-300 ease-out ${
-                              isExpanded ? "opacity-0 scale-75 rotate-45" : "opacity-100 scale-100 rotate-0"
+                          <Plus
+                            className={`w-5 h-5 text-neutral-800 absolute transition-all duration-300 ease-out ${
+                              isExpanded ? "opacity-0 scale-75 rotate-90" : "opacity-100 scale-100 rotate-0"
                             }`}
                           />
-                          {/* Active / Expanded Horizontal Arrow → */}
-                          <ArrowRight
-                            className={`w-4 h-4 text-[#0A6B88] absolute transition-all duration-300 ease-out ${
-                              isExpanded ? "opacity-100 scale-100 translate-x-0" : "opacity-0 scale-75 -translate-x-1"
+                          <Minus
+                            className={`w-5 h-5 text-[#0A6B88] absolute transition-all duration-300 ease-out ${
+                              isExpanded ? "opacity-100 scale-100 rotate-0" : "opacity-0 scale-75 -rotate-90"
                             }`}
                           />
                         </div>
@@ -289,7 +287,7 @@ export function WhyChooseUsSectionV2() {
               </div>
 
               {/* ── Fixed Solar Energy Preview Card & Description (Dynamic sync with active item) ── */}
-              <div className="md:col-span-5 flex flex-col justify-between">
+              <div className="md:col-span-5 flex flex-col justify-between gap-6">
                 
                 {/* Fixed Solar Panel Sunset Image */}
                 <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-neutral-100 shadow-sm">

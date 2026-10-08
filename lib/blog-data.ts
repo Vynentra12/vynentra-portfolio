@@ -60,7 +60,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
         }
       ],
       quote: {
-        text: "The future of wind turbine design is no longer just about building taller towers — it is about intelligent, self-optimizing aerofoils that adapt to micro-gusts in real-time.",
+        text: "The future of wind turbine design is no longer just about building taller towers it is about intelligent, self-optimizing aerofoils that adapt to micro-gusts in real-time.",
         author: "Harry Wuko, Chief Technology Officer at Vynentra"
       },
       takeaways: [
@@ -84,7 +84,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     excerpt: "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
     image: "/why-choose-us/expert-guidance.jpg",
     content: {
-      intro: "Wind power produces zero operational emissions during electricity generation. However, a rigorous analysis must account for the full life cycle — from steel smelting and composite manufacturing to logistics, foundation pouring, and eventual decommissioning.",
+      intro: "Wind power produces zero operational emissions during electricity generation. However, a rigorous analysis must account for the full life cycle from steel smelting and composite manufacturing to logistics, foundation pouring, and eventual decommissioning.",
       sections: [
         {
           heading: "Carbon Payback Within 6 to 9 Months",
@@ -127,7 +127,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     excerpt: "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
     image: "/solutions/solar-installation.jpg",
     content: {
-      intro: "The transition to renewable energy is no longer propelled purely by sustainability mandates — it is driven by sheer economic superiority. On a pure Levelized Cost of Energy (LCOE) basis, new-build wind and solar projects outcompete existing coal and gas generators globally.",
+      intro: "The transition to renewable energy is no longer propelled purely by sustainability mandates it is driven by sheer economic superiority. On a pure Levelized Cost of Energy (LCOE) basis, new-build wind and solar projects outcompete existing coal and gas generators globally.",
       sections: [
         {
           heading: "Levelized Cost of Energy (LCOE) Comparison",
@@ -140,7 +140,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
         {
           heading: "Mitigating Intermittency via Hybridization",
           paragraphs: [
-            "The economic bottleneck of renewable energy has historically been intermittency. By co-locating solar arrays with wind turbines sharing the same grid interconnection, plants achieve continuous complementary generation curves — solar peaking at midday and wind peaking during evening and night breezes."
+            "The economic bottleneck of renewable energy has historically been intermittency. By co-locating solar arrays with wind turbines sharing the same grid interconnection, plants achieve continuous complementary generation curves solar peaking at midday and wind peaking during evening and night breezes."
           ]
         }
       ],

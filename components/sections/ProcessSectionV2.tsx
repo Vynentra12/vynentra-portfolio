@@ -1,8 +1,6 @@
 'use client';
 
 import React, { useState } from 'react';
-import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
 
 interface ProcessPanel {
   id: number;
@@ -105,17 +103,11 @@ export function ProcessSectionV2() {
 
                   {/* Bottom Left: Description & Blog-Style Circle-to-Pill Morphing Button */}
                   <div className="max-w-md pr-4 z-20">
-                    <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/95 leading-[1.55] font-normal mb-6 max-w-sm sm:max-w-md">
+                    <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/95 leading-[1.55] font-normal mb-0 max-w-sm sm:max-w-md">
                       {panel.desc}
                     </p>
 
-                    {/* Clean stroke button in default, matching hover */}
-                    <Link
-                      href="/#case-studies"
-                      className="inline-flex items-center justify-center h-[44px] px-6 rounded-full border border-white text-white text-[11.5px] sm:text-[12px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-black active:scale-[0.98]"
-                    >
-                      READ MORE
-                    </Link>
+
                   </div>
 
                 </div>
