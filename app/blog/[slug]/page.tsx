@@ -256,12 +256,10 @@ export default async function BlogPostPage({ params }: Props) {
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
                     />
 
-                    {/* Small Glassmorphism Badge with hyphen (-) */}
+                    {/* Small Glassmorphism Badge */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                        <span>{stepStr}</span>
-                        <span className="opacity-60 font-normal">-</span>
-                        <span>{relPost.category}</span>
+                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        {relPost.category}
                       </span>
                     </div>
                   </div>

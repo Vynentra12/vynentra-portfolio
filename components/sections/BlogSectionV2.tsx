@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface BlogPost {
-  step: string;
   slug: string;
   image: string;
   category: string;
@@ -20,7 +19,6 @@ interface BlogPost {
 export function BlogSectionV2() {
   const blogs: BlogPost[] = [
     {
-      step: "01",
       slug: "inside-the-engineering-of-wind-turbines",
       image: "/wind_farm_sunset.jpg",
       category: "WIND ENERGY",
@@ -31,7 +29,6 @@ export function BlogSectionV2() {
         "Exploring the changing role of wind energy and how it can complement solar generation as India's energy requirements continue to grow.",
     },
     {
-      step: "02",
       slug: "the-environmental-impact-of-wind-energy",
       image: "/why-choose-us/expert-guidance.jpg",
       category: "PROJECT DEVELOPMENT",
@@ -42,7 +39,6 @@ export function BlogSectionV2() {
         "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
     },
     {
-      step: "03",
       slug: "the-real-numbers-behind-green-energy",
       image: "/solutions/solar-installation.jpg",
       category: "RENEWABLE TECHNOLOGY",
@@ -53,7 +49,6 @@ export function BlogSectionV2() {
         "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
     },
     {
-      step: "04",
       slug: "a-world-powered-by-wind-and-sunlight",
       image: "/hybrid-wind-solar.jpg",
       category: "WIND + SOLAR",
@@ -134,12 +129,10 @@ export function BlogSectionV2() {
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
                     />
 
-                    {/* Small Glassmorphism Badge with hyphen (-) */}
+                    {/* Small Glassmorphism Badge */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                        <span>{blog.step}</span>
-                        <span className="opacity-60 font-normal">-</span>
-                        <span>{blog.category}</span>
+                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        {blog.category}
                       </span>
                     </div>
                   </div>
