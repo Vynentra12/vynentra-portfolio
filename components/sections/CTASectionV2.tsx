@@ -313,7 +313,9 @@ export function CTASectionV2({
 
         {/* Title */}
         <h2
-          className="text-[14px] min-[390px]:text-[16px] sm:text-[21px] md:text-[25px] lg:text-[28px] font-bold text-white tracking-tight leading-[1.2] mb-1.5 min-[390px]:mb-2 sm:mb-2.5 whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text"
+          className={`text-[14px] min-[390px]:text-[16px] sm:text-[21px] md:text-[25px] lg:text-[28px] font-bold text-white tracking-tight leading-[1.2] whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text ${
+            description ? "mb-1.5 min-[390px]:mb-2 sm:mb-2.5" : "mb-3 min-[390px]:mb-3.5 sm:mb-4 md:mb-5"
+          }`}
           style={{
             userSelect: "text",
             WebkitUserSelect: "text",

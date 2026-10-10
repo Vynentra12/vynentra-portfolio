@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion, useInView, animate } from "framer-motion";
 import { CheckCircle, Lightbulb, Shield, Award, Users, Heart } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { CTASectionV2 } from "@/components/sections/CTASectionV2";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
 const LinkedinIcon = ({ className }: { className?: string }) => (

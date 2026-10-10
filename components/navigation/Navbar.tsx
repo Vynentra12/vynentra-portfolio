@@ -11,8 +11,10 @@ export function Navbar() {
   const pathname = usePathname();
   const isServices = pathname === "/services" || pathname?.startsWith("/services");
   const isBlog = pathname === "/blog" || pathname?.startsWith("/blog");
+  const isAbout = pathname === "/about" || pathname?.startsWith("/about");
+  const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
-  const activeLink = isServices ? "Services" : isBlog ? "Blogs" : isContact ? "Contacts" : null;
+  const activeLink = isServices ? "Services" : isBlog ? "Blogs" : isAbout ? "About Us" : isCaseStudies ? "Case Studies" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -85,13 +87,12 @@ export function Navbar() {
     setIsVisible(true);
   }, [pathname]);
 
-  // Clean 5 navigation items
+  // Clean 4 navigation items
   const navLinks = [
     { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Blogs", href: "/blog" },
-    { name: "Contacts", href: "/contact" },
   ];
 
   const currentPillTarget = hoveredLink || activeLink;
@@ -150,13 +151,17 @@ export function Navbar() {
           {/* Right: GET IN TOUCH CTA & Mobile Toggle */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 justify-self-end">
             
-            {/* GET IN TOUCH CTA Button with clean stroke in default & matching hover */}
+            {/* GET IN TOUCH CTA Button routing to /contact */}
             <Link 
               href="/contact"
               className={`hidden sm:inline-flex items-center justify-center h-[38px] sm:h-[39px] px-5 sm:px-5.5 rounded-full border text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer shrink-0 whitespace-nowrap transition-all duration-300 active:scale-[0.98] ${
-                isScrolled
-                  ? "border-[#0B2735] text-[#0B2735] hover:bg-[#0B2735] hover:text-white"
-                  : "border-white/70 text-white hover:bg-white hover:text-[#0B2735] hover:border-white"
+                isContact
+                  ? (isScrolled 
+                      ? "bg-[#0B2735] text-white border-[#0B2735]" 
+                      : "bg-white text-[#0B2735] border-white")
+                  : (isScrolled
+                      ? "border-[#0B2735] text-[#0B2735] hover:bg-[#0B2735] hover:text-white"
+                      : "border-white/70 text-white hover:bg-white hover:text-[#0B2735] hover:border-white")
               }`}
             >
               GET IN TOUCH
@@ -219,7 +224,11 @@ export function Navbar() {
                   <Link
                     href="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="w-full h-11 inline-flex items-center justify-center rounded-full border border-[#0B2735] text-[#0B2735] text-[13px] font-semibold uppercase tracking-wider transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+                    className={`w-full h-11 inline-flex items-center justify-center rounded-full border text-[13px] font-semibold uppercase tracking-wider transition-all duration-300 active:scale-[0.98] ${
+                      isContact
+                        ? "bg-[#0B2735] text-white border-[#0B2735]"
+                        : "border-[#0B2735] text-[#0B2735] hover:bg-[#0B2735] hover:text-white"
+                    }`}
                   >
                     GET IN TOUCH
                   </Link>
