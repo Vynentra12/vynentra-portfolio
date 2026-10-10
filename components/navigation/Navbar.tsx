@@ -10,11 +10,11 @@ import { Logo } from "@/components/brand/Logo";
 export function Navbar() {
   const pathname = usePathname();
   const isServices = pathname === "/services" || pathname?.startsWith("/services");
-  const isBlog = pathname === "/blog" || pathname?.startsWith("/blog");
+  const isInsights = pathname === "/insights" || pathname?.startsWith("/insights") || pathname === "/blog" || pathname?.startsWith("/blog");
   const isAbout = pathname === "/about" || pathname?.startsWith("/about");
   const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
-  const activeLink = isServices ? "Services" : isBlog ? "Blogs" : isAbout ? "About Us" : isCaseStudies ? "Case Studies" : null;
+  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isAbout ? "About Us" : isCaseStudies ? "Case Studies" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -92,7 +92,7 @@ export function Navbar() {
     { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
-    { name: "Blogs", href: "/blog" },
+    { name: "Insights", href: "/insights" },
   ];
 
   const currentPillTarget = hoveredLink || activeLink;

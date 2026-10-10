@@ -61,7 +61,7 @@ export function BlogSectionV2() {
   ];
 
   return (
-    <section id="blog" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
+    <section id="insights" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
       <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         
         {/* Section Header */}
@@ -74,7 +74,7 @@ export function BlogSectionV2() {
             className="flex flex-col max-w-[820px]"
           >
             <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-              ENERGY INSIGHTS
+              INSIGHTS
             </SectionBadge>
             
             {/* Main Title */}
@@ -97,7 +97,7 @@ export function BlogSectionV2() {
             className="shrink-0 pb-1"
           >
             <Link
-              href="/blog"
+              href="/insights"
               className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
               VIEW ALL INSIGHTS
@@ -117,7 +117,7 @@ export function BlogSectionV2() {
               className="h-full"
             >
               <Link 
-                href={`/blog/${blog.slug}`}
+                href={`/insights/${blog.slug}`}
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
                 <div className="flex flex-col">

@@ -6,7 +6,7 @@ import { ArrowRight, Search } from "lucide-react";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { ALL_BLOG_POSTS } from "@/lib/blog-data";
 
-export default function BlogGridPage() {
+export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const categories = ["ALL", ...Array.from(new Set(ALL_BLOG_POSTS.map(post => post.category)))];
@@ -45,12 +45,12 @@ export default function BlogGridPage() {
           <div className="max-w-[1380px] mx-auto">
             <div className="mb-4 sm:mb-6">
               <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
-                OUR BLOG
+                INSIGHTS
               </span>
             </div>
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
-              Blog & Insights
+              Insights
             </h1>
 
             {/* Subtitle matching ServicesPage Hero Paragraph */}
@@ -69,7 +69,7 @@ export default function BlogGridPage() {
                 HOME
               </Link>
               <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">BLOG</span>
+              <span className="text-[#AEF977] select-none">INSIGHTS</span>
             </nav>
           </div>
         </div>
@@ -117,61 +117,58 @@ export default function BlogGridPage() {
 
           {/* 3-Column Responsive Cards Grid matching Home Page Blog Section UI */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-9 lg:gap-10">
-            {posts.map((post, idx) => {
-              const stepStr = String(idx + 1).padStart(2, '0');
-              return (
-                <Link
-                  key={post.id}
-                  href={`/blog/${post.slug || 'inside-the-engineering-of-wind-turbines'}`}
-                  className="flex flex-col justify-between h-full group/blog cursor-pointer"
-                >
-                  <div className="flex flex-col">
-                    {/* Image Container with Sleek Glassmorphic Pill Badge */}
-                    <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
-                      />
+            {posts.map((post) => (
+              <Link
+                key={post.id}
+                href={`/insights/${post.slug || 'inside-the-engineering-of-wind-turbines'}`}
+                className="flex flex-col justify-between h-full group/blog cursor-pointer"
+              >
+                <div className="flex flex-col">
+                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                  <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                    />
 
-                      {/* Small Glassmorphism Badge */}
-                      <div className="absolute top-3 left-3 z-10">
-                        <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                          {post.category}
-                        </span>
-                      </div>
+                    {/* Small Glassmorphism Badge */}
+                    <div className="absolute top-3 left-3 z-10">
+                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        {post.category}
+                      </span>
                     </div>
-
-                    {/* Card Meta Date & Read Time */}
-                    <div className="mt-4 mb-2">
-                      <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em]">
-                        {post.date} · {post.readTime}
-                      </p>
-                    </div>
-
-                    {/* Card Title (font-medium matching home page) */}
-                    <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-[#087589] transition-colors min-h-[46px] sm:min-h-[50px]">
-                      {post.title}
-                    </h3>
                   </div>
 
-                  {/* Read Insight CTA: Regular weight font matching home page */}
-                  <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
-                    <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
-                      <ArrowRight
-                        className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
-                        strokeWidth={1.8}
-                      />
-                      <ArrowRight
-                        className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
-                        strokeWidth={1.8}
-                      />
-                    </div>
-                    <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                  {/* Card Meta Date & Read Time */}
+                  <div className="mt-4 mb-2">
+                    <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em]">
+                      {post.date} · {post.readTime}
+                    </p>
                   </div>
-                </Link>
-              );
-            })}
+
+                  {/* Card Title (font-medium matching home page) */}
+                  <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-[#087589] transition-colors min-h-[46px] sm:min-h-[50px]">
+                    {post.title}
+                  </h3>
+                </div>
+
+                {/* Read Insight CTA: Regular weight font matching home page */}
+                <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
+                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
+                    <ArrowRight
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
+                      strokeWidth={1.8}
+                    />
+                    <ArrowRight
+                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
+                      strokeWidth={1.8}
+                    />
+                  </div>
+                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                </div>
+              </Link>
+            ))}
           </div>
 
           {/* Centered LOAD MORE NEWS Button */}

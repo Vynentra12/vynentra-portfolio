@@ -33,7 +33,7 @@ export function FooterV2() {
   ];
 
   const resourcesLinks = [
-    { name: "Energy Insights", href: "/blog" },
+    { name: "Insights", href: "/insights" },
     { name: "FAQs", href: "/#faq" },
     { name: "Contact Us", href: "/contact" },
   ];

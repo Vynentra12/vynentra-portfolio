@@ -37,7 +37,7 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function InsightDetailPage({ params }: Props) {
   const { slug } = await params;
   const post = getBlogPostBySlug(slug);
 
@@ -45,22 +45,21 @@ export default async function BlogPostPage({ params }: Props) {
     notFound();
   }
 
-
-  // Related posts (2 items matching Screenshot 4)
+  // Related posts (2 items)
   const relatedPosts = ALL_BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
-      {/* 1. Full-Bleed Panoramic Hero Section (Half Frame) */}
-      <section className="relative w-full min-h-[50vh] flex flex-col justify-end overflow-hidden bg-black">
+      {/* 1. Full-Bleed Panoramic Hero Section (Full Viewport Height) */}
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
         
         {/* Panoramic Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={post.image}
             alt={post.title}
-            className="w-full h-full object-cover object-[center_40%] opacity-60"
+            className="w-full h-full object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
@@ -69,13 +68,20 @@ export default async function BlogPostPage({ params }: Props) {
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
             
-            {/* Service-style Title */}
-            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
+            {/* Category Badge */}
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
+                {post.category}
+              </span>
+            </div>
+
+            {/* Title */}
+            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
               {post.title}
             </h1>
 
             {/* Subtitle / Meta Bar */}
-            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-8 sm:mb-10 font-medium flex items-center gap-3 flex-wrap">
+            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium flex items-center gap-3 flex-wrap">
               <span>{post.date}</span>
               <span className="w-1 h-1 rounded-full bg-white/40"></span>
               <span>BY {post.author.toUpperCase()}</span>
@@ -93,10 +99,10 @@ export default async function BlogPostPage({ params }: Props) {
               </Link>
               <span className="text-white/40 font-normal select-none">/</span>
               <Link
-                href="/blog"
+                href="/insights"
                 className="text-white/70 hover:text-white transition-colors"
               >
-                BLOGS
+                INSIGHTS
               </Link>
               <span className="text-white/40 font-normal select-none">/</span>
               <span className="text-[#AEF977] select-none truncate">
@@ -108,7 +114,7 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
       </section>
 
-      {/* 2. Main Article Content Body (Matching Screenshot 2) */}
+      {/* 2. Main Article Content Body */}
       <main className="max-w-[940px] mx-auto px-6 sm:px-10 py-14 sm:py-20">
         
         {/* Intro Paragraph */}
@@ -154,82 +160,79 @@ export default async function BlogPostPage({ params }: Props) {
           ))}
         </div>
 
-        {/* Closing Paragraph */}
-        <p className="text-[15.5px] sm:text-[16.5px] text-neutral-700 leading-[1.75] font-normal mt-10">
+        {/* 3. Quote Block */}
+        {post.content.quote && (
+          <div className="my-14 sm:my-16 pl-6 sm:pl-8 border-l-2 border-[#7FA6B9]">
+            <blockquote className="text-[20px] sm:text-[22px] md:text-[24px] font-medium text-neutral-900 leading-[1.4] mb-3 italic">
+              &ldquo;{post.content.quote.text}&rdquo;
+            </blockquote>
+            <cite className="text-[14px] font-semibold text-neutral-500 not-italic uppercase tracking-wider">
+              — {post.content.quote.author}
+            </cite>
+          </div>
+        )}
+
+        {/* 4. Concluding Paragraph */}
+        <p className="text-[16px] sm:text-[17px] text-neutral-700 leading-[1.8] font-normal mb-12 sm:mb-14">
           The engineering behind wind turbines represents the perfect balance of science and sustainability transforming invisible air currents into tangible progress. <strong className="text-[#7FA6B9] font-bold">As materials improve and digital systems evolve, wind energy will only become more efficient, accessible, and vital to the world’s clean energy transition.</strong>
         </p>
 
-        {/* Tags & Social Share Row (Matching Screenshot 2) */}
-        <div className="mt-12 sm:mt-14 pt-8 flex flex-wrap items-center justify-between gap-4">
+        {/* Tags & Social Share Bar */}
+        <div className="border-t border-b border-neutral-200 py-6 mb-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
           
-          {/* Tags Pills on Left */}
-          <div className="flex flex-wrap items-center gap-2">
+          {/* Tags */}
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-[12px] font-semibold uppercase text-neutral-400 tracking-wider mr-2">Tags:</span>
             {["energy", "renewable", "solar"].map((tag) => (
-              <span
+              <span 
                 key={tag}
-                className="px-3.5 py-1 rounded-full border border-neutral-900 text-[12px] font-medium text-neutral-900 cursor-pointer hover:bg-[#087589] hover:border-[#087589] hover:text-white transition-colors"
+                className="px-3.5 py-1 rounded-full bg-neutral-100 text-[11px] font-bold text-neutral-700 uppercase tracking-wider"
               >
                 {tag}
               </span>
             ))}
           </div>
 
-          {/* Real Social Share Icons on Right (X, Facebook, Instagram) */}
-          <div className="flex items-center gap-4 text-neutral-900">
-            <a 
-              href="https://x.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              aria-label="Share on X"
-              className="hover:text-[#087589] transition-colors"
-            >
-              <TwitterIcon className="w-4 h-4" />
-            </a>
-            <a 
-              href="https://facebook.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              aria-label="Share on Facebook"
-              className="hover:text-[#087589] transition-colors"
-            >
-              <FacebookIcon className="w-4 h-4" />
-            </a>
-            <a 
-              href="https://instagram.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              aria-label="Share on Instagram"
-              className="hover:text-[#087589] transition-colors"
-            >
-              <InstagramIcon className="w-4 h-4" />
-            </a>
+          {/* Social Share Icons */}
+          <div className="flex items-center gap-3">
+            <span className="text-[12px] font-semibold uppercase text-neutral-400 tracking-wider mr-1">Share:</span>
+            <button aria-label="Share on X" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+              <TwitterIcon />
+            </button>
+            <button aria-label="Share on Facebook" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+              <FacebookIcon />
+            </button>
+            <button aria-label="Share on Instagram" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+              <InstagramIcon />
+            </button>
           </div>
-
         </div>
 
-        {/* 3. About Author Card (Matching Screenshot 2 & 3) */}
-        <div className="mt-8 sm:mt-10 py-8 border-t border-b border-neutral-200 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
-          <img
-            src={post.authorAvatar}
-            alt={post.author}
-            className="w-24 h-24 sm:w-28 sm:h-28 rounded-full object-cover shrink-0 grayscale"
-          />
+        {/* Author Bio Box */}
+        <div className="p-7 sm:p-8 bg-[#F4F6F8] rounded-[20px] flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
+          <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-neutral-300">
+            <img 
+              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300" 
+              alt={post.author} 
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div>
-            <h3 className="text-[22px] sm:text-[24px] font-medium text-neutral-900 mb-2.5">
-              About {post.author}
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#7FA6B9] block mb-1">
+              Written by
+            </span>
+            <h3 className="text-[18px] font-medium text-neutral-900 mb-2">
+              {post.author}
             </h3>
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.65] font-normal mb-4">
               {post.authorBio || "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing."}
             </p>
-
           </div>
         </div>
 
-
-
       </main>
 
-      {/* 5. Related Posts Section (Matching exact article width max-w-[940px] and px-6 sm:px-10) */}
+      {/* 5. Related Posts Section */}
       <section className="w-full bg-white pb-20 sm:pb-24 md:pb-28 max-w-[940px] mx-auto px-6 sm:px-10">
         
         {/* Heading */}
@@ -239,59 +242,56 @@ export default async function BlogPostPage({ params }: Props) {
 
         {/* 2-Column Responsive Cards Grid matching sleek UI */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-9">
-          {relatedPosts.map((relPost, idx) => {
-            const stepStr = String(idx + 1).padStart(2, '0');
-            return (
-              <Link
-                key={relPost.id}
-                href={`/blog/${relPost.slug}`}
-                className="flex flex-col justify-between h-full group/blog cursor-pointer"
-              >
-                <div className="flex flex-col">
-                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
-                  <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 mb-4 select-none">
-                    <img
-                      src={relPost.image}
-                      alt={relPost.title}
-                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
-                    />
+          {relatedPosts.map((relPost) => (
+            <Link
+              key={relPost.id}
+              href={`/insights/${relPost.slug}`}
+              className="flex flex-col justify-between h-full group/blog cursor-pointer"
+            >
+              <div className="flex flex-col">
+                {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 mb-4 select-none">
+                  <img
+                    src={relPost.image}
+                    alt={relPost.title}
+                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                  />
 
-                    {/* Small Glassmorphism Badge */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                        {relPost.category}
-                      </span>
-                    </div>
+                  {/* Small Glassmorphism Badge */}
+                  <div className="absolute top-3 left-3 z-10">
+                    <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                      {relPost.category}
+                    </span>
                   </div>
-
-                  {/* Date & Read Time */}
-                  <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em] mb-2">
-                    {relPost.date} · {relPost.readTime}
-                  </p>
-
-                  {/* Title */}
-                  <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 tracking-tight leading-[1.3] group-hover/blog:text-[#087589] transition-colors mb-4">
-                    {relPost.title}
-                  </h3>
                 </div>
 
-                {/* Read Insight CTA */}
-                <div className="mt-1 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
-                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
-                    <ArrowRight
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
-                      strokeWidth={1.8}
-                    />
-                    <ArrowRight
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
-                      strokeWidth={1.8}
-                    />
-                  </div>
-                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                {/* Date & Read Time */}
+                <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em] mb-2">
+                  {relPost.date} · {relPost.readTime}
+                </p>
+
+                {/* Title */}
+                <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 tracking-tight leading-[1.3] group-hover/blog:text-[#087589] transition-colors mb-4">
+                  {relPost.title}
+                </h3>
+              </div>
+
+              {/* Read Insight CTA */}
+              <div className="mt-1 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
+                <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
+                  <ArrowRight
+                    className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
+                    strokeWidth={1.8}
+                  />
+                  <ArrowRight
+                    className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
+                    strokeWidth={1.8}
+                  />
                 </div>
-              </Link>
-            );
-          })}
+                <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+              </div>
+            </Link>
+          ))}
         </div>
 
       </section>
