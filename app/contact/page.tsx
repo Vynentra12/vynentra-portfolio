@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ChevronDown, MapPin, Phone, Mail } from "lucide-react";
@@ -64,6 +63,10 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.serviceInterest) {
+      setIsDropdownOpen(true);
+      return;
+    }
     setIsSubmitted(true);
     setTimeout(() => {
       setIsSubmitted(false);
@@ -133,29 +136,21 @@ export default function ContactPage() {
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
             
-            {/* Left Column: Contact Info (Slides in from Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-5 flex flex-col justify-start"
-            >
+            {/* Left Column: Contact Info */}
+            <div className="lg:col-span-5 flex flex-col justify-start">
               
               <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
                 GET IN TOUCH
               </SectionBadge>
 
               {/* Headline */}
-              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.1] mb-6 sm:mb-7">
-                Reach out to us<br className="hidden sm:inline" /> anytime for support<br className="hidden sm:inline" /> and guidance
+              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.15] mb-6 sm:mb-7">
+                Reach out to us anytime for support and guidance
               </h2>
 
               {/* Subtitle */}
-              <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium mb-8 sm:mb-14 max-w-xl">
-                Get in touch to discuss your renewable energy requirements today.
-                <br className="hidden sm:inline" />
-                {" "}Please give us a call or drop us an email.
+              <p className="text-[14px] sm:text-[15px] md:text-[16px] text-neutral-600 leading-[1.6] font-normal mb-8 sm:mb-14 max-w-xl">
+                Get in touch to discuss your renewable energy requirements today. Please give us a call or drop us an email.
               </p>
 
               {/* 2x2 Details Grid - Pure clean spacing without border */}
@@ -208,7 +203,7 @@ export default function ContactPage() {
                 {/* Socials */}
                 <div>
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-3">
-                    WE ARE IN SOCIALS:
+                    WE ARE ON SOCIALS:
                   </h3>
                   <div className="flex items-center gap-5 pt-1">
                     <a 
@@ -234,31 +229,17 @@ export default function ContactPage() {
 
               </div>
 
-            </motion.div>
+            </div>
 
-            {/* Right Column: Clean Light Gray Form Card (Slides in from Right) */}
-            <motion.div 
-              initial={{ opacity: 0, x: 70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60"
-            >
-              <h3 className="text-[22px] sm:text-[24px] font-normal text-neutral-950 mb-2 tracking-tight">
-                Contact / Leads Form
-              </h3>
-              
-              <p className="text-[13.5px] text-neutral-500 mb-8 sm:mb-10 font-normal">
-                Please fill in the details below. Required fields are marked *
-              </p>
-
+            {/* Right Column: Clean Light Gray Form Card */}
+            <div className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60">
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
                 
                 {/* 2-Column Grid for Name and Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   {/* Name */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name *</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name</label>
                     <input
                       type="text"
                       required
@@ -271,7 +252,7 @@ export default function ContactPage() {
 
                   {/* Email */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email *</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email</label>
                     <input
                       type="email"
                       required
@@ -288,6 +269,7 @@ export default function ContactPage() {
                   <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Company</label>
                   <input
                     type="text"
+                    required
                     placeholder="Company name"
                     value={formData.orgName}
                     onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
@@ -309,37 +291,34 @@ export default function ContactPage() {
                       <span className="truncate pr-4">
                         {formData.serviceInterest 
                           ? serviceOptions.find(o => o.value === formData.serviceInterest)?.label 
-                          : "Select a service option *"}
+                          : "Select a service option"}
                       </span>
                       <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform duration-200 shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {/* Dropdown Menu */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: isDropdownOpen ? 1 : 0, y: isDropdownOpen ? 0 : -5 }}
-                      transition={{ duration: 0.15 }}
-                      className={`absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50 ${isDropdownOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                    >
-                      <div className="py-1">
-                        <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
-                          Select a service option *
+                    {isDropdownOpen && (
+                      <div className="absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50">
+                        <div className="py-1">
+                          <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
+                            Select a service option
+                          </div>
+                          {serviceOptions.map((option) => (
+                            <button
+                              key={option.value}
+                              type="button"
+                              onClick={() => {
+                                setFormData({ ...formData, serviceInterest: option.value });
+                                setIsDropdownOpen(false);
+                              }}
+                              className="w-full text-left px-4 py-2.5 text-[14.5px] text-neutral-800 hover:bg-[#EAF3F6] hover:text-[#0A6B88] transition-colors"
+                            >
+                              {option.label}
+                            </button>
+                          ))}
                         </div>
-                        {serviceOptions.map((option) => (
-                          <button
-                            key={option.value}
-                            type="button"
-                            onClick={() => {
-                              setFormData({ ...formData, serviceInterest: option.value });
-                              setIsDropdownOpen(false);
-                            }}
-                            className="w-full text-left px-4 py-2.5 text-[14.5px] text-neutral-800 hover:bg-[#EAF3F6] hover:text-[#0A6B88] transition-colors"
-                          >
-                            {option.label}
-                          </button>
-                        ))}
                       </div>
-                    </motion.div>
+                    )}
                   </div>
                 </div>
 
@@ -350,6 +329,7 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={3}
+                    required
                     placeholder="Write your message here..."
                     value={formData.additionalNotes}
                     onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
@@ -376,7 +356,7 @@ export default function ContactPage() {
 
                 {/* Privacy disclaimer notice */}
                 <p className="text-[12px] sm:text-[12.5px] text-neutral-500 leading-relaxed font-normal pt-1">
-                  By clicking Submit, we will store and process your personal data that you have entered above. Our <Link href="/#about" className="underline hover:text-black font-medium">privacy policy is here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
+                  By clicking Submit, we will store and process your personal data that you have entered above. Our privacy policy is <Link href="/#about" className="underline hover:text-black font-medium">here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
                 </p>
 
                 {/* Submit Action */}
@@ -396,7 +376,7 @@ export default function ContactPage() {
                 </div>
 
               </form>
-            </motion.div>
+            </div>
 
           </div>
         </div>

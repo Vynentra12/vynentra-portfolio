@@ -7,13 +7,6 @@ import { CheckCircle, Lightbulb, Shield, Award, Users, Heart } from "lucide-reac
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
-const LinkedinIcon = ({ className }: { className?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-);
 
 function AnimatedNumber({ to, decimals = 0, suffixText = "", colorClass = "text-[#0A6B88]", textClass = "text-neutral-900" }: { to: number, decimals?: number, suffixText?: string, colorClass?: string, textClass?: string }) {
   const nodeRef = useRef<HTMLSpanElement>(null);
@@ -226,89 +219,6 @@ export default function AboutPage() {
               </div>
               <h3 className="text-[17px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2 sm:mb-2.5 leading-[1.2]">Safety Focused</h3>
               <p className="text-[13.5px] sm:text-[15px] text-neutral-600 leading-[1.6]">Zero-compromise approach to workplace safety and environmental protection protocols.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── THE TEAM ── */}
-      <section className="w-full py-16 sm:py-24 md:py-32 bg-[#F4F6F8]">
-        <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
-          <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-            THE TEAM
-          </SectionBadge>
-          <div className="max-w-2xl mb-12 lg:mb-16">
-            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 max-w-[640px]">
-              Operators, not observers
-            </h2>
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium">
-              A mix of energy experts, structural engineers and project managers who have all shipped large-scale infrastructure under tight deadlines.
-            </p>
-          </div>
-
-          <div className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 sm:grid sm:grid-cols-2 lg:grid-cols-4 sm:gap-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden -mx-6 px-6 sm:mx-0 sm:px-0">
-            {/* Team 1 */}
-            <div className="min-w-[85vw] sm:min-w-0 snap-center group cursor-pointer">
-              <div className="w-full aspect-square rounded-[24px] overflow-hidden mb-5 bg-[#F4F6F8]">
-                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Rajeev Patel" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-[18px] font-medium text-neutral-950 mb-1">Rajeev Patel</h3>
-                  <p className="text-[13px] text-neutral-500">Co-founder & CEO</p>
-                </div>
-                <button className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center transition-colors group-hover:bg-[#0A6B88]">
-                  <LinkedinIcon className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Team 2 */}
-            <div className="min-w-[85vw] sm:min-w-0 snap-center group cursor-pointer">
-              <div className="w-full aspect-square rounded-[24px] overflow-hidden mb-5 bg-[#F4F6F8]">
-                <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Sneha Desai" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-[18px] font-medium text-neutral-950 mb-1">Sneha Desai</h3>
-                  <p className="text-[13px] text-neutral-500">Head of Strategy</p>
-                </div>
-                <button className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center transition-colors group-hover:bg-[#0A6B88]">
-                  <LinkedinIcon className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Team 3 */}
-            <div className="min-w-[85vw] sm:min-w-0 snap-center group cursor-pointer">
-              <div className="w-full aspect-square rounded-[24px] overflow-hidden mb-5 bg-[#F4F6F8]">
-                <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Amit Kumar" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-[18px] font-medium text-neutral-950 mb-1">Amit Kumar</h3>
-                  <p className="text-[13px] text-neutral-500">Lead Engineer</p>
-                </div>
-                <button className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center transition-colors group-hover:bg-[#0A6B88]">
-                  <LinkedinIcon className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Team 4 */}
-            <div className="min-w-[85vw] sm:min-w-0 snap-center group cursor-pointer">
-              <div className="w-full aspect-square rounded-[24px] overflow-hidden mb-5 bg-[#F4F6F8]">
-                <img src="https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Priya Sharma" className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
-              </div>
-              <div className="flex items-center justify-between">
-                <div>
-                  <h3 className="text-[18px] font-medium text-neutral-950 mb-1">Priya Sharma</h3>
-                  <p className="text-[13px] text-neutral-500">Project Director</p>
-                </div>
-                <button className="w-8 h-8 rounded-full bg-neutral-900 text-white flex items-center justify-center transition-colors group-hover:bg-[#0A6B88]">
-                  <LinkedinIcon className="w-4 h-4" />
-                </button>
-              </div>
             </div>
           </div>
         </div>
