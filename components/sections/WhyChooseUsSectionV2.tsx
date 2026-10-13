@@ -14,7 +14,7 @@ interface FeatureItem {
 }
 
 export function WhyChooseUsSectionV2() {
-  const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
   // 4 Features
   const features: FeatureItem[] = [
@@ -125,7 +125,7 @@ export function WhyChooseUsSectionV2() {
                     <div
                       key={feature.id}
                       onClick={() => {
-                        setSelectedIndex((prev) => (prev === idx ? null : idx));
+                        setSelectedIndex(idx);
                       }}
                       className="group/item relative py-3.5 sm:py-4 cursor-pointer transition-colors"
                     >

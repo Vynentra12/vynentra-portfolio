@@ -30,9 +30,9 @@ export default function InsightsPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=2400"
-            alt="Wind turbines landscape hero"
-            className="w-full h-full object-cover object-[center_38%] opacity-60"
+            src="/insights-hero.jpg"
+            alt="Clean energy intelligence, technical analytics and smart grid insights"
+            className="w-full h-full object-cover object-center opacity-65"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>

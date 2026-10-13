@@ -84,9 +84,9 @@ export default async function InsightDetailPage({ params }: Props) {
             <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium flex items-center gap-3 flex-wrap">
               <span>{post.date}</span>
               <span className="w-1 h-1 rounded-full bg-white/40"></span>
-              <span>BY {post.author.toUpperCase()}</span>
+              <span>{post.readTime}</span>
               <span className="w-1 h-1 rounded-full bg-white/40"></span>
-              <span>2 COMMENTS</span>
+              <span className="text-[#AEF977]">{post.category}</span>
             </p>
 
             {/* Breadcrumbs Navigation with top border */}
@@ -196,38 +196,57 @@ export default async function InsightDetailPage({ params }: Props) {
           {/* Social Share Icons */}
           <div className="flex items-center gap-3">
             <span className="text-[12px] font-semibold uppercase text-neutral-400 tracking-wider mr-1">Share:</span>
-            <button aria-label="Share on X" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+            <button aria-label="Share on X" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-[#7FA6B9] hover:text-white hover:border-[#7FA6B9] transition-all cursor-pointer">
               <TwitterIcon />
             </button>
-            <button aria-label="Share on Facebook" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+            <button aria-label="Share on Facebook" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-[#7FA6B9] hover:text-white hover:border-[#7FA6B9] transition-all cursor-pointer">
               <FacebookIcon />
             </button>
-            <button aria-label="Share on Instagram" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all">
+            <button aria-label="Share on Instagram" className="w-8 h-8 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-700 hover:bg-[#7FA6B9] hover:text-white hover:border-[#7FA6B9] transition-all cursor-pointer">
               <InstagramIcon />
             </button>
           </div>
         </div>
 
-        {/* Author Bio Box */}
-        <div className="p-7 sm:p-8 bg-[#F4F6F8] rounded-[20px] flex flex-col sm:flex-row items-center sm:items-start gap-6 text-center sm:text-left">
-          <div className="w-16 h-16 rounded-full overflow-hidden shrink-0 bg-neutral-300">
-            <img 
-              src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300" 
-              alt={post.author} 
-              className="w-full h-full object-cover"
-            />
+        {/* Key Takeaways Section */}
+        {post.content.takeaways && post.content.takeaways.length > 0 && (
+          <div className="mb-10 p-7 sm:p-8 bg-[#F4F6F8] rounded-[20px] border border-neutral-200/70">
+            <div className="flex items-center gap-2.5 mb-4">
+              <span className="w-2 h-2 rounded-full bg-[#7FA6B9]" />
+              <h3 className="text-[12px] font-bold uppercase tracking-wider text-[#7FA6B9]">
+                KEY TAKEAWAYS &amp; STRATEGIC SUMMARY
+              </h3>
+            </div>
+            <ul className="space-y-3">
+              {post.content.takeaways.map((takeaway, tIdx) => (
+                <li key={tIdx} className="flex items-start gap-3 text-[14.5px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
+                  <Check className="w-4 h-4 text-[#7FA6B9] shrink-0 stroke-[2.5] mt-1" />
+                  <span>{takeaway}</span>
+                </li>
+              ))}
+            </ul>
           </div>
-          <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#7FA6B9] block mb-1">
-              Written by
+        )}
+
+        {/* Clean Energy Advisory CTA Box */}
+        <div className="p-8 sm:p-10 bg-[#0E2F3E] text-white rounded-[22px] flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-sm">
+          <div className="max-w-xl">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#AEF977] block mb-2">
+              VYNENTRA PROJECT ADVISORY
             </span>
-            <h3 className="text-[18px] font-medium text-neutral-900 mb-2">
-              {post.author}
+            <h3 className="text-[20px] sm:text-[23px] font-medium text-white tracking-tight mb-2">
+              Evaluating renewable energy solutions for your facility?
             </h3>
-            <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.65] font-normal mb-4">
-              {post.authorBio || "A deep understanding of digital marketing concepts, trends, and strategies is crucial. This includes knowledge of SEO, content marketing, social media marketing."}
+            <p className="text-[13.5px] sm:text-[14px] text-white/80 leading-[1.6] font-normal">
+              From site feasibility audits to hybrid wind-solar sizing, battery storage, and EPC coordination, connect with our engineering team to explore the right configuration for your site.
             </p>
           </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center h-[46px] px-8 rounded-full bg-white text-[#0E2F3E] text-[12px] font-bold tracking-wider uppercase transition-all duration-300 hover:bg-[#AEF977] hover:text-[#0E2F3E] shrink-0 select-none cursor-pointer whitespace-nowrap active:scale-[0.98]"
+          >
+            <span>GET IN TOUCH</span>
+          </Link>
         </div>
 
       </main>

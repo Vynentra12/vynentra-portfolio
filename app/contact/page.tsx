@@ -425,7 +425,7 @@ export default function ContactPage() {
 
                 {/* Privacy disclaimer notice */}
                 <p className="text-[12px] sm:text-[12.5px] text-neutral-500 leading-relaxed font-normal pt-1">
-                  By clicking Submit, we will store and process your personal data that you have entered above. Our privacy policy is <Link href="/#about" className="underline hover:text-black font-medium">here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
+                  By clicking Submit, we will store and process your personal data that you have entered above. Our privacy policy is <Link href="/privacy" className="underline hover:text-black font-medium">here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
                 </p>
 
                 {/* Status Messages */}

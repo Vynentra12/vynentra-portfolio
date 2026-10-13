@@ -45,8 +45,8 @@ const SOLUTIONS: SolutionItem[] = [
     lead: "We match the technology to the requirement.",
     description:
       "We evaluate wind, solar, hybrid and storage solutions against the site's conditions and energy requirements to develop a technically and commercially viable approach.",
-    image: "/solutions/ev-charging.jpg",
-    alt: "Modern electric vehicle charging station with solar tracker architecture",
+    image: "/solutions/hybrid-solution.jpg",
+    alt: "Integrated wind, solar hybrid generation and battery energy storage architecture",
   },
   {
     number: "04",

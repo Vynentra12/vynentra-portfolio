@@ -38,6 +38,11 @@ export function FooterV2() {
     { name: "Contact Us", href: "/contact" },
   ];
 
+  const legalLinks = [
+    { name: "Terms & Service", href: "/terms" },
+    { name: "Privacy Policy", href: "/privacy" },
+  ];
+
   return (
     <footer className="w-full bg-[#0E2F3E] text-white pt-16 md:pt-20 pb-10 md:pb-12 relative font-sans overflow-hidden select-text">
       <div className="w-full max-w-[1380px] mx-auto px-6 md:px-12 lg:px-16 flex flex-col justify-between relative">
@@ -46,7 +51,7 @@ export function FooterV2() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-start">
           
           {/* Left Column: Mission, Direct Contact & Socials */}
-          <div className="lg:col-span-5 flex flex-col justify-between">
+          <div className="lg:col-span-4 flex flex-col justify-between">
             <p className="text-[17px] sm:text-[18px] text-white/90 leading-[1.5] max-w-[380px] font-normal">
               Building a more sustainable and energy-efficient future across India.
             </p>
@@ -89,9 +94,9 @@ export function FooterV2() {
             </div>
           </div>
 
-          {/* Right Column: 3 Navigation Groups (Company, Solutions, Resources) */}
-          <div className="lg:col-span-7 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12 pt-1 lg:pt-0">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6 lg:gap-8">
+          {/* Right Column: 4 Navigation Groups (Company, Solutions, Resources, Legal) */}
+          <div className="lg:col-span-8 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12 pt-1 lg:pt-0">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 lg:gap-6 xl:gap-8">
               
               {/* Company */}
               <div className="flex flex-col">
@@ -138,6 +143,25 @@ export function FooterV2() {
                 </h4>
                 <ul className="flex flex-col gap-2.5">
                   {resourcesLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        href={link.href}
+                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Legal */}
+              <div className="flex flex-col">
+                <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
+                  Legal
+                </h4>
+                <ul className="flex flex-col gap-2.5">
+                  {legalLinks.map((link) => (
                     <li key={link.name}>
                       <Link 
                         href={link.href}
