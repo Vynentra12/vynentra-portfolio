@@ -14,12 +14,15 @@ export function Navbar() {
   const isAbout = pathname === "/about" || pathname?.startsWith("/about");
   const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
+  const isCaseStudyDetail = Boolean(pathname?.startsWith("/case-studies/") && pathname !== "/case-studies");
   const activeLink = isServices ? "Services" : isInsights ? "Insights" : isAbout ? "About Us" : isCaseStudies ? "Case Studies" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollYRef = useRef(0);
+
+  const useDarkNav = isScrolled || isCaseStudyDetail;
 
   // Detect scroll direction (hide on scroll down, show on scroll up) & background style toggle
   useEffect(() => {
@@ -104,7 +107,7 @@ export function Navbar() {
       animate={{ y: showHeader ? 0 : "-100%" }}
       transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 font-sans transition-colors duration-300 ${
-        isScrolled 
+        useDarkNav 
           ? "bg-white/95 backdrop-blur-md border-b border-black/5 shadow-[0_2px_15px_rgba(0,0,0,0.03)]" 
           : "bg-transparent border-b border-transparent shadow-none"
       }`}
@@ -115,7 +118,7 @@ export function Navbar() {
           {/* Left: Brand Logo */}
           <div className="flex items-center justify-self-start shrink-0">
             <Logo 
-              color={isScrolled ? "#000000" : "#FFFFFF"} 
+              color={useDarkNav ? "#000000" : "#FFFFFF"} 
               className="text-[19px] md:text-[21px] font-extrabold tracking-tight transition-colors duration-300" 
             />
           </div>
@@ -133,10 +136,10 @@ export function Navbar() {
                     onMouseLeave={() => setHoveredLink(null)}
                     className={`relative h-[34px] sm:h-[35px] px-3.5 sm:px-4 flex items-center justify-center text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
                       isSelected 
-                        ? (isScrolled 
+                        ? (useDarkNav 
                             ? "text-[#111111] bg-neutral-200 shadow-sm border-transparent" 
                             : "text-white bg-white/20 border-white shadow-sm")
-                        : (isScrolled 
+                        : (useDarkNav 
                             ? "text-[#111111] hover:bg-neutral-100 hover:text-[#111111]" 
                             : "text-white hover:bg-white/20 hover:border-white/50")
                     }`}
@@ -156,10 +159,10 @@ export function Navbar() {
               href="/contact"
               className={`hidden sm:inline-flex items-center justify-center h-[38px] sm:h-[39px] px-5 sm:px-5.5 rounded-full border text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer shrink-0 whitespace-nowrap transition-all duration-300 active:scale-[0.98] ${
                 isContact
-                  ? (isScrolled 
+                  ? (useDarkNav 
                       ? "bg-[#0B2735] text-white border-[#0B2735]" 
                       : "bg-white text-[#0B2735] border-white")
-                  : (isScrolled
+                  : (useDarkNav
                       ? "border-[#0B2735] text-[#0B2735] hover:bg-[#0B2735] hover:text-white"
                       : "border-white/70 text-white hover:bg-white hover:text-[#0B2735] hover:border-white")
               }`}
@@ -171,7 +174,7 @@ export function Navbar() {
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`min-[1040px]:hidden w-9 h-9 rounded-full border transition-colors shrink-0 flex items-center justify-center ${
-                isScrolled
+                useDarkNav
                   ? "border-black/10 text-black hover:bg-black/5"
                   : "border-white/30 text-white hover:bg-white/10"
               }`}

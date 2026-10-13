@@ -1,9 +1,10 @@
 import { ALL_BLOG_POSTS } from "./blog-data";
+import { CASE_STUDIES } from "./case-studies-data";
 
 export interface SearchItem {
   id: string;
   title: string;
-  category: "PAGE" | "SECTION" | "INSIGHTS" | "BLOG" | "SOLUTION" | "METRIC";
+  category: "PAGE" | "SECTION" | "INSIGHTS" | "BLOG" | "SOLUTION" | "METRIC" | "CASE STUDY";
   description: string;
   href: string;
   keywords: string[];
@@ -34,6 +35,14 @@ export const SEARCH_INDEX: SearchItem[] = [
     description: "Reach out for project consultations, site assessments, and partnership inquiries.",
     href: "/contact",
     keywords: ["contact", "email", "touch", "reach", "support", "inquiry", "form"],
+  },
+  {
+    id: "page-case-studies",
+    title: "Case Studies & Global Projects",
+    category: "PAGE",
+    description: "Discover how Vynentra brings complex renewable energy projects to life.",
+    href: "/case-studies",
+    keywords: ["cases", "case study", "case studies", "projects", "deployments", "qarin", "novatech"],
   },
 
   // Sections
@@ -109,6 +118,27 @@ export const SEARCH_INDEX: SearchItem[] = [
       "insight",
       "insights",
       "post",
+    ],
+  })),
+
+  // Dynamic Case Studies
+  ...CASE_STUDIES.map((study) => ({
+    id: `case-${study.slug}`,
+    title: study.title,
+    category: "CASE STUDY" as const,
+    description: study.subtitle,
+    href: `/case-studies/${study.slug}`,
+    keywords: [
+      study.title.toLowerCase(),
+      study.category.toLowerCase(),
+      study.client.toLowerCase(),
+      study.planOrSolution.toLowerCase(),
+      "case study",
+      "case-study",
+      "project",
+      "qarin",
+      "novatech",
+      "skyreach",
     ],
   })),
 ];
