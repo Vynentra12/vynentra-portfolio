@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface BlogPost {
-  step: string;
   slug: string;
   image: string;
   category: string;
@@ -20,7 +19,6 @@ interface BlogPost {
 export function BlogSectionV2() {
   const blogs: BlogPost[] = [
     {
-      step: "01",
       slug: "inside-the-engineering-of-wind-turbines",
       image: "/wind_farm_sunset.jpg",
       category: "WIND ENERGY",
@@ -31,7 +29,6 @@ export function BlogSectionV2() {
         "Exploring the changing role of wind energy and how it can complement solar generation as India's energy requirements continue to grow.",
     },
     {
-      step: "02",
       slug: "the-environmental-impact-of-wind-energy",
       image: "/why-choose-us/expert-guidance.jpg",
       category: "PROJECT DEVELOPMENT",
@@ -42,7 +39,6 @@ export function BlogSectionV2() {
         "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
     },
     {
-      step: "03",
       slug: "the-real-numbers-behind-green-energy",
       image: "/solutions/solar-installation.jpg",
       category: "RENEWABLE TECHNOLOGY",
@@ -53,7 +49,6 @@ export function BlogSectionV2() {
         "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
     },
     {
-      step: "04",
       slug: "a-world-powered-by-wind-and-sunlight",
       image: "/hybrid-wind-solar.jpg",
       category: "WIND + SOLAR",
@@ -66,7 +61,7 @@ export function BlogSectionV2() {
   ];
 
   return (
-    <section id="blog" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
+    <section id="insights" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
       <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         
         {/* Section Header */}
@@ -79,7 +74,7 @@ export function BlogSectionV2() {
             className="flex flex-col max-w-[820px]"
           >
             <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-              ENERGY INSIGHTS
+              INSIGHTS
             </SectionBadge>
             
             {/* Main Title */}
@@ -102,7 +97,7 @@ export function BlogSectionV2() {
             className="shrink-0 pb-1"
           >
             <Link
-              href="/blog"
+              href="/insights"
               className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
               VIEW ALL INSIGHTS
@@ -122,7 +117,7 @@ export function BlogSectionV2() {
               className="h-full"
             >
               <Link 
-                href={`/blog/${blog.slug}`}
+                href={`/insights/${blog.slug}`}
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
                 <div className="flex flex-col">
@@ -134,12 +129,10 @@ export function BlogSectionV2() {
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
                     />
 
-                    {/* Small Glassmorphism Badge with hyphen (-) */}
+                    {/* Small Glassmorphism Badge */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
-                        <span>{blog.step}</span>
-                        <span className="opacity-60 font-normal">-</span>
-                        <span>{blog.category}</span>
+                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                        {blog.category}
                       </span>
                     </div>
                   </div>

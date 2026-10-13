@@ -53,33 +53,40 @@ export default function ServiceDetailPage() {
   return (
     <div className="w-full bg-[#F4F6F8] text-black font-sans min-h-screen selection:bg-[#AEF977] selection:text-black flex flex-col">
       
-      {/* ── 1. HERO SECTION (Half Frame) ── */}
-      <section className="relative w-full min-h-[50vh] flex flex-col justify-end overflow-hidden bg-black">
+      {/* ── 1. HERO SECTION (Full Viewport Height) ── */}
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={currentService.image}
             alt={currentService.title}
-            className="w-full h-full object-cover object-[center_40%] opacity-60"
+            className="w-full h-full object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Area (Matching Blog Detail Hero Layout exactly) */}
+        {/* Hero Content Area */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
             
+            {/* Category Badge */}
+            <div className="mb-4 sm:mb-6">
+              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
+                SERVICE
+              </span>
+            </div>
+
             {/* Service-style Title */}
-            <h1 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
+            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
               {currentService.title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-8 sm:mb-10 font-medium">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
               {currentService.subtitle}
             </p>
 
-            {/* Breadcrumbs Navigation with top border (Matching Blog Meta Bar) */}
+            {/* Breadcrumbs Navigation with top border */}
             <div className="w-full border-t border-white/20 pt-4 flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
               <Link
                 href="/"

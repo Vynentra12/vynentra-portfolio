@@ -296,9 +296,7 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <CTASectionV2 
-        badgeText="FINAL CTA"
         title="Let's develop the right energy solution for your requirement."
-        description="We are building renewable energy solutions across wind, solar, hybrid generation and storage, supported by the project development and execution capabilities required to take them forward."
         buttonText="GET IN TOUCH"
         buttonLink="/contact"
       />

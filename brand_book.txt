@@ -1,0 +1,259 @@
+Brand Book
+Note: Please note that all images, ideas, references, and other materials included in this document are provided solely for inspiration and creative direction. They are not intended to be copied, reproduced, or used directly on the website. The final website will feature original designs, content, and creative assets developed independently based on the overall direction.
+Brand Discovery
+What they do:
+Integrated renewable energy solutions + project development.
+What they sell:
+Wind, solar-hybrid, BESS, VAWT, HAWT, development, advisory, financing facilitation, EPC coordination, O&M. 
+Who they sell to:
+Corporates, industrial companies, hospitality, healthcare, institutions, infrastructure, real estate, data centres and UHNWIs. 
+What they want to be:
+ 
+F
+uture-facing
+Trusted in India
+T
+echnically
+ 
+credible
+Brand Personality
+Dimension
+Avoid
+Aim for
+Look
+Generic green startup
+Premium infrastructure
+Communication
+"Save the planet"
+"Build better energy systems"
+Technology
+Gadget/engineering
+Advanced infrastructure
+Scale
+Small turbine company
+Pan-India energy platform
+Emotion
+Soft/eco
+Confident/forward-looking
+What We Want to Move Away From
+The identity should deliberately avoid the visual clichés of renewable energy.
+We do not want to rely on:
+Generic green colour palettes
+Leaves and environmental symbols
+Literal sun icons
+Lightning bolts
+Globe symbols
+Generic wind swirls
+Literal turbine illustrations as the logo
+Overly corporate consulting aesthetics
+Excessive technical clutter
+These visual codes immediately communicate 
+"renewable energy company"
+.
+Our ambition is stronger:
+Build a brand that communicates energy 
+intelligence
+ without having to illustrate energy.
+Naming Direction
+The new brand name should be capable of becoming a 
+standalone identity
+, rather than functioning only as a descriptive company name.
+The ideal name should be:
+Short
+Distinctive
+Easy to pronounce
+Easy to remember
+Technology-neutral
+Premium
+Globally credible
+Scalable beyond a single energy technology
+ like wind, solar etc.
+Naming Territories
+Territory 01 
+-
+ FUTURE
+Names inspired by progress, tomorrow, advancement and the next generation.
+Brand feeling:
+Progressive · Optimistic · Forward
+Territory 02 
+-
+ ENERGY
+Names inspired by power, movement, flow, electricity and transformation.
+Brand feeling:
+Dynamic · Intelligent · Technical
+Territory 03 
+-
+ FORCE
+Names inspired by natural forces such as wind, air, rotation and movement, while remaining abstract enough to avoid becoming a "wind company" name.
+Brand feeling:
+Powerful · Elemental · Engineered
+Territory 04 
+-
+ INVENTED
+Distinctive, abstract names created specifically to build an ownable brand identity.
+Brand feeling:
+Iconic · Modern · Global
+Visual language
+3D FORM
+Three-dimensional representations of turbines, energy systems and infrastructure.
+MOTION
+Subtle movement inspired by rotation, energy flow and transformation.
+GRID
+A precise architectural grid inspired by engineering and infrastructure.
+TYPOGRAPHY
+Large-scale, confident typography with generous negative space.
+DATA
+Technical information presented beautifully through minimal diagrams, numbers and visualisations.
+LIGHT
+Controlled use of contrast, glow and reflection to create a futuristic technology environment.
+Digital Experience
+The homepage could open with a large-scale 3D energy system or turbine model.
+Minimal navigation.
+Large typography.
+Controlled motion.
+High-quality technical visualisations.
+Clear product information.
+Minimal copy.
+The experience should allow the technology to become the hero.
+Colour Direction
+MIDNIGHT
+GRAPHITE
+TITANIUM
+SOFT WHITE
+ENERGY ACCENT
+#071426
+#20252B
+#A7ADB3
+#F5F5F2
+#4DA3FF
+Visual Mood
+ B
+o
+a
+rd
+A dark, technical and premium colour world inspired by advanced engineering, aerospace and product design.
+Project requirements
+Login Credentials:
+ 
+Github
+: 
+hrv3171@gmail.com
+Harsh@#456nj
+Vercel
+ login: 
+SSO with GitHub credentials 
+Final Design / Framer Reference
+https://windsor.framer.website
+Refer
+ to Colour Direction, Visual Language and Digital Experience sections above
+Other Supporting templates and specific sections
+https://www.framer.com/community/marketplace/templates/nova-gridd/
+https://www.framer.com/community/marketplace/templates/quantrex/ 
+https://www.framer.com/community/marketplace/templates/eco-set/
+https://www.framer.com/community/marketplace/templates/quantrex/
+Apple 3-D models as shown in the meeting
+Specific Sections 
+as screenshots 
+are shared on WA chat + group 
+Exact Webpages
+Home
+About us
+Blogs
+Contact us 
+Services - subpages 
+Case studies 
+1 additional page for either partner programs or affiliates
+Company information:
+ 
+Core Business Strategy & Market Gap
+Kilowatt-Scale Focus:
+ Major industry competitors (Suzlon, Adani, Wind World, Vestas) focus almost exclusively on large megawatt-scale power projects (2–5 MW). The company targets the underserved kilowatt-scale market catering to residential, institutional, and mid-sized commercial clients.
+Wind vs. Solar Advantage:
+ Wind power provides 24-hour daily energy generation compared to 
+solar's
+ limited 8–9 hours per day.
+Product Portfolio & Specifications
+Vertical Axis Wind Turbines (VAWT):
+1 kHz Units:
+ Generates 8–10 units/day.
+5 kHz Units:
+ Generates 48–50 kilo-units/day (far exceeding average apartment usage of 300–400 units/month).
+Applications:
+ Residential complexes, villas, schools, clubhouses, and gyms.
+Horizontal Axis Wind Turbines (HAWT):
+Capacities:
+ Up to 10 kW, reaching heights of 10–15 meters.
+Partnership:
+ Sourced through an execution partnership with 
+a company called 
+Unitron.
+Captive Power Plants (CPP):
+Capacities:
+ Large-scale setups starting at 80+ meters in height.
+Applications:
+ Hotels, industrial areas, and high-consumption commercial clients.
+Customer Onboarding & Technical Execution
+Site Assessment:
+ Clients provide latitude and longitude coordinates so the technical team can determine altitude and calculate local wind speeds using anemometers.
+Custom Configurations:
+ Systems are fully customizable, including modular turbine arrays (e.g., combining two 2 kW and two 3 kW turbines for a 10 kW requirement) or hybrid wind-solar configurations.
+Installation & Maintenance:
+ Includes full setup (wiring, distribution boxes) along with ongoing Annual Maintenance Contracts (AMC) to monitor long-term performance.
+Manufacturing, Economics & Supply Chain Truths
+Local Manufacturing Goals:
+ Many competitors buy vertical units from China for ~₹50,000, assemble imported "knockdown" parts, and resell them as "Made in India" for ₹1,00,000–₹1,50,000.
+Component Sourcing:
+ Permanent magnets must currently be imported from China, but the company aims to establish true domestic manufacturing using carbon 
+fiber
+ blades to qualify for government subsidies.
+CPP Model & Grid Balancing:
+ Clients with multi-crore utility bills (e.g., hotel chains consuming ~160 kW) fund remote power plants on outskirts land (e.g., 
+Kamshet
+). Power is fed into the grid, and offset credits/subsidies reduce their urban electricity bills.
+Social Impact Vision:
+ Exploring small village setups (~₹3–₹4 Crore initial setup) to supply off-grid rural areas with cheaper power at ₹5–₹6 per unit versus standard ₹10 per unit rates.
+Target Markets, Case Studies & Marketing Strategy
+Geographic Focus:
+ Central Mumbai lacks open space and bungalows for vertical turbines; initial high-converting markets for villa/bungalow models include 
+Chandigarh
+ and 
+Delhi
+.
+Live Trial & Proof Points:
+ The team is currently evaluating a 10 kW test system (composed of two 2 kW and two 3 kW turbines) installed on a school roof over a 6-month period to gather real-world data and capture client video testimonials.
+Sales Channels:
+Social Media:
+ Market small vertical-axis turbines directly to luxury villa/bungalow owners.
+Direct B2B Outreach:
+ Target high-ticket CPP power plant sales directly through management and corporate meetings.
+Service Deck PDF shared on WA chat 
+Founder details are pending and will be shared across 
+by Harsh
+Logo is on placeholder 
+Case Studies
+Description and images will be shared across by Harsh
+Blog Content
+All 20 blogs are enclosed here: 
+https://docs.google.com/document/d/1WKs1wbcGx9lLWIq3jG5aZf0_tETolM66aHn7PTMTF24/edit?usp=sharing
+Contact / Leads Form
+Name
+, 
+Email
+, 
+Org name
+, “
+I’d like to know about
+”
+ dropdown: 3 service option
+s, 
+Additional notes
+, 
+Sign up for marketing emails checkbox 
+By clicking Submit, we will store and process your personal data that you have entered above. Our privacy policy is here. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
+Contact number: +91 0000000 
+Email 
+ID: 
+hello@vynentra.in
+ 
+Visual Assets
+No such on my end, if there’s anything share across by Harsh – that’ll be about it 

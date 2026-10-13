@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -34,7 +33,7 @@ export function FooterV2() {
   ];
 
   const resourcesLinks = [
-    { name: "Energy Insights", href: "/blog" },
+    { name: "Insights", href: "/insights" },
     { name: "FAQs", href: "/#faq" },
     { name: "Contact Us", href: "/contact" },
   ];
@@ -152,26 +151,15 @@ export function FooterV2() {
               </div>
 
             </div>
-
-            <p className="text-[13px] text-white/60 mt-10 md:mt-12 font-normal">
-              © {new Date().getFullYear()} Vynentra Energy Solutions. All Rights Reserved
-            </p>
           </div>
 
         </div>
 
         {/* Bottom Giant Brand Wordmark Logo */}
         <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
-          <motion.div 
-            whileHover={{ scale: 1.025, y: -4 }}
-            whileTap={{ scale: 0.98 }}
-            transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="inline-flex items-center justify-center select-none cursor-pointer group"
-          >
-            <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white transition-colors duration-300 ease-out group-hover:text-[#AEF977] select-none">
-              vynentra
-            </span>
-          </motion.div>
+          <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white hover:text-[#AEF977] transition-colors duration-300 ease-out select-none cursor-pointer">
+            vynentra
+          </span>
         </div>
 
       </div>

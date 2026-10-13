@@ -2,16 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ChevronDown, MapPin, Phone, Mail } from "lucide-react";
-
-const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z" />
-  </svg>
-);
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -27,12 +20,6 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   </svg>
 );
 
-const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-  </svg>
-);
-
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
@@ -42,9 +29,13 @@ export default function ContactPage() {
     additionalNotes: "",
     marketingConsent: false,
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [honeypot, setHoneypot] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState<{ type: "success" | "error"; message: string } | null>(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const startedAt = useRef(Date.now());
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -53,7 +44,10 @@ export default function ContactPage() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, []);
 
   const serviceOptions = [
@@ -62,11 +56,51 @@ export default function ContactPage() {
     { value: "maintenance-repowering", label: "3. Operations, Maintenance & Repowering" }
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    setTimeout(() => {
-      setIsSubmitted(false);
+    setStatus(null);
+
+    if (!formData.serviceInterest) {
+      setStatus({
+        type: "error",
+        message: "Please select a service.",
+      });
+      setIsDropdownOpen(true);
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.orgName,
+          service: formData.serviceInterest,
+          requirements: formData.additionalNotes,
+          marketing: formData.marketingConsent,
+          honeypot,
+          elapsed: Date.now() - startedAt.current,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to submit. Please try again.");
+      }
+
+      setStatus({
+        type: "success",
+        message: data.message || "Thank you! Your submission has been received.",
+      });
+
+      // Reset form on success
       setFormData({
         name: "",
         email: "",
@@ -75,7 +109,22 @@ export default function ContactPage() {
         additionalNotes: "",
         marketingConsent: false,
       });
-    }, 4000);
+      setHoneypot("");
+
+      // Auto-dismiss success message after 6 seconds with cleanup support
+      if (timerRef.current) clearTimeout(timerRef.current);
+      timerRef.current = setTimeout(() => {
+        setStatus((prev) => (prev?.type === "success" ? null : prev));
+      }, 6000);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      setStatus({
+        type: "error",
+        message,
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -133,29 +182,21 @@ export default function ContactPage() {
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
             
-            {/* Left Column: Contact Info (Slides in from Left) */}
-            <motion.div 
-              initial={{ opacity: 0, x: -70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-5 flex flex-col justify-start"
-            >
+            {/* Left Column: Contact Info */}
+            <div className="lg:col-span-5 flex flex-col justify-start">
               
               <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
                 GET IN TOUCH
               </SectionBadge>
 
               {/* Headline */}
-              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.1] mb-6 sm:mb-7">
-                Reach out to us<br className="hidden sm:inline" /> anytime for support<br className="hidden sm:inline" /> and guidance
+              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.15] mb-6 sm:mb-7">
+                Reach out to us anytime for support and guidance
               </h2>
 
               {/* Subtitle */}
-              <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium mb-8 sm:mb-14 max-w-xl">
-                Get in touch to discuss your renewable energy requirements today.
-                <br className="hidden sm:inline" />
-                {" "}Please give us a call or drop us an email.
+              <p className="text-[14px] sm:text-[15px] md:text-[16px] text-neutral-600 leading-[1.6] font-normal mb-8 sm:mb-14 max-w-xl">
+                Get in touch to discuss your renewable energy requirements today. Please give us a call or drop us an email.
               </p>
 
               {/* 2x2 Details Grid - Pure clean spacing without border */}
@@ -208,7 +249,7 @@ export default function ContactPage() {
                 {/* Socials */}
                 <div>
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-3">
-                    WE ARE IN SOCIALS:
+                    WE ARE ON SOCIALS:
                   </h3>
                   <div className="flex items-center gap-5 pt-1">
                     <a 
@@ -234,33 +275,32 @@ export default function ContactPage() {
 
               </div>
 
-            </motion.div>
+            </div>
 
-            {/* Right Column: Clean Light Gray Form Card (Slides in from Right) */}
-            <motion.div 
-              initial={{ opacity: 0, x: 70 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-              className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60"
-            >
-              <h3 className="text-[22px] sm:text-[24px] font-normal text-neutral-950 mb-2 tracking-tight">
-                Contact / Leads Form
-              </h3>
-              
-              <p className="text-[13.5px] text-neutral-500 mb-8 sm:mb-10 font-normal">
-                Please fill in the details below. Required fields are marked *
-              </p>
-
+            {/* Right Column: Clean Light Gray Form Card */}
+            <div className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60">
               <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
                 
+                {/* Honeypot anti-spam hidden field */}
+                <div style={{ display: "none" }} aria-hidden="true">
+                  <input
+                    type="text"
+                    name="_vyn_form_verification"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
+
                 {/* 2-Column Grid for Name and Email */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                   {/* Name */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name *</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name</label>
                     <input
                       type="text"
+                      name="name"
                       required
                       placeholder="Enter your full name"
                       value={formData.name}
@@ -271,9 +311,10 @@ export default function ContactPage() {
 
                   {/* Email */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email *</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email</label>
                     <input
                       type="email"
+                      name="email"
                       required
                       placeholder="you@company.com"
                       value={formData.email}
@@ -288,6 +329,8 @@ export default function ContactPage() {
                   <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Company</label>
                   <input
                     type="text"
+                    name="company"
+                    required
                     placeholder="Company name"
                     value={formData.orgName}
                     onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
@@ -300,6 +343,11 @@ export default function ContactPage() {
                   <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
                     What do you need help with?
                   </label>
+                  <input
+                    type="hidden"
+                    name="service"
+                    value={formData.serviceInterest}
+                  />
                   <div className="relative w-full">
                     <button
                       type="button"
@@ -309,37 +357,35 @@ export default function ContactPage() {
                       <span className="truncate pr-4">
                         {formData.serviceInterest 
                           ? serviceOptions.find(o => o.value === formData.serviceInterest)?.label 
-                          : "Select a service option *"}
+                          : "Select a service option"}
                       </span>
                       <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform duration-200 shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
                     
                     {/* Dropdown Menu */}
-                    <motion.div 
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: isDropdownOpen ? 1 : 0, y: isDropdownOpen ? 0 : -5 }}
-                      transition={{ duration: 0.15 }}
-                      className={`absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50 ${isDropdownOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}
-                    >
-                      <div className="py-1">
-                        <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
-                          Select a service option *
+                    {isDropdownOpen && (
+                      <div className="absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50">
+                        <div className="py-1">
+                          <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
+                            Select a service option
+                          </div>
+                          {serviceOptions.map((option) => (
+                            <button
+                              key={option.value}
+                              type="button"
+                              onClick={() => {
+                                setFormData({ ...formData, serviceInterest: option.value });
+                                setIsDropdownOpen(false);
+                                setStatus((prev) => (prev?.message === "Please select a service." ? null : prev));
+                              }}
+                              className="w-full text-left px-4 py-2.5 text-[14.5px] text-neutral-800 hover:bg-[#EAF3F6] hover:text-[#0A6B88] transition-colors"
+                            >
+                              {option.label}
+                            </button>
+                          ))}
                         </div>
-                        {serviceOptions.map((option) => (
-                          <button
-                            key={option.value}
-                            type="button"
-                            onClick={() => {
-                              setFormData({ ...formData, serviceInterest: option.value });
-                              setIsDropdownOpen(false);
-                            }}
-                            className="w-full text-left px-4 py-2.5 text-[14.5px] text-neutral-800 hover:bg-[#EAF3F6] hover:text-[#0A6B88] transition-colors"
-                          >
-                            {option.label}
-                          </button>
-                        ))}
                       </div>
-                    </motion.div>
+                    )}
                   </div>
                 </div>
 
@@ -350,6 +396,8 @@ export default function ContactPage() {
                   </label>
                   <textarea
                     rows={3}
+                    name="requirements"
+                    required
                     placeholder="Write your message here..."
                     value={formData.additionalNotes}
                     onChange={(e) => setFormData({ ...formData, additionalNotes: e.target.value })}
@@ -361,6 +409,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3 pt-1">
                   <input
                     type="checkbox"
+                    name="marketing"
                     id="marketing-emails-checkbox"
                     checked={formData.marketingConsent}
                     onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
@@ -376,27 +425,48 @@ export default function ContactPage() {
 
                 {/* Privacy disclaimer notice */}
                 <p className="text-[12px] sm:text-[12.5px] text-neutral-500 leading-relaxed font-normal pt-1">
-                  By clicking Submit, we will store and process your personal data that you have entered above. Our <Link href="/#about" className="underline hover:text-black font-medium">privacy policy is here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
+                  By clicking Submit, we will store and process your personal data that you have entered above. Our privacy policy is <Link href="/#about" className="underline hover:text-black font-medium">here</Link>. Please read them to understand how we handle and use your personal information and to understand your rights in relation to your personal information.
                 </p>
 
+                {/* Status Messages */}
+                {status?.type === "success" && (
+                  <div className="p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-2xl text-[13.5px] font-medium flex items-center gap-2">
+                    <span className="text-emerald-600 font-bold text-base">✓</span>
+                    <span>{status.message}</span>
+                  </div>
+                )}
+
+                {status?.type === "error" && (
+                  <div className="p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-2xl text-[13.5px] font-medium flex items-center gap-2">
+                    <span className="text-rose-600 font-bold text-base">⚠</span>
+                    <span>{status.message}</span>
+                  </div>
+                )}
+
                 {/* Submit Action */}
-                <div className="pt-2 flex items-center justify-between">
+                <div className="pt-2 flex items-center">
                   <button
                     type="submit"
-                    className="h-[50px] px-10 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] text-neutral-900 hover:bg-[#0A6B88] hover:border-[#0A6B88] hover:text-white transition-all duration-300 active:scale-95 cursor-pointer"
+                    disabled={isLoading}
+                    className={`h-[50px] px-10 rounded-full border border-black text-[12.5px] sm:text-[13px] font-bold uppercase tracking-[0.06em] transition-all duration-300 active:scale-95 cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2.5 ${
+                      isLoading
+                        ? "bg-neutral-800 text-white border-neutral-800"
+                        : "text-neutral-900 hover:bg-[#0A6B88] hover:border-[#0A6B88] hover:text-white"
+                    }`}
                   >
-                    {isSubmitted ? "SUBMITTED ✓" : "SUBMIT"}
+                    {isLoading ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin inline-block" />
+                        <span>SENDING...</span>
+                      </>
+                    ) : (
+                      "SUBMIT"
+                    )}
                   </button>
-
-                  {isSubmitted && (
-                    <span className="text-xs font-semibold text-emerald-700">
-                      Thank you! We will reach out shortly.
-                    </span>
-                  )}
                 </div>
 
               </form>
-            </motion.div>
+            </div>
 
           </div>
         </div>

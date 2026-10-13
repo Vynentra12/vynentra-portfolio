@@ -3,7 +3,7 @@ import { ALL_BLOG_POSTS } from "./blog-data";
 export interface SearchItem {
   id: string;
   title: string;
-  category: "PAGE" | "SECTION" | "BLOG" | "SOLUTION" | "METRIC";
+  category: "PAGE" | "SECTION" | "INSIGHTS" | "BLOG" | "SOLUTION" | "METRIC";
   description: string;
   href: string;
   keywords: string[];
@@ -20,12 +20,12 @@ export const SEARCH_INDEX: SearchItem[] = [
     keywords: ["home", "main", "landing", "vynentra", "start"],
   },
   {
-    id: "page-blog",
-    title: "Blog & News Grid",
+    id: "page-insights",
+    title: "Insights",
     category: "PAGE",
-    description: "Explore latest news, engineering insights, and green energy analysis.",
-    href: "/blog",
-    keywords: ["blog", "news", "articles", "stories", "insights", "grid"],
+    description: "Explore latest engineering insights, trends, and renewable energy analysis.",
+    href: "/insights",
+    keywords: ["insights", "news", "articles", "stories", "analysis", "grid"],
   },
   {
     id: "page-contact",
@@ -94,19 +94,20 @@ export const SEARCH_INDEX: SearchItem[] = [
     keywords: ["faq", "questions", "answers", "help", "queries", "suitability"],
   },
 
-  // Dynamic Blog Posts
+  // Dynamic Insights Posts
   ...ALL_BLOG_POSTS.map((post) => ({
-    id: `blog-${post.id}`,
+    id: `insight-${post.id}`,
     title: post.title,
-    category: "BLOG" as const,
+    category: "INSIGHTS" as const,
     description: post.excerpt,
-    href: `/blog/${post.slug}`,
+    href: `/insights/${post.slug}`,
     keywords: [
       post.title.toLowerCase(),
       post.category.toLowerCase(),
       post.author.toLowerCase(),
       "article",
-      "blog",
+      "insight",
+      "insights",
       "post",
     ],
   })),

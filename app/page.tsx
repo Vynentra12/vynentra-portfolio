@@ -27,8 +27,8 @@ export default function Home() {
       <FAQSectionV2 />
       <CTASectionV2 
         title="Have an energy requirement in mind?"
-        description="Tell us about your site, your energy needs and what you are looking to achieve. We will help you explore the renewable energy solution that makes sense for your project."
         buttonText="GET IN TOUCH"
+        buttonLink="/contact"
       />
       <FooterV2 />
     </div>
