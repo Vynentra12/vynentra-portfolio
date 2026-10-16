@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { ArrowLeft, ArrowRight, Heart, Check } from 'lucide-react';
 import { ALL_BLOG_POSTS, getBlogPostBySlug } from '@/lib/blog-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
+import { SectionBadge } from '@/components/ui/SectionBadge';
 
 const TwitterIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -67,14 +68,6 @@ export default async function InsightDetailPage({ params }: Props) {
         {/* Hero Content Area */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
-            
-            {/* Category Badge */}
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
-                {post.category}
-              </span>
-            </div>
-
             {/* Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
               {post.title}
@@ -211,11 +204,10 @@ export default async function InsightDetailPage({ params }: Props) {
         {/* Key Takeaways Section */}
         {post.content.takeaways && post.content.takeaways.length > 0 && (
           <div className="mb-10 p-7 sm:p-8 bg-[#F4F6F8] rounded-[20px] border border-neutral-200/70">
-            <div className="flex items-center gap-2.5 mb-4">
-              <span className="w-2 h-2 rounded-full bg-[#7FA6B9]" />
-              <h3 className="text-[12px] font-bold uppercase tracking-wider text-[#7FA6B9]">
+            <div className="mb-4">
+              <SectionBadge theme="dark" className="w-fit">
                 KEY TAKEAWAYS &amp; STRATEGIC SUMMARY
-              </h3>
+              </SectionBadge>
             </div>
             <ul className="space-y-3">
               {post.content.takeaways.map((takeaway, tIdx) => (

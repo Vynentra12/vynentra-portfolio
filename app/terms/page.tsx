@@ -16,13 +16,6 @@ export default function TermsPage() {
       {/* ── 1. CLEAN PROFESSIONAL HEADER (No background image) ── */}
       <header className="relative w-full bg-[#071426] text-white pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 border-b border-white/10">
         <div className="max-w-[1120px] mx-auto px-6 sm:px-10 lg:px-12">
-          
-          <div className="mb-4 sm:mb-5">
-            <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-3.5 py-1.5 rounded-full backdrop-blur-sm tracking-wider">
-              LEGAL &amp; COMPLIANCE
-            </span>
-          </div>
-
           <h1 className="text-[32px] sm:text-[42px] md:text-[48px] font-medium text-white tracking-tight leading-[1.12] mb-4 select-text">
             Terms &amp; Service
           </h1>

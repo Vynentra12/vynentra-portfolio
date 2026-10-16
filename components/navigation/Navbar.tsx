@@ -15,7 +15,7 @@ export function Navbar() {
   const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
   const isCaseStudyDetail = Boolean(pathname?.startsWith("/case-studies/") && pathname !== "/case-studies");
-  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isAbout ? "About Us" : isCaseStudies ? "Case Studies" : null;
+  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isCaseStudies ? "Case Studies" : isContact ? "Contact Us" : isAbout ? "About Us" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -90,12 +90,14 @@ export function Navbar() {
     setIsVisible(true);
   }, [pathname]);
 
-  // Clean 4 navigation items
+  // Navigation items: About Us commented out to hide it; Contact Us added as the last item.
+  // To revive the About Us page in the navbar, simply uncomment the About Us line below.
   const navLinks = [
-    { name: "About Us", href: "/about" },
+    // { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Insights", href: "/insights" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   const currentPillTarget = hoveredLink || activeLink;
