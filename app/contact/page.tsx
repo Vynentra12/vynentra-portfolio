@@ -7,7 +7,7 @@ import { SectionBadge } from "@/components/ui/SectionBadge";
 import { ChevronDown, MapPin, Phone, Mail } from "lucide-react";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
@@ -15,8 +15,12 @@ const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" {...props}>
-    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.68 1.68 0 1 0 0-3.36 1.68 1.68 0 0 0 0 3.36zm1.39 9.74v-8.37H5.07v8.37h2.78z" />
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M8 11v5" />
+    <circle cx="8" cy="8" r="0.8" fill="currentColor" stroke="none" />
+    <path d="M12 16v-2.8a1.8 1.8 0 0 1 3.6 0V16" />
+    <path d="M12 11v5" />
   </svg>
 );
 
@@ -145,11 +149,6 @@ export default function ContactPage() {
         {/* Hero Content Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="w-full">
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
-                CONTACT US
-              </span>
-            </div>
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
               Let's develop the right energy solution for your requirement.
@@ -205,7 +204,7 @@ export default function ContactPage() {
                 {/* Location */}
                 <div>
                   <div className="flex items-center gap-2 mb-2.5">
-                    <MapPin className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <MapPin className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
                     <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
                       WE ARE HERE:
                     </h3>
@@ -219,7 +218,7 @@ export default function ContactPage() {
                 {/* Phone */}
                 <div>
                   <div className="flex items-center gap-2 mb-2.5">
-                    <Phone className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <Phone className="w-[17px] h-[17px] text-neutral-950 shrink-0" strokeWidth={2} />
                     <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
                       CONTACT NUMBER:
                     </h3>
@@ -234,7 +233,7 @@ export default function ContactPage() {
                 {/* Email */}
                 <div>
                   <div className="flex items-center gap-2 mb-2.5">
-                    <Mail className="w-[15px] h-[15px] text-neutral-950" strokeWidth={2.5} />
+                    <Mail className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
                     <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
                       EMAIL ID:
                     </h3>
@@ -251,7 +250,7 @@ export default function ContactPage() {
                   <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-3">
                     WE ARE ON SOCIALS:
                   </h3>
-                  <div className="flex items-center gap-5 pt-1">
+                  <div className="flex items-center gap-4 pt-0.5">
                     <a 
                       href="https://instagram.com" 
                       target="_blank" 

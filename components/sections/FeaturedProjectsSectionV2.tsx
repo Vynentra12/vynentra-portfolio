@@ -87,11 +87,11 @@ export function FeaturedProjectsSectionV2() {
           </div>
 
           {/* Tags */}
-          <div className="flex flex-wrap items-center gap-2 mt-5 sm:mt-6 mb-2 overflow-hidden">
+          <div className="flex flex-wrap items-center gap-3 mt-5 sm:mt-6 mb-2 overflow-hidden">
             {project.tags.map((tag, i) => (
               <span
                 key={i}
-                className="border border-white/60 text-white rounded-full px-3 py-1 text-[10px] sm:text-[10.5px] font-medium tracking-wider uppercase whitespace-nowrap"
+                className="text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap"
               >
                 {tag}
               </span>

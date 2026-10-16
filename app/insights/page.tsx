@@ -40,11 +40,6 @@ export default function InsightsPage() {
         {/* Hero Content Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
-            <div className="mb-4 sm:mb-6">
-              <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-4 py-1.5 rounded-full backdrop-blur-sm">
-                INSIGHTS
-              </span>
-            </div>
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
               Insights
@@ -113,9 +108,9 @@ export default function InsightsPage() {
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
                     />
 
-                    {/* Small Glassmorphism Badge */}
+                    {/* Glassmorphism Category Badge matching Image 1 */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
                         {post.category}
                       </span>
                     </div>

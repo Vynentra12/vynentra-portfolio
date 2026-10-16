@@ -129,9 +129,9 @@ export function BlogSectionV2() {
                       className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
                     />
 
-                    {/* Small Glassmorphism Badge */}
+                    {/* Glassmorphism Category Badge matching Image 1 */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/45 backdrop-blur-md border border-white/25 text-white text-[9px] sm:text-[9.5px] font-medium tracking-wider uppercase px-2.5 py-0.5 rounded-full shadow-sm">
+                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
                         {blog.category}
                       </span>
                     </div>

@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { SectionBadge } from "@/components/ui/SectionBadge";
 import { Lock, Shield, EyeOff, UserCheck } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -12,17 +13,10 @@ export const metadata: Metadata = {
 export default function PrivacyPolicyPage() {
   return (
     <div className="w-full bg-[#F4F6F8] text-neutral-900 font-sans min-h-screen">
-      
+
       {/* ── 1. CLEAN PROFESSIONAL HEADER (No background image) ── */}
       <header className="relative w-full bg-[#071426] text-white pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 border-b border-white/10">
         <div className="max-w-[1120px] mx-auto px-6 sm:px-10 lg:px-12">
-          
-          <div className="mb-4 sm:mb-5">
-            <span className="inline-block bg-white/10 border border-white/20 text-white text-[11px] sm:text-[12px] font-medium uppercase px-3.5 py-1.5 rounded-full backdrop-blur-sm tracking-wider">
-              LEGAL &amp; PRIVACY
-            </span>
-          </div>
-
           <h1 className="text-[32px] sm:text-[42px] md:text-[48px] font-medium text-white tracking-tight leading-[1.12] mb-4 select-text">
             Privacy Policy
           </h1>
@@ -57,9 +51,9 @@ export default function PrivacyPolicyPage() {
 
       {/* ── 2. DOCUMENT SHEET (Clean white sheet on graphite background) ── */}
       <main className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-16">
-        
+
         <div className="bg-white rounded-[20px] sm:rounded-[24px] border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-6 sm:p-10 md:p-14">
-          
+
           {/* Executive Principles Card */}
           <div className="bg-[#F4F6F8] rounded-[16px] p-6 sm:p-8 border border-neutral-200/80 mb-12 sm:mb-16">
             <div className="pb-5 border-b border-neutral-200/80 mb-6">
@@ -98,7 +92,7 @@ export default function PrivacyPolicyPage() {
 
           {/* Structured Privacy Clauses */}
           <div className="space-y-12 sm:space-y-14 divide-y divide-neutral-200/80">
-            
+
             {/* Clause 01 */}
             <section className="space-y-4 pt-0">
               <div className="flex items-center gap-3">

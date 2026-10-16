@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
+import { SectionBadge } from '@/components/ui/SectionBadge';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -144,12 +145,9 @@ export function ClosingCTA() {
 
       {/* Text Layer */}
       <div ref={textRef} className="absolute inset-0 flex flex-col items-center justify-center z-20 pointer-events-none opacity-0 px-6">
-        <div className="flex items-center gap-2.5 mb-3 pointer-events-auto">
-          <div className="w-2 h-2 rounded-full bg-[#AEF977]"></div>
-          <span className="text-[11px] md:text-xs font-semibold text-white/80 uppercase tracking-widest">
-            CONTACT US
-          </span>
-        </div>
+        <SectionBadge theme="light" className="mb-3 pointer-events-auto">
+          CONTACT US
+        </SectionBadge>
         
         <h2 className="text-[32px] sm:text-[44px] md:text-[54px] lg:text-[62px] font-bold text-white tracking-tight leading-[1.1] text-center max-w-2xl pointer-events-auto">
           Ready to power your future?

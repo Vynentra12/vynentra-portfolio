@@ -19,7 +19,7 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function FooterV2() {
   const companyLinks = [
-    { name: "About Vynentra", href: "/about" },
+    // { name: "About Vynentra", href: "/about" }, // Hidden per request - uncomment to revive the About Us link
     { name: "Our Approach", href: "/#process" },
     { name: "Getting Started", href: "/contact" },
   ];

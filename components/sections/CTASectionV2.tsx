@@ -301,11 +301,10 @@ export function CTASectionV2({
         }}
       >
         {/* Badge */}
-        <div className="mb-1.5 min-[390px]:mb-2 sm:mb-2.5 pointer-events-auto">
+        <div className="mb-2 sm:mb-2.5 pointer-events-auto">
           <SectionBadge
             theme="light"
-            size="xs"
-            className="!px-2.5 !py-[2.5px] sm:!px-3 sm:!py-1 !text-[7.5px] min-[390px]:!text-[8px] sm:!text-[9px] md:!text-[9.5px] tracking-[0.14em]"
+            size="sm"
           >
             {badgeText}
           </SectionBadge>
