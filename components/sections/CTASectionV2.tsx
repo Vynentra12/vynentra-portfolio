@@ -27,7 +27,7 @@ const ctaImages = [
 ];
 
 export function CTASectionV2({
-  badgeText = "START A PROJECT",
+  badgeText,
   title = "Have an energy requirement in mind?",
   description,
   buttonText = "GET IN TOUCH",
@@ -301,14 +301,16 @@ export function CTASectionV2({
         }}
       >
         {/* Badge */}
-        <div className="mb-2 sm:mb-2.5 pointer-events-auto">
-          <SectionBadge
-            theme="light"
-            size="sm"
-          >
-            {badgeText}
-          </SectionBadge>
-        </div>
+        {badgeText && (
+          <div className="mb-2 sm:mb-2.5 pointer-events-auto">
+            <SectionBadge
+              theme="light"
+              size="sm"
+            >
+              {badgeText}
+            </SectionBadge>
+          </div>
+        )}
 
         {/* Title */}
         <h2
