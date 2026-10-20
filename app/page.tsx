@@ -26,8 +26,9 @@ export default function Home() {
       <BlogSectionV2 />
       <FAQSectionV2 />
       <CTASectionV2 
-        title="Have an energy requirement in mind?"
-        buttonText="GET IN TOUCH"
+        badgeText="CLEAN ENERGY STARTS HERE"
+        title="Start Your Renewable Energy Project And Build The Future"
+        buttonText="Get Started"
         buttonLink="/contact"
       />
       <FooterV2 />

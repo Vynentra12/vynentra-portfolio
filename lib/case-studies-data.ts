@@ -3,375 +3,174 @@ export interface CaseStudyStat {
   label: string;
 }
 
-export interface CaseStudyChallenge {
-  title: string;
-  description: string;
-}
-
-export interface CaseStudyFeature {
-  title: string;
-  description: string;
-}
-
-export interface CaseStudyResult {
-  title: string;
-  description: string;
-}
-
 export interface CaseStudy {
   slug: string;
   title: string;
+  displayTitleLines?: string[];
   subtitle: string;
   category: "Solar" | "Wind" | "Hybrid";
   badge: string;
   client: string;
-  planOrSolution: string;
+  company: string;
+  technology: string;
+  projectLocation: string;
+  clientLocation?: string;
   location: string;
-  timeline: string;
+  planOrSolution: string;
+  timeline?: string;
   image: string;
   stats: [CaseStudyStat, CaseStudyStat];
-  overview: string;
-  companyBackground: string;
-  challenges: CaseStudyChallenge[];
-  solution: string;
-  features: CaseStudyFeature[];
-  results: CaseStudyResult[];
-  conclusion: string;
-  ctaText?: string;
-  ctaLink?: string;
+  problem: string[];
+  solution: string[];
+  resultsAndFindings: string[];
+  conclusionAndRecommendation: string[];
 }
 
 export const CASE_STUDIES: CaseStudy[] = [
   {
-    slug: "novatech-higher-conversions",
-    title: "How NovaTech Successfully Achieved 42% Higher Conversions with Qarin",
-    subtitle: "By automating lead assignments and follow-ups, NovaTech’s sales team reduced manual work and improved response times — turning missed opportunities into measurable growth.",
+    slug: "hybrid-wind-turbine-surat",
+    title: "Hybrid Wind Turbine Installation by Vynentra",
+    displayTitleLines: ["Hybrid Wind Turbine", "Installation by Vynentra"],
+    subtitle: "Evaluating dual renewable generation from a 5 kW vertical-axis wind turbine and solar integration in Surat, Gujarat.",
     category: "Hybrid",
-    badge: "AUTOMATION & CONVERSIONS",
-    client: "SkyReach",
-    planOrSolution: "Growth",
-    location: "Global Operations",
-    timeline: "3 Months Deployment",
-    image: "/novatech-case-study.jpg",
+    badge: "HYBRID • SURAT",
+    client: "Urban Commercial Client",
+    company: "Vynentra",
+    technology: "5 kW Hybrid Wind–Solar Energy System",
+    projectLocation: "Surat, Gujarat",
+    clientLocation: "Surat, Gujarat",
+    location: "Surat, Gujarat",
+    planOrSolution: "5 kW Hybrid VAWT & Solar Generation System",
+    image: "/case-studies/case-study-1-surat.webp",
     stats: [
       {
-        value: "248%",
-        label: "Revenue Boost in Last 30 Days",
+        value: "5 kW",
+        label: "Hybrid System Capacity",
       },
       {
-        value: "15X",
-        label: "Team Efficiency",
+        value: "Dual",
+        label: "Solar & Wind Harvest",
       },
     ],
-    overview: "SkyReach, a fast-growing digital agency, struggled with disjointed communication and manual workflows that slowed down client projects. To overcome these challenges, they turned to Qarin, an intelligent CRM and automation platform designed to streamline collaboration, automate processes, and provide full visibility into performance.",
-    companyBackground: "SkyReach delivers high-impact marketing and technology solutions for global clients. As their team expanded, managing leads, tracking progress, and maintaining smooth collaboration became increasingly complex. They needed a single system that could simplify daily operations and scale with their growth.",
-    challenges: [
-      {
-        title: "Fragmented Processes",
-        description: "The team used multiple tools for communication, task tracking, and reporting — resulting in lost time and inconsistent updates.",
-      },
-      {
-        title: "Manual Workflows",
-        description: "Repetitive data entry and follow-up tasks limited productivity and caused project delays.",
-      },
-      {
-        title: "Lack of Visibility",
-        description: "Managers struggled to get a real-time overview of team activity, making it difficult to prioritize resources efficiently.",
-      },
-      {
-        title: "Scalability Concerns",
-        description: "As client volume increased, SkyReach’s existing setup couldn’t keep up with the growing workload.",
-      },
+    problem: [
+      "The client in Surat was facing high electricity bills and was looking for an alternative renewable energy solution to reduce dependence on conventional grid electricity.",
+      "The challenge was to identify a suitable renewable energy system that could generate electricity using both solar energy and wind power in an urban built environment."
     ],
-    solution: "SkyReach adopted Qarin to unify operations across sales, projects, and communication. The platform’s automation engine and analytics dashboard helped the team eliminate redundancy and gain total visibility into performance.",
-    features: [
-      {
-        title: "Automated Workflows",
-        description: "Qarin automated recurring tasks, client follow-ups, and lead assignments, freeing the team to focus on high-value work.",
-      },
-      {
-        title: "Unified Dashboard",
-        description: "A single workspace allowed SkyReach to monitor leads, projects, and conversations in real time.",
-      },
-      {
-        title: "Smart Reporting",
-        description: "With Qarin’s analytics tools, team leaders could instantly track performance metrics and project health.",
-      },
-      {
-        title: "Seamless Integrations",
-        description: "Qarin connected with SkyReach’s existing apps, ensuring a smooth transition without disrupting ongoing projects.",
-      },
+    solution: [
+      "Vynentra proposed a 5 kW hybrid vertical-axis wind turbine (VAWT) integrated with solar power generation.",
+      "The hybrid system was designed to harness two complementary renewable energy sources: Solar energy to generate electricity during daylight hours, and Wind energy to supplement solar generation whenever suitable wind conditions were available.",
+      "The core objective was to diversify on-site renewable energy generation and lower grid electricity consumption."
     ],
-    results: [
-      {
-        title: "Productivity Doubled",
-        description: "Automated workflows reduced manual effort by 50%, allowing teams to deliver faster and handle more projects simultaneously.",
-      },
-      {
-        title: "Improved Collaboration",
-        description: "Centralized communication brought every department onto the same page, reducing delays and miscommunication.",
-      },
-      {
-        title: "Data-Driven Insights",
-        description: "Real-time analytics empowered leaders to make smarter, faster decisions.",
-      },
-      {
-        title: "Scalable Growth",
-        description: "Qarin’s flexible infrastructure supported SkyReach’s rapid expansion without system slowdowns.",
-      },
+    resultsAndFindings: [
+      "The installation and subsequent observations highlighted the importance of local wind conditions in determining the performance of a hybrid renewable energy system.",
+      "Lower than expected wind generation: Wind energy output was low during the summer season due to insufficient wind speeds at the installation site.",
+      "Solar energy remained the more suitable option: In densely built-up areas, rooftop solar generally offers a more predictable generation opportunity, subject to available roof space and shading.",
+      "Emerging technology: VAWT technology is still at an early stage of adoption in the Indian market, and further field testing and performance validation are important for wider deployment.",
+      "Site-specific feasibility is essential: Wind speed, turbulence, installation height and surrounding buildings significantly influence turbine performance."
     ],
-    conclusion: "By implementing Qarin, SkyReach transformed its workflow into a seamless, automated ecosystem. Manual tasks were replaced by intelligent automation, communication improved across departments, and productivity soared. With Qarin, SkyReach not only doubled efficiency but built a scalable foundation for continued growth in the digital era.",
-    ctaText: "Use for Free",
-    ctaLink: "/contact",
+    conclusionAndRecommendation: [
+      "The project demonstrated that a hybrid wind–solar system must be evaluated against the actual environmental conditions of its installation site.",
+      "For densely populated urban areas with limited and inconsistent wind resources, a solar-only system may be the more practical and cost-effective choice. VAWT systems may be considered where measured wind conditions and site characteristics support viable generation.",
+      "Vynentra recommends conducting a detailed site assessment and reviewing actual generation data before selecting a wind–solar hybrid system for future projects."
+    ],
   },
   {
-    slug: "commercial-solar-plants",
-    title: "Designed for Commercial Solar Plants & Utility Infrastructure",
-    subtitle: "Turnkey delivery of a utility-scale solar facility, completed 2 months ahead of schedule despite complex terrain challenges.",
-    category: "Solar",
-    badge: "COMMERCIAL / ROOFTOP",
-    client: "SunPeak Infra & SolarTech",
-    planOrSolution: "Commercial Solar EPC & Grid Tie",
-    location: "Gujarat, India",
-    timeline: "8 Months Delivery",
-    image: "/solar_panels.jpg",
-    stats: [
-      {
-        value: "42%",
-        label: "Energy Cost Reduction",
-      },
-      {
-        value: "2.4 MW",
-        label: "Peak Capacity Installed",
-      },
-    ],
-    overview: "SunPeak Infra required a high-capacity turnkey solar facility to power heavy industrial manufacturing across three clusters, eliminating dependence on costly peak grid tariffs and high-emission peaker plants.",
-    companyBackground: "Operating round-the-clock manufacturing plants, SunPeak needed clean baseload energy that would comply with state carbon reduction mandates while improving overall operating margins.",
-    challenges: [
-      {
-        title: "Complex Topography",
-        description: "Uneven terrain and varied ground composition required customized piling and structural load analysis.",
-      },
-      {
-        title: "Strict Interconnection Schedule",
-        description: "Tight deadlines to secure statutory feed-in permissions without interrupting active manufacturing operations.",
-      },
-      {
-        title: "Harsh Climate Conditions",
-        description: "Extreme ambient summer temperatures that historically degraded standard photovoltaic efficiency.",
-      },
-      {
-        title: "Grid Balancing Compliance",
-        description: "Demanding utility specifications for reactive power compensation and zero-export fail-safes.",
-      },
-    ],
-    solution: "Vynentra designed and deployed a custom commercial solar installation featuring high-efficiency bifacial monocrystalline arrays, smart string inverters, and high-voltage transmission tie-ins.",
-    features: [
-      {
-        title: "Bifacial PV Modules",
-        description: "Generating supplementary yield from ground albedo reflection even under harsh arid conditions.",
-      },
-      {
-        title: "Cloud SCADA Telemetry",
-        description: "Real-time string-level analytics for proactive fault detection and remote string isolation.",
-      },
-      {
-        title: "Automated Cleaning Architecture",
-        description: "Waterless robotic cleaning arrays minimizing soiling loss in dusty industrial zones.",
-      },
-      {
-        title: "Substation Intertie Engineering",
-        description: "Turnkey 33kV outdoor switchyard built to statutory national utility standards.",
-      },
-    ],
-    results: [
-      {
-        title: "Delivered 60 Days Early",
-        description: "Commissioned two months ahead of contractual schedule with zero lost-time accidents.",
-      },
-      {
-        title: "Immediate Cost Reduction",
-        description: "Lowered monthly plant power costs by 42% from the very first month of commercial operation.",
-      },
-      {
-        title: "3,100 Tons CO2 Abated",
-        description: "Eliminating 3,100 metric tons of carbon emissions annually across industrial facilities.",
-      },
-      {
-        title: "Overperforming Output",
-        description: "Exceeded year-one yield projections by 7.3% through precision bifacial alignment.",
-      },
-    ],
-    conclusion: "Through meticulous engineering and turnkey management, Vynentra delivered an industrial solar solution that gives SunPeak permanent cost predictability and verified clean energy leadership.",
-    ctaText: "Request Site Assessment",
-    ctaLink: "/contact",
-  },
-  {
-    slug: "wind-farm-grid-integration",
-    title: "High-Altitude Wind Farm Grid Integration & Micro-Siting",
-    subtitle: "Maximizing aerodynamic efficiency and transmission synchronization across challenging mountainous wind corridors.",
+    slug: "vawt-madhavpur-beach",
+    title: "VAWT Installation Near Madhavpur Beach, Gujarat",
+    displayTitleLines: ["VAWT Installation Near", "Madhavpur Beach, Gujarat"],
+    subtitle: "Turnkey installation of a 3 kW vertical-axis wind turbine harnessing consistent coastal winds for clean local power generation.",
     category: "Wind",
-    badge: "UTILITY WIND",
-    client: "Apex Clean Energy",
-    planOrSolution: "Turnkey Wind EPC & SCADA Synchronization",
-    location: "Tamil Nadu, India",
-    timeline: "14 Months",
-    image: "/wind_farm_sunset.jpg",
+    badge: "COASTAL • WIND",
+    client: "Coastal Facility Client",
+    company: "Vynentra",
+    technology: "3 kW Vertical Axis Wind Turbine (VAWT)",
+    projectLocation: "Near Madhavpur Beach, Gujarat",
+    clientLocation: "Madhavpur Coast, Gujarat",
+    location: "Near Madhavpur Beach, Gujarat",
+    planOrSolution: "3 kW Vertical Axis Wind Turbine",
+    image: "/case-studies/case-study-2-madhavpur.webp",
     stats: [
       {
-        value: "99.8%",
-        label: "Grid Availability & Uptime",
+        value: "3 kW",
+        label: "Rated VAWT Capacity",
       },
       {
-        value: "150 GWh",
-        label: "Annual Clean Energy Generated",
+        value: "100%",
+        label: "Coastal Wind Generation",
       },
     ],
-    overview: "Apex Clean Energy aimed to develop a utility-scale wind corridor across high-elevation ridgelines subject to complex micro-climates, wind shear, and strict grid connectivity codes.",
-    companyBackground: "An independent renewable energy developer operating wind and hybrid assets across southern India with aggressive multi-gigawatt expansion goals.",
-    challenges: [
-      {
-        title: "Turbulent Airflow",
-        description: "Extreme wind shear and topographical turbulence risking premature component fatigue.",
-      },
-      {
-        title: "Heavy Haul Logistics",
-        description: "Navigating oversized 75-meter turbine blades and heavy nacelles up steep mountain hairpin turns.",
-      },
-      {
-        title: "Grid Code Compliance",
-        description: "Strict Central Electricity Authority requirements for Low Voltage Ride Through (LVRT) and frequency damping.",
-      },
-      {
-        title: "Environmental Safeguards",
-        description: "Ensuring zero disruption to local seasonal avian migratory routes.",
-      },
+    problem: [
+      "The client wanted to reduce electricity bills and explore renewable energy as an alternative source of power.",
+      "Given the site’s coastal location, wind energy was considered a promising option for generating clean electricity and reducing dependence on grid power."
     ],
-    solution: "Vynentra executed high-resolution CFD micro-siting, custom turbine placement, heavy haul civil routing, and advanced substation harmonic engineering.",
-    features: [
-      {
-        title: "LIDAR & CFD Micro-Siting",
-        description: "Precision positioning of turbines to virtually eliminate downstream wake interference.",
-      },
-      {
-        title: "Smart Pitch & Yaw Telemetry",
-        description: "Dynamic rotor adjustment algorithms responding to micro-gusts within milliseconds.",
-      },
-      {
-        title: "Substation Protection",
-        description: "Custom STATCOM and harmonic filtering guaranteeing grid stabilization.",
-      },
-      {
-        title: "Predictive Monitoring",
-        description: "Vibration sensors on gearboxes and main bearings to forecast preventative maintenance.",
-      },
+    solution: [
+      "Vynentra installed a 3 kW Vertical Axis Wind Turbine (VAWT) near Madhavpur Beach, where local wind conditions were suitable for wind energy generation.",
+      "The system was selected to harness the consistent coastal winds and convert wind energy into electricity for the client’s power requirements."
     ],
-    results: [
-      {
-        title: "18% Extra Yield",
-        description: "Micro-siting precision unlocked 18% greater generation than original feasibility models.",
-      },
-      {
-        title: "Flawless Grid Tie",
-        description: "Achieved statutory grid compliance on initial testing with zero curtailment penalties.",
-      },
-      {
-        title: "150 GWh Annual Output",
-        description: "Powering over 120,000 households with reliable clean energy every year.",
-      },
-      {
-        title: "Unmatched Reliability",
-        description: "99.8% availability throughout peak southwest monsoon wind seasons.",
-      },
+    resultsAndFindings: [
+      "Favourable wind conditions: The site experiences suitable wind conditions for the installed turbine.",
+      "Successful operation: The 3 kW VAWT is reported to be operating well under the site’s coastal wind conditions.",
+      "Renewable energy generation: The installation provides an opportunity to generate electricity from locally available wind resources.",
+      "Electricity bill reduction objective: The project aims to reduce grid electricity consumption and associated operating costs.",
+      "Location advantage: Coastal sites can offer favourable wind resources, although generation varies with wind speed, season and turbine operating conditions."
     ],
-    conclusion: "By combining advanced computational fluid dynamics with precision field engineering, Vynentra turned complex terrain into one of the country's most productive wind assets.",
-    ctaText: "Consult Our Wind Team",
-    ctaLink: "/contact",
+    conclusionAndRecommendation: [
+      "The Madhavpur Beach installation demonstrates the potential of VAWT technology at locations with favourable wind resources.",
+      "Compared with densely built-up urban sites, suitable coastal locations may offer better conditions for wind energy generation.",
+      "Actual electricity savings should be evaluated using recorded energy production and electricity bills before and after installation."
+    ],
   },
   {
-    slug: "hybrid-industrial-microgrid",
-    title: "Zero-Downtime Hybrid Solar-Wind Microgrid with BESS",
-    subtitle: "Combining solar PV, wind turbines, and containerized BESS for 24/7 round-the-clock resilient industrial operations.",
-    category: "Hybrid",
-    badge: "HYBRID BESS",
-    client: "Bharat Heavy Industries",
-    planOrSolution: "Hybrid Microgrid & Energy Storage Architecture",
-    location: "Maharashtra, India",
-    timeline: "10 Months",
-    image: "/hybrid-wind-solar.jpg",
+    slug: "vawt-mandvi-beach",
+    title: "5 kW VAWT Installation at Mandvi Beach, Gujarat",
+    displayTitleLines: ["5 kW VAWT Installation at", "Mandvi Beach, Gujarat"],
+    subtitle: "Evaluating performance and operational reliability of a 5 kW vertical-axis wind turbine in high-velocity coastal corridors.",
+    category: "Wind",
+    badge: "COASTAL • WIND",
+    client: "Mandvi Coastal Site",
+    company: "Vynentra",
+    technology: "5 kW Vertical Axis Wind Turbine (VAWT)",
+    projectLocation: "Mandvi Beach, Kutch, Gujarat",
+    clientLocation: "Kutch Coast, Gujarat",
+    location: "Mandvi Beach, Kutch, Gujarat",
+    planOrSolution: "5 kW Vertical Axis Wind Turbine",
+    image: "/case-studies/case-study-3-mandvi.webp",
     stats: [
       {
-        value: "78%",
-        label: "Diesel Generator Reduction",
+        value: "5 kW",
+        label: "Installed VAWT Capacity",
       },
       {
-        value: "4.8 MWh",
-        label: "Energy Storage Capacity",
+        value: "24/7",
+        label: "Coastal Corridor Harvest",
       },
     ],
-    overview: "Bharat Heavy Industries suffered from frequent regional grid voltage dips that halted automated precision manufacturing lines, burning thousands of liters of diesel fuel each day.",
-    companyBackground: "A leading industrial component manufacturer operating sensitive CNC production lines with zero tolerance for power interruptions.",
-    challenges: [
-      {
-        title: "Costly Production Halts",
-        description: "Voltage drops lasting under 500 milliseconds caused millions in scrapped tooling and restart time.",
-      },
-      {
-        title: "Extreme Carbon Footprint",
-        description: "Heavy reliance on 1,500 kVA diesel gensets during peak afternoon load shedding.",
-      },
-      {
-        title: "Resource Balancing",
-        description: "Balancing solar peak during noon and wind peak during night without overloading plant transformers.",
-      },
-      {
-        title: "Thermal Management",
-        description: "Extreme summer ambient heat demanding liquid-cooled battery thermal regulation.",
-      },
+    problem: [
+      "The project explored the use of renewable wind energy in a coastal location to reduce dependence on conventional grid electricity and support more sustainable power generation.",
+      "Mandvi Beach was selected as a potential site for wind energy generation because of its coastal environment and potential wind resource."
     ],
-    solution: "Vynentra integrated a 3.2 MW solar array, 1.8 MW wind capacity, and a 4.8 MWh containerized liquid-cooled LFP battery storage system managed by an intelligent microgrid EMS.",
-    features: [
-      {
-        title: "Sub-Cycle Islanding",
-        description: "Seamless automatic transfer from grid to battery in under 12 milliseconds without CNC disruption.",
-      },
-      {
-        title: "Predictive AI EMS",
-        description: "Automated dispatch optimization matching plant load schedules with renewable forecast models.",
-      },
-      {
-        title: "Liquid-Cooled LFP BESS",
-        description: "Tier-1 battery containers with aerosol suppression and thermal runaway protection.",
-      },
-      {
-        title: "Dual-Feed Switchgear",
-        description: "Redundant busbar architecture preventing single-point electrical failures.",
-      },
+    solution: [
+      "Vynentra installed a 5 kW Vertical Axis Wind Turbine (VAWT) at Mandvi Beach, Gujarat.",
+      "The turbine was deployed to harness locally available wind energy and convert it into electricity.",
+      "The installation provides an opportunity to evaluate the performance of a larger-capacity VAWT in a coastal environment."
     ],
-    results: [
-      {
-        title: "Zero Tooling Downtime",
-        description: "100% elimination of equipment trips due to grid transients across two full years.",
-      },
-      {
-        title: "78% Diesel Cost Slash",
-        description: "Reduced diesel fuel expenses by over ₹3.4 Crores annually.",
-      },
-      {
-        title: "4,200 MT Carbon Cut",
-        description: "Abated 4,200 metric tons of carbon emissions in the first twelve months.",
-      },
-      {
-        title: "Peak Shaving ROI",
-        description: "Reduced plant peak demand utility charges by 34%.",
-      },
+    resultsAndFindings: [
+      "Installed capacity: A 5 kW VAWT was installed at the site.",
+      "Coastal wind potential: The location offers an opportunity to assess wind energy generation in a coastal environment.",
+      "Renewable energy generation: The system is intended to generate electricity from wind and reduce dependence on grid power.",
+      "Performance assessment: Monitoring actual generation across different seasons can help establish the turbine’s energy output and operational reliability.",
+      "Future deployment potential: The findings can inform decisions about VAWT installations at other suitable coastal locations in Gujarat."
     ],
-    conclusion: "The hybrid installation delivers uninterrupted manufacturing uptime while serving as a proof-of-concept for industrial sustainability and independence from fossil fuels.",
-    ctaText: "Explore Hybrid Solutions",
-    ctaLink: "/contact",
+    conclusionAndRecommendation: [
+      "The Mandvi Beach project represents a coastal application of VAWT technology, with a rated capacity of 5 kW.",
+      "Evaluating its performance through recorded wind speeds, energy generation, downtime and maintenance data will help determine its practical contribution to electricity savings and the feasibility of similar installations."
+    ],
   },
 ];
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
+  if (slug === "commercial-solar-plants") {
+    return CASE_STUDIES[0];
+  }
   return CASE_STUDIES.find((cs) => cs.slug === slug);
 }

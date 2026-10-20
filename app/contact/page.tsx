@@ -177,7 +177,7 @@ export default function ContactPage() {
       </section>
 
       {/* Main 2-Column Contact Info & Form Section */}
-      <section className="w-full py-14 sm:py-24 md:py-28 lg:py-32 bg-white overflow-x-hidden">
+      <section id="contact-form" className="w-full py-14 sm:py-24 md:py-28 lg:py-32 bg-white overflow-x-hidden scroll-mt-20">
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
             
@@ -238,11 +238,14 @@ export default function ContactPage() {
                       EMAIL ID:
                     </h3>
                   </div>
-                  <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="mailto:hello@vynentra.in" className="hover:text-[#0A6B88] font-semibold transition-colors block">
-                      hello@vynentra.in
+                  <div className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6] space-y-1">
+                    <a href="mailto:info@vynentra.com" className="hover:text-[#0A6B88] font-semibold transition-colors block">
+                      info@vynentra.com
                     </a>
-                  </p>
+                    <a href="mailto:partner@vynentra.com" className="hover:text-[#0A6B88] font-semibold transition-colors block text-[14px]">
+                      partner@vynentra.com
+                    </a>
+                  </div>
                 </div>
 
                 {/* Socials */}
@@ -252,7 +255,7 @@ export default function ContactPage() {
                   </h3>
                   <div className="flex items-center gap-4 pt-0.5">
                     <a 
-                      href="https://instagram.com" 
+                      href="https://www.instagram.com/vynentraenergysolutions?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="Instagram"
@@ -261,7 +264,7 @@ export default function ContactPage() {
                       <InstagramIcon className="w-[22px] h-[22px]" />
                     </a>
                     <a 
-                      href="https://linkedin.com" 
+                      href="https://www.linkedin.com/company/vynentra-energy-solutions-llp/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="LinkedIn"

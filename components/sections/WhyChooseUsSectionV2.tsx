@@ -9,14 +9,14 @@ interface FeatureItem {
   id: string;
   title: string;
   desc: string;
-  image?: string;
-  alt?: string;
+  image: string;
+  alt: string;
 }
 
 export function WhyChooseUsSectionV2() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-  // 4 Features
+  // 4 Features with service-accurate images
   const features: FeatureItem[] = [
     {
       id: "wind-energy-solutions",
@@ -29,24 +29,36 @@ export function WhyChooseUsSectionV2() {
       id: "wind-solar-hybrid",
       title: "Wind-Solar Hybrid Solutions",
       desc: "We are integrating wind and solar generation to create hybrid renewable energy systems that make better use of available resources and complement different generation profiles.",
-      image: "/why-choose-us/hero-windmill.jpg",
-      alt: "Architectural windmill house with solar panels on rotor blades",
+      image: "/hybrid-wind-solar.jpg",
+      alt: "Integrated wind and solar hybrid generation plant with solar arrays and wind turbines",
     },
     {
       id: "energy-storage-solutions",
       title: "Energy Storage Solutions",
       desc: "We are incorporating battery energy storage systems where appropriate to support renewable generation, energy management and more resilient power infrastructure",
-      image: "/why-choose-us/expert-guidance.jpg",
-      alt: "Renewable energy engineers reviewing architectural plans on site",
+      image: "/solutions/battery-storage.jpg",
+      alt: "Battery energy storage systems (BESS) for clean power resilience",
     },
     {
       id: "project-development-advisory",
       title: "Project Development & Advisory",
       desc: "We are supporting projects from energy audits and feasibility studies through technology evaluation, regulatory coordination, financing facilitation and EPC partner management.",
-      image: "/why-choose-us/long-term-savings.jpg",
-      alt: "Modern architectural home with solar roof and vertical wind turbine",
+      image: "/why-choose-us/expert-guidance.jpg",
+      alt: "Renewable energy engineers conducting on-site feasibility and project development advisory",
     },
   ];
+
+  // Preload all 4 service images on mount for instantaneous, zero-latency transitions
+  React.useEffect(() => {
+    features.forEach((feature) => {
+      if (typeof window !== "undefined" && feature.image) {
+        const img = new window.Image();
+        img.src = feature.image;
+      }
+    });
+  }, []);
+
+  const currentFeature = features[selectedIndex] ?? features[0];
 
   return (
     <section
@@ -107,7 +119,7 @@ export function WhyChooseUsSectionV2() {
               </Link>
             </motion.div>
 
-            {/* Bottom Sub-Split: Left Feature Rows + Right Fixed Solar Energy Preview */}
+            {/* Bottom Sub-Split: Left Feature Rows + Right Dynamic Service Preview */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -156,35 +168,40 @@ export function WhyChooseUsSectionV2() {
                 })}
               </div>
 
-              {/* ── Fixed Solar Energy Preview Card & Description (Dynamic sync with selected title) ── */}
+              {/* ── Dynamic Service Preview Card & Description (Dynamic sync with selected title) ── */}
               <div className="md:col-span-5 flex flex-col justify-between gap-6">
                 
-                {/* Fixed Solar Panel Sunset Image */}
+                {/* Dynamic Service Image with smooth Framer Motion crossfade transition */}
                 <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-neutral-100 shadow-sm">
-                  <img
-                    src="/why-choose-us/eco-friendly-impact.jpg"
-                    alt="Solar panel arrays under sunset sky"
-                    className="w-full h-full object-cover object-center pointer-events-none select-none"
-                    draggable={false}
-                  />
+                  <AnimatePresence initial={false}>
+                    <motion.img
+                      key={currentFeature.id}
+                      src={currentFeature.image}
+                      alt={currentFeature.alt}
+                      initial={{ opacity: 0, scale: 1.04 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+                      draggable={false}
+                    />
+                  </AnimatePresence>
                 </div>
 
-                {/* Clean Energy Solutions Description (Only visible when a title is selected) */}
+                {/* Clean Energy Solutions Description (Animated with selected title) */}
                 <div className="mt-3.5 min-h-[72px] flex items-start">
                   <AnimatePresence mode="wait">
-                    {selectedIndex !== null && features[selectedIndex] && (
-                      <motion.p
-                        key={features[selectedIndex].id}
-                        initial={{ opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -6 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text"
-                        style={{ userSelect: "text", WebkitUserSelect: "text" }}
-                      >
-                        {features[selectedIndex].desc}
-                      </motion.p>
-                    )}
+                    <motion.p
+                      key={currentFeature.id}
+                      initial={{ opacity: 0, y: 6 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -6 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text"
+                      style={{ userSelect: "text", WebkitUserSelect: "text" }}
+                    >
+                      {currentFeature.desc}
+                    </motion.p>
                   </AnimatePresence>
                 </div>
 

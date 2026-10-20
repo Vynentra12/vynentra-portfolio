@@ -244,11 +244,16 @@ export async function POST(req: Request) {
     const brevoApiKey = process.env.BREVO_API_KEY;
     const senderEmail = process.env.SENDER_EMAIL;
     const notifyEmail = process.env.NOTIFY_EMAIL;
+    const targetSheetId = process.env.SHEET_ID;
+    const googleSheetUrl = targetSheetId
+      ? `https://docs.google.com/spreadsheets/d/${targetSheetId}/edit`
+      : "";
 
     console.log("[CONTACT API] Brevo env check:", {
       hasApiKey: !!brevoApiKey,
       senderEmail,
       notifyEmail,
+      hasSheetUrl: !!googleSheetUrl,
     });
 
     if (brevoApiKey && senderEmail && notifyEmail) {
@@ -258,26 +263,49 @@ export async function POST(req: Request) {
           <html>
           <head>
             <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>New Lead Notification</title>
             <style>
-              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f7f9fa; margin: 0; padding: 24px; color: #1e293b; }
-              .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.04); }
-              .header { background: #0B2735; padding: 24px 28px; }
-              .header h2 { margin: 0; color: #ffffff; font-size: 20px; font-weight: 700; letter-spacing: -0.02em; }
-              .header p { margin: 6px 0 0 0; color: #AEF977; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; }
-              .content { padding: 28px; }
+              body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #F4F6F8; margin: 0; padding: 28px 12px; color: #0B2735; -webkit-font-smoothing: antialiased; }
+              .card { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 20px; border: 1px solid #E2E8F0; overflow: hidden; box-shadow: 0 8px 30px rgba(14,47,62,0.06); }
+              .header { background: #0E2F3E; padding: 32px 32px 28px 32px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+              .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; }
+              .logo { font-size: 24px; font-weight: 800; letter-spacing: -0.035em; color: #ffffff; text-decoration: none; line-height: 1; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+              .badge { display: inline-block; padding: 4px 12px; background: rgba(174, 249, 119, 0.15); border: 1px solid rgba(174, 249, 119, 0.35); border-radius: 9999px; color: #AEF977; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+              .header h2 { margin: 0; color: #ffffff; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+              .header p { margin: 6px 0 0 0; color: rgba(255, 255, 255, 0.72); font-size: 13px; font-weight: 400; line-height: 1.5; }
+              .content { padding: 32px; }
               .field { margin-bottom: 20px; }
-              .label { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-              .value { font-size: 15px; color: #0f172a; font-weight: 500; line-height: 1.5; }
-              .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 16px; margin-top: 4px; }
-              .footer { padding: 18px 28px; background: #f8fafc; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; text-align: center; }
+              .label { font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; }
+              .value { font-size: 15px; color: #0B2735; font-weight: 600; line-height: 1.45; }
+              .message-box { background: #F4F6F8; border: 1px solid #E2E8F0; border-radius: 14px; padding: 16px 18px; margin-top: 6px; color: #1E293B; font-size: 14.5px; line-height: 1.65; font-weight: 400; }
+              .actions-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid #E2E8F0; }
+              .btn-primary { display: inline-block; padding: 13px 26px; background-color: #AEF977; color: #0B2735 !important; border-radius: 9999px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; text-align: center; }
+              .btn-secondary { display: inline-block; padding: 13px 26px; background-color: #0E2F3E; color: #ffffff !important; border-radius: 9999px; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; text-align: center; margin-left: 10px; }
+              .sheet-card { background: #F4F6F8; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px 18px; margin-top: 20px; }
+              .sheet-card-title { font-size: 11px; font-weight: 700; color: #087589; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+              .sheet-card-url { font-size: 12.5px; color: #087589; text-decoration: underline; word-break: break-all; font-weight: 500; display: block; line-height: 1.5; }
+              .footer { padding: 20px 32px; background: #F4F6F8; border-top: 1px solid #E2E8F0; font-size: 12px; color: #64748B; text-align: center; line-height: 1.6; }
+              .footer strong { color: #0B2735; }
             </style>
           </head>
           <body>
             <div class="card">
               <div class="header">
-                <h2>New Contact Form Submission</h2>
-                <p>Vynentra Website Lead</p>
+                <table width="100%" border="0" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom: 16px;">
+                  <tr>
+                    <td align="left">
+                      <span class="logo" style="font-size: 24px; font-weight: 800; letter-spacing: -0.035em; color: #ffffff;">vynentra</span>
+                    </td>
+                    <td align="right">
+                      <span class="badge" style="display: inline-block; padding: 4px 12px; background-color: rgba(174, 249, 119, 0.15); border: 1px solid rgba(174, 249, 119, 0.35); border-radius: 9999px; color: #AEF977; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;">LEAD NOTIFICATION</span>
+                    </td>
+                  </tr>
+                </table>
+                <h2 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 600; letter-spacing: -0.02em;">New Contact Form Submission</h2>
+                <p style="margin: 6px 0 0 0; color: rgba(255, 255, 255, 0.72); font-size: 13px;">A new renewable energy inquiry was submitted on the Vynentra website contact desk.</p>
               </div>
+
               <div class="content">
                 <div class="field">
                   <div class="label">Full Name</div>
@@ -285,27 +313,59 @@ export async function POST(req: Request) {
                 </div>
                 <div class="field">
                   <div class="label">Work Email</div>
-                  <div class="value"><a href="mailto:${escapeHtml(cleanEmail)}" style="color: #087589; text-decoration: none;">${escapeHtml(cleanEmail)}</a></div>
+                  <div class="value"><a href="mailto:${escapeHtml(cleanEmail)}" style="color: #087589; text-decoration: none; font-weight: 600;">${escapeHtml(cleanEmail)}</a></div>
                 </div>
                 <div class="field">
                   <div class="label">Company</div>
                   <div class="value">${escapeHtml(cleanCompany)}</div>
                 </div>
                 <div class="field">
-                  <div class="label">What do you need help with?</div>
-                  <div class="value">${escapeHtml(cleanService)}</div>
+                  <div class="label">Service Required</div>
+                  <div class="value" style="display: inline-block; padding: 6px 14px; background-color: #F4F6F8; border: 1px solid #E2E8F0; border-radius: 9999px; font-size: 13.5px; margin-top: 3px;">${escapeHtml(cleanService)}</div>
                 </div>
                 <div class="field">
-                  <div class="label">Requirements</div>
-                  <div class="value box">${escapeHtml(cleanRequirements).replace(/\n/g, "<br/>")}</div>
+                  <div class="label">Requirements &amp; Message</div>
+                  <div class="message-box">${escapeHtml(cleanRequirements).replace(/\n/g, "<br/>")}</div>
                 </div>
                 <div class="field">
-                  <div class="label">Sign up for marketing emails</div>
-                  <div class="value">${subMarketing ? "Yes" : "No"}</div>
+                  <div class="label">Marketing Opt-In</div>
+                  <div class="value"><span style="display: inline-block; padding: 3px 10px; background-color: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 9999px; color: #166534; font-size: 12px;">${subMarketing ? "Yes" : "No"}</span></div>
+                </div>
+
+                <div class="actions-section">
+                  <table border="0" cellpadding="0" cellspacing="0" role="presentation">
+                    <tr>
+                      ${
+                        googleSheetUrl
+                          ? `<td>
+                              <a href="${googleSheetUrl}" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background-color: #AEF977; color: #0B2735 !important; text-decoration: none; padding: 13px 26px; border-radius: 9999px; display: inline-block; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;">
+                                VIEW IN GOOGLE SHEETS
+                              </a>
+                            </td>`
+                          : ""
+                      }
+                      <td style="${googleSheetUrl ? "padding-left: 12px;" : ""}">
+                        <a href="mailto:${escapeHtml(cleanEmail)}?subject=${encodeURIComponent(`Re: Vynentra Inquiry - ${cleanCompany}`)}" class="btn-secondary" style="background-color: #0E2F3E; color: #ffffff !important; text-decoration: none; padding: 13px 26px; border-radius: 9999px; display: inline-block; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase;">
+                          REPLY VIA EMAIL
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+
+                  ${
+                    googleSheetUrl
+                      ? `<div class="sheet-card" style="margin-top: 20px; background-color: #F4F6F8; border: 1px solid #E2E8F0; border-radius: 14px; padding: 14px 18px;">
+                          <div class="sheet-card-title" style="font-size: 11px; font-weight: 700; color: #087589; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;">GOOGLE SHEETS LEAD DATABASE</div>
+                          <a href="${googleSheetUrl}" target="_blank" rel="noopener noreferrer" class="sheet-card-url" style="font-size: 12.5px; color: #087589; text-decoration: underline; word-break: break-all; display: block; line-height: 1.5;">${googleSheetUrl}</a>
+                        </div>`
+                      : ""
+                  }
                 </div>
               </div>
+
               <div class="footer">
-                Submitted on ${submissionDate} IST
+                <strong style="color: #0B2735;">Vynentra Energy Solutions LLP</strong> &bull; Commercial &amp; Industrial Renewable Energy<br/>
+                Submission logged at ${submissionDate} IST &bull; Receiver: ${escapeHtml(notifyEmail)}
               </div>
             </div>
           </body>

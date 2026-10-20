@@ -82,13 +82,13 @@ export default function ServicesPage() {
             {SERVICES.map((service) => (
               <div
                 key={service.id}
-                className="group bg-white rounded-[24px] sm:rounded-[28px] border border-neutral-200/80 p-5 sm:p-6 flex flex-col justify-between transition-colors duration-200 hover:border-neutral-300"
+                className="group bg-white rounded-[24px] sm:rounded-[28px] border border-neutral-200/80 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:border-neutral-300 hover:shadow-xs"
               >
                 <div>
-                  {/* Top Thumbnail Image Box - Light blue tint on hover + Top-right explore pill */}
+                  {/* Top Thumbnail Image Box */}
                   <Link
                     href={`/services/${service.slug}`}
-                    className="block relative w-full h-[210px] sm:h-[230px] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-neutral-100 mb-5 cursor-pointer"
+                    className="block relative w-full h-[205px] sm:h-[220px] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-neutral-100 mb-5 cursor-pointer"
                   >
                     <img
                       src={service.image}
@@ -96,10 +96,10 @@ export default function ServicesPage() {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                     />
 
-                    {/* Light blue overlay on hover */}
-                    <div className="absolute inset-0 bg-[#0A6B88]/25 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none" />
+                    {/* Light blue overlay + subtle blur on hover */}
+                    <div className="absolute inset-0 bg-[#0A6B88]/20 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none" />
 
-                    {/* Top-Right Floating Element visible on hover */}
+                    {/* Top-Right Floating Explore Badge visible on hover */}
                     <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-medium text-neutral-900 shadow-md flex items-center gap-1.5 pointer-events-none">
                       <span>Explore</span>
                       <ArrowUpRight className="w-3.5 h-3.5 text-[#0A6B88]" />
@@ -108,50 +108,40 @@ export default function ServicesPage() {
 
                   {/* Service Title */}
                   <Link href={`/services/${service.slug}`} className="block">
-                    <h3 className="text-[19px] sm:text-[21px] font-medium text-[#111827] group-hover:text-[#0A6B88] transition-colors leading-[1.3] mb-2.5">
+                    <h3 className="text-[19px] sm:text-[21px] font-semibold text-[#111827] group-hover:text-[#0A6B88] transition-colors leading-[1.3] mb-2.5">
                       {service.title}
                     </h3>
                   </Link>
 
                   {/* Subtitle / Excerpt */}
-                  <p className="text-[13.5px] sm:text-[14px] text-neutral-500 font-normal leading-[1.6] line-clamp-3 mb-5">
+                  <p className="text-[13.5px] sm:text-[14px] text-neutral-500 font-normal leading-[1.6] line-clamp-3 mb-6">
                     {service.subtitle}
                   </p>
                 </div>
 
-                {/* Card Footer: Dashed Divider + Bottom Meta Row matching reference UI */}
-                <div>
-                  <div className="w-full border-t border-dashed border-neutral-200/90 my-4" />
-                  
-                  <div className="flex items-center justify-between text-neutral-600">
-                    <div className="flex items-center gap-2.5">
-                      <div className="w-7 h-7 rounded-full bg-[#F4F6F8] border border-neutral-200/80 flex items-center justify-center text-[10.5px] font-bold text-[#0A6B88]">
-                        {service.id}
-                      </div>
-                      <span className="text-[12px] sm:text-[12.5px] text-neutral-600 font-normal">
-                        {service.features?.length || 4} Core Capabilities
-                      </span>
-                    </div>
-
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="group/btn inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-medium tracking-[0.06em] uppercase text-[#0B2735] hover:text-[#0A6B88] transition-colors"
-                    >
-                      <span>DETAILS</span>
-                      <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center shrink-0">
-                        {/* Current arrow: moves to right and exits */}
-                        <ArrowRight 
-                          strokeWidth={1.8}
-                          className="w-3.5 h-3.5 absolute text-current transition-transform duration-300 ease-linear group-hover:translate-x-5 group-hover/btn:translate-x-5" 
-                        />
-                        {/* New arrow: enters from left to center */}
-                        <ArrowRight 
-                          strokeWidth={1.8}
-                          className="w-3.5 h-3.5 absolute -translate-x-5 text-current transition-transform duration-300 ease-linear group-hover:translate-x-0 group-hover/btn:translate-x-0" 
-                        />
-                      </div>
-                    </Link>
+                {/* Card Bottom Row: Left Scope Pill + Right DETAILS Link (Matching Reference Image) */}
+                <div className="flex items-center justify-between pt-1">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4F6F8] border border-neutral-200/70 text-[11px] sm:text-[11.5px] font-medium text-neutral-700">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#0A6B88]" />
+                    <span>{service.scope}</span>
                   </div>
+
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="group/btn inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase text-[#0B2735] hover:text-[#0A6B88] transition-colors py-0.5"
+                  >
+                    <span>DETAILS</span>
+                    <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center shrink-0">
+                      <ArrowRight 
+                        strokeWidth={1.8}
+                        className="w-3.5 h-3.5 absolute text-current transition-transform duration-300 ease-linear group-hover:translate-x-5 group-hover/btn:translate-x-5" 
+                      />
+                      <ArrowRight 
+                        strokeWidth={1.8}
+                        className="w-3.5 h-3.5 absolute -translate-x-5 text-current transition-transform duration-300 ease-linear group-hover:translate-x-0 group-hover/btn:translate-x-0" 
+                      />
+                    </div>
+                  </Link>
                 </div>
 
               </div>
@@ -216,8 +206,9 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <CTASectionV2 
-        title="Let's develop the right energy solution for your requirement."
-        buttonText="GET IN TOUCH"
+        badgeText="CLEAN ENERGY STARTS HERE"
+        title="Start Your Renewable Energy Project And Build The Future"
+        buttonText="Get Started"
         buttonLink="/contact"
       />
 
