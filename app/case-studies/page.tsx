@@ -1,20 +1,19 @@
-"use client";
-
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { MapPin, Zap } from "lucide-react";
+import { CASE_STUDIES } from "@/lib/case-studies-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
 export default function CaseStudiesPage() {
   return (
-    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
+    <div className="w-full max-w-full overflow-x-hidden bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
-      {/* ── 1. HERO SECTION (100vh Panoramic Full Viewport Height) ── */}
-      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
+      {/* ── 1. HERO SECTION (Full 100vh Viewport Height matching insights and contact) ── */}
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black select-text">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/159397/solar-panel-array-power-sun-electricity-159397.jpeg"
+            src="/case-studies/case-study-1-surat.webp"
             alt="Case Studies background"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
@@ -45,77 +44,93 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      {/* ── 2. CASE STUDY SHOWCASE ── */}
-      <section className="w-full pt-10 sm:pt-14 lg:pt-16 pb-20 sm:pb-28 bg-white">
-        <div className="max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-14 xl:px-16">
-          <motion.div
-            key="solar-case-study"
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
-            className="group bg-white rounded-[28px] sm:rounded-[32px] border border-neutral-200/80 shadow-xs hover:shadow-md transition-all duration-300 p-8 sm:p-10 lg:p-12 xl:p-14 min-h-[420px] lg:min-h-[460px] flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-8 sm:gap-10 lg:gap-12"
-          >
-            {/* Left Column: Big Image Thumbnail with Overlay Badge */}
-            <div className="w-full lg:w-[360px] xl:w-[420px] h-[280px] sm:h-[320px] lg:h-[340px] xl:h-[360px] rounded-[20px] sm:rounded-[24px] overflow-hidden shrink-0 relative bg-neutral-100">
-              <img
-                src="/solar_panels.jpg"
-                alt="Designed for Commercial Solar Plants"
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-              {/* Category Badge on Image */}
-              <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-md px-3.5 py-1.5 rounded-full text-[11px] font-normal tracking-wider uppercase text-[#0A6B88] shadow-xs">
-                Commercial / Rooftop
-              </div>
-            </div>
-
-            {/* Middle Column: Title (font-medium), Description (font-normal), and Button matching "What We Do" */}
-            <div className="flex-1 min-w-0 flex flex-col justify-between items-start py-2 lg:py-4">
-              <div>
-                <Link 
-                  href="/case-studies/commercial-solar-plants" 
-                  className="block group-hover:text-[#0A6B88] transition-colors"
-                >
-                  <h2 className="text-[24px] sm:text-[28px] lg:text-[32px] font-medium text-[#111827] leading-[1.25] tracking-tight mb-4">
-                    Designed for Commercial Solar Plants
-                  </h2>
-                </Link>
-                <p className="text-[14.5px] sm:text-[15.5px] text-neutral-500 font-normal leading-[1.65] mb-8 max-w-xl">
-                  Turnkey delivery of a utility-scale solar facility, completed 2 months ahead of schedule despite complex terrain challenges.
-                </p>
-              </div>
-
-              {/* Button: Matching "What We Do" section (EXPLORE OUR SERVICES) style, no arrow */}
-              <Link
-                href="/case-studies/commercial-solar-plants"
-                className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+      {/* ── 2. CASE STUDY FEED (Natural Stacked Feed, Minimized Top Spacing, Matching Reference UI) ── */}
+      <section
+        id="case-studies-feed"
+        className="w-full max-w-full overflow-hidden bg-[#FAFAFA] font-sans relative select-text py-12 sm:py-16 lg:py-20"
+      >
+        <div className="w-full max-w-[1180px] lg:max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          <div className="flex flex-col gap-7 sm:gap-8 lg:gap-10 w-full max-w-full min-w-0">
+            {CASE_STUDIES.map((study) => (
+              <div
+                key={study.slug}
+                className="group bg-white rounded-[22px] sm:rounded-[26px] md:rounded-[28px] border border-neutral-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow duration-300 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 lg:gap-8 xl:gap-10 w-full max-w-full min-w-0 overflow-hidden"
               >
-                <span>VIEW PROJECT</span>
-              </Link>
-            </div>
+                {/* Left Column: Clickable Image Thumbnail (No badge overlay) */}
+                <Link
+                  href={`/case-studies/${study.slug}`}
+                  className="w-full lg:w-[320px] xl:w-[350px] aspect-[16/10] sm:aspect-auto sm:h-[250px] lg:h-[270px] xl:h-[285px] rounded-[18px] sm:rounded-[20px] overflow-hidden shrink-0 relative bg-neutral-100 block cursor-pointer group/img"
+                >
+                  <img
+                    src={study.image}
+                    alt={study.title}
+                    className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                  />
+                </Link>
 
-            {/* Right Column: Key Impact Metrics (Generous vertical spacing, font-medium numbers, font-normal labels) */}
-            <div className="w-full lg:w-[260px] xl:w-[290px] shrink-0 pt-8 lg:pt-0 border-t lg:border-t-0 lg:border-l border-neutral-100 flex flex-row lg:flex-col justify-between lg:justify-center items-start lg:items-end gap-10 sm:gap-12 lg:gap-14 lg:pl-10 xl:pl-12">
-              {/* Metric 1 */}
-              <div className="flex flex-col items-start lg:items-end">
-                <div className="text-[48px] sm:text-[54px] lg:text-[60px] font-medium text-[#111827] tracking-tight leading-none">
-                  248%
-                </div>
-                <div className="text-[13px] sm:text-[13.5px] text-neutral-500 font-normal leading-tight text-left lg:text-right mt-2 max-w-[150px]">
-                  Revenue Boost in Last 30 Days
-                </div>
-              </div>
+                {/* Middle Column: Location & Tech Chips (Horizontal Single Line), Title (font-medium), Subtitle & Button */}
+                <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-1 lg:py-2 h-full overflow-hidden">
+                  <div className="w-full min-w-0 max-w-full">
+                    {/* Location & Technology Meta Chips: Aligned Horizontally */}
+                    <div className="w-full max-w-full flex flex-row flex-nowrap items-center gap-2 mb-2 sm:mb-2.5 overflow-x-auto no-scrollbar">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
+                        <MapPin className="w-3 h-3 text-[#0A6B88] shrink-0" />
+                        <span>{study.projectLocation}</span>
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
+                        <Zap className="w-3 h-3 text-[#0A6B88] shrink-0" />
+                        <span>{study.technology}</span>
+                      </span>
+                    </div>
 
-              {/* Metric 2 */}
-              <div className="flex flex-col items-start lg:items-end">
-                <div className="text-[48px] sm:text-[54px] lg:text-[60px] font-medium text-[#111827] tracking-tight leading-none">
-                  15X
+                    <Link
+                      href={`/case-studies/${study.slug}`}
+                      className="block group-hover:text-[#0A6B88] transition-colors"
+                    >
+                      <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] lg:text-[26px] xl:text-[28px] font-medium text-[#0B2735] leading-[1.25] tracking-tight mb-2.5 sm:mb-3">
+                        {study.displayTitleLines ? (
+                          study.displayTitleLines.map((line, lIdx) => (
+                            <span key={lIdx} className="block">
+                              {line}
+                            </span>
+                          ))
+                        ) : (
+                          study.title
+                        )}
+                      </h2>
+                    </Link>
+                    <p className="text-[13px] sm:text-[14px] text-neutral-500 font-normal leading-[1.6] line-clamp-3 mb-6 max-w-xl">
+                      {study.subtitle}
+                    </p>
+                  </div>
+
+                  {/* Button: Outline Pill matching 'WHAT WE DO' Section, slightly enlarged, no arrow */}
+                  <Link
+                    href={`/case-studies/${study.slug}`}
+                    className="inline-flex items-center justify-center h-[46px] sm:h-[48px] px-7 sm:px-8 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+                  >
+                    <span>READ FULL STORY</span>
+                  </Link>
                 </div>
-                <div className="text-[13px] sm:text-[13.5px] text-neutral-500 font-normal leading-tight text-left lg:text-right mt-2 max-w-[150px]">
-                  Team Efficiency
+
+                {/* Right Column: Key Impact Metrics (font-normal numbers, vertical divider) */}
+                <div className="w-full lg:w-[200px] xl:w-[220px] shrink-0 pt-5 lg:pt-0 border-t lg:border-t-0 lg:border-l border-neutral-100 lg:border-neutral-200/80 flex flex-row lg:flex-col justify-between lg:justify-center items-start lg:items-center gap-4 sm:gap-8 lg:pl-8 xl:pl-10 min-w-0 max-w-full">
+                  {study.stats.map((stat, i) => (
+                    <div key={i} className="flex flex-col items-start lg:items-center text-left lg:text-center min-w-[95px]">
+                      <div className="text-[34px] xs:text-[38px] sm:text-[42px] lg:text-[46px] xl:text-[48px] font-normal text-[#0B2735] tracking-tight leading-none whitespace-nowrap">
+                        {stat.value}
+                      </div>
+                      <div className="text-[11.5px] sm:text-[12px] text-neutral-500 font-medium leading-[1.3] text-left lg:text-center mt-2 max-w-[130px]">
+                        {stat.label}
+                      </div>
+                    </div>
+                  ))}
                 </div>
+
               </div>
-            </div>
-          </motion.div>
+            ))}
+          </div>
 
         </div>
       </section>

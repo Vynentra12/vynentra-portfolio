@@ -21,11 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable} suppressHydrationWarning>
-      <body className="antialiased font-sans" suppressHydrationWarning>
+    <html lang="en" className={`${inter.variable} overflow-x-hidden max-w-[100vw]`} suppressHydrationWarning>
+      <body className="antialiased font-sans overflow-x-hidden max-w-[100vw]" suppressHydrationWarning>
         <LenisProvider>
           <Navbar />
-          <main className="min-h-screen">
+          <main className="min-h-screen overflow-x-hidden max-w-[100vw]">
             {children}
           </main>
         </LenisProvider>

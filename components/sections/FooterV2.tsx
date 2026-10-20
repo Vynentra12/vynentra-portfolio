@@ -3,6 +3,8 @@
 import React from "react";
 import Link from "next/link";
 
+import { Mail } from "lucide-react";
+
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
@@ -21,21 +23,22 @@ export function FooterV2() {
   const companyLinks = [
     // { name: "About Vynentra", href: "/about" }, // Hidden per request - uncomment to revive the About Us link
     { name: "Our Approach", href: "/#process" },
-    { name: "Getting Started", href: "/contact" },
+    { name: "Partners", href: "/partners" },
+    { name: "Getting Started", href: "/contact#contact-form" },
   ];
 
   const solutionsLinks = [
-    { name: "Wind Energy", href: "/#solutions" },
-    { name: "Solar Energy", href: "/#solutions" },
-    { name: "Wind-Solar Hybrid", href: "/#solutions" },
-    { name: "Energy Storage", href: "/#solutions" },
-    { name: "Project Development", href: "/#solutions" },
+    { name: "Wind Energy", href: "/services/wind-energy" },
+    { name: "Solar Energy", href: "/services/solar-energy" },
+    { name: "Wind-Solar Hybrid", href: "/services/wind-solar-hybrid" },
+    { name: "Energy Storage", href: "/services/energy-storage" },
+    { name: "Project Development", href: "/services/project-development" },
   ];
 
   const resourcesLinks = [
     { name: "Insights", href: "/insights" },
     { name: "FAQs", href: "/#faq" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Contact Us", href: "/contact#contact-form" },
   ];
 
   const legalLinks = [
@@ -56,16 +59,24 @@ export function FooterV2() {
               Building a more sustainable and energy-efficient future across India.
             </p>
 
-            <div className="flex flex-col gap-2 mt-8 mb-8 sm:mb-10">
+            <div className="flex flex-col gap-2 mt-6 mb-7 sm:mb-8">
               <a 
-                href="mailto:hello@vynentra.in" 
-                className="text-[28px] sm:text-[34px] md:text-[38px] font-bold text-white hover:text-[#AEF977] transition-colors tracking-tight leading-none"
+                href="mailto:info@vynentra.com" 
+                className="inline-flex items-center gap-2.5 text-[15px] sm:text-[16px] font-medium text-white/90 hover:text-[#AEF977] transition-colors tracking-tight"
               >
-                hello@vynentra.in
+                <Mail className="w-4 h-4 text-[#AEF977] shrink-0" strokeWidth={1.8} />
+                <span>info@vynentra.com</span>
+              </a>
+              <a 
+                href="mailto:partner@vynentra.com" 
+                className="inline-flex items-center gap-2.5 text-[15px] sm:text-[16px] font-medium text-white/90 hover:text-[#AEF977] transition-colors tracking-tight"
+              >
+                <Mail className="w-4 h-4 text-[#AEF977] shrink-0" strokeWidth={1.8} />
+                <span>partner@vynentra.com</span>
               </a>
               <a 
                 href="tel:+917777024826" 
-                className="text-[28px] sm:text-[34px] md:text-[38px] font-bold text-white hover:text-[#AEF977] transition-colors tracking-tight leading-none mt-2"
+                className="text-[24px] sm:text-[28px] md:text-[32px] font-bold text-white hover:text-[#AEF977] transition-colors tracking-tight leading-none mt-2"
               >
                 +91 77770 24826
               </a>
@@ -74,7 +85,7 @@ export function FooterV2() {
             {/* Social Icons (LinkedIn & Instagram) */}
             <div className="flex items-center gap-4">
               <a 
-                href="https://linkedin.com" 
+                href="https://www.linkedin.com/company/vynentra-energy-solutions-llp/" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="LinkedIn"
@@ -83,7 +94,7 @@ export function FooterV2() {
                 <LinkedinIcon className="w-[18px] h-[18px]" />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/vynentraenergysolutions?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
@@ -181,9 +192,13 @@ export function FooterV2() {
 
         {/* Bottom Giant Brand Wordmark Logo */}
         <div className="mt-10 md:mt-14 pt-2 pb-0 flex items-center justify-center relative w-full">
-          <span className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white hover:text-[#AEF977] transition-colors duration-300 ease-out select-none cursor-pointer">
+          <Link 
+            href="/"
+            aria-label="Vynentra Home"
+            className="text-[11.5vw] md:text-[10.5vw] lg:text-[130px] xl:text-[160px] font-bold tracking-tight leading-none text-white hover:text-[#AEF977] transition-colors duration-300 ease-out select-none cursor-pointer block"
+          >
             vynentra
-          </span>
+          </Link>
         </div>
 
       </div>

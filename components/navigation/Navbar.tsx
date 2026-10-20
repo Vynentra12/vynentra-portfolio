@@ -13,9 +13,10 @@ export function Navbar() {
   const isInsights = pathname === "/insights" || pathname?.startsWith("/insights") || pathname === "/blog" || pathname?.startsWith("/blog");
   const isAbout = pathname === "/about" || pathname?.startsWith("/about");
   const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
+  const isPartners = pathname === "/partners" || pathname?.startsWith("/partners");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
   const isCaseStudyDetail = Boolean(pathname?.startsWith("/case-studies/") && pathname !== "/case-studies");
-  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isCaseStudies ? "Case Studies" : isContact ? "Contact Us" : isAbout ? "About Us" : null;
+  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isCaseStudies ? "Case Studies" : isPartners ? "Partners" : isContact ? "Contact Us" : isAbout ? "About Us" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -90,14 +91,13 @@ export function Navbar() {
     setIsVisible(true);
   }, [pathname]);
 
-  // Navigation items: About Us commented out to hide it; Contact Us added as the last item.
-  // To revive the About Us page in the navbar, simply uncomment the About Us line below.
+  // Navigation items: About Us hidden; Partners added in place of redundant contact link
   const navLinks = [
     // { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Insights", href: "/insights" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Partners", href: "/partners" },
   ];
 
   const currentPillTarget = hoveredLink || activeLink;
@@ -121,7 +121,7 @@ export function Navbar() {
           <div className="flex items-center justify-self-start shrink-0">
             <Logo 
               color={useDarkNav ? "#000000" : "#FFFFFF"} 
-              className="text-[19px] md:text-[21px] font-extrabold tracking-tight transition-colors duration-300" 
+              className="text-[23px] sm:text-[25px] md:text-[26px] font-extrabold tracking-[-0.03em] transition-colors duration-300" 
             />
           </div>
 

@@ -4,6 +4,7 @@ export const SERVICES = [
     slug: "solar-energy",
     title: "SOLAR ENERGY",
     subtitle: "Developing solar projects from assessment to operation.",
+    scope: "Rooftop & Ground-Mounted",
     desc: "We are developing solar solutions for rooftops, land parcels, captive requirements and institutional applications. Our approach begins with understanding energy consumption and site conditions, followed by feasibility assessment, system sizing, engineering, procurement, installation, grid integration, testing and commissioning.",
     image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1920&auto=format&fit=crop",
     features: [
@@ -30,6 +31,7 @@ export const SERVICES = [
     slug: "wind-energy",
     title: "WIND ENERGY",
     subtitle: "Developing wind solutions across different sites and applications.",
+    scope: "VAWT & HAWT Systems",
     desc: "We are working across distributed and captive wind applications, evaluating the appropriate turbine technology according to wind conditions, available space, site characteristics and energy requirements.",
     image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1920&auto=format&fit=crop",
     features: [
@@ -48,6 +50,7 @@ export const SERVICES = [
     slug: "wind-solar-hybrid",
     title: "WIND-SOLAR HYBRID",
     subtitle: "Combining complementary renewable resources into one energy solution.",
+    scope: "Dual Renewable Generation",
     desc: "We are developing wind-solar hybrid projects that bring together two renewable generation sources within an integrated system. By assessing the site's wind and solar potential alongside energy consumption and project requirements, we are identifying configurations where the two technologies can complement one another.",
     image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1920&auto=format&fit=crop",
     features: [
@@ -74,6 +77,7 @@ export const SERVICES = [
     slug: "energy-storage",
     title: "ENERGY STORAGE",
     subtitle: "Integrating storage into renewable energy systems.",
+    scope: "Commercial BESS Storage",
     desc: "We are incorporating Battery Energy Storage Systems where storage can support renewable generation, energy management and greater utilisation of generated power. We are evaluating storage requirements as part of the wider energy system, considering the project's generation profile, consumption patterns and operational objectives before determining the appropriate role for BESS.",
     image: "https://images.pexels.com/photos/8853509/pexels-photo-8853509.jpeg?auto=compress&cs=tinysrgb&w=1920",
     features: [
@@ -89,6 +93,7 @@ export const SERVICES = [
     slug: "project-development",
     title: "PROJECT DEVELOPMENT & ADVISORY",
     subtitle: "Turning an energy requirement into a viable renewable energy project.",
+    scope: "Feasibility & Structuring",
     desc: "We are supporting projects from the initial assessment through technology selection, feasibility and development, helping clients understand what can work technically and commercially before moving towards implementation.",
     image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920&auto=format&fit=crop",
     features: [
@@ -119,6 +124,7 @@ export const SERVICES = [
     slug: "delivery-operations",
     title: "DELIVERY & OPERATIONS",
     subtitle: "Bringing the right capabilities together to deliver the project.",
+    scope: "Turnkey EPC & Lifetime O&M",
     desc: "We are coordinating with technology providers, OEMs, EPC companies and strategic partners to support projects through implementation and ongoing operations.",
     image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1920&auto=format&fit=crop",
     features: [

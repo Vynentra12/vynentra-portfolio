@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 export function HeroSectionV2() {
   return (
     <section
-      id="home"
+      id="hero"
       className="relative w-full h-screen min-h-[820px] md:min-h-[880px] bg-black select-text overflow-hidden flex flex-col justify-between"
     >
       {/* 1. LAYER 1: The Looping Background Video */}
@@ -55,7 +55,7 @@ export function HeroSectionV2() {
             </p>
           </motion.div>
 
-          {/* Right: Authentic Translucent Liquid Glassmorphic Solar Card matching UI reference */}
+          {/* Right: Authentic Translucent Liquid Glassmorphic Preview Card linking to Case Studies Main Page */}
           <motion.a
             href="/case-studies"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
@@ -63,28 +63,28 @@ export function HeroSectionV2() {
             transition={{ duration: 0.8, delay: 0.75, ease: [0.16, 1, 0.3, 1] }}
             whileHover={{ scale: 1.025, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="group relative flex items-center gap-5 sm:gap-6 md:gap-7 p-3 sm:p-3.5 md:p-4 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] bg-white/[0.08] backdrop-blur-xl border border-white/30 border-t-white/50 border-l-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.4),inset_0_1px_2px_rgba(255,255,255,0.45),inset_0_-1px_2px_rgba(0,0,0,0.25)] shrink-0 self-start lg:self-auto transition-all duration-300 hover:border-white/60 hover:bg-white/[0.12] cursor-pointer overflow-hidden w-full max-w-[440px] sm:max-w-[480px] md:max-w-[520px] h-[135px] sm:h-[150px] md:h-[160px]"
+            className="group relative flex items-center gap-3 sm:gap-6 md:gap-7 p-2.5 sm:p-3.5 md:p-4 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] bg-white/[0.08] backdrop-blur-xl border border-white/30 border-t-white/50 border-l-white/40 shadow-[0_20px_50px_rgba(0,0,0,0.4),inset_0_1px_2px_rgba(255,255,255,0.45),inset_0_-1px_2px_rgba(0,0,0,0.25)] shrink-0 self-start lg:self-auto transition-all duration-300 hover:border-white/60 hover:bg-white/[0.12] cursor-pointer overflow-hidden w-full max-w-[420px] sm:max-w-[480px] md:max-w-[520px] h-[108px] sm:h-[150px] md:h-[160px]"
           >
             {/* Glossy liquid specular glass reflection layers */}
             <div className="absolute inset-0 bg-gradient-to-b from-white/[0.14] via-transparent to-black/25 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.12] to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
 
-            {/* Solar Project Thumbnail */}
-            <div className="w-[125px] sm:w-[150px] md:w-[170px] h-full rounded-[11px] sm:rounded-[13px] md:rounded-[14px] overflow-hidden shrink-0 relative border border-white/25 shadow-md z-10">
+            {/* Case Study 1 Thumbnail (Matching Featured Project Image) */}
+            <div className="w-[102px] sm:w-[150px] md:w-[170px] h-full rounded-[10px] sm:rounded-[13px] md:rounded-[14px] overflow-hidden shrink-0 relative border border-white/25 shadow-md z-10">
               <img
-                src="/solar_panels.jpg"
-                alt="Commercial solar plants"
+                src="/case-studies/case-study-1-surat.webp"
+                alt="Hybrid Wind Turbine Installation by Vynentra"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               />
             </div>
 
-            {/* Text details matching reference layout */}
-            <div className="flex flex-col justify-between h-full py-1 sm:py-2 select-text relative z-10">
-              <span className="text-[17px] sm:text-[20px] md:text-[22px] font-medium text-white tracking-tight leading-[1.2] group-hover:text-white transition-colors">
-                Commercial solar<br />plants
+            {/* Text details matching 1st Case Study */}
+            <div className="flex flex-col justify-center sm:justify-between h-full py-0.5 sm:py-2 select-text relative z-10 min-w-0 flex-1">
+              <span className="text-[13.5px] sm:text-[20px] md:text-[22px] font-medium text-white tracking-tight leading-[1.25] group-hover:text-white transition-colors line-clamp-2">
+                Hybrid Wind Turbine Installation
               </span>
-              <span className="text-[12.5px] sm:text-[14px] text-white/70 font-normal tracking-wide">
-                Photovoltaic project
+              <span className="text-[11px] sm:text-[14px] text-white/75 font-normal tracking-wide whitespace-nowrap overflow-hidden text-ellipsis mt-1 sm:mt-0">
+                Surat, Gujarat • 5 kW VAWT
               </span>
             </div>
           </motion.a>

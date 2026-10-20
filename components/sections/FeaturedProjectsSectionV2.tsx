@@ -3,21 +3,16 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar } from "lucide-react";
+import { Calendar, MapPin, Zap } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
-interface ProjectCard {
-  title: string;
-  tags: string[];
-  image: string;
-}
-
 export function FeaturedProjectsSectionV2() {
-  // Only 1 project kept as requested
-  const project: ProjectCard = {
-    title: "Designed for Commercial Solar Plants",
-    tags: ["COMMERCIAL", "ROOFTOP"],
-    image: "/solar_panels.jpg",
+  const project = {
+    title: "Hybrid Wind Turbine Installation by Vynentra",
+    slug: "hybrid-wind-turbine-surat",
+    location: "Surat, Gujarat",
+    technology: "5 kW Hybrid Wind–Solar",
+    image: "/case-studies/case-study-1-surat.webp",
   };
 
   return (
@@ -68,16 +63,12 @@ export function FeaturedProjectsSectionV2() {
 
         </div>
 
-        {/* Single Featured Project Showcase */}
-        <motion.a
-          href="/case-studies"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.15 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        {/* Single Featured Project Showcase - Links directly to 1st Case Study Detail Page */}
+        <Link
+          href={`/case-studies/${project.slug}`}
           className="w-full flex flex-col group cursor-pointer block"
         >
-          {/* Hero Image Container: completely clean without drop shadow or dark tint */}
+          {/* Hero Image Container: clean with original featured project image */}
           <div className="w-full h-[210px] xs:h-[230px] sm:h-[320px] md:h-[460px] lg:h-[520px] rounded-[18px] sm:rounded-[22px] md:rounded-[28px] overflow-hidden relative shadow-none">
             <img
               src={project.image}
@@ -86,19 +77,19 @@ export function FeaturedProjectsSectionV2() {
             />
           </div>
 
-          {/* Tags */}
-          <div className="flex flex-wrap items-center gap-3 mt-5 sm:mt-6 mb-2 overflow-hidden">
-            {project.tags.map((tag, i) => (
-              <span
-                key={i}
-                className="text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap"
-              >
-                {tag}
-              </span>
-            ))}
+          {/* Tags with MapPin & Zap Icons (Clean text without border/pill background) */}
+          <div className="flex flex-wrap items-center gap-4 mt-5 sm:mt-6 mb-2 overflow-hidden">
+            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap">
+              <MapPin className="w-3.5 h-3.5 text-white/80" />
+              <span>{project.location}</span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap">
+              <Zap className="w-3.5 h-3.5 text-white/80" />
+              <span>{project.technology}</span>
+            </span>
           </div>
 
-          {/* Title and Date Area */}
+          {/* Title and Date Area (White text stays white on hover) */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1 w-full">
             <h3 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[32px] font-medium text-white tracking-tight leading-[1.2] cursor-pointer transition-all duration-200">
               {project.title}
@@ -111,7 +102,7 @@ export function FeaturedProjectsSectionV2() {
               </span>
             </div>
           </div>
-        </motion.a>
+        </Link>
 
       </div>
     </section>

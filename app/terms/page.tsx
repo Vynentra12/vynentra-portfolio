@@ -14,13 +14,13 @@ export default function TermsPage() {
     <div className="w-full bg-[#F4F6F8] text-neutral-900 font-sans min-h-screen">
       
       {/* ── 1. CLEAN PROFESSIONAL HEADER (No background image) ── */}
-      <header className="relative w-full bg-[#071426] text-white pt-32 sm:pt-36 md:pt-40 pb-12 sm:pb-16 border-b border-white/10">
-        <div className="max-w-[1120px] mx-auto px-6 sm:px-10 lg:px-12">
-          <h1 className="text-[32px] sm:text-[42px] md:text-[48px] font-medium text-white tracking-tight leading-[1.12] mb-4 select-text">
+      <header className="relative w-full bg-[#0E2F3E] text-white pt-28 sm:pt-36 md:pt-40 pb-8 sm:pb-16 border-b border-white/10">
+        <div className="max-w-[1120px] mx-auto px-5 sm:px-10 lg:px-12">
+          <h1 className="text-[26px] min-[380px]:text-[30px] sm:text-[42px] md:text-[48px] font-medium text-white tracking-tight leading-[1.12] mb-3 sm:mb-4 select-text">
             Terms &amp; Service
           </h1>
 
-          <p className="text-[14.5px] sm:text-[16px] text-white/80 leading-[1.65] max-w-2xl mb-8 font-normal">
+          <p className="text-[13.5px] sm:text-[16px] text-white/80 leading-[1.65] max-w-2xl mb-6 sm:mb-8 font-normal">
             These terms outline the rules, obligations, and contractual standards governing your access to Vynentra’s platforms, site energy assessments, and turnkey clean energy project services.
           </p>
 
@@ -49,13 +49,13 @@ export default function TermsPage() {
       </header>
 
       {/* ── 2. DOCUMENT SHEET (Clean white sheet on graphite background) ── */}
-      <main className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 md:py-16">
+      <main className="max-w-[1120px] mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-14 md:py-16">
         
-        <div className="bg-white rounded-[20px] sm:rounded-[24px] border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-6 sm:p-10 md:p-14">
+        <div className="bg-white rounded-[18px] sm:rounded-[24px] border border-neutral-200/80 shadow-[0_2px_12px_rgba(0,0,0,0.03)] p-5 sm:p-10 md:p-14">
           
           {/* Executive Summary Card */}
-          <div className="bg-[#F4F6F8] rounded-[16px] p-6 sm:p-8 border border-neutral-200/80 mb-12 sm:mb-16">
-            <div className="pb-5 border-b border-neutral-200/80 mb-6">
+          <div className="bg-[#F4F6F8] rounded-[14px] sm:rounded-[16px] p-5 sm:p-8 border border-neutral-200/80 mb-10 sm:mb-16">
+            <div className="pb-4 sm:pb-5 border-b border-neutral-200/80 mb-5 sm:mb-6">
               <span className="text-[11px] font-bold uppercase tracking-wider text-[#0A6B88] block mb-1">
                 EXECUTIVE SUMMARY
               </span>
@@ -182,22 +182,22 @@ export default function TermsPage() {
 
           </div>
 
-          {/* Contact Support Box */}
-          <div className="mt-14 sm:mt-16 p-8 sm:p-10 rounded-[18px] bg-[#071426] text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          {/* COMPLIANCE & LEGAL DESK - Styled with bg-[#0E2F3E] and green button matching JOIN OUR NETWORK */}
+          <div className="mt-12 sm:mt-16 rounded-[20px] sm:rounded-[28px] bg-[#0E2F3E] text-white p-6 sm:p-10 lg:p-12 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 sm:gap-8 shadow-xs">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-[#AEF977] block mb-1">
+              <span className="text-[11px] sm:text-[11.5px] font-bold uppercase tracking-wider text-[#AEF977] block mb-2">
                 COMPLIANCE &amp; LEGAL DESK
               </span>
-              <h3 className="text-[20px] sm:text-[22px] font-medium text-white mb-2">
+              <h3 className="text-[20px] sm:text-[24px] md:text-[26px] font-medium text-white mb-2 tracking-tight leading-[1.25]">
                 Have questions regarding our terms or contracts?
               </h3>
-              <p className="text-[13.5px] text-white/70 max-w-lg leading-relaxed">
+              <p className="text-[13.5px] sm:text-[14.5px] text-white/80 max-w-xl leading-relaxed">
                 Reach out to our advisory desk at hello@vynentra.in or call +91 77770 24826 for clarification on any clause or agreement.
               </p>
             </div>
             <Link
-              href="/contact"
-              className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-7 sm:px-8 rounded-full bg-white/10 border border-white/25 backdrop-blur-sm text-white text-[12px] font-bold tracking-wider uppercase transition-all duration-300 hover:bg-white hover:text-neutral-950 hover:border-white shrink-0 select-none cursor-pointer active:scale-[0.98]"
+              href="/contact#contact-form"
+              className="inline-flex items-center justify-center h-[46px] sm:h-[48px] px-8 sm:px-9 rounded-full bg-[#AEF977] text-neutral-950 text-[12px] font-semibold tracking-[0.06em] uppercase hover:bg-white transition-colors duration-200 w-full md:w-auto shrink-0 select-none cursor-pointer"
             >
               <span>CONTACT DESK</span>
             </Link>

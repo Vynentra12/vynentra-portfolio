@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -48,8 +48,26 @@ export function CTASectionV2({
   // Clean button text: ensure no arrow is present
   const cleanButtonText = buttonText.replace(/[→\->]/g, "").trim();
 
+  // Ensure ScrollTrigger positions are perfectly calculated once layout and images load
+  useEffect(() => {
+    const t1 = setTimeout(() => ScrollTrigger.refresh(), 200);
+    const t2 = setTimeout(() => ScrollTrigger.refresh(), 600);
+    const t3 = setTimeout(() => ScrollTrigger.refresh(), 1200);
+
+    const handleLoad = () => ScrollTrigger.refresh();
+    window.addEventListener("load", handleLoad);
+
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      window.removeEventListener("load", handleLoad);
+    };
+  }, []);
+
   useGSAP(
     () => {
+      ScrollTrigger.config({ ignoreMobileResize: true });
       const mm = gsap.matchMedia();
 
       mm.add(
@@ -69,41 +87,35 @@ export function CTASectionV2({
           const vh = window.innerHeight;
 
           // ─── Responsive card dimensions ───
-          // Cards are sized to maintain clear visible gaps between all 12 cards
           const imgW = isMobile
-            ? (vw < 375 ? 58 : 64)
+            ? (vw < 375 ? 58 : 66)
             : isTablet
-            ? 92
-            : Math.round(Math.min(122, Math.max(96, vw * 0.085)));
+            ? 104
+            : Math.round(Math.min(144, Math.max(116, vw * 0.095)));
 
           const imgH = isMobile
-            ? (vw < 375 ? 40 : 44)
+            ? (vw < 375 ? 40 : 45)
             : isTablet
-            ? 64
-            : Math.round(Math.min(84, Math.max(68, vw * 0.058)));
+            ? 72
+            : Math.round(Math.min(100, Math.max(80, vw * 0.065)));
 
           // Diagonal half of card for rotation collision safety
           const halfDiag = Math.sqrt((imgW / 2) ** 2 + (imgH / 2) ** 2);
 
           // Boundaries from screen edges
-          const edgeMarginX = isMobile ? 8 : 24;
-          const edgeMarginY = isMobile ? 12 : 24;
+          const edgeMarginX = isMobile ? 6 : 24;
+          const edgeMarginY = isMobile ? 10 : 24;
 
           const maxRadiusX = (vw / 2) - halfDiag - edgeMarginX;
           const maxRadiusY = (vh / 2) - halfDiag - edgeMarginY;
 
-          // Radius calculation:
-          // 12 cards -> perimeter step = (2 * PI * radius) / 12 = 0.5236 * radius
-          // For mobile: target ~146px -> step is 76.4px, card width is 64px -> clean 12.4px gap!
-          // For tablet: target ~210px -> step is 110px, card width is 92px -> clean 18px gap!
-          // For desktop: target ~260px -> step is 136px, card width is 122px -> clean 14px gap!
           const targetRadius = isMobile
-            ? (vw < 375 ? 134 : 146)
+            ? (vw < 375 ? 144 : 158)
             : isTablet
-            ? 210
-            : 260;
+            ? 240
+            : 330;
 
-          const radius = Math.max(110, Math.min(targetRadius, maxRadiusX, maxRadiusY));
+          const radius = Math.max(120, Math.min(targetRadius, maxRadiusX, maxRadiusY));
 
           // ─── Utility: circle position for index i (out of 12) ───────────────
           const circlePos = (i: number) => {
@@ -122,10 +134,10 @@ export function CTASectionV2({
           const contentWidth = Math.min(vw - paddingX * 2, maxContentW - paddingX * 2);
 
           const topStep = (contentWidth - imgW) / 6;
-          const topBaseY = isMobile ? -vh * 0.35 : -vh * 0.28;
+          const topBaseY = -vh * 0.28;
 
           const botStep = (contentWidth * (isMobile ? 0.85 : 0.65) - imgW) / 4;
-          const botBaseY = isMobile ? vh * 0.75 : vh * 0.70;
+          const botBaseY = vh * 0.70;
 
           imagesRef.current.forEach((el, i) => {
             if (!el) return;
@@ -164,12 +176,12 @@ export function CTASectionV2({
 
           gsap.set(orbitRef.current, { rotation: 0 });
 
-          // ─── Master timeline (tied to pin — nothing fires until section is pinned at top) ───
+          // ─── Master timeline (tied to pin — identical scroll behavior across mobile & desktop) ───
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: sectionRef.current,
               start: "top top",
-              end: isMobile ? "+=140%" : "+=180%",
+              end: "+=180%",
               scrub: 0.6,
               pin: true,
               anticipatePin: 1,
@@ -242,7 +254,7 @@ export function CTASectionV2({
   return (
     <section
       ref={sectionRef}
-      className="relative w-full h-[100dvh] overflow-hidden flex items-center justify-center"
+      className="relative w-full h-screen min-h-[100vh] overflow-hidden flex items-center justify-center"
       style={{ backgroundColor: "#0B2735" }}
     >
       {/* ── Rich Dark Blue Radial Gradient Overlay (fades in smoothly as you scroll) ── */}
@@ -271,7 +283,7 @@ export function CTASectionV2({
             ref={(el) => {
               imagesRef.current[idx] = el;
             }}
-            className="absolute rounded-[8px] sm:rounded-[12px] md:rounded-[16px] overflow-hidden shadow-xl pointer-events-none select-none"
+            className="absolute rounded-[12px] sm:rounded-[16px] md:rounded-[20px] overflow-hidden shadow-2xl pointer-events-none select-none"
             style={{
               top: 0,
               left: 0,
@@ -288,34 +300,30 @@ export function CTASectionV2({
         ))}
       </div>
 
-      {/* ── CTA content (concentric with orbit ring, strictly sized to fit inside clearing) ── */}
+      {/* ── CTA content (concentric with orbit ring, sized to fit comfortably inside circular clearing) ── */}
       <div
         ref={ctaRef}
-        className="absolute z-30 flex flex-col items-center justify-center text-center px-2 sm:px-4 w-full max-w-[210px] min-[390px]:max-w-[225px] sm:max-w-[320px] md:max-w-[390px] pointer-events-auto select-text cursor-text"
+        className="absolute z-30 flex flex-col items-center justify-center text-center px-3 sm:px-4 w-full max-w-[210px] sm:max-w-[310px] md:max-w-[360px] lg:max-w-[390px] pointer-events-auto select-text cursor-text"
         style={{
           top: "50%",
           left: "50%",
-          transform: "translate(-50%, -50%)",
           userSelect: "text",
           WebkitUserSelect: "text",
         }}
       >
-        {/* Badge */}
+        {/* Badge: Green text matching reference Image 2 */}
         {badgeText && (
-          <div className="mb-2 sm:mb-2.5 pointer-events-auto">
-            <SectionBadge
-              theme="light"
-              size="sm"
-            >
+          <div className="mb-1 sm:mb-2 pointer-events-auto">
+            <span className="text-[8.5px] sm:text-[11px] md:text-[11.5px] font-bold text-[#AEF977] uppercase tracking-[0.14em] select-text">
               {badgeText}
-            </SectionBadge>
+            </span>
           </div>
         )}
 
         {/* Title */}
         <h2
-          className={`text-[14px] min-[390px]:text-[16px] sm:text-[21px] md:text-[25px] lg:text-[28px] font-bold text-white tracking-tight leading-[1.2] whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text ${
-            description ? "mb-1.5 min-[390px]:mb-2 sm:mb-2.5" : "mb-3 min-[390px]:mb-3.5 sm:mb-4 md:mb-5"
+          className={`text-[13px] sm:text-[21px] md:text-[24px] lg:text-[27px] font-bold text-white tracking-tight leading-[1.2] whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text ${
+            description ? "mb-1 sm:mb-2" : "mb-2 sm:mb-4"
           }`}
           style={{
             userSelect: "text",
@@ -327,15 +335,15 @@ export function CTASectionV2({
 
         {/* Description */}
         {description && (
-          <p className="text-[9px] min-[390px]:text-[10px] sm:text-[11px] md:text-[12.5px] text-white/80 leading-[1.35] sm:leading-[1.4] mb-2.5 min-[390px]:mb-3 sm:mb-4 md:mb-5 max-w-[205px] min-[390px]:max-w-[220px] sm:max-w-[300px] md:max-w-[350px] whitespace-normal text-center font-normal drop-shadow-sm select-text cursor-text">
+          <p className="text-[8.5px] sm:text-[11px] md:text-[12.5px] text-white/80 leading-[1.3] sm:leading-[1.4] mb-2 sm:mb-4 max-w-[190px] sm:max-w-[280px] md:max-w-[330px] whitespace-normal text-center font-normal drop-shadow-sm select-text cursor-text">
             {description}
           </p>
         )}
 
-        {/* Button - NO ARROW, compact and refined */}
+        {/* Button - Green Solid Pill Button, refined mobile size, hover changes bg to white (no shine, no scale-up) */}
         <Link
           href={buttonLink}
-          className="inline-flex items-center justify-center h-[30px] min-[390px]:h-[32px] sm:h-[36px] md:h-[40px] px-4 min-[390px]:px-5 sm:px-6 rounded-full border border-white/65 text-white text-[9.5px] min-[390px]:text-[10px] sm:text-[11px] md:text-[11.5px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-white hover:text-[#0B2735] hover:border-white active:scale-[0.98]"
+          className="inline-flex items-center justify-center h-[32px] sm:h-[48px] md:h-[52px] px-5 sm:px-8 md:px-9 rounded-full bg-[#AEF977] text-neutral-950 text-[11px] sm:text-[13.5px] md:text-[14px] font-semibold tracking-tight select-none cursor-pointer whitespace-nowrap transition-colors duration-200 hover:bg-white active:scale-[0.98]"
         >
           {cleanButtonText}
         </Link>
