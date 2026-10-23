@@ -16,6 +16,19 @@ export default function TermsPage() {
       {/* ── 1. CLEAN PROFESSIONAL HEADER (No background image) ── */}
       <header className="relative w-full bg-[#0E2F3E] text-white pt-28 sm:pt-36 md:pt-40 pb-8 sm:pb-16 border-b border-white/10">
         <div className="max-w-[1120px] mx-auto px-5 sm:px-10 lg:px-12">
+          {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+          <div className="mb-5 sm:mb-6">
+            <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+              <Link href="/" className="hover:text-white transition-colors">
+                Home
+              </Link>
+              <span className="text-white/40 select-none">/</span>
+              <span className="text-white/70">Legal</span>
+              <span className="text-white/40 select-none">/</span>
+              <span className="text-white font-medium select-none">Terms &amp; Service</span>
+            </nav>
+          </div>
+
           <h1 className="text-[26px] min-[380px]:text-[30px] sm:text-[42px] md:text-[48px] font-medium text-white tracking-tight leading-[1.12] mb-3 sm:mb-4 select-text">
             Terms &amp; Service
           </h1>
@@ -24,27 +37,13 @@ export default function TermsPage() {
             These terms outline the rules, obligations, and contractual standards governing your access to Vynentra’s platforms, site energy assessments, and turnkey clean energy project services.
           </p>
 
-          <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-[12px] sm:text-[13px] text-white/60 pb-6 border-b border-white/15">
+          <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-[12px] sm:text-[13px] text-white/60">
             <span>Effective Date: October 2026</span>
             <span className="w-1 h-1 rounded-full bg-white/30 hidden sm:inline-block"></span>
             <span>Version: 1.2</span>
             <span className="w-1 h-1 rounded-full bg-white/30 hidden sm:inline-block"></span>
             <span>Applicable Law: Republic of India</span>
           </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="pt-4">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link href="/" className="text-white/70 hover:text-white transition-colors">
-                HOME
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-white/70">LEGAL</span>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">TERMS &amp; SERVICE</span>
-            </nav>
-          </div>
-
         </div>
       </header>
 

@@ -32,7 +32,7 @@ const PANELS: ProcessPanel[] = [
     title: "Building more resilient and reliable energy systems",
     desc: "By combining renewable generation, storage and project expertise, we are developing energy solutions that help businesses and institutions build greater resilience into their power infrastructure.",
     bgColor: "#1c2e3d",
-    bgImage: "https://images.pexels.com/photos/27382708/pexels-photo-27382708.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    bgImage: "/images/process-resilient-energy.webp",
   },
   {
     id: 4,

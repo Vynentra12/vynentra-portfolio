@@ -73,7 +73,7 @@ export function FeaturedProjectsSectionV2() {
             <img
               src={project.image}
               alt={project.title}
-              className="w-full h-full object-cover object-center select-none transition-transform duration-700 ease-out group-hover:scale-105"
+              className="w-full h-full object-cover object-center select-none"
             />
           </div>
 

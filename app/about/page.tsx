@@ -52,23 +52,25 @@ export default function AboutPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="w-full">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+                <span className="text-white/40 select-none">/</span>
+                <span className="text-white font-medium select-none">About</span>
+              </nav>
+            </div>
+
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 select-text">
-              Empowering India's renewable future through innovation and scale.
+              Empowering India&apos;s renewable future through innovation and scale.
             </h1>
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl mb-10 sm:mb-12 font-medium">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl font-medium">
               We are a team of passionate engineers, designers, and operators building the infrastructure for a sustainable tomorrow. Our mission is to accelerate the transition to clean energy.
             </p>
-          </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/20 pb-4">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link href="/" className="text-white/70 hover:text-white transition-colors">HOME</Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">ABOUT</span>
-            </nav>
           </div>
         </div>
       </section>

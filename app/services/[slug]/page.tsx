@@ -67,8 +67,30 @@ export default function ServiceDetailPage() {
         </div>
 
         {/* Hero Content Area */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm max-w-full overflow-hidden">
+                <Link
+                  href="/"
+                  className="hover:text-white transition-colors shrink-0"
+                >
+                  Home
+                </Link>
+                <span className="text-white/40 select-none shrink-0">/</span>
+                <Link
+                  href="/services"
+                  className="hover:text-white transition-colors shrink-0"
+                >
+                  Services
+                </Link>
+                <span className="text-white/40 select-none shrink-0">/</span>
+                <span className="text-white font-medium select-none truncate">
+                  {currentService.title}
+                </span>
+              </nav>
+            </div>
             
             {/* Service-style Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
@@ -76,31 +98,9 @@ export default function ServiceDetailPage() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-medium">
               {currentService.subtitle}
             </p>
-
-            {/* Breadcrumbs Navigation with top border */}
-            <div className="w-full border-t border-white/20 pt-4 flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link
-                href="/"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                HOME
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <Link
-                href="/services"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                SERVICES
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none truncate">
-                {currentService.title.toUpperCase()}
-              </span>
-            </div>
-
           </div>
         </div>
       </section>
@@ -142,27 +142,27 @@ export default function ServiceDetailPage() {
               )}
 
               {/* Next Service Block - HORIZONTAL BOX WITH IMAGE PREVIEW */}
-              <div className="mt-20 sm:mt-28 w-full pt-10 flex flex-col gsap-fade-up">
+              <div className="mt-20 sm:mt-28 w-full pt-10 flex flex-col">
                 <SectionBadge theme="dark" className="w-fit mb-5">
                   NEXT SERVICE
                 </SectionBadge>
                 
                 <Link 
                   href={`/services/${nextService.slug}`}
-                  className="group/next flex flex-col sm:flex-row items-center w-full gap-6 bg-white p-4 sm:p-6 rounded-[24px] border border-black/5 transition-all duration-300 hover:border-black/15"
+                  className="group/next flex flex-col sm:flex-row items-center w-full gap-6 bg-white p-4 sm:p-6 rounded-[24px] border border-black/5"
                 >
                   {/* Image Preview */}
                   <div className="w-full sm:w-[140px] h-[140px] sm:h-[100px] shrink-0 rounded-[16px] overflow-hidden">
                     <img 
                       src={nextService.image} 
                       alt={nextService.title}
-                      className="w-full h-full object-cover group-hover/next:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                   
                   {/* Text Content */}
                   <div className="flex flex-col flex-1">
-                    <h3 className="text-[22px] sm:text-[28px] font-medium text-black tracking-tight leading-[1.2] mb-1 group-hover/next:text-[#087589] transition-colors">
+                    <h3 className="text-[22px] sm:text-[28px] font-medium text-black tracking-tight leading-[1.2] mb-1">
                       {nextService.title}
                     </h3>
                     <p className="text-[14px] text-neutral-500 line-clamp-2 pr-4">
@@ -170,12 +170,9 @@ export default function ServiceDetailPage() {
                     </p>
                   </div>
                   
-                  {/* Animated Arrow Icon */}
-                  <div className="w-12 h-12 rounded-full border border-black/10 flex items-center justify-center bg-[#F4F6F8] group-hover/next:bg-[#AEF977] group-hover/next:border-[#AEF977] transition-all duration-300 shrink-0 mx-2 hidden sm:flex overflow-hidden">
-                    <div className="relative w-5 h-5 flex items-center justify-center">
-                      <ArrowRight className="w-5 h-5 text-black absolute transition-transform duration-300 ease-out group-hover/next:translate-x-8" />
-                      <ArrowRight className="w-5 h-5 text-black absolute -translate-x-8 transition-transform duration-300 ease-out group-hover/next:translate-x-0" />
-                    </div>
+                  {/* Green Click Button - only animated element */}
+                  <div className="w-12 h-12 rounded-full bg-[#AEF977] flex items-center justify-center text-black shrink-0 mx-2 hidden sm:flex transition-transform duration-200 group-hover/next:scale-105 active:scale-95 shadow-sm">
+                    <ArrowRight className="w-5 h-5 text-black" />
                   </div>
                 </Link>
               </div>

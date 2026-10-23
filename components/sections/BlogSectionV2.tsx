@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
@@ -73,10 +72,11 @@ export function BlogSectionV2() {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col max-w-[820px]"
           >
-            <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
+            {/* Badge: Insights */}
+            <SectionBadge theme="dark" className="mb-3 sm:mb-4 w-fit">
               INSIGHTS
             </SectionBadge>
-            
+
             {/* Main Title */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
               Exploring the ideas shaping India&apos;s renewable energy landscape.
@@ -121,17 +121,17 @@ export function BlogSectionV2() {
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
                 <div className="flex flex-col">
-                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                  {/* Image Container with Squareish Badge */}
                   <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                      className="w-full h-full object-cover"
                     />
 
-                    {/* Glassmorphism Category Badge matching Image 1 */}
+                    {/* Squareish Category Badge */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
+                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-[6px] shadow-sm">
                         {blog.category}
                       </span>
                     </div>
@@ -150,21 +150,11 @@ export function BlogSectionV2() {
                   </h3>
                 </div>
 
-                {/* Read Insight CTA: Regular weight font matching user request */}
-                <div 
-                  className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none"
-                >
-                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
-                    <ArrowRight 
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5" 
-                      strokeWidth={1.8} 
-                    />
-                    <ArrowRight 
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0" 
-                      strokeWidth={1.8} 
-                    />
-                  </div>
-                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                {/* Read Insight Button: Cohesive stroke component without arrows */}
+                <div className="mt-4 sm:mt-5">
+                  <span className="inline-flex items-center justify-center h-[34px] px-4 rounded-full border border-neutral-300 text-[11px] font-medium tracking-[0.06em] uppercase text-neutral-800 group-hover/blog:bg-[#0B2735] group-hover/blog:text-white group-hover/blog:border-[#0B2735] transition-all duration-200">
+                    READ INSIGHT
+                  </span>
                 </div>
               </Link>
             </motion.div>

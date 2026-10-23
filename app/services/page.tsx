@@ -6,7 +6,7 @@ import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { CTASectionV2 } from "@/components/sections/CTASectionV2";
 import { SERVICES } from "@/lib/services-data";
-import { Search, PenTool, Wrench, Truck, Activity, ArrowRight, ArrowUpRight, Zap } from "lucide-react";
+import { Search, PenTool, Wrench, Truck, Activity, Zap } from "lucide-react";
 
 const PROCESS_STEPS = [
   { id: "01", title: "ASSESS", desc: "Understanding the site, resources and energy requirement.", icon: Search },
@@ -33,29 +33,29 @@ export default function ServicesPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+                <Link
+                  href="/"
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+                <span className="text-white/40 select-none">/</span>
+                <span className="text-white font-medium select-none">Services</span>
+              </nav>
+            </div>
+
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
               Building renewable energy solutions around your requirements.
             </h1>
 
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-normal">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-normal">
               From renewable energy generation and storage to project development, engineering and execution, we are bringing together the capabilities required to develop practical and commercially viable energy solutions across India.
             </p>
-          </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/20 pb-4">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link
-                href="/"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                HOME
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">SERVICES</span>
-            </nav>
           </div>
         </div>
       </section>
@@ -85,7 +85,7 @@ export default function ServicesPage() {
                 className="group bg-white rounded-[24px] sm:rounded-[28px] border border-neutral-200/80 p-5 sm:p-6 flex flex-col justify-between transition-all duration-300 hover:border-neutral-300 hover:shadow-xs"
               >
                 <div>
-                  {/* Top Thumbnail Image Box */}
+                  {/* Top Thumbnail Image Box - Static without popup animation for zero latency */}
                   <Link
                     href={`/services/${service.slug}`}
                     className="block relative w-full h-[205px] sm:h-[220px] rounded-[18px] sm:rounded-[20px] overflow-hidden bg-neutral-100 mb-5 cursor-pointer"
@@ -93,17 +93,8 @@ export default function ServicesPage() {
                     <img
                       src={service.image}
                       alt={service.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                      className="w-full h-full object-cover"
                     />
-
-                    {/* Light blue overlay + subtle blur on hover */}
-                    <div className="absolute inset-0 bg-[#0A6B88]/20 backdrop-blur-[1.5px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out pointer-events-none" />
-
-                    {/* Top-Right Floating Explore Badge visible on hover */}
-                    <div className="absolute top-3.5 right-3.5 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-1 group-hover:translate-y-0 bg-white/95 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-medium text-neutral-900 shadow-md flex items-center gap-1.5 pointer-events-none">
-                      <span>Explore</span>
-                      <ArrowUpRight className="w-3.5 h-3.5 text-[#0A6B88]" />
-                    </div>
                   </Link>
 
                   {/* Service Title */}
@@ -119,28 +110,18 @@ export default function ServicesPage() {
                   </p>
                 </div>
 
-                {/* Card Bottom Row: Left Scope Pill + Right DETAILS Link (Matching Reference Image) */}
+                {/* Card Bottom Row: Left Scope Pill (Square-like corner rounding) + Right DETAILS Link (No arrows) */}
                 <div className="flex items-center justify-between pt-1">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#F4F6F8] border border-neutral-200/70 text-[11px] sm:text-[11.5px] font-medium text-neutral-700">
+                  <div className="inline-flex items-center gap-2 px-2.5 py-1.5 rounded-[6px] bg-[#F4F6F8] border border-neutral-200/70 text-[11px] sm:text-[11.5px] font-medium text-neutral-700">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#0A6B88]" />
                     <span>{service.scope}</span>
                   </div>
 
                   <Link
                     href={`/services/${service.slug}`}
-                    className="group/btn inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase text-[#0B2735] hover:text-[#0A6B88] transition-colors py-0.5"
+                    className="inline-flex items-center text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase text-[#0B2735] hover:text-[#0A6B88] transition-colors py-0.5"
                   >
                     <span>DETAILS</span>
-                    <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center shrink-0">
-                      <ArrowRight 
-                        strokeWidth={1.8}
-                        className="w-3.5 h-3.5 absolute text-current transition-transform duration-300 ease-linear group-hover:translate-x-5 group-hover/btn:translate-x-5" 
-                      />
-                      <ArrowRight 
-                        strokeWidth={1.8}
-                        className="w-3.5 h-3.5 absolute -translate-x-5 text-current transition-transform duration-300 ease-linear group-hover:translate-x-0 group-hover/btn:translate-x-0" 
-                      />
-                    </div>
                   </Link>
                 </div>
 
@@ -159,10 +140,10 @@ export default function ServicesPage() {
             <SectionBadge theme="dark" className="w-fit mb-3 sm:mb-4 uppercase">
               HOW WE BRING IT TOGETHER
             </SectionBadge>
-            <h2 className="text-[26px] sm:text-[32px] md:text-[38px] font-medium text-black tracking-tight leading-[1.14] max-w-4xl">
+            <h2 className="text-[26px] sm:text-[32px] md:text-[38px] font-bold text-black tracking-tight leading-[1.14] max-w-4xl">
               One connected approach, from requirement to renewable energy
             </h2>
-            <p className="mt-3 sm:mt-5 text-[14px] sm:text-[16px] text-neutral-600 max-w-2xl leading-[1.6]">
+            <p className="mt-3 sm:mt-5 text-[14px] sm:text-[16px] text-neutral-600 max-w-2xl leading-[1.6] font-normal">
               We start with the site, the energy requirement and the objective. From there, we evaluate the available resources, select the appropriate solution and bring together the partners required to develop and deliver it.
             </p>
           </div>
@@ -171,15 +152,15 @@ export default function ServicesPage() {
             {PROCESS_STEPS.map((step) => {
               const Icon = step.icon;
               return (
-                <div key={step.id} className="flex flex-col items-start group">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#0A6B88] group-hover:scale-110 group-hover:rounded-[20px]">
-                    <Icon strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-white" />
+                <div key={step.id} className="flex flex-col items-start group cursor-pointer">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#AEF977] group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(174,249,119,0.35)]">
+                    <Icon strokeWidth={1.75} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-black" />
                   </div>
                   
-                  <h3 className="text-[17px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2 sm:mb-2.5 leading-[1.2]">
+                  <h3 className="text-[17px] sm:text-[20px] font-bold text-black uppercase tracking-[0.06em] mb-2 sm:mb-2.5 leading-[1.2]">
                     {step.title}
                   </h3>
-                  <p className="text-[13.5px] sm:text-[15px] text-neutral-600 leading-[1.6]">
+                  <p className="text-[13.5px] sm:text-[15px] text-neutral-600 font-normal leading-[1.6]">
                     {step.desc}
                   </p>
                 </div>
@@ -187,15 +168,15 @@ export default function ServicesPage() {
             })}
             
             {/* Adding a 6th item to complete the 3-column grid for symmetry, mapping to the 6th service area */}
-            <div className="flex flex-col items-start group">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#0A6B88] group-hover:scale-110 group-hover:rounded-[20px]">
-                <Zap strokeWidth={1.5} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-white" />
+            <div className="flex flex-col items-start group cursor-pointer">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-[14px] sm:rounded-[16px] bg-[#F4F6F8] flex items-center justify-center mb-4 sm:mb-5 transition-all duration-300 group-hover:bg-[#AEF977] group-hover:scale-105 group-hover:shadow-[0_8px_20px_rgba(174,249,119,0.35)]">
+                <Zap strokeWidth={1.75} className="w-6 h-6 sm:w-8 sm:h-8 text-neutral-800 transition-colors duration-300 group-hover:text-black" />
               </div>
               
-              <h3 className="text-[18px] sm:text-[20px] font-medium text-black group-hover:text-[#087589] transition-colors duration-300 mb-2.5 leading-[1.2]">
+              <h3 className="text-[18px] sm:text-[20px] font-bold text-black uppercase tracking-[0.06em] mb-2.5 leading-[1.2]">
                 OPTIMISE
               </h3>
-              <p className="text-[14px] sm:text-[15px] text-neutral-600 leading-[1.6]">
+              <p className="text-[14px] sm:text-[15px] text-neutral-600 font-normal leading-[1.6]">
                 Continuously improving system efficiency and output through advanced energy management and analytics.
               </p>
             </div>
@@ -206,8 +187,8 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <CTASectionV2 
-        badgeText="CLEAN ENERGY STARTS HERE"
-        title="Start Your Renewable Energy Project And Build The Future"
+        badgeText="ENERGY, REIMAGINED."
+        title="Power Your Next Move."
         buttonText="Get Started"
         buttonLink="/contact"
       />

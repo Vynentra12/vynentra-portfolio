@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { ALL_BLOG_POSTS } from "@/lib/blog-data";
 
@@ -38,31 +37,31 @@ export default function InsightsPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+                <Link
+                  href="/"
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+                <span className="text-white/40 select-none">/</span>
+                <span className="text-white font-medium select-none">Insights</span>
+              </nav>
+            </div>
+
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
               Insights
             </h1>
 
             {/* Subtitle matching ServicesPage Hero Paragraph */}
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-medium">
               Exploring insights, trends, and project developments in the renewable energy landscape to help you stay informed and inspired.
             </p>
-          </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/20 pb-4">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link
-                href="/"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                HOME
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">INSIGHTS</span>
-            </nav>
           </div>
         </div>
       </section>
@@ -80,7 +79,7 @@ export default function InsightsPage() {
                   setActiveCategory(category);
                   setVisibleCount(6);
                 }}
-                className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full text-[10px] sm:text-[11px] font-bold tracking-wider uppercase transition-all duration-300 border ${
+                className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-[6px] text-[10px] sm:text-[11px] font-bold tracking-wider uppercase transition-all duration-300 border ${
                   activeCategory === category 
                     ? "bg-[#087589] border-[#087589] text-white shadow-sm" 
                     : "bg-white border-black/10 text-neutral-600 hover:border-[#087589] hover:text-[#087589]"
@@ -100,17 +99,17 @@ export default function InsightsPage() {
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
                 <div className="flex flex-col">
-                  {/* Image Container with Sleek Glassmorphic Pill Badge */}
+                  {/* Image Container with Squareish Badge */}
                   <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
                     <img
                       src={post.image}
                       alt={post.title}
-                      className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/blog:scale-105"
+                      className="w-full h-full object-cover"
                     />
 
-                    {/* Glassmorphism Category Badge matching Image 1 */}
+                    {/* Squareish Category Badge */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-3 py-1 rounded-full shadow-sm">
+                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-[6px] shadow-sm">
                         {post.category}
                       </span>
                     </div>
@@ -129,19 +128,11 @@ export default function InsightsPage() {
                   </h3>
                 </div>
 
-                {/* Read Insight CTA: Regular weight font matching home page */}
-                <div className="mt-4 sm:mt-5 inline-flex items-center gap-2 text-[12px] sm:text-[12.5px] font-normal text-neutral-900 uppercase tracking-wider group/readmore cursor-pointer w-fit py-1 select-none">
-                  <div className="relative w-4 h-4 overflow-hidden flex items-center justify-center">
-                    <ArrowRight
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute transition-transform duration-300 ease-out group-hover/blog:translate-x-5"
-                      strokeWidth={1.8}
-                    />
-                    <ArrowRight
-                      className="w-4 h-4 text-neutral-900 group-hover/blog:text-[#087589] absolute -translate-x-5 transition-transform duration-300 ease-out group-hover/blog:translate-x-0"
-                      strokeWidth={1.8}
-                    />
-                  </div>
-                  <span className="group-hover/blog:text-[#087589] transition-colors">READ INSIGHT</span>
+                {/* Read Insight Button: Cohesive stroke component without arrows */}
+                <div className="mt-4 sm:mt-5">
+                  <span className="inline-flex items-center justify-center h-[34px] px-4 rounded-full border border-neutral-300 text-[11px] font-medium tracking-[0.06em] uppercase text-neutral-800 group-hover/blog:bg-[#0B2735] group-hover/blog:text-white group-hover/blog:border-[#0B2735] transition-all duration-200">
+                    READ INSIGHT
+                  </span>
                 </div>
               </Link>
             ))}

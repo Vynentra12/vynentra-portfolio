@@ -55,7 +55,7 @@ export function FooterV2() {
           
           {/* Left Column: Mission, Direct Contact & Socials */}
           <div className="lg:col-span-4 flex flex-col justify-between">
-            <p className="text-[17px] sm:text-[18px] text-white/90 leading-[1.5] max-w-[380px] font-normal">
+            <p className="text-[17px] sm:text-[18px] text-white/90 hover:text-[#AEF977] transition-colors duration-300 cursor-default leading-[1.5] max-w-[380px] font-normal">
               Building a more sustainable and energy-efficient future across India.
             </p>
 

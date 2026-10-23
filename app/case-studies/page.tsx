@@ -21,25 +21,25 @@ export default function CaseStudiesPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+                <Link href="/" className="hover:text-white transition-colors">
+                  Home
+                </Link>
+                <span className="text-white/40 select-none">/</span>
+                <span className="text-white font-medium select-none">Case Studies</span>
+              </nav>
+            </div>
+
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 select-text">
               Global projects, local impact.
             </h1>
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl mb-10 sm:mb-12 font-normal">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl font-normal">
               Discover how Vynentra brings complex renewable energy projects to life, from initial planning to final commissioning, delivering turnkey solutions across India.
             </p>
-          </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/20 pb-4">
-            <div className="max-w-[1380px] mx-auto">
-              <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-                <Link href="/" className="text-white/70 hover:text-white transition-colors">HOME</Link>
-                <span className="text-white/40 font-normal select-none">/</span>
-                <span className="text-[#AEF977] select-none">CASE STUDIES</span>
-              </nav>
-            </div>
           </div>
         </div>
       </section>
@@ -65,20 +65,20 @@ export default function CaseStudiesPage() {
                   <img
                     src={study.image}
                     alt={study.title}
-                    className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-700 ease-out"
+                    className="w-full h-full object-cover object-center"
                   />
                 </Link>
 
                 {/* Middle Column: Location & Tech Chips (Horizontal Single Line), Title (font-medium), Subtitle & Button */}
                 <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-1 lg:py-2 h-full overflow-hidden">
                   <div className="w-full min-w-0 max-w-full">
-                    {/* Location & Technology Meta Chips: Aligned Horizontally */}
+                    {/* Location & Technology Meta Chips: Aligned Horizontally with squareish rounding */}
                     <div className="w-full max-w-full flex flex-row flex-nowrap items-center gap-2 mb-2 sm:mb-2.5 overflow-x-auto no-scrollbar">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-[6px] bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
                         <MapPin className="w-3 h-3 text-[#0A6B88] shrink-0" />
                         <span>{study.projectLocation}</span>
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-[6px] bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
                         <Zap className="w-3 h-3 text-[#0A6B88] shrink-0" />
                         <span>{study.technology}</span>
                       </span>
