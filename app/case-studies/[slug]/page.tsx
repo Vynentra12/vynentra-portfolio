@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, getCaseStudyBySlug } from "@/lib/case-studies-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
-import { MapPin, Zap, Building2, CheckCircle2, ArrowLeft, ArrowUpRight } from "lucide-react";
+import { MapPin, Zap, Building2, ArrowLeft, ArrowUpRight } from "lucide-react";
 
 interface Props {
   params: Promise<{
@@ -56,15 +56,15 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
         {/* Metadata Badges: Mobile-optimized horizontal chips without multiline wrapping */}
         <div className="flex flex-row flex-nowrap sm:flex-wrap items-center gap-2 sm:gap-2.5 mb-6 sm:mb-8 overflow-x-auto no-scrollbar max-w-full pb-1">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
             <MapPin className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
             <span>{study.projectLocation}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
             <Zap className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
             <span>{study.technology}</span>
           </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-[6px] bg-[#F4F6F8] text-neutral-700 text-[11px] sm:text-[12px] font-medium border border-neutral-200/70 whitespace-nowrap shrink-0">
             <Building2 className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
             <span>{study.company}</span>
           </span>
@@ -98,13 +98,8 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           
           {/* 1. Problem */}
           <section className="border-t border-neutral-200/80 pt-8">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] font-bold text-[#0A6B88] uppercase tracking-[0.08em]">
-                PHASE 01
-              </span>
-            </div>
             <h2 className="text-[22px] sm:text-[26px] font-medium text-[#111827] mb-4 tracking-tight">
-              1. Problem
+              Problem
             </h2>
             <div className="space-y-3.5 text-neutral-600">
               {study.problem.map((para, idx) => (
@@ -115,13 +110,8 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
           {/* 2. Solution */}
           <section className="border-t border-neutral-200/80 pt-8">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] font-bold text-[#0A6B88] uppercase tracking-[0.08em]">
-                PHASE 02
-              </span>
-            </div>
             <h2 className="text-[22px] sm:text-[26px] font-medium text-[#111827] mb-4 tracking-tight">
-              2. Solution
+              Solution
             </h2>
             <div className="space-y-3.5 text-neutral-600">
               {study.solution.map((para, idx) => (
@@ -132,46 +122,33 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
           {/* 3. Results & Key Findings */}
           <section className="border-t border-neutral-200/80 pt-8">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] font-bold text-[#0A6B88] uppercase tracking-[0.08em]">
-                PHASE 03
-              </span>
-            </div>
             <h2 className="text-[22px] sm:text-[26px] font-medium text-[#111827] mb-4 tracking-tight">
-              3. Results &amp; Key Findings
+              Results &amp; Key Findings
             </h2>
-            <ul className="space-y-3 pl-0 list-none text-neutral-600">
+            <div className="space-y-4 text-neutral-600">
               {study.resultsAndFindings.map((finding, idx) => {
                 const parts = finding.split(":");
                 const hasLabel = parts.length > 1;
                 return (
-                  <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-[#0A6B88] shrink-0 mt-0.5" />
-                    <span>
-                      {hasLabel ? (
-                        <>
-                          <strong className="font-semibold text-neutral-900">{parts[0]}:</strong>
-                          {parts.slice(1).join(":")}
-                        </>
-                      ) : (
-                        finding
-                      )}
-                    </span>
-                  </li>
+                  <p key={idx} className="leading-relaxed">
+                    {hasLabel ? (
+                      <>
+                        <strong className="font-semibold text-neutral-900">{parts[0]}:</strong>
+                        {parts.slice(1).join(":")}
+                      </>
+                    ) : (
+                      finding
+                    )}
+                  </p>
                 );
               })}
-            </ul>
+            </div>
           </section>
 
           {/* 4. Conclusion & Recommendation */}
           <section className="border-t border-neutral-200/80 pt-8">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-[11px] font-bold text-[#0A6B88] uppercase tracking-[0.08em]">
-                PHASE 04
-              </span>
-            </div>
             <h2 className="text-[22px] sm:text-[26px] font-medium text-[#111827] mb-4 tracking-tight">
-              4. Conclusion &amp; Recommendation
+              Conclusion &amp; Recommendation
             </h2>
             <div className="space-y-3.5 text-neutral-600 bg-[#F7F9FA] p-6 sm:p-7 rounded-[18px] border border-neutral-200/70">
               {study.conclusionAndRecommendation.map((para, idx) => (

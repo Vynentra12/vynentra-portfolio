@@ -96,7 +96,7 @@ export function CaseStudySectionV2() {
       {/* 2. LAYER 2: Centered Capsule Visual Element with 100% Synced White Text Masking */}
       <div 
         ref={capsuleRef}
-        className="relative z-10 w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-full overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white pointer-events-none select-none"
+        className="relative z-10 w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-[12px] sm:rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white pointer-events-none select-none"
       >
         {/* Base Turbine Landscape Visual */}
         <img

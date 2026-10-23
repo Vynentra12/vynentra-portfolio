@@ -27,10 +27,10 @@ const ctaImages = [
 ];
 
 export function CTASectionV2({
-  badgeText,
-  title = "Have an energy requirement in mind?",
+  badgeText = "ENERGY, REIMAGINED.",
+  title = "Power Your Next Move.",
   description,
-  buttonText = "GET IN TOUCH",
+  buttonText = "Get Started",
   buttonLink = "/contact"
 }: {
   badgeText?: string;

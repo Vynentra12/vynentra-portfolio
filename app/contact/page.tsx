@@ -4,10 +4,10 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { ChevronDown, MapPin, Phone, Mail } from "lucide-react";
+import { ChevronDown, MapPin, Phone, Mail, Share2 } from "lucide-react";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
+  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
     <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
@@ -15,12 +15,8 @@ const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M8 11v5" />
-    <circle cx="8" cy="8" r="0.8" fill="currentColor" stroke="none" />
-    <path d="M12 16v-2.8a1.8 1.8 0 0 1 3.6 0V16" />
-    <path d="M12 11v5" />
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" {...props}>
+    <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.68 1.68 0 1 0 0-3.36 1.68 1.68 0 0 0 0 3.36zm1.39 9.74v-8.37H5.07v8.37h2.78z" />
   </svg>
 );
 
@@ -147,31 +143,31 @@ export default function ContactPage() {
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-8 sm:pb-10 md:pb-12 pt-32 sm:pt-40">
+        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="w-full">
+            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            <div className="mb-5 sm:mb-6">
+              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
+                <Link
+                  href="/"
+                  className="hover:text-white transition-colors"
+                >
+                  Home
+                </Link>
+                <span className="text-white/40 select-none">/</span>
+                <span className="text-white font-medium select-none">Contact</span>
+              </nav>
+            </div>
+
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
-              Let's develop the right energy solution for your requirement.
+              Let&apos;s develop the right energy solution for your requirement.
             </h1>
 
             {/* Subtitle matching ServicesPage Hero Paragraph */}
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm mb-10 sm:mb-12 font-medium">
+            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-medium">
               Tell us about your site, your energy needs and what you are looking to achieve. Our team will help you explore the renewable energy solution that makes sense for your project.
             </p>
-          </div>
-
-          {/* Breadcrumbs Navigation */}
-          <div className="w-full border-b border-white/20 pb-4">
-            <nav aria-label="Breadcrumbs" className="flex items-center gap-2.5 text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.08em]">
-              <Link
-                href="/"
-                className="text-white/70 hover:text-white transition-colors"
-              >
-                HOME
-              </Link>
-              <span className="text-white/40 font-normal select-none">/</span>
-              <span className="text-[#AEF977] select-none">CONTACTS</span>
-            </nav>
           </div>
         </div>
       </section>
@@ -209,7 +205,7 @@ export default function ContactPage() {
                       WE ARE HERE:
                     </h3>
                   </div>
-                  <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
+                  <p className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6] font-normal">
                     Vynentra Clean Energy HQ,<br />
                     Gujarat &amp; Rajasthan Corridor, India
                   </p>
@@ -223,8 +219,8 @@ export default function ContactPage() {
                       CONTACT NUMBER:
                     </h3>
                   </div>
-                  <p className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6]">
-                    <a href="tel:+917777024826" className="hover:text-[#0A6B88] font-semibold transition-colors block">
+                  <p className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6]">
+                    <a href="tel:+917777024826" className="hover:text-[#0A6B88] font-normal transition-colors block">
                       +91 77770 24826
                     </a>
                   </p>
@@ -238,11 +234,11 @@ export default function ContactPage() {
                       EMAIL ID:
                     </h3>
                   </div>
-                  <div className="text-[15px] sm:text-[15.5px] text-neutral-800 leading-[1.6] space-y-1">
-                    <a href="mailto:info@vynentra.com" className="hover:text-[#0A6B88] font-semibold transition-colors block">
+                  <div className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6] font-normal space-y-1">
+                    <a href="mailto:info@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
                       info@vynentra.com
                     </a>
-                    <a href="mailto:partner@vynentra.com" className="hover:text-[#0A6B88] font-semibold transition-colors block text-[14px]">
+                    <a href="mailto:partner@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
                       partner@vynentra.com
                     </a>
                   </div>
@@ -250,27 +246,30 @@ export default function ContactPage() {
 
                 {/* Socials */}
                 <div>
-                  <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em] mb-3">
-                    WE ARE ON SOCIALS:
-                  </h3>
-                  <div className="flex items-center gap-4 pt-0.5">
+                  <div className="flex items-center gap-2 mb-2.5">
+                    <Share2 className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
+                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
+                      WE ARE ON SOCIALS:
+                    </h3>
+                  </div>
+                  <div className="flex items-center gap-3 pt-1">
                     <a 
                       href="https://www.instagram.com/vynentraenergysolutions?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="Instagram"
-                      className="text-neutral-900 hover:text-[#0A6B88] transition-colors"
+                      className="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:text-[#0A6B88] hover:border-[#0A6B88] transition-all duration-200"
                     >
-                      <InstagramIcon className="w-[22px] h-[22px]" />
+                      <InstagramIcon className="w-[18px] h-[18px]" />
                     </a>
                     <a 
                       href="https://www.linkedin.com/company/vynentra-energy-solutions-llp/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="LinkedIn"
-                      className="text-neutral-900 hover:text-[#0A6B88] transition-colors"
+                      className="w-10 h-10 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:text-[#0A6B88] hover:border-[#0A6B88] transition-all duration-200"
                     >
-                      <LinkedinIcon className="w-[22px] h-[22px]" />
+                      <LinkedinIcon className="w-[16px] h-[16px]" />
                     </a>
                   </div>
                 </div>

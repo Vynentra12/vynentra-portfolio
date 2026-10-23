@@ -12,36 +12,6 @@ interface FAQItem {
 
 export function FAQSectionV2() {
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
-  const [isImageHovered, setIsImageHovered] = useState(false);
-  const turbulenceRef = React.useRef<SVGFETurbulenceElement>(null);
-
-  // Organic liquid water ripple animation on hover
-  useEffect(() => {
-    if (!isImageHovered) return;
-
-    let animId: number;
-    const startTime = performance.now();
-    const turbElement = turbulenceRef.current;
-
-    const animateWater = (now: number) => {
-      const elapsed = (now - startTime) / 1000;
-      const freqX = 0.005 + Math.sin(elapsed * 1.6) * 0.002;
-      const freqY = 0.009 + Math.cos(elapsed * 1.4) * 0.003;
-      if (turbElement) {
-        turbElement.setAttribute("baseFrequency", `${freqX.toFixed(5)} ${freqY.toFixed(5)}`);
-      }
-      animId = requestAnimationFrame(animateWater);
-    };
-
-    animId = requestAnimationFrame(animateWater);
-
-    return () => {
-      if (animId) cancelAnimationFrame(animId);
-      if (turbElement) {
-        turbElement.setAttribute("baseFrequency", "0.005 0.009");
-      }
-    };
-  }, [isImageHovered]);
 
   const faqs: FAQItem[] = [
     {
@@ -73,33 +43,10 @@ export function FAQSectionV2() {
 
   return (
     <section id="faq" className="w-full bg-white text-neutral-900 py-16 md:py-24 font-sans relative select-text">
-      
-      {/* SVG Liquid Wave Distortion Filter */}
-      <svg className="absolute w-0 h-0 pointer-events-none opacity-0" aria-hidden="true">
-        <defs>
-          <filter id="faq-water-wave-distortion" x="-5%" y="-5%" width="110%" height="110%">
-            <feTurbulence 
-              ref={turbulenceRef}
-              type="turbulence" 
-              baseFrequency="0.005 0.009" 
-              numOctaves={2} 
-              result="noise"
-            />
-            <feDisplacementMap 
-              in="SourceGraphic" 
-              in2="noise" 
-              scale={isImageHovered ? 8 : 0} 
-              xChannelSelector="R" 
-              yChannelSelector="G" 
-            />
-          </filter>
-        </defs>
-      </svg>
-
       <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-stretch">
           
-          {/* Left Column: Liquid Ripple Image on Hover (precisely leveled with right column content) */}
+          {/* Left Column: Clean Static Image (No distortion/glitch filter) */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -108,20 +55,12 @@ export function FAQSectionV2() {
             className="lg:col-span-5 w-full h-full min-h-0 flex flex-col"
           >
             <div 
-              onMouseEnter={() => setIsImageHovered(true)}
-              onMouseLeave={() => setIsImageHovered(false)}
-              className="w-full h-[260px] xs:h-[300px] sm:h-[340px] lg:h-full min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shadow-sm bg-neutral-100 cursor-pointer select-none group flex-1"
+              className="w-full h-[260px] xs:h-[300px] sm:h-[340px] lg:h-full min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shadow-sm bg-neutral-100 select-none flex-1"
             >
               <img
                 src="https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1200"
                 alt="Wind turbines in landscape"
-                style={{
-                  filter: isImageHovered ? "url(#faq-water-wave-distortion)" : "none",
-                  transition: "filter 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
-                className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out ${
-                  isImageHovered ? "scale-[1.02]" : "scale-100"
-                }`}
+                className="absolute inset-0 w-full h-full object-cover"
               />
             </div>
           </motion.div>
@@ -134,9 +73,9 @@ export function FAQSectionV2() {
             transition={{ duration: 0.7, delay: 0.15, ease: "easeOut" }}
             className="lg:col-span-7 flex flex-col justify-start"
           >
-            {/* Badge: FAQ'S */}
+            {/* Badge: Faqs */}
             <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-              FAQ&apos;S
+              Faqs
             </SectionBadge>
 
             {/* Main Title */}

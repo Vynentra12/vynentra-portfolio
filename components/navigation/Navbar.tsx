@@ -139,11 +139,11 @@ export function Navbar() {
                     className={`relative h-[34px] sm:h-[35px] px-3.5 sm:px-4 flex items-center justify-center text-[11px] sm:text-[11.5px] font-semibold uppercase tracking-[0.06em] transition-all duration-200 z-10 whitespace-nowrap rounded-full select-none border border-transparent ${
                       isSelected 
                         ? (useDarkNav 
-                            ? "text-[#111111] bg-neutral-200 shadow-sm border-transparent" 
-                            : "text-white bg-white/20 border-white shadow-sm")
+                            ? "bg-[#0B2735] text-white border-[#0B2735] shadow-sm" 
+                            : "bg-white text-[#0B2735] border-white shadow-sm")
                         : (useDarkNav 
-                            ? "text-[#111111] hover:bg-neutral-100 hover:text-[#111111]" 
-                            : "text-white hover:bg-white/20 hover:border-white/50")
+                            ? "text-[#111111] hover:bg-[#0B2735] hover:text-white hover:border-[#0B2735]" 
+                            : "text-white hover:bg-white hover:text-[#0B2735] hover:border-white")
                     }`}
                   >
                     <span>{item.name}</span>

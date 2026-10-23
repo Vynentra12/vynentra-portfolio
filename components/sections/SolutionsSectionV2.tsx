@@ -178,7 +178,7 @@ export function SolutionsSectionV2() {
     >
       <div className="w-full max-w-[1560px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 flex flex-col flex-1 justify-center">
 
-        {/* "Our service" header */}
+        {/* "Our Services" header */}
         <div className="w-full text-center pb-6 sm:pb-8 md:pb-12 shrink-0">
           <SectionBadge theme="dark">
             OUR SERVICES

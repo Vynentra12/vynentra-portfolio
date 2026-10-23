@@ -22,28 +22,28 @@ export function WhyChooseUsSectionV2() {
       id: "wind-energy-solutions",
       title: "Wind Energy Solutions",
       desc: "We are developing distributed and captive wind solutions across vertical and horizontal axis technologies, designed around different site conditions and energy requirements.",
-      image: "/why-choose-us/reliable-performance.jpg",
+      image: "/why-choose-us/reliable-performance.webp",
       alt: "Reliable wind energy turbine rotating in breeze over hills",
     },
     {
       id: "wind-solar-hybrid",
       title: "Wind-Solar Hybrid Solutions",
       desc: "We are integrating wind and solar generation to create hybrid renewable energy systems that make better use of available resources and complement different generation profiles.",
-      image: "/hybrid-wind-solar.jpg",
+      image: "/why-choose-us/hybrid-wind-solar.webp",
       alt: "Integrated wind and solar hybrid generation plant with solar arrays and wind turbines",
     },
     {
       id: "energy-storage-solutions",
       title: "Energy Storage Solutions",
       desc: "We are incorporating battery energy storage systems where appropriate to support renewable generation, energy management and more resilient power infrastructure",
-      image: "/solutions/battery-storage.jpg",
+      image: "/why-choose-us/battery-storage.webp",
       alt: "Battery energy storage systems (BESS) for clean power resilience",
     },
     {
       id: "project-development-advisory",
       title: "Project Development & Advisory",
       desc: "We are supporting projects from energy audits and feasibility studies through technology evaluation, regulatory coordination, financing facilitation and EPC partner management.",
-      image: "/why-choose-us/expert-guidance.jpg",
+      image: "/why-choose-us/expert-guidance.webp",
       alt: "Renewable energy engineers conducting on-site feasibility and project development advisory",
     },
   ];
@@ -75,7 +75,7 @@ export function WhyChooseUsSectionV2() {
           <div className="lg:col-span-5 flex flex-col w-full">
             <div className="relative w-full h-[320px] sm:h-[440px] md:h-[520px] lg:h-[650px] xl:h-[700px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm bg-neutral-100">
               <img
-                src="/why-choose-us/hero-windmill.jpg"
+                src="/why-choose-us/hero-windmill.webp"
                 alt="Architectural windmill house with solar panels on rotor blades"
                 className="w-full h-full object-cover object-center pointer-events-none select-none"
                 draggable={false}
@@ -89,7 +89,7 @@ export function WhyChooseUsSectionV2() {
           {/* ─── RIGHT COLUMN: Header, CTA Button & Interactive Split View ─── */}
           <div className="lg:col-span-7 flex flex-col justify-between pt-1 lg:pt-2">
             
-            {/* Top Section: Kicker, Headline & Stroke-Only CTA Button */}
+            {/* Top Section: Headline & Stroke-Only CTA Button */}
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -97,9 +97,9 @@ export function WhyChooseUsSectionV2() {
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
               className="flex flex-col mb-8 lg:mb-10"
             >
-              
+              {/* Badge: What We Do */}
               <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-                WHAT WE DO
+                What We Do
               </SectionBadge>
 
               {/* Main Headline: Exact requested copy & fully selectable */}
@@ -125,11 +125,11 @@ export function WhyChooseUsSectionV2() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-stretch pt-3"
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start pt-3"
             >
               
               {/* ── Feature Rows (Clean title rows, no external-link arrows) ── */}
-              <div className="md:col-span-7 flex flex-col justify-between">
+              <div className="md:col-span-7 flex flex-col justify-start">
                 {features.map((feature, idx) => {
                   const isSelected = selectedIndex === idx;
 
@@ -168,41 +168,35 @@ export function WhyChooseUsSectionV2() {
                 })}
               </div>
 
-              {/* ── Dynamic Service Preview Card & Description (Dynamic sync with selected title) ── */}
-              <div className="md:col-span-5 flex flex-col justify-between gap-6">
+              {/* ── Dynamic Service Preview Card & Description (Completely static frame so it never jumps up/down) ── */}
+              <div className="md:col-span-5 flex flex-col items-start gap-4">
                 
-                {/* Dynamic Service Image with smooth Framer Motion crossfade transition */}
-                <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-neutral-100 shadow-sm">
+                {/* Dynamic Service Image (Static dimensions & frame, pure fade without scale jumping) */}
+                <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-neutral-100 shadow-sm shrink-0">
                   <AnimatePresence initial={false}>
                     <motion.img
                       key={currentFeature.id}
                       src={currentFeature.image}
                       alt={currentFeature.alt}
-                      initial={{ opacity: 0, scale: 1.04 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.98 }}
-                      transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.2, ease: "linear" }}
                       className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
                       draggable={false}
                     />
                   </AnimatePresence>
                 </div>
 
-                {/* Clean Energy Solutions Description (Animated with selected title) */}
-                <div className="mt-3.5 min-h-[72px] flex items-start">
-                  <AnimatePresence mode="wait">
-                    <motion.p
-                      key={currentFeature.id}
-                      initial={{ opacity: 0, y: 6 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -6 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text"
-                      style={{ userSelect: "text", WebkitUserSelect: "text" }}
-                    >
-                      {currentFeature.desc}
-                    </motion.p>
-                  </AnimatePresence>
+                {/* Clean Energy Solutions Description (Static container height, no layout jump) */}
+                <div className="w-full min-h-[72px] sm:min-h-[80px] pt-0.5">
+                  <p
+                    key={currentFeature.id}
+                    className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text transition-opacity duration-200"
+                    style={{ userSelect: "text", WebkitUserSelect: "text" }}
+                  >
+                    {currentFeature.desc}
+                  </p>
                 </div>
 
               </div>
