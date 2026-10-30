@@ -91,9 +91,8 @@ export function Navbar() {
     setIsVisible(true);
   }, [pathname]);
 
-  // Navigation items: About Us hidden; Partners added in place of redundant contact link
   const navLinks = [
-    // { name: "About Us", href: "/about" },
+    { name: "About Us", href: "/about" },
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Insights", href: "/insights" },
