@@ -18,6 +18,7 @@ export interface CaseStudy {
   location: string;
   planOrSolution: string;
   timeline?: string;
+  date?: string;
   image: string;
   stats: [CaseStudyStat, CaseStudyStat];
   problem: string[];
@@ -41,6 +42,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     clientLocation: "Surat, Gujarat",
     location: "Surat, Gujarat",
     planOrSolution: "5 kW Hybrid VAWT & Solar Generation System",
+    date: "October 09, 2026",
     image: "/case-studies/case-study-1-surat.webp",
     stats: [
       {
@@ -88,6 +90,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     clientLocation: "Madhavpur Coast, Gujarat",
     location: "Near Madhavpur Beach, Gujarat",
     planOrSolution: "3 kW Vertical Axis Wind Turbine",
+    date: "October 24, 2026",
     image: "/case-studies/case-study-2-madhavpur.webp",
     stats: [
       {
@@ -134,6 +137,7 @@ export const CASE_STUDIES: CaseStudy[] = [
     clientLocation: "Kutch Coast, Gujarat",
     location: "Mandvi Beach, Kutch, Gujarat",
     planOrSolution: "5 kW Vertical Axis Wind Turbine",
+    date: "November 12, 2026",
     image: "/case-studies/case-study-3-mandvi.webp",
     stats: [
       {

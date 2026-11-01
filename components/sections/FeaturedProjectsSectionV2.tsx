@@ -79,26 +79,26 @@ export function FeaturedProjectsSectionV2() {
 
           {/* Tags with MapPin & Zap Icons (Clean text without border/pill background) */}
           <div className="flex flex-wrap items-center gap-4 mt-5 sm:mt-6 mb-2 overflow-hidden">
-            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap">
-              <MapPin className="w-3.5 h-3.5 text-white/80" />
+            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.08em] uppercase whitespace-nowrap">
+              <MapPin strokeWidth={1.5} className="w-3.5 h-3.5 text-white/80 shrink-0" />
               <span>{project.location}</span>
             </span>
-            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.1em] uppercase whitespace-nowrap">
-              <Zap className="w-3.5 h-3.5 text-white/80" />
+            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.08em] uppercase whitespace-nowrap">
+              <Zap strokeWidth={1.5} className="w-3.5 h-3.5 text-white/80 shrink-0" />
               <span>{project.technology}</span>
             </span>
           </div>
 
-          {/* Title and Date Area (White text stays white on hover) */}
+          {/* Title and Date Area (Date only, no time, clean calendar icon) */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mt-1 w-full">
             <h3 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[32px] font-medium text-white tracking-tight leading-[1.2] cursor-pointer transition-all duration-200">
               {project.title}
             </h3>
             
-            <div className="flex items-center gap-2.5 text-white/90 shrink-0 pr-4">
-              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-              <span className="text-[11px] sm:text-[12px] font-medium uppercase tracking-[0.05em]">
-                OCT 09, 2026 - 10:30 AM
+            <div className="flex items-center gap-2 text-white/90 shrink-0 pr-4">
+              <Calendar strokeWidth={1.5} className="w-4 h-4 text-white/80 shrink-0" />
+              <span className="text-[11px] sm:text-[12px] font-normal uppercase tracking-[0.06em]">
+                OCT 09, 2026
               </span>
             </div>
           </div>

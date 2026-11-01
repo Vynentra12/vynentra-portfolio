@@ -1,137 +1,55 @@
 'use client';
 
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import React from "react";
+import { motion } from "framer-motion";
 
 export function CaseStudySectionV2() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const capsuleRef = useRef<HTMLDivElement>(null);
-  const innerContainerRef = useRef<HTMLDivElement>(null);
-  const track1Ref = useRef<HTMLDivElement>(null);
-  const track2Ref = useRef<HTMLDivElement>(null);
-
-  // Single set of pattern phrases
-  const singleSet = [
-    "Site-Specific",
-    "—",
-    "Technology-Neutral",
-    "—",
-    "Future-Ready",
-    "—",
-    "Site-Specific",
-    "—",
-    "Technology-Neutral",
-    "—",
-    "Future-Ready",
-    "—",
-  ];
-
-  // Full track contains 2 identical sets for seamless continuous -50% loop
-  const repeatedMarquee = [...singleSet, ...singleSet];
-
-  useGSAP(
-    () => {
-      const t1 = track1Ref.current;
-      const t2 = track2Ref.current;
-      const sec = sectionRef.current;
-      const cap = capsuleRef.current;
-      const inner = innerContainerRef.current;
-      if (!t1 || !t2 || !sec || !cap || !inner) return;
-
-      // Mathematically synchronize the inner capsule track coordinate origin to the section
-      const syncAlignment = () => {
-        const secRect = sec.getBoundingClientRect();
-        const capRect = cap.getBoundingClientRect();
-        const offsetLeft = capRect.left - secRect.left;
-        inner.style.left = `-${offsetLeft}px`;
-        inner.style.width = `${secRect.width}px`;
-      };
-
-      syncAlignment();
-      window.addEventListener("resize", syncAlignment);
-
-      // Single unified GSAP tween driving BOTH text tracks simultaneously on every frame
-      const anim = gsap.to([t1, t2], {
-        xPercent: -50,
-        ease: "none",
-        duration: 38,
-        repeat: -1,
-      });
-
-      return () => {
-        window.removeEventListener("resize", syncAlignment);
-        anim.kill();
-      };
-    },
-    { scope: sectionRef }
-  );
-
   return (
     <section 
       id="case-studies" 
-      ref={sectionRef}
-      className="relative w-full bg-white text-neutral-900 py-28 sm:py-32 md:py-40 overflow-hidden select-text font-sans flex items-center justify-center"
+      className="relative w-full bg-white text-neutral-900 py-16 sm:py-24 md:py-28 lg:py-36 overflow-hidden select-none font-sans flex items-center justify-center"
     >
-      
-      {/* 1. LAYER 1 (Base Background): Continuous Deep Teal Marquee */}
-      <div className="absolute inset-0 flex items-center overflow-hidden pointer-events-none select-none">
-        <div 
-          ref={track1Ref} 
-          className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform shrink-0"
-        >
-          {repeatedMarquee.map((word, idx) => (
-            <span
-              key={`base-${idx}`}
-              className={`text-[46px] sm:text-[66px] md:text-[84px] lg:text-[98px] font-medium tracking-tight leading-none select-none ${
-                word === "—" ? "text-[#005869]/35" : "text-[#005869]"
-              }`}
-            >
-              {word}
-            </span>
-          ))}
-        </div>
-      </div>
-
-      {/* 2. LAYER 2: Centered Capsule Visual Element with 100% Synced White Text Masking */}
-      <div 
-        ref={capsuleRef}
-        className="relative z-10 w-[290px] sm:w-[380px] md:w-[480px] lg:w-[540px] aspect-[2.25/1] rounded-[12px] sm:rounded-[16px] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.12)] border-[3.5px] border-white pointer-events-none select-none"
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="w-full max-w-[1380px] mx-auto px-4 sm:px-8 md:px-12 flex items-center justify-between gap-3 sm:gap-6 md:gap-8"
       >
-        {/* Base Turbine Landscape Visual */}
-        <img
-          src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=1200"
-          alt="Renewable Wind Turbine"
-          className="w-full h-full object-cover brightness-[1.02] contrast-[0.98]"
-        />
+        {/* Left Word: Technology-Neutral (Semi-bold, exact alignment within container bounds) */}
+        <span className="text-[15px] xs:text-[18px] sm:text-[23px] md:text-[28px] lg:text-[34px] xl:text-[38px] font-semibold tracking-tight text-[#005869] whitespace-nowrap shrink-0">
+          Technology-Neutral
+        </span>
 
-        {/* Gentle Soft Light Atmosphere */}
-        <div className="absolute inset-0 bg-sky-100/10 pointer-events-none" />
+        {/* Left Bridging Divider Line */}
+        <div className="flex-1 h-[2px] bg-[#005869]/40 min-w-[12px] sm:min-w-[20px]" />
 
-        {/* 100% Mathematically Aligned Masked Foreground Marquee inside Capsule */}
-        <div
-          ref={innerContainerRef}
-          className="absolute inset-y-0 flex items-center pointer-events-none select-none overflow-hidden"
-          style={{ willChange: "transform, left" }}
-        >
-          <div 
-            ref={track2Ref} 
-            className="flex items-center gap-8 sm:gap-12 whitespace-nowrap will-change-transform shrink-0"
-          >
-            {repeatedMarquee.map((word, idx) => (
-              <span
-                key={`mask-${idx}`}
-                className={`text-[46px] sm:text-[66px] md:text-[84px] lg:text-[98px] font-medium tracking-tight leading-none select-none ${
-                  word === "—" ? "text-white/45" : "text-white"
-                }`}
-              >
-                {word}
-              </span>
-            ))}
-          </div>
+        {/* Center: Prominent Pill Capsule with centered wind turbine */}
+        <div className="relative shrink-0 w-[140px] xs:w-[170px] sm:w-[230px] md:w-[285px] lg:w-[335px] xl:w-[370px] h-[48px] xs:h-[58px] sm:h-[74px] md:h-[90px] lg:h-[104px] xl:h-[114px] rounded-full overflow-hidden flex items-center justify-center shadow-[0_12px_44px_rgba(0,88,105,0.2)]">
+          {/* Turbine Background Image - Center aligned turbine hub & blades */}
+          <img
+            src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            alt="Future-Ready Wind Turbine"
+            className="absolute inset-0 w-full h-full object-cover object-[center_38%]"
+          />
+
+          {/* Gentle Atmosphere Contrast */}
+          <div className="absolute inset-0 bg-[#002b36]/20 pointer-events-none" />
+
+          {/* Center Text inside Pill (Semi-bold) */}
+          <span className="relative z-10 text-[15px] xs:text-[18px] sm:text-[23px] md:text-[28px] lg:text-[34px] xl:text-[38px] font-semibold tracking-tight text-white whitespace-nowrap select-none drop-shadow-[0_2px_6px_rgba(0,0,0,0.5)]">
+            Future-Ready
+          </span>
         </div>
-      </div>
 
+        {/* Right Bridging Divider Line */}
+        <div className="flex-1 h-[2px] bg-[#005869]/40 min-w-[12px] sm:min-w-[20px]" />
+
+        {/* Right Word: Site-Specific (Semi-bold, exact alignment within container bounds) */}
+        <span className="text-[15px] xs:text-[18px] sm:text-[23px] md:text-[28px] lg:text-[34px] xl:text-[38px] font-semibold tracking-tight text-[#005869] whitespace-nowrap shrink-0">
+          Site-Specific
+        </span>
+      </motion.div>
     </section>
   );
 }
