@@ -28,7 +28,7 @@ const ctaImages = [
 
 export function CTASectionV2({
   badgeText = "ENERGY, REIMAGINED.",
-  title = "Power Your Next Move.",
+  title = "Power Your Next Move",
   description,
   buttonText = "Get Started",
   buttonLink = "/contact"

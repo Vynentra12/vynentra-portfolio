@@ -75,7 +75,7 @@ export function FAQSectionV2() {
           >
             {/* Badge: Faqs */}
             <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-              Faqs
+              FAQS
             </SectionBadge>
 
             {/* Main Title */}

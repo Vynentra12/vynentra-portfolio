@@ -18,6 +18,7 @@ interface SolutionItem {
   description: string;
   image: string;
   alt: string;
+  href: string;
 }
 
 const SOLUTIONS: SolutionItem[] = [
@@ -29,6 +30,7 @@ const SOLUTIONS: SolutionItem[] = [
       "We assess your location, available space, surrounding conditions and site characteristics to establish the potential for a renewable energy project.",
     image: "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?q=80&w=1920&auto=format&fit=crop",
     alt: "Vast open terrain and landscape suitable for renewable energy project development",
+    href: "/services",
   },
   {
     number: "02",
@@ -38,6 +40,7 @@ const SOLUTIONS: SolutionItem[] = [
       "We look at your energy consumption, operating requirements and project objectives to determine the scale and configuration that best fits your needs.",
     image: "/solutions/solar-installation.jpg",
     alt: "Professional technician installing solar panel array and evaluating energy system",
+    href: "/services",
   },
   {
     number: "03",
@@ -47,6 +50,7 @@ const SOLUTIONS: SolutionItem[] = [
       "We evaluate wind, solar, hybrid and storage solutions against the site's conditions and energy requirements to develop a technically and commercially viable approach.",
     image: "/solutions/hybrid-solution.jpg",
     alt: "Integrated wind, solar hybrid generation and battery energy storage architecture",
+    href: "/services",
   },
   {
     number: "04",
@@ -56,6 +60,7 @@ const SOLUTIONS: SolutionItem[] = [
       "We coordinate technology providers, EPC partners and other strategic partners while supporting feasibility, regulatory coordination, financing and project execution.",
     image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1920&auto=format&fit=crop",
     alt: "Clean energy project development, engineering and EPC execution on site",
+    href: "/contact",
   },
 ];
 
@@ -105,12 +110,7 @@ export function SolutionsSectionV2() {
           0
         );
 
-        // Transition 2 (Card 2 enters, Card 1 & 0 recede)
-        tl.to(
-          cards[0],
-          { y: -100, scale: 0.82, opacity: 0.3, ease: "none", duration: 1 },
-          1
-        );
+        // Transition 2 (Card 2 enters, Card 1 recedes)
         tl.to(
           cards[1],
           { y: -55, scale: 0.9, opacity: 0.65, ease: "none", duration: 1 },
@@ -123,17 +123,7 @@ export function SolutionsSectionV2() {
           1
         );
 
-        // Transition 3 (Card 3 enters, stack shifts back)
-        tl.to(
-          cards[0],
-          { y: -140, scale: 0.75, opacity: 0, ease: "none", duration: 1 },
-          2
-        );
-        tl.to(
-          cards[1],
-          { y: -100, scale: 0.82, opacity: 0.3, ease: "none", duration: 1 },
-          2
-        );
+        // Transition 3 (Card 3 enters, Card 2 recedes)
         tl.to(
           cards[2],
           { y: -55, scale: 0.9, opacity: 0.65, ease: "none", duration: 1 },
@@ -170,7 +160,7 @@ export function SolutionsSectionV2() {
     <section
       id="solutions"
       ref={sectionRef}
-      className="w-full bg-[#F4F6F8] font-sans relative select-text flex flex-col justify-center overflow-hidden py-12 sm:py-16 md:py-8 md:min-h-screen"
+      className="w-full bg-white font-sans relative select-text flex flex-col justify-center overflow-hidden py-12 sm:py-16 md:py-8 md:min-h-screen"
       style={{
         userSelect: "text",
         WebkitUserSelect: "text",
@@ -190,64 +180,69 @@ export function SolutionsSectionV2() {
           ref={containerRef}
           className="relative w-full flex flex-col gap-4 sm:gap-5 md:block md:flex-1 md:min-h-[580px] md:h-[78vh] lg:h-[82vh] md:max-h-[860px]"
         >
-          {SOLUTIONS.map((solution, idx) => (
-            <div
-              key={solution.number}
-              ref={(el) => {
-                cardRefs.current[idx] = el;
-              }}
-              className="relative w-full rounded-[20px] xs:rounded-[22px] sm:rounded-[26px] overflow-hidden flex flex-col justify-center shadow-lg md:absolute md:inset-0 md:min-h-0 md:rounded-[34px] md:shadow-2xl md:will-change-transform"
-              style={{
-                zIndex: idx + 1,
-              }}
-            >
-              {/* Background image */}
-              <img
-                src={solution.image}
-                alt={solution.alt}
-                className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
-                draggable={false}
-              />
+          {SOLUTIONS.map((solution, idx) => {
+            const isLastCard = idx === SOLUTIONS.length - 1;
 
-              {/* Gradient dark overlay for crystal clear text legibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/35 pointer-events-none" />
+            return (
+              <div
+                key={solution.number}
+                ref={(el) => {
+                  cardRefs.current[idx] = el;
+                }}
+                className="relative w-full rounded-[20px] xs:rounded-[22px] sm:rounded-[26px] overflow-hidden flex flex-col justify-center shadow-lg md:absolute md:inset-0 md:min-h-0 md:rounded-[34px] md:shadow-2xl md:will-change-transform"
+                style={{
+                  zIndex: idx + 1,
+                }}
+              >
+                {/* Background image */}
+                <img
+                  src={solution.image}
+                  alt={solution.alt}
+                  className="absolute inset-0 w-full h-full object-cover object-center pointer-events-none select-none"
+                  draggable={false}
+                />
 
-              {/* Card content - Clean compact layout on mobile matching reference, full layout on desktop */}
-              <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-5 py-7 xs:px-6 xs:py-8 sm:px-10 sm:py-10 md:px-14 md:py-16 select-text">
+                {/* Gradient dark overlay for crystal clear text legibility */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/35 pointer-events-none" />
 
-                {/* ── Number + Title ── */}
-                <div className="flex flex-col items-center cursor-text">
-                  <span className="text-[11px] xs:text-[11.5px] sm:text-[13px] font-medium text-white/90 tracking-[0.2em] uppercase mb-1 sm:mb-1.5 drop-shadow-sm">
-                    {solution.number}
-                  </span>
-                  <h3 className="text-[23px] xs:text-[25px] sm:text-[32px] md:text-[44px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.14] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] mb-2 md:mb-0">
-                    {solution.title}
-                  </h3>
-                </div>
+                {/* Card content - Clean compact layout without middle vertical line */}
+                <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-5 py-7 xs:px-6 xs:py-8 sm:px-10 sm:py-10 md:px-14 md:py-16 select-text">
 
-                {/* Vertical accent divider line: Hidden on mobile matching reference, shown on desktop */}
-                <div className="hidden md:block w-[1.5px] md:h-12 bg-white/45 md:my-4 pointer-events-none" />
+                  {/* ── Number + Title ── */}
+                  <div className="flex flex-col items-center cursor-text mb-3 sm:mb-4">
+                    <span className="text-[11px] xs:text-[11.5px] sm:text-[13px] font-medium text-white/90 tracking-[0.2em] uppercase mb-1 sm:mb-1.5 drop-shadow-sm">
+                      {solution.number}
+                    </span>
+                    <h3 className="text-[23px] xs:text-[25px] sm:text-[32px] md:text-[44px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.14] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+                      {solution.title}
+                    </h3>
+                  </div>
 
-                {/* ── Lead + Description + CTA ── */}
-                <div className="flex flex-col items-center max-w-[700px] w-full cursor-text">
-                  <p className="text-[13px] xs:text-[13.5px] sm:text-[15px] md:text-[17.5px] text-white font-medium leading-[1.38] drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] mb-1 sm:mb-1.5 md:mb-2 max-w-[660px]">
-                    {solution.lead}
-                  </p>
-                  <p className="text-[11px] xs:text-[11.5px] sm:text-[13px] md:text-[15px] text-white/80 leading-[1.5] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] mb-4 xs:mb-5 sm:mb-6 md:mb-7 max-w-[620px]">
-                    {solution.description}
-                  </p>
+                  {/* ── Lead + Description + Button ── */}
+                  <div className="flex flex-col items-center max-w-[700px] w-full cursor-text">
+                    <p className="text-[13px] xs:text-[13.5px] sm:text-[15px] md:text-[17.5px] text-white font-medium leading-[1.38] drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] mb-1 sm:mb-1.5 md:mb-2 max-w-[660px]">
+                      {solution.lead}
+                    </p>
+                    <p className="text-[11px] xs:text-[11.5px] sm:text-[13px] md:text-[15px] text-white/80 leading-[1.5] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] max-w-[620px] mb-4 xs:mb-5 sm:mb-6">
+                      {solution.description}
+                    </p>
 
-                  {/* Glassmorphism button: compact on mobile */}
-                  <Link
-                    href="/contact"
-                    className="inline-flex items-center justify-center h-[38px] xs:h-[40px] sm:h-[44px] md:h-[48px] px-6 xs:px-7 sm:px-8 md:px-9 rounded-full bg-white/10 backdrop-blur-md border border-white/35 text-white text-[10.5px] xs:text-[11px] sm:text-[12px] md:text-[12.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap shadow-[0_8px_32px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_10px_35px_rgba(255,255,255,0.25)] active:scale-[0.98]"
-                  >
-                    REQUEST A QUOTE
-                  </Link>
+                    {/* Button on all 4 cards:
+                        - White background with dark blue text matching request
+                        - Cards 01, 02, 03: "EXPLORE OUR SERVICES" -> links to /services
+                        - Card 04: "REQUEST A QUOTE" -> links to /contact
+                    */}
+                    <Link
+                      href={solution.href}
+                      className="inline-flex items-center justify-center h-[42px] xs:h-[44px] sm:h-[46px] md:h-[48px] px-7 xs:px-8 sm:px-9 rounded-full bg-white text-[#0B2735] border border-transparent text-[11px] sm:text-[12px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#0B2735] hover:text-white hover:border-white hover:scale-[1.02] active:scale-[0.98]"
+                    >
+                      <span>{isLastCard ? "REQUEST A QUOTE" : "EXPLORE OUR SERVICES"}</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

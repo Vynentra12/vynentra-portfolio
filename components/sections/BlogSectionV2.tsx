@@ -105,7 +105,7 @@ export function BlogSectionV2() {
           </motion.div>
         </div>
 
-        {/* 3-Column Blog Cards Grid with Clean Layout (No White Box Enclosure) */}
+        {/* 3-Column Blog Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 items-stretch">
           {blogs.slice(0, 3).map((blog, idx) => (
             <motion.div
@@ -121,17 +121,17 @@ export function BlogSectionV2() {
                 className="flex flex-col justify-between h-full group/blog cursor-pointer"
               >
                 <div className="flex flex-col">
-                  {/* Image Container with Squareish Badge */}
+                  {/* Image Container with Dynamic Green to Light-Blue Badge */}
                   <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
                     <img
                       src={blog.image}
                       alt={blog.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                     />
 
-                    {/* Squareish Category Badge */}
+                    {/* Badge: Light blue #0A6B88 */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-black/55 backdrop-blur-md border border-white/30 text-white text-[9.5px] sm:text-[10px] font-medium tracking-wider uppercase px-2.5 py-1 rounded-[6px] shadow-sm">
+                      <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
                         {blog.category}
                       </span>
                     </div>
@@ -144,15 +144,15 @@ export function BlogSectionV2() {
                     </p>
                   </div>
 
-                  {/* Card Title (font-medium matching FAQ section question font weight) */}
+                  {/* Card Title */}
                   <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-[#087589] transition-colors min-h-[46px] sm:min-h-[50px]">
                     {blog.title}
                   </h3>
                 </div>
 
-                {/* Read Insight Button: Cohesive stroke component without arrows */}
+                {/* Read Insight Button: Enlarged size without arrows as requested */}
                 <div className="mt-4 sm:mt-5">
-                  <span className="inline-flex items-center justify-center h-[34px] px-4 rounded-full border border-neutral-300 text-[11px] font-medium tracking-[0.06em] uppercase text-neutral-800 group-hover/blog:bg-[#0B2735] group-hover/blog:text-white group-hover/blog:border-[#0B2735] transition-all duration-200">
+                  <span className="inline-flex items-center justify-center h-[38px] px-5 sm:px-6 rounded-full border border-[#0B2735] text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase text-[#0B2735] transition-all duration-200 group-hover/blog:bg-[#0B2735] group-hover/blog:text-white">
                     READ INSIGHT
                   </span>
                 </div>

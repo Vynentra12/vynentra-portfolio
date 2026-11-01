@@ -86,10 +86,10 @@ export function MissionSectionV2() {
   }, { scope: sectionRef });
 
   // Reusable statement typography with high-impact editorial presence
-  const renderTypography = (textColor: string, kickerColor: string) => (
+  const renderTypography = (textColor: string, kickerColor: string, kickerTheme: 'dark' | 'light' = 'dark') => (
     <div className="flex flex-col items-center justify-center text-center select-text max-w-[1040px] mx-auto">
-      {/* Kicker Badge */}
-      <SectionBadge className={`mb-7 sm:mb-9 ${kickerColor}`}>
+      {/* Kicker Badge: Light blue #0A6B88 on white, white on mask */}
+      <SectionBadge theme={kickerTheme} className={`mb-7 sm:mb-9 ${kickerColor}`}>
         OUR MISSION
       </SectionBadge>
 
@@ -115,10 +115,10 @@ export function MissionSectionV2() {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="relative w-full min-h-[480px] sm:min-h-[540px] md:min-h-[600px] lg:min-h-[640px] py-24 sm:py-32 md:py-40 lg:py-48 bg-white flex items-center justify-center overflow-hidden"
     >
-      {/* LAYER 1 (Base): Crisp white background with dark text and cursor listener bounded strictly to the text */}
+      {/* LAYER 1 (Base): Crisp white background with light blue badge #0A6B88 */}
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 flex items-center justify-center">
         <div ref={textTargetRef} className="cursor-default w-full">
-          {renderTypography("text-neutral-900", "text-neutral-900")}
+          {renderTypography("text-neutral-900", "text-[#0A6B88]", "dark")}
         </div>
       </div>
 
@@ -131,7 +131,7 @@ export function MissionSectionV2() {
       >
         <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 flex items-center justify-center">
           <div className="w-full">
-            {renderTypography("text-white", "text-white")}
+            {renderTypography("text-white", "text-white", "light")}
           </div>
         </div>
       </div>

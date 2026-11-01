@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView, animate } from "framer-motion";
-import { CheckCircle, Lightbulb, Shield, Award, Users, Heart } from "lucide-react";
+import { CheckCircle, Lightbulb, Shield, Award, Users, Heart, ArrowLeft } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
@@ -54,15 +54,21 @@ export default function AboutPage() {
         {/* Hero Content Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="w-full">
-            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
+            {/* Back to Home Link (Pure text with arrow, no background, no border) */}
             <div className="mb-5 sm:mb-6">
-              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
-                <Link href="/" className="hover:text-white transition-colors">
-                  Home
-                </Link>
-                <span className="text-white/40 select-none">/</span>
-                <span className="text-white font-medium select-none">About</span>
-              </nav>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Home</span>
+              </Link>
+
+
+
+
+
+
             </div>
 
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 select-text">

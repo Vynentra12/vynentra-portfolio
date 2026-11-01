@@ -12,7 +12,8 @@ import {
   MapPin, 
   Layers, 
   Check, 
-  Mail 
+  Mail,
+  ArrowLeft 
 } from "lucide-react";
 
 export default function PartnersPage() {
@@ -67,15 +68,21 @@ export default function PartnersPage() {
         {/* Hero Content Container - Standardized Left & Right Spacing */}
         <div className="relative z-10 w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-28 sm:pt-40">
           <div className="max-w-[1380px] mx-auto">
-            {/* Minimal Frosted Glass Pill Breadcrumb */}
+            {/* Back to Home Link (Pure text with arrow, no background, no border) */}
             <div className="mb-5 sm:mb-6">
-              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
-                <Link href="/" className="hover:text-white transition-colors">
-                  Home
-                </Link>
-                <span className="text-white/40 select-none">/</span>
-                <span className="text-white font-medium select-none">Partners</span>
-              </nav>
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Home</span>
+              </Link>
+
+
+
+
+
+
             </div>
 
             <h1 className="text-[28px] sm:text-[38px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-3 sm:mb-5 select-text">
@@ -123,6 +130,7 @@ export default function PartnersPage() {
                   >
                     <span>Partner With Us</span>
                   </Link>
+  
                   <a
                     href="mailto:partner@vynentra.com"
                     className="flex-1 sm:flex-initial inline-flex items-center justify-center h-[44px] sm:h-[46px] px-3.5 sm:px-7 rounded-full border border-neutral-300 text-neutral-800 text-[11px] min-[390px]:text-[11.5px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase hover:bg-[#AEF977] hover:text-neutral-950 hover:border-[#AEF977] transition-all duration-300 active:scale-[0.98] text-center whitespace-nowrap"
@@ -424,6 +432,7 @@ export default function PartnersPage() {
                 >
                   <span>GET IN TOUCH</span>
                 </Link>
+
               </div>
             </div>
           </div>

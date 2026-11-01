@@ -97,9 +97,9 @@ export function WhyChooseUsSectionV2() {
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
               className="flex flex-col mb-8 lg:mb-10"
             >
-              {/* Badge: What We Do */}
+              {/* Badge: WHAT WE DO */}
               <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-                What We Do
+                WHAT WE DO
               </SectionBadge>
 
               {/* Main Headline: Exact requested copy & fully selectable */}
@@ -207,3 +207,4 @@ export function WhyChooseUsSectionV2() {
     </section>
   );
 }
+

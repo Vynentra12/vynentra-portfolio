@@ -1,131 +1,150 @@
-import React from "react";
-import Link from "next/link";
-import { MapPin, Zap } from "lucide-react";
-import { CASE_STUDIES } from "@/lib/case-studies-data";
-import { FooterV2 } from "@/components/sections/FooterV2";
+'use client';
+
+import React from 'react';
+import Link from 'next/link';
+import { CASE_STUDIES } from '@/lib/case-studies-data';
+import { FooterV2 } from '@/components/sections/FooterV2';
+import { MapPin, Zap, CalendarDays, ArrowDown, ArrowLeft } from 'lucide-react';
 
 export default function CaseStudiesPage() {
   return (
-    <div className="w-full max-w-full overflow-x-hidden bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
+    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
-      {/* ── 1. HERO SECTION (Full 100vh Viewport Height matching insights and contact) ── */}
-      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black select-text">
-        {/* Background Image */}
+      {/* ── 1. HERO SECTION (Matching Reference Image 4 & 5 Layout) ── */}
+      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
+        {/* Background Image with Cinematic Darkness */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/case-studies/case-study-1-surat.webp"
-            alt="Case Studies background"
-            className="w-full h-full object-cover object-[center_35%] opacity-60"
+            src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2000&auto=format&fit=crop"
+            alt="Wind turbines against vast horizon"
+            className="w-full h-full object-cover object-center opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Container */}
+        {/* Hero Content Container: Left Info + Right Scroll to Explore Button */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
-          <div className="max-w-[1380px] mx-auto">
-            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
-            <div className="mb-5 sm:mb-6">
-              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
-                <Link href="/" className="hover:text-white transition-colors">
-                  Home
+          <div className="max-w-[1380px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10">
+            
+            {/* Left Content */}
+            <div className="max-w-3xl">
+              {/* Back to Home Link (Pure text with arrow, no background, no border) */}
+              <div className="mb-4 sm:mb-5">
+                <Link
+                  href="/"
+                  className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5" />
+                  <span>Back to Home</span>
                 </Link>
-                <span className="text-white/40 select-none">/</span>
-                <span className="text-white font-medium select-none">Case Studies</span>
-              </nav>
+              </div>
+
+              {/* Main Headline */}
+              <h1 className="text-[34px] sm:text-[44px] md:text-[54px] lg:text-[60px] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
+                Real projects.<br />Lasting impact.
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-[14.5px] sm:text-[16px] md:text-[17.5px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm font-normal">
+                Renewable energy solutions designed for real-world conditions across India.
+              </p>
             </div>
 
-            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 select-text">
-              Global projects, local impact.
-            </h1>
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl font-normal">
-              Discover how Vynentra brings complex renewable energy projects to life, from initial planning to final commissioning, delivering turnkey solutions across India.
-            </p>
+            {/* Right Scroll Down Element (Matching Image 4 & 5) */}
+            <div 
+              onClick={() => {
+                const el = document.getElementById('case-studies-feed');
+                el ? el.scrollIntoView({ behavior: 'smooth' }) : window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+              }}
+              className="shrink-0 flex flex-col items-center gap-2.5 cursor-pointer select-none self-start lg:self-end group"
+            >
+              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
+                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+              </div>
+              <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.18em] uppercase text-white/70 group-hover:text-white transition-colors">
+                SCROLL TO EXPLORE
+              </span>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ── 2. CASE STUDY FEED (Natural Stacked Feed, Minimized Top Spacing, Matching Reference UI) ── */}
+      {/* ── 2. CASE STUDY FEED (Clean Borderless Cards with Prominent Vertical Divider Line) ── */}
       <section
         id="case-studies-feed"
-        className="w-full max-w-full overflow-hidden bg-[#FAFAFA] font-sans relative select-text py-12 sm:py-16 lg:py-20"
+        className="w-full max-w-full overflow-hidden bg-white font-sans relative select-text py-14 sm:py-20 lg:py-24"
       >
-        <div className="w-full max-w-[1180px] lg:max-w-[1220px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col gap-7 sm:gap-8 lg:gap-10 w-full max-w-full min-w-0">
+          <div className="flex flex-col space-y-16 sm:space-y-20 lg:space-y-24 w-full max-w-full min-w-0">
             {CASE_STUDIES.map((study) => (
               <div
                 key={study.slug}
-                className="group bg-white rounded-[22px] sm:rounded-[26px] md:rounded-[28px] border border-neutral-200/90 shadow-[0_4px_24px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow duration-300 p-4 sm:p-6 lg:p-7 xl:p-8 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 lg:gap-8 xl:gap-10 w-full max-w-full min-w-0 overflow-hidden"
+                className="group bg-white flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 lg:gap-8 xl:gap-10 w-full max-w-full min-w-0 overflow-hidden py-4 sm:py-6"
               >
-                {/* Left Column: Clickable Image Thumbnail (No badge overlay) */}
+                {/* Left Column: Widened Thumbnail so image fits properly */}
                 <Link
                   href={`/case-studies/${study.slug}`}
-                  className="w-full lg:w-[320px] xl:w-[350px] aspect-[16/10] sm:aspect-auto sm:h-[250px] lg:h-[270px] xl:h-[285px] rounded-[18px] sm:rounded-[20px] overflow-hidden shrink-0 relative bg-neutral-100 block cursor-pointer group/img"
+                  className="w-full lg:w-[380px] xl:w-[430px] aspect-[16/11] rounded-[18px] sm:rounded-[22px] overflow-hidden shrink-0 relative bg-neutral-100 block cursor-pointer group/img shadow-xs"
                 >
                   <img
                     src={study.image}
                     alt={study.title}
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
                   />
                 </Link>
 
-                {/* Middle Column: Location & Tech Chips (Horizontal Single Line), Title (font-medium), Subtitle & Button */}
+                {/* Middle Column: Location & Tech Chips, Title, Description & Button */}
                 <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-1 lg:py-2 h-full overflow-hidden">
                   <div className="w-full min-w-0 max-w-full">
-                    {/* Location & Technology Meta Chips: Aligned Horizontally with squareish rounding */}
-                    <div className="w-full max-w-full flex flex-row flex-nowrap items-center gap-2 mb-2 sm:mb-2.5 overflow-x-auto no-scrollbar">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-[6px] bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
-                        <MapPin className="w-3 h-3 text-[#0A6B88] shrink-0" />
+                    {/* Meta Info: Location | Technology (clean text without grey pill bg) */}
+                    <div className="w-full max-w-full flex flex-row flex-wrap items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
+                      <span className="inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-normal text-neutral-600 whitespace-nowrap shrink-0">
+                        <MapPin strokeWidth={1.5} className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
                         <span>{study.projectLocation}</span>
                       </span>
-                      <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-[6px] bg-[#F4F6F8] text-[10.5px] sm:text-[11px] font-medium text-neutral-700 border border-neutral-200/60 whitespace-nowrap shrink-0">
-                        <Zap className="w-3 h-3 text-[#0A6B88] shrink-0" />
+                      <span className="text-neutral-300 select-none">|</span>
+                      <span className="inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-normal text-neutral-600 whitespace-nowrap shrink-0">
+                        <Zap strokeWidth={1.5} className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
                         <span>{study.technology}</span>
                       </span>
                     </div>
 
+                    {/* Title */}
                     <Link
                       href={`/case-studies/${study.slug}`}
                       className="block group-hover:text-[#0A6B88] transition-colors"
                     >
-                      <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] lg:text-[26px] xl:text-[28px] font-medium text-[#0B2735] leading-[1.25] tracking-tight mb-2.5 sm:mb-3">
-                        {study.displayTitleLines ? (
-                          study.displayTitleLines.map((line, lIdx) => (
-                            <span key={lIdx} className="block">
-                              {line}
-                            </span>
-                          ))
-                        ) : (
-                          study.title
-                        )}
+                      <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] lg:text-[26px] font-medium text-[#0B2735] leading-[1.25] tracking-tight mb-2.5 sm:mb-3">
+                        {study.title}
                       </h2>
                     </Link>
-                    <p className="text-[13px] sm:text-[14px] text-neutral-500 font-normal leading-[1.6] line-clamp-3 mb-6 max-w-xl">
+
+                    {/* Subtitle / Description */}
+                    <p className="text-[13px] sm:text-[13.5px] text-neutral-600 font-normal leading-[1.6] line-clamp-2 mb-5 max-w-xl">
                       {study.subtitle}
                     </p>
                   </div>
 
-                  {/* Button: Outline Pill matching 'WHAT WE DO' Section, slightly enlarged, no arrow */}
+                  {/* Button: Outline Pill WITHOUT Arrow */}
                   <Link
                     href={`/case-studies/${study.slug}`}
-                    className="inline-flex items-center justify-center h-[46px] sm:h-[48px] px-7 sm:px-8 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+                    className="inline-flex items-center justify-center h-[42px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11px] sm:text-[11.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
                   >
                     <span>READ FULL STORY</span>
                   </Link>
                 </div>
 
-                {/* Right Column: Key Impact Metrics (font-normal numbers, vertical divider) */}
-                <div className="w-full lg:w-[200px] xl:w-[220px] shrink-0 pt-5 lg:pt-0 border-t lg:border-t-0 lg:border-l border-neutral-100 lg:border-neutral-200/80 flex flex-row lg:flex-col justify-between lg:justify-center items-start lg:items-center gap-4 sm:gap-8 lg:pl-8 xl:pl-10 min-w-0 max-w-full">
-                  {study.stats.map((stat, i) => (
-                    <div key={i} className="flex flex-col items-start lg:items-center text-left lg:text-center min-w-[95px]">
-                      <div className="text-[34px] xs:text-[38px] sm:text-[42px] lg:text-[46px] xl:text-[48px] font-normal text-[#0B2735] tracking-tight leading-none whitespace-nowrap">
-                        {stat.value}
-                      </div>
-                      <div className="text-[11.5px] sm:text-[12px] text-neutral-500 font-medium leading-[1.3] text-left lg:text-center mt-2 max-w-[130px]">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
+                {/* Big Visible Vertical Divider Line for Desktop */}
+                <div className="hidden lg:block w-[1.5px] h-28 xl:h-32 bg-neutral-300 shrink-0 self-center mx-1 xl:mx-2" />
+
+                {/* Right Column: Calendar Icon and Date */}
+                <div className="w-full lg:w-[150px] xl:w-[170px] shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-neutral-200 flex flex-col justify-center items-center gap-2.5">
+                  <CalendarDays strokeWidth={1.4} className="w-11 h-11 sm:w-12 sm:h-12 text-[#0A6B88]" />
+                  <div className="text-[13px] sm:text-[13.5px] font-semibold text-neutral-800 text-center leading-snug">
+                    {study.date || "October 09, 2026"}
+                  </div>
                 </div>
 
               </div>

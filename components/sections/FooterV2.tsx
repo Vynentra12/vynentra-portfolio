@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-
 import { Mail } from "lucide-react";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -21,29 +20,25 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export function FooterV2() {
   const companyLinks = [
-    // { name: "About Vynentra", href: "/about" }, // Hidden per request - uncomment to revive the About Us link
-    { name: "Our Approach", href: "/#process" },
+    { name: "About Us", href: "/about" },
     { name: "Partners", href: "/partners" },
-    { name: "Getting Started", href: "/contact#contact-form" },
   ];
 
-  const solutionsLinks = [
-    { name: "Wind Energy", href: "/services/wind-energy" },
+  const servicesLinks = [
     { name: "Solar Energy", href: "/services/solar-energy" },
+    { name: "Wind Energy", href: "/services/wind-energy" },
     { name: "Wind-Solar Hybrid", href: "/services/wind-solar-hybrid" },
     { name: "Energy Storage", href: "/services/energy-storage" },
-    { name: "Project Development", href: "/services/project-development" },
   ];
 
   const resourcesLinks = [
     { name: "Insights", href: "/insights" },
-    { name: "FAQs", href: "/#faq" },
-    { name: "Contact Us", href: "/contact#contact-form" },
+    { name: "Contact Us", href: "/contact" },
   ];
 
   const legalLinks = [
-    { name: "Terms & Service", href: "/terms" },
     { name: "Privacy Policy", href: "/privacy" },
+    { name: "Terms & Conditions", href: "/terms" },
   ];
 
   return (
@@ -94,7 +89,7 @@ export function FooterV2() {
                 <LinkedinIcon className="w-[18px] h-[18px]" />
               </a>
               <a 
-                href="https://www.instagram.com/vynentraenergysolutions?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
+                href="https://www.instagram.com/vynentra?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 aria-label="Instagram"
@@ -105,7 +100,7 @@ export function FooterV2() {
             </div>
           </div>
 
-          {/* Right Column: 4 Navigation Groups (Company, Solutions, Resources, Legal) */}
+          {/* Right Column: 4 Navigation Groups (Company, Services, Resources, Legal) */}
           <div className="lg:col-span-8 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12 pt-1 lg:pt-0">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 lg:gap-6 xl:gap-8">
               
@@ -128,13 +123,13 @@ export function FooterV2() {
                 </ul>
               </div>
 
-              {/* Solutions */}
+              {/* Services: 4 types of services */}
               <div className="flex flex-col">
                 <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
-                  Solutions
+                  Services
                 </h4>
                 <ul className="flex flex-col gap-2.5">
-                  {solutionsLinks.map((link) => (
+                  {servicesLinks.map((link) => (
                     <li key={link.name}>
                       <Link 
                         href={link.href}

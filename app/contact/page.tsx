@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { ChevronDown, MapPin, Phone, Mail, Share2 } from "lucide-react";
+import { ChevronDown, MapPin, Phone, Mail, Share2, ArrowLeft } from "lucide-react";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
@@ -145,18 +145,15 @@ export default function ContactPage() {
         {/* Hero Content Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="w-full">
-            {/* Minimal Frosted Glass Pill Breadcrumb (Option C) */}
-            <div className="mb-5 sm:mb-6">
-              <nav aria-label="Breadcrumbs" className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-[8px] bg-white/10 backdrop-blur-md border border-white/15 text-[11px] sm:text-[11.5px] font-normal text-white/80 shadow-sm">
-                <Link
-                  href="/"
-                  className="hover:text-white transition-colors"
-                >
-                  Home
-                </Link>
-                <span className="text-white/40 select-none">/</span>
-                <span className="text-white font-medium select-none">Contact</span>
-              </nav>
+            {/* Back to Home Link (Pure text with arrow, no background, no border) */}
+            <div className="mb-4 sm:mb-5">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+              >
+                <ArrowLeft className="w-3.5 h-3.5" />
+                <span>Back to Home</span>
+              </Link>
             </div>
 
             {/* Same font size as ServicesPage Hero Title */}
@@ -172,89 +169,92 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Main 2-Column Contact Info & Form Section */}
-      <section id="contact-form" className="w-full py-14 sm:py-24 md:py-28 lg:py-32 bg-white overflow-x-hidden scroll-mt-20">
-        <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 xl:gap-20 items-start">
+      {/* ── SPLIT CONTACT SECTION (Direct, Technical, Authoritative) ── */}
+      <section className="py-20 md:py-28 bg-[#F4F6F8] border-b border-neutral-200">
+        <div className="max-w-[1380px] mx-auto px-6 sm:px-10 lg:px-12 xl:px-14">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
             
-            {/* Left Column: Contact Info */}
-            <div className="lg:col-span-5 flex flex-col justify-start">
-              
-              <SectionBadge theme="dark" className="w-fit mb-5 sm:mb-6">
-                GET IN TOUCH
-              </SectionBadge>
-
-              {/* Headline */}
-              <h2 className="text-[32px] sm:text-[40px] font-medium text-neutral-950 tracking-tight leading-[1.15] mb-6 sm:mb-7">
-                Reach out to us anytime for support and guidance
-              </h2>
-
-              {/* Subtitle */}
-              <p className="text-[14px] sm:text-[15px] md:text-[16px] text-neutral-600 leading-[1.6] font-normal mb-8 sm:mb-14 max-w-xl">
-                Get in touch to discuss your renewable energy requirements today. Please give us a call or drop us an email.
-              </p>
-
-              {/* 2x2 Details Grid - Pure clean spacing without border */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-10 sm:gap-x-14 gap-y-7 sm:gap-y-12">
+            {/* Left Column: Direct Inquiries & Physical Details */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <div>
+                <SectionBadge theme="dark" className="mb-4 w-fit">
+                  CONTACT DETAILS
+                </SectionBadge>
                 
-                {/* Location */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <MapPin className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
-                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
-                      WE ARE HERE:
-                    </h3>
-                  </div>
-                  <p className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6] font-normal">
-                    Vynentra Clean Energy HQ,<br />
-                    Gujarat &amp; Rajasthan Corridor, India
-                  </p>
-                </div>
+                <h2 className="text-[28px] sm:text-[34px] font-medium text-neutral-900 tracking-tight leading-snug mb-6">
+                  Get in touch with our renewable project engineering team.
+                </h2>
+                
+                <p className="text-[15px] sm:text-[16px] text-neutral-600 leading-relaxed mb-10 font-normal">
+                  Whether you are planning a utility wind site, a C&I captive solar-wind installation, or exploring commercial partnership models, we are ready to assist.
+                </p>
 
-                {/* Phone */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <Phone className="w-[17px] h-[17px] text-neutral-950 shrink-0" strokeWidth={2} />
-                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
-                      CONTACT NUMBER:
-                    </h3>
+                <div className="space-y-8">
+                  {/* Address */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-[#0A6B88] shrink-0 shadow-xs">
+                      <MapPin className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-[12px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                        Headquarters
+                      </h4>
+                      <p className="text-[15px] sm:text-[15.5px] text-neutral-900 font-medium leading-relaxed">
+                        Surat, Gujarat, India
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6]">
-                    <a href="tel:+917777024826" className="hover:text-[#0A6B88] font-normal transition-colors block">
-                      +91 77770 24826
-                    </a>
-                  </p>
-                </div>
 
-                {/* Email */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <Mail className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
-                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
-                      EMAIL ID:
-                    </h3>
+                  {/* Email */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-[#0A6B88] shrink-0 shadow-xs">
+                      <Mail className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-[12px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                        Direct Email
+                      </h4>
+                      <a 
+                        href="mailto:contact@vynentra.com"
+                        className="text-[15px] sm:text-[15.5px] text-neutral-900 font-medium hover:text-[#0A6B88] transition-colors"
+                      >
+                        contact@vynentra.com
+                      </a>
+                    </div>
                   </div>
-                  <div className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6] font-normal space-y-1">
-                    <a href="mailto:info@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
-                      info@vynentra.com
-                    </a>
-                    <a href="mailto:partner@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
-                      partner@vynentra.com
-                    </a>
+
+                  {/* Phone */}
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white border border-neutral-200 flex items-center justify-center text-[#0A6B88] shrink-0 shadow-xs">
+                      <Phone className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-[12px] font-bold uppercase tracking-wider text-neutral-500 mb-1">
+                        Corporate Phone
+                      </h4>
+                      <a 
+                        href="tel:+918238888062"
+                        className="text-[15px] sm:text-[15.5px] text-neutral-900 font-medium hover:text-[#0A6B88] transition-colors"
+                      >
+                        +91 82388 88062
+                      </a>
+                    </div>
                   </div>
                 </div>
+              </div>
 
-                {/* Socials */}
-                <div>
-                  <div className="flex items-center gap-2 mb-2.5">
-                    <Share2 className="w-[18px] h-[18px] text-neutral-950 shrink-0" strokeWidth={2} />
-                    <h3 className="text-[13px] font-bold text-neutral-950 uppercase tracking-[0.06em]">
-                      WE ARE ON SOCIALS:
-                    </h3>
+              {/* Follow & Social Channels */}
+              <div className="pt-10 mt-10 border-t border-neutral-300">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <Share2 className="w-3.5 h-3.5 text-[#0A6B88]" />
+                    <span className="text-[11px] font-bold uppercase tracking-widest text-[#0A6B88]">
+                      Follow Us On Social Channels
+                    </span>
                   </div>
                   <div className="flex items-center gap-3 pt-1">
                     <a 
-                      href="https://www.instagram.com/vynentraenergysolutions?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
+                      href="https://www.instagram.com/vynentra?srtk=bGdxa3V2am85d3lv&utm_source=qr" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="Instagram"
@@ -263,7 +263,7 @@ export default function ContactPage() {
                       <InstagramIcon className="w-[18px] h-[18px]" />
                     </a>
                     <a 
-                      href="https://www.linkedin.com/company/vynentra-energy-solutions-llp/" 
+                      href="https://www.linkedin.com/company/vynentra-energy-solutions/" 
                       target="_blank" 
                       rel="noopener noreferrer" 
                       aria-label="LinkedIn"
@@ -273,37 +273,41 @@ export default function ContactPage() {
                     </a>
                   </div>
                 </div>
-
               </div>
-
             </div>
 
-            {/* Right Column: Clean Light Gray Form Card */}
-            <div className="lg:col-span-7 bg-[#F4F6F8] rounded-[14px] p-5 sm:p-8 lg:p-10 border border-neutral-200/60">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-4 sm:gap-5">
-                
-                {/* Honeypot anti-spam hidden field */}
-                <div style={{ display: "none" }} aria-hidden="true">
-                  <input
-                    type="text"
-                    name="_vyn_form_verification"
-                    value={honeypot}
-                    onChange={(e) => setHoneypot(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                  />
-                </div>
+            {/* Right Column: Structured Inquiry Form */}
+            <div className="lg:col-span-7 bg-white p-8 sm:p-10 md:p-12 rounded-[24px] border border-neutral-200 shadow-sm" id="contact-form">
+              <h3 className="text-[20px] sm:text-[22px] font-medium text-neutral-900 tracking-tight mb-2">
+                Initiate Project Consultation
+              </h3>
+              <p className="text-[14px] text-neutral-600 mb-8 font-normal">
+                Please complete the technical details below. Our development team will review your parameters and follow up within one business day.
+              </p>
 
-                {/* 2-Column Grid for Name and Email */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+              <form onSubmit={handleSubmit} className="space-y-5">
+                {/* Honeypot field */}
+                <input
+                  type="text"
+                  name="website_hp"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                  style={{ display: "none" }}
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   {/* Name */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Full Name</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Full Name *
+                    </label>
                     <input
                       type="text"
                       name="name"
                       required
-                      placeholder="Enter your full name"
+                      placeholder="e.g. Ramesh Patel"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
@@ -312,12 +316,14 @@ export default function ContactPage() {
 
                   {/* Email */}
                   <div className="flex flex-col">
-                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Work Email</label>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Work Email *
+                    </label>
                     <input
                       type="email"
                       name="email"
                       required
-                      placeholder="you@company.com"
+                      placeholder="e.g. ramesh@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
@@ -325,31 +331,27 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                {/* Org Name */}
-                <div className="flex flex-col">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">Company</label>
-                  <input
-                    type="text"
-                    name="company"
-                    required
-                    placeholder="Company name"
-                    value={formData.orgName}
-                    onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
-                    className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
-                  />
-                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  {/* Company */}
+                  <div className="flex flex-col">
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Organization / Entity
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      placeholder="e.g. Torrent Textiles Ltd."
+                      value={formData.orgName}
+                      onChange={(e) => setFormData({ ...formData, orgName: e.target.value })}
+                      className="bg-white border border-neutral-300 rounded-full px-4 py-2.5 text-[14.5px] text-neutral-900 placeholder:text-neutral-500 focus:outline-none focus:border-[#0A6B88] transition-colors w-full"
+                    />
+                  </div>
 
-                {/* “I’d like to know about” dropdown: Custom UI */}
-                <div className="flex flex-col relative" ref={dropdownRef}>
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
-                    What do you need help with?
-                  </label>
-                  <input
-                    type="hidden"
-                    name="service"
-                    value={formData.serviceInterest}
-                  />
-                  <div className="relative w-full">
+                  {/* Service Interest Custom Dropdown */}
+                  <div className="flex flex-col relative" ref={dropdownRef}>
+                    <label className="text-[11px] font-bold uppercase tracking-wider text-neutral-600 mb-1.5">
+                      Solution Interest *
+                    </label>
                     <button
                       type="button"
                       onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -358,18 +360,15 @@ export default function ContactPage() {
                       <span className="truncate pr-4">
                         {formData.serviceInterest 
                           ? serviceOptions.find(o => o.value === formData.serviceInterest)?.label 
-                          : "Select a service option"}
+                          : "Select renewable solution"}
                       </span>
-                      <ChevronDown className={`w-4 h-4 text-neutral-500 transition-transform duration-200 shrink-0 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                      <ChevronDown className={`w-4 h-4 text-neutral-600 shrink-0 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                     </button>
-                    
+
                     {/* Dropdown Menu */}
                     {isDropdownOpen && (
-                      <div className="absolute top-full left-0 w-full mt-1.5 bg-white border border-neutral-200 rounded-[12px] shadow-lg overflow-hidden z-50">
-                        <div className="py-1">
-                          <div className="w-full text-left px-4 py-2 text-[14px] text-neutral-400 bg-neutral-50 cursor-not-allowed select-none border-b border-neutral-100">
-                            Select a service option
-                          </div>
+                      <div className="absolute top-full left-0 right-0 mt-1.5 bg-white border border-neutral-300 rounded-[16px] shadow-lg z-20 overflow-hidden py-1">
+                        <div className="max-h-[220px] overflow-y-auto">
                           {serviceOptions.map((option) => (
                             <button
                               key={option.value}
