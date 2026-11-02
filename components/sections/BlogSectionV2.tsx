@@ -79,12 +79,12 @@ export function BlogSectionV2() {
 
             {/* Main Title */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
-              Exploring the ideas shaping India&apos;s renewable energy landscape.
+              Exploring the ideas shaping<br />the future of energy
             </h2>
 
             {/* Subtitle / Description */}
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[580px] font-normal">
-              We are sharing perspectives on wind, solar, hybrid energy, project development and the technologies shaping how India generates and uses power.
+              Exploring the trends, technologies and ideas transforming India&apos;s renewable energy landscape, from wind and solar to hybrid systems and project development.
             </p>
           </motion.div>
 
@@ -129,9 +129,9 @@ export function BlogSectionV2() {
                       className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                     />
 
-                    {/* Badge: Light blue #0A6B88 */}
+                    {/* Category Badge: Consistent Brand Green #AEF977 */}
                     <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                      <span className="inline-flex items-center bg-[#AEF977] text-neutral-950 font-bold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
                         {blog.category}
                       </span>
                     </div>

@@ -1,149 +1,201 @@
-export const SERVICES = [
+export interface ServiceFeature {
+  name: string;
+  desc: string;
+  image?: string;
+}
+
+export interface ServiceProcessStep {
+  num: string;
+  title: string;
+  desc: string;
+  image?: string;
+}
+
+export interface ServiceProcessSection {
+  title: string;
+  desc: string;
+  steps: ServiceProcessStep[];
+}
+
+export interface ServiceCTA {
+  badge: string;
+  title: string;
+  desc: string;
+  buttonText: string;
+  buttonLink: string;
+}
+
+export interface ServiceItem {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  scope: string;
+  desc: string;
+  image: string;
+  featuresSectionTitle: string;
+  features: ServiceFeature[];
+  processSection?: ServiceProcessSection;
+  cta: ServiceCTA;
+}
+
+export const SERVICES: ServiceItem[] = [
   {
     id: "01",
-    slug: "solar-energy",
-    title: "SOLAR ENERGY",
-    subtitle: "Developing solar projects from assessment to operation.",
-    scope: "Rooftop & Ground-Mounted",
-    desc: "We are developing solar solutions for rooftops, land parcels, captive requirements and institutional applications. Our approach begins with understanding energy consumption and site conditions, followed by feasibility assessment, system sizing, engineering, procurement, installation, grid integration, testing and commissioning.",
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1920&auto=format&fit=crop",
+    slug: "bess-battery-energy-storage-systems",
+    title: "BESS: Battery Energy Storage Systems",
+    subtitle: "Powering events with flexible energy storage.",
+    scope: "Event & Commercial Storage",
+    desc: "We are providing battery energy storage solutions for large-scale events, supporting temporary power requirements through energy storage systems designed around event demand, duration and site conditions.",
+    image: "/solutions/battery-storage.jpg",
+    featuresSectionTitle: "Designed around event requirements.",
     features: [
       {
-        name: "Site & feasibility assessment",
-        desc: "We are evaluating solar potential, available space, shading, structural conditions, electrical infrastructure and grid connectivity."
+        name: "Live Events & Concerts",
+        desc: "Supporting event power requirements across production, lighting, audio and other connected equipment.",
+        image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg"
       },
       {
-        name: "System design & engineering",
-        desc: "We are designing the appropriate plant configuration across modules, inverters, mounting structures, electrical systems, protection and monitoring."
+        name: "Exhibitions & Conferences",
+        desc: "Providing energy storage solutions for temporary venues, exhibition spaces and business events.",
+        image: "https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg"
       },
       {
-        name: "Installation & commissioning",
-        desc: "We are coordinating installation, electrical integration, testing and commissioning to bring the system into commercial operation."
+        name: "Large-Scale Gatherings",
+        desc: "Evaluating power requirements for festivals, outdoor events and temporary installations.",
+        image: "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg"
       },
       {
-        name: "Monitoring & O&M",
-        desc: "We are supporting ongoing performance monitoring, preventive maintenance, corrective maintenance and system optimisation."
+        name: "Hybrid Power Setups",
+        desc: "Integrating battery storage with suitable power sources to support event operations and manage energy demand.",
+        image: "/why-choose-us/battery-storage.webp"
       }
-    ]
+    ],
+    cta: {
+      badge: "EVENT STORAGE INQUIRY",
+      title: "Planning an event?",
+      desc: "Share your event dates, location, estimated power requirements and duration. We are assessing deployment requirements to identify a suitable energy storage solution.",
+      buttonText: "Discuss Your Requirements",
+      buttonLink: "/contact#contact-form"
+    }
   },
   {
     id: "02",
-    slug: "wind-energy",
-    title: "WIND ENERGY",
-    subtitle: "Developing wind solutions across different sites and applications.",
-    scope: "VAWT & HAWT Systems",
-    desc: "We are working across distributed and captive wind applications, evaluating the appropriate turbine technology according to wind conditions, available space, site characteristics and energy requirements.",
-    image: "https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=1920&auto=format&fit=crop",
+    slug: "end-to-end-project-development",
+    title: "End-To-End Project Development",
+    subtitle: "Developing renewable energy projects, end to end.",
+    scope: "Turnkey Development",
+    desc: "We are developing wind, solar and hybrid energy projects around site conditions, energy requirements and project feasibility, from initial assessment and planning to execution.",
+    image: "/solutions/solar-installation.jpg",
+    featuresSectionTitle: "Renewable energy, across scales.",
     features: [
       {
-        name: "Vertical Axis Wind Turbines",
-        desc: "We are developing compact VAWT solutions for applications including rooftops, commercial buildings, hospitality, healthcare, educational institutions and residential properties, particularly where space and changing wind directions require a different configuration."
+        name: "Vertical Axis Wind Turbines (VAWT)",
+        desc: "We are exploring vertical axis wind solutions for suitable applications, evaluating site conditions, wind characteristics, installation requirements and system performance.",
+        image: "/why-choose-us/hero-windmill.webp"
       },
       {
-        name: "Horizontal Axis Wind Turbines",
-        desc: "We are developing HAWT solutions for suitable open-terrain applications, including farmhouses, estates and rural sites where stronger and more consistent wind conditions can support elevated turbine configurations."
+        name: "Horizontal Axis Wind Turbines (HAWT)",
+        desc: "We are developing wind energy opportunities using horizontal axis systems, aligning turbine selection and project design with wind resources, land availability and energy requirements.",
+        image: "/wind_farm_sunset.jpg"
+      },
+      {
+        name: "Solar Energy Projects",
+        desc: "We are developing solar energy solutions around available space, consumption patterns, installation feasibility and project economics.",
+        image: "/solutions/solar-installation.jpg"
+      },
+      {
+        name: "Hybrid Wind & Solar Systems",
+        desc: "We are integrating complementary wind and solar resources to develop hybrid configurations suited to local generation patterns and site requirements.",
+        image: "/hybrid-wind-solar.jpg"
+      },
+      {
+        name: "Larger Captive Projects",
+        desc: "We are developing renewable energy projects for businesses with substantial energy requirements, aligning project configuration with consumption, procurement structure and commercial feasibility.",
+        image: "/novatech-case-study.jpg"
       }
-    ]
+    ],
+    processSection: {
+      title: "From site assessment to project execution.",
+      desc: "We are approaching renewable energy development through a structured project process, aligning technical requirements, commercial considerations and execution planning.",
+      steps: [
+        {
+          num: "01",
+          title: "Site Assessment",
+          desc: "Evaluating location, available space, site access and renewable resource potential.",
+          image: "https://images.pexels.com/photos/5520322/pexels-photo-5520322.jpeg"
+        },
+        {
+          num: "02",
+          title: "Feasibility & Planning",
+          desc: "Assessing energy requirements, system configurations, project costs and implementation considerations.",
+          image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+        },
+        {
+          num: "03",
+          title: "Project Design",
+          desc: "Developing a project approach around suitable technologies, system sizing and site conditions.",
+          image: "https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg"
+        },
+        {
+          num: "04",
+          title: "Approvals & Coordination",
+          desc: "Coordinating applicable permissions, connectivity requirements and project stakeholders, as defined by project scope.",
+          image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
+        },
+        {
+          num: "05",
+          title: "Execution",
+          desc: "Managing project implementation, installation coordination and commissioning requirements within the agreed scope.",
+          image: "/solutions/solar-installation.jpg"
+        }
+      ]
+    },
+    cta: {
+      badge: "PROJECT CONSULTATION",
+      title: "Have a project in mind?",
+      desc: "Share your project location, energy requirements and site details. We are evaluating opportunities across wind, solar and hybrid energy development.",
+      buttonText: "Discuss Your Project",
+      buttonLink: "/contact#contact-form"
+    }
   },
   {
     id: "03",
-    slug: "wind-solar-hybrid",
-    title: "WIND-SOLAR HYBRID",
-    subtitle: "Combining complementary renewable resources into one energy solution.",
-    scope: "Dual Renewable Generation",
-    desc: "We are developing wind-solar hybrid projects that bring together two renewable generation sources within an integrated system. By assessing the site's wind and solar potential alongside energy consumption and project requirements, we are identifying configurations where the two technologies can complement one another.",
-    image: "https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?q=80&w=1920&auto=format&fit=crop",
+    slug: "ipp-independent-power-producer",
+    title: "IPP: Independent Power Producer",
+    subtitle: "Renewable power, without the upfront investment.",
+    scope: "IPP & Power Supply",
+    desc: "Designed for businesses with energy requirements of up to 3 MW, we are creating opportunities to access renewable power without directly investing in the generation infrastructure.",
+    image: "/hybrid-wind-solar.jpg",
+    featuresSectionTitle: "Renewable energy for growing businesses.",
     features: [
       {
-        name: "Resource assessment",
-        desc: "Evaluating the site's renewable potential."
+        name: "Manufacturing & Industrial Units",
+        desc: "Supporting businesses with consistent energy requirements and long-term power procurement needs.",
+        image: "/solutions/solar-installation.jpg"
       },
       {
-        name: "Generation planning",
-        desc: "Understanding how wind and solar generation can work together."
+        name: "Commercial Establishments",
+        desc: "Evaluating renewable power supply opportunities for offices, commercial properties and business facilities.",
+        image: "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg"
       },
       {
-        name: "System configuration",
-        desc: "Determining the appropriate combination based on the project's requirements."
+        name: "Warehousing & Logistics",
+        desc: "Exploring renewable electricity supply for facilities with substantial operational energy consumption.",
+        image: "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg"
       },
       {
-        name: "Project development",
-        desc: "Taking the selected configuration through feasibility, development and execution planning."
+        name: "Growing MSMEs",
+        desc: "Enabling businesses to evaluate renewable energy procurement without taking on direct generation asset investment.",
+        image: "/why-choose-us/eco-friendly-impact.jpg"
       }
-    ]
-  },
-  {
-    id: "04",
-    slug: "energy-storage",
-    title: "ENERGY STORAGE",
-    subtitle: "Integrating storage into renewable energy systems.",
-    scope: "Commercial BESS Storage",
-    desc: "We are incorporating Battery Energy Storage Systems where storage can support renewable generation, energy management and greater utilisation of generated power. We are evaluating storage requirements as part of the wider energy system, considering the project's generation profile, consumption patterns and operational objectives before determining the appropriate role for BESS.",
-    image: "https://images.pexels.com/photos/8853509/pexels-photo-8853509.jpeg?auto=compress&cs=tinysrgb&w=1920",
-    features: [
-      { name: "Storage requirement assessment", desc: "" },
-      { name: "BESS configuration", desc: "" },
-      { name: "Renewable generation integration", desc: "" },
-      { name: "Energy management considerations", desc: "" },
-      { name: "Project development and partner coordination", desc: "" },
-    ]
-  },
-  {
-    id: "05",
-    slug: "project-development",
-    title: "PROJECT DEVELOPMENT & ADVISORY",
-    subtitle: "Turning an energy requirement into a viable renewable energy project.",
-    scope: "Feasibility & Structuring",
-    desc: "We are supporting projects from the initial assessment through technology selection, feasibility and development, helping clients understand what can work technically and commercially before moving towards implementation.",
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1920&auto=format&fit=crop",
-    features: [
-      {
-        name: "Energy Audits & Feasibility Studies",
-        desc: "We are assessing energy consumption, site conditions and renewable potential to establish project feasibility."
-      },
-      {
-        name: "Technology Evaluation & Selection",
-        desc: "We are evaluating available technologies against the site's conditions, energy requirements and project objectives."
-      },
-      {
-        name: "Renewable Energy Project Development",
-        desc: "We are developing viable opportunities into structured renewable energy projects."
-      },
-      {
-        name: "Regulatory & Compliance Coordination",
-        desc: "We are coordinating applicable regulatory and compliance requirements as projects progress."
-      },
-      {
-        name: "Project Financing Facilitation",
-        desc: "We are supporting financing discussions and connecting viable projects with relevant financial partners."
-      }
-    ]
-  },
-  {
-    id: "06",
-    slug: "delivery-operations",
-    title: "DELIVERY & OPERATIONS",
-    subtitle: "Bringing the right capabilities together to deliver the project.",
-    scope: "Turnkey EPC & Lifetime O&M",
-    desc: "We are coordinating with technology providers, OEMs, EPC companies and strategic partners to support projects through implementation and ongoing operations.",
-    image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1920&auto=format&fit=crop",
-    features: [
-      {
-        name: "EPC Partner Management",
-        desc: "We are coordinating with preferred EPC partners across engineering, procurement, construction and project implementation."
-      },
-      {
-        name: "Grid Integration",
-        desc: "We are supporting the integration of renewable energy systems with existing electrical infrastructure where required."
-      },
-      {
-        name: "Testing & Commissioning",
-        desc: "We are coordinating system testing and commissioning to establish operational readiness."
-      },
-      {
-        name: "Operations & Maintenance",
-        desc: "We are supporting ongoing monitoring, preventive maintenance, corrective maintenance and performance optimisation."
-      }
-    ]
+    ],
+    cta: {
+      badge: "IPP POWER ASSESSMENT",
+      title: "Let's evaluate your energy requirements.",
+      desc: "Share your location, monthly electricity consumption, sanctioned load and current tariff details. We are assessing project suitability and applicable renewable power supply options.",
+      buttonText: "Explore IPP Solutions",
+      buttonLink: "/contact#contact-form"
+    }
   }
 ];

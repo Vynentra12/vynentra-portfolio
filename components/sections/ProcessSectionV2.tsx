@@ -23,14 +23,14 @@ const PANELS: ProcessPanel[] = [
     id: 2,
     num: "2",
     title: "Combining wind and solar for more efficient generation",
-    desc: "By integrating complementary renewable energy sources, we are designing hybrid systems that make better use of available wind and solar resources across different site conditions.",
+    desc: "By combining complementary wind and solar energy sources to develop hybrid systems that optimise energy generation across varying site conditions.",
     bgColor: "#0B2735", // Deep Navy
   },
   {
     id: 3,
     num: "3",
-    title: "Building more resilient and reliable energy systems",
-    desc: "By combining renewable generation, storage and project expertise, we are developing energy solutions that help businesses and institutions build greater resilience into their power infrastructure.",
+    title: "Advancing carbon credit opportunities for long-term value",
+    desc: "We are exploring carbon credit opportunities across renewable energy projects, aligning project development with evolving carbon market frameworks to support emissions reduction and long-term value creation.",
     bgColor: "#1c2e3d",
     bgImage: "/images/process-resilient-energy.webp",
   },

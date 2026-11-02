@@ -4,7 +4,8 @@ import React from 'react';
 import Link from 'next/link';
 import { CASE_STUDIES } from '@/lib/case-studies-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
-import { CalendarDays, ArrowDown } from 'lucide-react';
+import { HeroBackLink } from '@/components/ui/HeroBackLink';
+import { CalendarDays } from 'lucide-react';
 
 export default function CaseStudiesPage() {
   return (
@@ -28,19 +29,12 @@ export default function CaseStudiesPage() {
             
             {/* Left Content */}
             <div className="max-w-3xl">
-              {/* Back to Home Link (Pure text with arrow, no background, no border) */}
-              <div className="mb-4 sm:mb-5">
-                <Link
-                  href="/"
-                  className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
-                >
-                  <span>Back to Home</span>
-                </Link>
-              </div>
+              {/* Back to Home Link */}
+              <HeroBackLink />
 
               {/* Main Headline */}
               <h1 className="text-[34px] sm:text-[44px] md:text-[54px] lg:text-[60px] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
-                Real projects.<br />Lasting impact.
+                Real projects<br />Lasting impact
               </h1>
 
               {/* Subtitle */}
@@ -49,20 +43,7 @@ export default function CaseStudiesPage() {
               </p>
             </div>
 
-            {/* Right Scroll Down Element */}
-            <div 
-              onClick={() => {
-                const el = document.getElementById('case-studies-feed');
-                el ? el.scrollIntoView({ behavior: 'smooth' }) : window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-              }}
-              className="shrink-0 flex flex-row sm:flex-col items-center gap-3 sm:gap-2.5 cursor-pointer select-none self-start lg:self-end group pt-2 sm:pt-0">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-3.5 h-3.5 sm:w-5 sm:h-5 animate-bounce text-white" />
-              </div>
-              <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.16em] uppercase text-white/80 group-hover:text-white transition-colors">
-                SCROLL TO EXPLORE
-              </span>
-            </div>
+
 
           </div>
         </div>
@@ -126,7 +107,7 @@ export default function CaseStudiesPage() {
                       href={`/case-studies/${study.slug}`}
                       className="inline-flex items-center justify-center h-[38px] sm:h-[42px] px-5 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11px] sm:text-[11.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
                     >
-                      <span>READ FULL STORY</span>
+                      <span>READ FULL STUDY</span>
                     </Link>
 
                     {/* Mobile Date Indicator */}

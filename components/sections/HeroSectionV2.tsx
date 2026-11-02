@@ -37,9 +37,9 @@ export function HeroSectionV2() {
             initial={{ opacity: 0, y: 30, filter: 'blur(10px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
             transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[14vw] sm:text-[9.4vw] lg:text-[8.9vw] font-bold text-white tracking-[-0.035em] leading-[1.05] sm:leading-[0.96] pb-2 drop-shadow-[0_4px_42px_rgba(0,0,0,0.45)] sm:whitespace-nowrap w-full text-left max-w-[90vw] sm:max-w-none select-text pointer-events-auto cursor-text"
+            className="text-[14vw] sm:text-[9.4vw] lg:text-[8.9vw] font-bold text-white tracking-[-0.035em] leading-[1.02] sm:leading-[0.94] pb-2 drop-shadow-[0_4px_42px_rgba(0,0,0,0.45)] w-full text-left max-w-[90vw] sm:max-w-none select-text pointer-events-auto cursor-text"
           >
-            Powering<br className="sm:hidden" /> India
+            Powering<br />India
           </motion.h1>
         </div>
 
@@ -53,17 +53,17 @@ export function HeroSectionV2() {
             className="max-w-[100%] sm:max-w-[520px] md:max-w-[580px] lg:max-w-[620px]"
           >
             <p className="text-[16px] sm:text-[20px] md:text-[22px] lg:text-[23px] font-medium text-white/95 leading-[1.4] sm:leading-[1.35] tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] select-text">
-              From wind and solar solutions to project development and execution, we are building reliable, efficient and commercially viable renewable energy systems for businesses, institutions and infrastructure across India.
+              End-to-end wind and solar solutions, from project development to execution, for businesses, residencies and infrastructure across India.
             </p>
           </motion.div>
 
           {/* Right: Pure Dark Blue Preview Card (No hover color change, white text, green icon) */}
           <Link
             href="/case-studies"
-            className="group/hero-card relative flex items-center gap-3.5 sm:gap-4 md:gap-5 p-2.5 sm:p-3 md:p-3.5 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] bg-[#0B2735] text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 shrink-0 self-start lg:self-auto cursor-pointer overflow-hidden w-full max-w-[400px] sm:max-w-[450px] md:max-w-[490px] h-[104px] sm:h-[140px] md:h-[150px] transition-transform duration-300 hover:scale-[1.02]"
+            className="group/hero-card relative flex items-center gap-3 sm:gap-3.5 md:gap-4 p-2.5 sm:p-3 md:p-3.5 pr-4 sm:pr-4.5 md:pr-5 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] bg-[#0B2735] text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 shrink-0 self-start lg:self-auto cursor-pointer overflow-hidden w-full max-w-[325px] sm:max-w-[375px] md:max-w-[405px] h-[104px] sm:h-[140px] md:h-[150px] transition-transform duration-300 hover:scale-[1.02]"
           >
             {/* Case Study Thumbnail */}
-            <div className="w-[100px] sm:w-[140px] md:w-[160px] h-full rounded-[10px] sm:rounded-[12px] md:rounded-[14px] overflow-hidden shrink-0 relative bg-neutral-900 border border-white/10 shadow-xs z-10">
+            <div className="w-[95px] sm:w-[130px] md:w-[145px] h-full rounded-[10px] sm:rounded-[12px] md:rounded-[14px] overflow-hidden shrink-0 relative bg-neutral-900 border border-white/10 shadow-xs z-10">
               <img
                 src="/case-studies/case-study-1-surat.webp"
                 alt="Hybrid Wind Turbine Installation by Vynentra"

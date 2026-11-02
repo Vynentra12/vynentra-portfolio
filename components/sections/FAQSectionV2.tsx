@@ -1,13 +1,14 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { Plus, Minus } from "lucide-react";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
 interface FAQItem {
   question: string;
-  answer: string;
+  answer: React.ReactNode;
 }
 
 export function FAQSectionV2() {
@@ -17,7 +18,7 @@ export function FAQSectionV2() {
     {
       question: "How does Vynentra determine which renewable energy solution is right for a site?",
       answer:
-        "We begin by understanding the site's location, available space, renewable resource potential and energy requirements. Based on these factors, we evaluate the suitability of wind, solar, hybrid and storage solutions before recommending an approach.",
+        "Our team visits your site to assess available space, wind / solar potential and other energy requirements. Based on this, we recommend a solution that aligns with your operational needs and commericals.",
     },
     {
       question: "Does Vynentra provide both wind and solar solutions?",
@@ -25,9 +26,19 @@ export function FAQSectionV2() {
         "Yes. We are developing solutions across wind, solar and wind-solar hybrid systems, allowing us to evaluate different generation options based on the requirements and conditions of each project.",
     },
     {
-      question: "Can Vynentra develop a wind-solar hybrid system for my project?",
-      answer:
-        "Yes. We are developing hybrid projects that combine wind and solar generation where the two resources can complement each other and create a more suitable generation profile for the project's requirements.",
+      question: "How can we get started with Vynentra?",
+      answer: (
+        <span>
+          Share your energy requirements{" "}
+          <Link
+            href="/contact#contact-form"
+            className="text-[#087589] font-medium underline underline-offset-4 hover:text-[#065463] transition-colors"
+          >
+            here
+          </Link>{" "}
+          and our team will get back to you in 3-4 business days.
+        </span>
+      ),
     },
     {
       question: "What types of projects does Vynentra work with?",
@@ -36,8 +47,18 @@ export function FAQSectionV2() {
     },
     {
       question: "Does Vynentra only work with small distributed wind projects?",
-      answer:
-        "No. While distributed wind is an important part of our focus, we are also working across larger captive wind projects, hybrid renewable systems and other renewable energy applications.",
+      answer: (
+        <span>
+          No. While distributed wind is an important part of our focus, we are also working across larger captive wind projects and hybrid renewable systems,{" "}
+          <Link
+            href="/contact#contact-form"
+            className="text-[#087589] font-medium underline underline-offset-4 hover:text-[#065463] transition-colors"
+          >
+            Contact us here
+          </Link>{" "}
+          to know more.
+        </span>
+      ),
     },
   ];
 

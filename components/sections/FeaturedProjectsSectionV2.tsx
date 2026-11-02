@@ -16,7 +16,7 @@ export function FeaturedProjectsSectionV2() {
   };
 
   return (
-    <section id="featured-projects" className="w-full bg-[#087589] text-white py-16 md:py-24 font-sans relative select-text">
+    <section id="featured-projects" className="w-full bg-[#087589] text-white pt-14 pb-10 md:pt-20 md:pb-14 font-sans relative select-text">
       <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
 
         {/* Top Header Row matching the Homepage Design System */}
@@ -31,12 +31,12 @@ export function FeaturedProjectsSectionV2() {
             className="flex flex-col max-w-[820px]"
           >
             <SectionBadge theme="light" className="mb-4 sm:mb-5 w-fit">
-              FEATURED PROJECTS
+              Case Studies
             </SectionBadge>
 
             {/* Standardized Title matching Blog & Why Choose Us sections */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.18] mb-2.5">
-              Global projects, local impact
+              Renewable energy, delivered in practice
             </h2>
 
             {/* Standardized Subtitle matching design system body typography */}

@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { HeroBackLink } from "@/components/ui/HeroBackLink";
 import { ALL_BLOG_POSTS } from "@/lib/blog-data";
-import { Search, X, ArrowDown } from "lucide-react";
+import { Search, X } from "lucide-react";
 
 export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
@@ -49,20 +50,12 @@ export default function InsightsPage() {
             
             {/* Left Content */}
             <div className="max-w-3xl">
-              {/* Back to Home Link (Pure text with arrow, no background, no border) */}
-              <div className="mb-4 sm:mb-5">
-                <Link
-                  href="/"
-                  className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
-                >
-
-                  <span>Back to Home</span>
-                </Link>
-              </div>
+              {/* Back to Home Link */}
+              <HeroBackLink />
 
               {/* Main Headline */}
               <h1 className="text-[34px] sm:text-[44px] md:text-[54px] lg:text-[58px] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
-                Exploring the ideas shaping India&apos;s renewable energy.
+                Exploring the ideas shaping<br />India&apos;s renewable energy
               </h1>
 
               {/* Subtitle */}
@@ -71,20 +64,7 @@ export default function InsightsPage() {
               </p>
             </div>
 
-            {/* Right Scroll Down Element (Matching Image 4 & 5) */}
-            <div 
-              onClick={() => {
-                const el = document.getElementById('insights-grid');
-                el ? el.scrollIntoView({ behavior: 'smooth' }) : window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-              }}
-              className="shrink-0 flex flex-row sm:flex-col items-center gap-3 sm:gap-2.5 cursor-pointer select-none self-start lg:self-end group pt-2 sm:pt-0">
-              <div className="w-8 h-8 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-3.5 h-3.5 sm:w-5 sm:h-5 animate-bounce text-white" />
-              </div>
-              <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.16em] uppercase text-white/80 group-hover:text-white transition-colors">
-                SCROLL TO EXPLORE
-              </span>
-            </div>
+
 
           </div>
         </div>
@@ -176,21 +156,11 @@ export default function InsightsPage() {
                           className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                         />
 
-                        {/* Squareish Category Badge: Light blue #0A6B88 */}
+                        {/* Category Badge: Consistent Brand Green #AEF977 across all blog cards */}
                         <div className="absolute top-3 left-3 z-10">
-                          {idx === 1 ? (
-                            <span className="inline-flex items-center bg-[#AEF977] text-neutral-950 font-bold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
-                              {post.category}
-                            </span>
-                          ) : idx === 2 ? (
-                            <span className="inline-flex items-center bg-black/40 backdrop-blur-md border border-white/30 text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
-                              {post.category}
-                            </span>
-                          ) : (
-                            <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
-                              {post.category}
-                            </span>
-                          )}
+                          <span className="inline-flex items-center bg-[#AEF977] text-neutral-950 font-bold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                            {post.category}
+                          </span>
                         </div>
                       </div>
 

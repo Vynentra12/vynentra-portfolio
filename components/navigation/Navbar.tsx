@@ -13,10 +13,9 @@ export function Navbar() {
   const isInsights = pathname === "/insights" || pathname?.startsWith("/insights") || pathname === "/blog" || pathname?.startsWith("/blog");
   const isAbout = pathname === "/about" || pathname?.startsWith("/about");
   const isCaseStudies = pathname === "/case-studies" || pathname?.startsWith("/case-studies");
-  const isPartners = pathname === "/partners" || pathname?.startsWith("/partners");
   const isContact = pathname === "/contact" || pathname?.startsWith("/contact");
   const isCaseStudyDetail = Boolean(pathname?.startsWith("/case-studies/") && pathname !== "/case-studies");
-  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isCaseStudies ? "Case Studies" : isPartners ? "Partners" : isContact ? "Contact Us" : isAbout ? "About Us" : null;
+  const activeLink = isServices ? "Services" : isInsights ? "Insights" : isCaseStudies ? "Case Studies" : isContact ? "Contact Us" : isAbout ? "About Us" : null;
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -99,7 +98,6 @@ export function Navbar() {
     { name: "Services", href: "/services" },
     { name: "Case Studies", href: "/case-studies" },
     { name: "Insights", href: "/insights" },
-    { name: "Partners", href: "/partners" },
   ];
 
   const currentPillTarget = hoveredLink || activeLink;
@@ -158,9 +156,16 @@ export function Navbar() {
           {/* Right: GET IN TOUCH CTA & Mobile Toggle */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0 justify-self-end">
             
-            {/* GET IN TOUCH CTA Button routing to /contact */}
+            {/* GET IN TOUCH CTA Button routing directly to contact form */}
             <Link 
-              href="/contact"
+              href="/contact#contact-form"
+              onClick={(e) => {
+                if (pathname === "/contact") {
+                  e.preventDefault();
+                  const el = document.getElementById("contact-form");
+                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
               className={`hidden sm:inline-flex items-center justify-center h-[38px] sm:h-[39px] px-5 sm:px-5.5 rounded-full border text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer shrink-0 whitespace-nowrap transition-all duration-300 active:scale-[0.98] ${
                 isContact
                   ? (useDarkNav 
@@ -229,8 +234,15 @@ export function Navbar() {
                 ))}
                 <div className="pt-4 border-t border-black/10 mt-2">
                   <Link
-                    href="/contact"
-                    onClick={() => setIsMobileMenuOpen(false)}
+                    href="/contact#contact-form"
+                    onClick={(e) => {
+                      setIsMobileMenuOpen(false);
+                      if (pathname === "/contact") {
+                        e.preventDefault();
+                        const el = document.getElementById("contact-form");
+                        if (el) el.scrollIntoView({ behavior: "smooth" });
+                      }
+                    }}
                     className={`w-full h-11 inline-flex items-center justify-center rounded-full border text-[13px] font-semibold uppercase tracking-wider transition-all duration-300 active:scale-[0.98] ${
                       isContact
                         ? "bg-[#0B2735] text-white border-[#0B2735]"

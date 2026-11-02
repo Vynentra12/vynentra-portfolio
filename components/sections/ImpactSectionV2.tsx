@@ -160,7 +160,7 @@ export function ImpactSectionV2() {
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
             >
               <Link
-                href="/contact"
+                href="/contact#contact-form"
                 className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-bold tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
               >
                 EXPLORE SOLUTIONS
