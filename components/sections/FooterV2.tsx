@@ -21,19 +21,18 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 export function FooterV2() {
   const companyLinks = [
     { name: "About Us", href: "/about" },
-    { name: "Partners", href: "/partners" },
+    { name: "Case Studies", href: "/case-studies" },
   ];
 
   const servicesLinks = [
-    { name: "Solar Energy", href: "/services/solar-energy" },
-    { name: "Wind Energy", href: "/services/wind-energy" },
-    { name: "Wind-Solar Hybrid", href: "/services/wind-solar-hybrid" },
-    { name: "Energy Storage", href: "/services/energy-storage" },
+    { name: "BESS: Battery Storage", href: "/services/bess-battery-energy-storage-systems" },
+    { name: "End-To-End Development", href: "/services/end-to-end-project-development" },
+    { name: "IPP: Independent Power", href: "/services/ipp-independent-power-producer" },
   ];
 
   const resourcesLinks = [
     { name: "Insights", href: "/insights" },
-    { name: "Contact Us", href: "/contact" },
+    { name: "Contact Us", href: "/contact#contact-form" },
   ];
 
   const legalLinks = [
@@ -51,7 +50,7 @@ export function FooterV2() {
           {/* Left Column: Mission, Direct Contact & Socials */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <p className="text-[17px] sm:text-[18px] text-white/90 hover:text-[#AEF977] transition-colors duration-300 cursor-default leading-[1.5] max-w-[380px] font-normal">
-              Building a more sustainable and energy-efficient future across India.
+              Building towards a more energy-efficient future.
             </p>
 
             <div className="flex flex-col gap-2 mt-6 mb-7 sm:mb-8">

@@ -31,7 +31,7 @@ export function CTASectionV2({
   title = "Power Your Next Move",
   description,
   buttonText = "Get Started",
-  buttonLink = "/contact"
+  buttonLink = "/contact#contact-form"
 }: {
   badgeText?: string;
   title?: string;

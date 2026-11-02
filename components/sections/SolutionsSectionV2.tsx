@@ -13,7 +13,7 @@ if (typeof window !== "undefined") {
 
 interface SolutionItem {
   number: string;
-  title: string;
+  title: React.ReactNode;
   lead: string;
   description: string;
   image: string;
@@ -54,13 +54,17 @@ const SOLUTIONS: SolutionItem[] = [
   },
   {
     number: "04",
-    title: "Developing and delivering the project",
+    title: (
+      <>
+        Developing and delivering<br />the project
+      </>
+    ),
     lead: "We bring the project together from development to execution.",
     description:
       "We coordinate technology providers, EPC partners and other strategic partners while supporting feasibility, regulatory coordination, financing and project execution.",
     image: "https://images.unsplash.com/photo-1532601224476-15c79f2f7a51?q=80&w=1920&auto=format&fit=crop",
     alt: "Clean energy project development, engineering and EPC execution on site",
-    href: "/contact",
+    href: "/contact#contact-form",
   },
 ];
 
@@ -205,39 +209,29 @@ export function SolutionsSectionV2() {
                 {/* Gradient dark overlay for crystal clear text legibility */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/35 pointer-events-none" />
 
-                {/* Card content - Clean compact layout without middle vertical line */}
+                {/* Card content - Clean grouped centered layout */}
                 <div className="relative z-10 w-full h-full flex flex-col items-center justify-center text-center px-5 py-7 xs:px-6 xs:py-8 sm:px-10 sm:py-10 md:px-14 md:py-16 select-text">
-
-                  {/* ── Number + Title ── */}
-                  <div className="flex flex-col items-center cursor-text mb-3 sm:mb-4">
+                  <div className="flex flex-col items-center justify-center text-center max-w-[720px] w-full mx-auto my-auto cursor-text">
                     <span className="text-[11px] xs:text-[11.5px] sm:text-[13px] font-medium text-white/90 tracking-[0.2em] uppercase mb-1 sm:mb-1.5 drop-shadow-sm">
                       {solution.number}
                     </span>
-                    <h3 className="text-[23px] xs:text-[25px] sm:text-[32px] md:text-[44px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.14] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)]">
+                    <h3 className="text-[23px] xs:text-[25px] sm:text-[32px] md:text-[44px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.14] drop-shadow-[0_2px_16px_rgba(0,0,0,0.6)] mb-2.5 sm:mb-3.5">
                       {solution.title}
                     </h3>
-                  </div>
-
-                  {/* ── Lead + Description + Button ── */}
-                  <div className="flex flex-col items-center max-w-[700px] w-full cursor-text">
-                    <p className="text-[13px] xs:text-[13.5px] sm:text-[15px] md:text-[17.5px] text-white font-medium leading-[1.38] drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] mb-1 sm:mb-1.5 md:mb-2 max-w-[660px]">
+                    <p className="text-[13px] xs:text-[13.5px] sm:text-[15px] md:text-[17.5px] text-white font-medium leading-[1.38] drop-shadow-[0_1px_8px_rgba(0,0,0,0.6)] mb-1.5 sm:mb-2 max-w-[660px]">
                       {solution.lead}
                     </p>
-                    <p className="text-[11px] xs:text-[11.5px] sm:text-[13px] md:text-[15px] text-white/80 leading-[1.5] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] max-w-[620px] mb-4 xs:mb-5 sm:mb-6">
+                    <p className={`text-[11px] xs:text-[11.5px] sm:text-[13px] md:text-[15px] text-white/80 leading-[1.5] font-normal drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] max-w-[620px] ${isLastCard ? "mb-5 sm:mb-6" : "mb-0"}`}>
                       {solution.description}
                     </p>
-
-                    {/* Button on all 4 cards:
-                        - White background with dark blue text matching request
-                        - Cards 01, 02, 03: "EXPLORE OUR SERVICES" -> links to /services
-                        - Card 04: "REQUEST A QUOTE" -> links to /contact
-                    */}
-                    <Link
-                      href={solution.href}
-                      className="inline-flex items-center justify-center h-[42px] xs:h-[44px] sm:h-[46px] md:h-[48px] px-7 xs:px-8 sm:px-9 rounded-full bg-white text-[#0B2735] border border-transparent text-[11px] sm:text-[12px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#0B2735] hover:text-white hover:border-white hover:scale-[1.02] active:scale-[0.98]"
-                    >
-                      <span>{isLastCard ? "REQUEST A QUOTE" : "EXPLORE OUR SERVICES"}</span>
-                    </Link>
+                    {isLastCard && (
+                      <Link
+                        href={solution.href}
+                        className="inline-flex items-center justify-center h-[42px] xs:h-[44px] sm:h-[46px] md:h-[48px] px-7 xs:px-8 sm:px-9 rounded-full bg-white text-[#0B2735] border border-transparent text-[11px] sm:text-[12px] font-semibold tracking-[0.08em] uppercase select-none cursor-pointer whitespace-nowrap shadow-[0_4px_20px_rgba(0,0,0,0.25)] transition-all duration-300 hover:bg-[#0B2735] hover:text-white hover:border-white hover:scale-[1.02] active:scale-[0.98]"
+                      >
+                        <span>REQUEST A QUOTE</span>
+                      </Link>
+                    )}
                   </div>
                 </div>
               </div>

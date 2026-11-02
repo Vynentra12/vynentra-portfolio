@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
+import { HeroBackLink } from "@/components/ui/HeroBackLink";
 import { ChevronDown, MapPin, Phone, Mail, Share2 } from "lucide-react";
 
 const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -44,8 +45,25 @@ export default function ContactPage() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
+
+    // Auto-scroll directly to contact form if navigated with hash
+    const handleScrollToForm = () => {
+      if (typeof window !== "undefined" && window.location.hash === "#contact-form") {
+        const el = document.getElementById("contact-form");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+        }
+      }
+    };
+
+    handleScrollToForm();
+    window.addEventListener("hashchange", handleScrollToForm);
+    const scrollTimer = setTimeout(handleScrollToForm, 250);
+
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("hashchange", handleScrollToForm);
+      clearTimeout(scrollTimer);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
@@ -145,19 +163,12 @@ export default function ContactPage() {
         {/* Hero Content Container */}
         <div className="relative z-10 w-full px-6 sm:px-10 lg:px-12 xl:px-14 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
           <div className="w-full">
-            {/* Back to Home Link (Pure text, no arrow, no background, no border) */}
-            <div className="mb-4 sm:mb-5">
-              <Link
-                href="/"
-                className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
-              >
-                <span>Back to Home</span>
-              </Link>
-            </div>
+            {/* Back to Home Link */}
+            <HeroBackLink />
 
             {/* Same font size as ServicesPage Hero Title */}
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
-              Let&apos;s develop the right energy solution for your requirement.
+              Let&apos;s develop the right energy<br />solution for your requirement
             </h1>
 
             {/* Subtitle matching ServicesPage Hero Paragraph */}

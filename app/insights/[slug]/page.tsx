@@ -186,7 +186,7 @@ export default async function InsightDetailPage({ params }: Props) {
             </p>
           </div>
           <Link
-            href="/contact"
+            href="/contact#contact-form"
             className="inline-flex items-center justify-center h-[46px] px-8 rounded-full bg-[#AEF977] text-neutral-950 text-[12px] font-bold tracking-wider uppercase transition-all duration-300 hover:bg-white hover:text-neutral-950 shrink-0 select-none cursor-pointer whitespace-nowrap active:scale-[0.98]"
           >
             <span>GET IN TOUCH</span>
@@ -220,9 +220,9 @@ export default async function InsightDetailPage({ params }: Props) {
                     className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                   />
 
-                  {/* Light Blue Category Badge */}
+                  {/* Category Badge: Brand Green #AEF977 */}
                   <div className="absolute top-3 left-3 z-10">
-                    <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                    <span className="inline-flex items-center bg-[#AEF977] text-neutral-950 font-bold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
                       {relPost.category}
                     </span>
                   </div>

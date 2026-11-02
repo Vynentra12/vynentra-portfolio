@@ -100,7 +100,7 @@ export function MissionSectionV2() {
 
       {/* Supporting Mission Statement - Balanced typography without dangling orphans */}
       <p className={`mt-6 sm:mt-8 md:mt-9 text-[15px] sm:text-[17px] md:text-[19px] lg:text-[20px] font-normal leading-[1.65] sm:leading-[1.7] max-w-[760px] mx-auto opacity-75 ${textColor}`}>
-        We are bringing together wind, solar and hybrid energy solutions to help businesses, institutions and infrastructure move towards cleaner, more efficient and commercially viable power.
+        We are bringing together wind, solar and hybrid energy solutions to help businesses, residencies and infrastructure move towards cleaner, more efficient and commercially viable power.
       </p>
     </div>
   );

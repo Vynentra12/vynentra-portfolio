@@ -29,7 +29,7 @@ export default function Home() {
         badgeText="ENERGY, REIMAGINED"
         title="Power Your Next Move"
         buttonText="Get Started"
-        buttonLink="/contact"
+        buttonLink="/contact#contact-form"
       />
       <FooterV2 />
     </div>

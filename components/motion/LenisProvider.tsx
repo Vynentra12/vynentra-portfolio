@@ -47,8 +47,23 @@ export default function LenisProvider({
     };
   }, []);
 
-  // When route changes, immediately reset scroll to hero section (top 0)
+  // When route changes, smoothly scroll to hash if present (e.g. #contact-form), otherwise reset to top (0)
   useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash) {
+      const targetId = window.location.hash.replace("#", "");
+      const timer = setTimeout(() => {
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          if (lenisRef.current) {
+            lenisRef.current.scrollTo(targetEl, { offset: -70, duration: 1 });
+          } else {
+            targetEl.scrollIntoView({ behavior: "smooth" });
+          }
+        }
+      }, 120);
+      return () => clearTimeout(timer);
+    }
+
     if (lenisRef.current) {
       lenisRef.current.scrollTo(0, { immediate: true });
     }
