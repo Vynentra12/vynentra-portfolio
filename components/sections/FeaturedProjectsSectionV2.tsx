@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Zap } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 
 export function FeaturedProjectsSectionV2() {
@@ -78,15 +78,10 @@ export function FeaturedProjectsSectionV2() {
           </div>
 
           {/* Tags with MapPin & Zap Icons (Clean text without border/pill background) */}
-          <div className="flex flex-wrap items-center gap-4 mt-5 sm:mt-6 mb-2 overflow-hidden">
-            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.08em] uppercase whitespace-nowrap">
-              <MapPin strokeWidth={1.5} className="w-3.5 h-3.5 text-white/80 shrink-0" />
-              <span>{project.location}</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5 text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.08em] uppercase whitespace-nowrap">
-              <Zap strokeWidth={1.5} className="w-3.5 h-3.5 text-white/80 shrink-0" />
-              <span>{project.technology}</span>
-            </span>
+          <div className="flex flex-wrap items-center gap-3 mt-5 sm:mt-6 mb-2 overflow-hidden text-white/85 text-[11px] sm:text-[12px] font-normal tracking-[0.08em] uppercase">
+            <span>{project.location}</span>
+            <span className="text-white/40 select-none shrink-0 text-[12px]">|</span>
+            <span>{project.technology}</span>
           </div>
 
           {/* Title and Date Area (Date only, no time, clean calendar icon) */}

@@ -20,7 +20,7 @@ export default function TermsPage() {
         </h1>
 
         {/* Meta / Date */}
-        <p className="text-[13px] sm:text-[14px] text-neutral-500 font-normal mb-10 pb-6 border-b border-neutral-200">
+        <p className="text-[13px] sm:text-[14px] text-neutral-500 font-normal mb-8">
           Last Revised: October 2026 · Jurisdiction: Republic of India
         </p>
 

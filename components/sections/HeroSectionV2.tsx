@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { MapPin } from 'lucide-react';
+
 
 export function HeroSectionV2() {
   return (
@@ -76,9 +76,10 @@ export function HeroSectionV2() {
               <span className="text-[14px] sm:text-[18px] md:text-[20px] font-semibold text-white tracking-tight leading-[1.25] line-clamp-2">
                 Hybrid Wind Turbine Installation
               </span>
-              <div className="flex items-center gap-1.5 text-[11.5px] sm:text-[13px] text-white font-normal tracking-wide whitespace-nowrap overflow-hidden text-ellipsis mt-1 sm:mt-0">
-                <MapPin className="w-3.5 h-3.5 text-[#AEF977] shrink-0" />
-                <span className="truncate text-white">Surat, Gujarat • 5 kW VAWT</span>
+              <div className="flex items-center gap-2 sm:gap-2.5 text-[11.5px] sm:text-[13px] text-white font-normal tracking-wide whitespace-nowrap overflow-hidden text-ellipsis mt-1 sm:mt-0">
+                <span>Surat, Gujarat</span>
+                <span className="text-white/40 select-none shrink-0">|</span>
+                <span>5 kW VAWT</span>
               </div>
             </div>
           </Link>

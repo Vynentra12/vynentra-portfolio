@@ -72,7 +72,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 2,
     slug: "the-environmental-impact-of-wind-energy",
-    category: "PROJECT DEVELOPMENT",
+    category: "WIND ENERGY",
     date: "DECEMBER 10, 2025",
     author: "Vynentra Project Desk",
     authorRole: "Environmental Sustainability & Planning",
@@ -114,7 +114,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 3,
     slug: "the-real-numbers-behind-green-energy",
-    category: "RENEWABLE TECHNOLOGY",
+    category: "SOLAR ENERGY",
     date: "DECEMBER 10, 2025",
     author: "Vynentra Energy Insights",
     authorRole: "Clean Energy Economics & Advisory",
@@ -155,13 +155,13 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 4,
     slug: "a-world-powered-by-wind-and-sunlight",
-    category: "WIND + SOLAR",
+    category: "HYBRID",
     date: "DECEMBER 10, 2025",
     author: "Vynentra Technical Team",
     authorRole: "Principal Systems Engineering",
     authorAvatar: "/favicon.ico",
     readTime: "5 MIN READ",
-    title: "Wind and solar are not competing technologies",
+    title: "Why wind and solar are complementary, not competing technologies",
     excerpt: "Exploring how different generation profiles can work together through hybrid renewable energy systems and create more effective solutions for different energy requirements.",
     image: "/hybrid-wind-solar.jpg",
     content: {
@@ -184,13 +184,13 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 5,
     slug: "the-economic-ripple-of-renewable-energy",
-    category: "EQUIPMENT",
+    category: "WIND ENERGY",
     date: "DECEMBER 10, 2025",
     author: "Vynentra Project Desk",
     authorRole: "Renewable Infrastructure & Planning",
     authorAvatar: "/favicon.ico",
     readTime: "6 MIN READ",
-    title: "The economic ripple of renewable energy",
+    title: "The economic ripple and infrastructure benefits of clean renewable energy",
     excerpt: "Local job creation, rural infrastructure development, and manufacturing supply chains ignited by wind energy investments.",
     image: "https://images.pexels.com/photos/34727208/pexels-photo-34727208.jpeg?auto=compress&cs=tinysrgb&w=1600",
     content: {
@@ -212,13 +212,13 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     id: 6,
     slug: "building-the-future-of-sustainable-power",
-    category: "SOLAR",
+    category: "SOLAR ENERGY",
     date: "DECEMBER 10, 2025",
     author: "Vynentra Energy Insights",
     authorRole: "Decentralized Energy Architecture",
     authorAvatar: "/favicon.ico",
     readTime: "5 MIN READ",
-    title: "Building the future of sustainable power",
+    title: "Building the future of sustainable power through decentralized microgrids",
     excerpt: "Architecting decentralized microgrids that combine wind, solar, and battery storage for remote industrial clusters.",
     image: "https://images.pexels.com/photos/7763083/pexels-photo-7763083.jpeg?auto=compress&cs=tinysrgb&w=1600",
     content: {

@@ -26,7 +26,7 @@ export default function Home() {
       <BlogSectionV2 />
       <FAQSectionV2 />
       <CTASectionV2 
-        badgeText="ENERGY, REIMAGINED."
+        badgeText="ENERGY, REIMAGINED"
         title="Power Your Next Move"
         buttonText="Get Started"
         buttonLink="/contact"
