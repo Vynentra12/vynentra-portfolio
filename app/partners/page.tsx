@@ -98,7 +98,7 @@ export default function PartnersPage() {
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-center">
               
               {/* Left Column: Direct Partnership Narrative */}
-              <div className="lg:col-span-7 flex flex-col justify-center">
+              <div className="lg:col-span-6 flex flex-col justify-center">
                 <SectionBadge theme="dark" className="mb-3 sm:mb-4 w-fit">
                   STRATEGIC PARTNERSHIP
                 </SectionBadge>
@@ -165,22 +165,14 @@ export default function PartnersPage() {
 
               </div>
 
-              {/* Right Column: Authentic Infrastructure Photography (Mobile Optimized Aspect Ratio) */}
-              <div className="lg:col-span-5 relative">
-                <div className="relative w-full aspect-[16/10] sm:aspect-[4/3.8] lg:aspect-[4/4.4] rounded-[18px] sm:rounded-[24px] overflow-hidden border border-neutral-200/80 shadow-xs bg-neutral-100">
+              {/* Right Column: Authentic Infrastructure Photography (Increased width on Desktop) */}
+              <div className="lg:col-span-6 relative">
+                <div className="relative w-full aspect-[16/10] sm:aspect-[4/3] lg:aspect-[16/12] xl:aspect-[16/11] rounded-[18px] sm:rounded-[24px] overflow-hidden border border-neutral-200/80 shadow-xs bg-neutral-100">
                   <img
-                    src="/hybrid-wind-solar.jpg"
-                    alt="Renewable Energy Infrastructure - Wind and Solar Generation"
+                    src="/solutions/solar-installation.jpg"
+                    alt="Renewable Energy Infrastructure - Commercial Solar Plant Installation"
                     className="w-full h-full object-cover object-center"
                   />
-                  <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent p-4 sm:p-6 text-white">
-                    <span className="text-[10px] sm:text-[11px] font-medium tracking-wider uppercase text-white/80 block mb-0.5 sm:mb-1">
-                      Renewable Infrastructure Assets
-                    </span>
-                    <span className="text-[12.5px] sm:text-[14px] font-medium text-white block">
-                      Utility &amp; Commercial Wind-Solar Power Generation
-                    </span>
-                  </div>
                 </div>
               </div>
 
@@ -221,7 +213,7 @@ export default function PartnersPage() {
                         Vynentra Energy Solutions
                       </h3>
                     </div>
-                    <span className="w-fit self-start sm:self-auto px-3 py-1 rounded-full bg-[#087589]/10 text-[#087589] text-[10.5px] sm:text-[11px] font-medium uppercase tracking-wider shrink-0">
+                    <span className="text-[11px] sm:text-[12px] font-semibold text-[#087589] uppercase tracking-wider shrink-0 pt-0.5">
                       EPC &amp; Execution
                     </span>
                   </div>
@@ -263,7 +255,7 @@ export default function PartnersPage() {
                         HRV Group
                       </h3>
                     </div>
-                    <span className="w-fit self-start sm:self-auto px-3 py-1 rounded-full bg-[#0B2735]/10 text-[#0B2735] text-[10.5px] sm:text-[11px] font-medium uppercase tracking-wider shrink-0">
+                    <span className="text-[11px] sm:text-[12px] font-semibold text-[#087589] uppercase tracking-wider shrink-0 pt-0.5">
                       IPP &amp; Commercial
                     </span>
                   </div>
