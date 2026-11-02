@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { ALL_BLOG_POSTS } from "@/lib/blog-data";
-import { Search, X, ArrowDown, ArrowLeft } from "lucide-react";
+import { Search, X, ArrowDown } from "lucide-react";
 
 export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
-  const categories = ["ALL", ...Array.from(new Set(ALL_BLOG_POSTS.map(post => post.category)))];
+  const categories = ["ALL", "WIND ENERGY", "SOLAR ENERGY", "HYBRID"];
 
   const filteredPosts = ALL_BLOG_POSTS.filter(post => {
-    const matchesCategory = activeCategory === "ALL" || post.category === activeCategory;
+    const matchesCategory = activeCategory === "ALL" || post.category.toUpperCase() === activeCategory.toUpperCase();
     const matchesSearch =
       searchQuery === "" ||
       post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -53,9 +53,9 @@ export default function InsightsPage() {
               <div className="mb-4 sm:mb-5">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+                  className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+
                   <span>Back to Home</span>
                 </Link>
               </div>
@@ -80,7 +80,7 @@ export default function InsightsPage() {
               className="shrink-0 flex flex-col items-center gap-2.5 cursor-pointer select-none self-start lg:self-end group"
             >
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-white" />
               </div>
               <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.18em] uppercase text-white/70 group-hover:text-white transition-colors">
                 SCROLL TO EXPLORE
@@ -106,10 +106,10 @@ export default function InsightsPage() {
                     setActiveCategory(category);
                     setVisibleCount(6);
                   }}
-                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-[6px] text-[10px] sm:text-[11px] font-bold tracking-wider uppercase transition-all duration-300 border cursor-pointer ${
+                  className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-[6px] text-[10.5px] sm:text-[11.5px] font-normal tracking-wider uppercase transition-all duration-300 border cursor-pointer ${
                     activeCategory === category 
-                      ? "bg-[#0B2735] border-[#0B2735] text-white shadow-sm" 
-                      : "bg-white border-black/10 text-neutral-600 hover:border-[#0B2735] hover:text-[#0B2735]"
+                      ? "bg-[#0A6B88] border-[#0A6B88] text-white shadow-xs" 
+                      : "bg-white border-neutral-200 text-neutral-600 hover:border-[#0A6B88] hover:text-[#0A6B88]"
                   }`}
                 >
                   {category}
@@ -162,7 +162,7 @@ export default function InsightsPage() {
             <>
               {/* Blog Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 items-stretch">
-                {posts.map((post) => (
+                {posts.map((post, idx) => (
                   <Link
                     key={post.id}
                     href={`/insights/${post.slug || 'inside-the-engineering-of-wind-turbines'}`}
@@ -179,9 +179,19 @@ export default function InsightsPage() {
 
                         {/* Squareish Category Badge: Light blue #0A6B88 */}
                         <div className="absolute top-3 left-3 z-10">
-                          <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
-                            {post.category}
-                          </span>
+                          {idx === 1 ? (
+                            <span className="inline-flex items-center bg-[#AEF977] text-neutral-950 font-bold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                              {post.category}
+                            </span>
+                          ) : idx === 2 ? (
+                            <span className="inline-flex items-center bg-black/40 backdrop-blur-md border border-white/30 text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                              {post.category}
+                            </span>
+                          ) : (
+                            <span className="inline-flex items-center bg-[#0A6B88] text-white font-semibold tracking-wider uppercase text-[9.5px] sm:text-[10px] px-2.5 py-1 rounded-[6px] shadow-sm">
+                              {post.category}
+                            </span>
+                          )}
                         </div>
                       </div>
 

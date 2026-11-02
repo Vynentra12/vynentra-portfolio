@@ -24,8 +24,9 @@ export function Navbar() {
   const lastScrollYRef = useRef(0);
 
   const isServiceDetail = Boolean(pathname?.startsWith("/services/") && pathname !== "/services");
+  const isInsightDetail = Boolean((pathname?.startsWith("/insights/") && pathname !== "/insights") || (pathname?.startsWith("/blog/") && pathname !== "/blog"));
   const isLegalPage = pathname === "/privacy" || pathname === "/terms";
-  const useDarkNav = isScrolled || isCaseStudyDetail || isServiceDetail || isLegalPage;
+  const useDarkNav = isScrolled || isCaseStudyDetail || isServiceDetail || isInsightDetail || isLegalPage;
 
   // Detect scroll direction (hide on scroll down, show on scroll up) & background style toggle
   useEffect(() => {

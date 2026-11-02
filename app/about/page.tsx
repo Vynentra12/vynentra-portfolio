@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView, animate } from "framer-motion";
-import { CheckCircle, Lightbulb, Shield, Award, Users, Heart, ArrowLeft } from "lucide-react";
+import { CheckCircle, Lightbulb, Shield, Award, Users, Heart } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
@@ -58,9 +58,9 @@ export default function AboutPage() {
             <div className="mb-5 sm:mb-6">
               <Link
                 href="/"
-                className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+                className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
               >
-                <ArrowLeft className="w-3.5 h-3.5" />
+
                 <span>Back to Home</span>
               </Link>
 

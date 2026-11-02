@@ -27,7 +27,7 @@ const ctaImages = [
 ];
 
 export function CTASectionV2({
-  badgeText = "ENERGY, REIMAGINED.",
+  badgeText = "ENERGY, REIMAGINED",
   title = "Power Your Next Move",
   description,
   buttonText = "Get Started",
@@ -90,14 +90,14 @@ export function CTASectionV2({
           const imgW = isMobile
             ? (vw < 375 ? 58 : 66)
             : isTablet
-            ? 104
-            : Math.round(Math.min(144, Math.max(116, vw * 0.095)));
+              ? 104
+              : Math.round(Math.min(144, Math.max(116, vw * 0.095)));
 
           const imgH = isMobile
             ? (vw < 375 ? 40 : 45)
             : isTablet
-            ? 72
-            : Math.round(Math.min(100, Math.max(80, vw * 0.065)));
+              ? 72
+              : Math.round(Math.min(100, Math.max(80, vw * 0.065)));
 
           // Diagonal half of card for rotation collision safety
           const halfDiag = Math.sqrt((imgW / 2) ** 2 + (imgH / 2) ** 2);
@@ -112,8 +112,8 @@ export function CTASectionV2({
           const targetRadius = isMobile
             ? (vw < 375 ? 144 : 158)
             : isTablet
-            ? 240
-            : 330;
+              ? 240
+              : 330;
 
           const radius = Math.max(120, Math.min(targetRadius, maxRadiusX, maxRadiusY));
 
@@ -322,9 +322,8 @@ export function CTASectionV2({
 
         {/* Title */}
         <h2
-          className={`text-[13px] sm:text-[21px] md:text-[24px] lg:text-[27px] font-bold text-white tracking-tight leading-[1.2] whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text ${
-            description ? "mb-1 sm:mb-2" : "mb-2 sm:mb-4"
-          }`}
+          className={`text-[13px] sm:text-[21px] md:text-[24px] lg:text-[27px] font-bold text-white tracking-tight leading-[1.2] whitespace-normal text-center drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] select-text cursor-text ${description ? "mb-1 sm:mb-2" : "mb-2 sm:mb-4"
+            }`}
           style={{
             userSelect: "text",
             WebkitUserSelect: "text",

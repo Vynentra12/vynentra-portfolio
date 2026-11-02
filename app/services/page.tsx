@@ -5,7 +5,7 @@ import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { SERVICES } from "@/lib/services-data";
-import { Search, PenTool, Wrench, Truck, Activity, Zap, ArrowDown, ArrowLeft } from "lucide-react";
+import { Search, PenTool, Wrench, Truck, Activity, Zap, ArrowDown } from "lucide-react";
 
 const PROCESS_STEPS = [
   { id: "01", title: "ASSESS", desc: "Understanding the site, resources and energy requirement.", icon: Search },
@@ -42,9 +42,9 @@ export default function ServicesPage() {
               <div className="mb-4 sm:mb-5">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+                  className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
+
                   <span>Back to Home</span>
                 </Link>
               </div>
@@ -67,7 +67,7 @@ export default function ServicesPage() {
               className="shrink-0 flex flex-col items-center gap-2.5 cursor-pointer select-none self-start lg:self-end group"
             >
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-white" />
               </div>
               <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.18em] uppercase text-white/70 group-hover:text-white transition-colors">
                 SCROLL TO EXPLORE

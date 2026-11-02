@@ -30,7 +30,7 @@ export function BlogSectionV2() {
     {
       slug: "the-environmental-impact-of-wind-energy",
       image: "/why-choose-us/expert-guidance.jpg",
-      category: "PROJECT DEVELOPMENT",
+      category: "WIND ENERGY",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
       title: "What actually goes into developing a renewable energy project",
@@ -40,7 +40,7 @@ export function BlogSectionV2() {
     {
       slug: "the-real-numbers-behind-green-energy",
       image: "/solutions/solar-installation.jpg",
-      category: "RENEWABLE TECHNOLOGY",
+      category: "SOLAR ENERGY",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
       title: "Why the right renewable technology starts with the site",
@@ -50,7 +50,7 @@ export function BlogSectionV2() {
     {
       slug: "a-world-powered-by-wind-and-sunlight",
       image: "/hybrid-wind-solar.jpg",
-      category: "WIND + SOLAR",
+      category: "HYBRID",
       date: "DECEMBER 10, 2025",
       readTime: "5 MIN READ",
       title: "Wind and solar are not competing technologies",

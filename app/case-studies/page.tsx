@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { CASE_STUDIES } from '@/lib/case-studies-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
-import { MapPin, Zap, CalendarDays, ArrowDown, ArrowLeft } from 'lucide-react';
+import { CalendarDays, ArrowDown } from 'lucide-react';
 
 export default function CaseStudiesPage() {
   return (
@@ -32,9 +32,8 @@ export default function CaseStudiesPage() {
               <div className="mb-4 sm:mb-5">
                 <Link
                   href="/"
-                  className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
+                  className="inline-flex items-center text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" />
                   <span>Back to Home</span>
                 </Link>
               </div>
@@ -50,7 +49,7 @@ export default function CaseStudiesPage() {
               </p>
             </div>
 
-            {/* Right Scroll Down Element (Matching Image 4 & 5) */}
+            {/* Right Scroll Down Element */}
             <div 
               onClick={() => {
                 const el = document.getElementById('case-studies-feed');
@@ -59,7 +58,7 @@ export default function CaseStudiesPage() {
               className="shrink-0 flex flex-col items-center gap-2.5 cursor-pointer select-none self-start lg:self-end group"
             >
               <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
+                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 animate-bounce text-white" />
               </div>
               <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.18em] uppercase text-white/70 group-hover:text-white transition-colors">
                 SCROLL TO EXPLORE
@@ -70,23 +69,23 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      {/* ── 2. CASE STUDY FEED (Clean Borderless Cards with Prominent Vertical Divider Line) ── */}
+      {/* ── 2. CASE STUDY FEED (Mobile Optimized & Clean Borderless Cards) ── */}
       <section
         id="case-studies-feed"
-        className="w-full max-w-full overflow-hidden bg-white font-sans relative select-text py-14 sm:py-20 lg:py-24"
+        className="w-full max-w-full overflow-hidden bg-white font-sans relative select-text py-10 sm:py-16 lg:py-24"
       >
         <div className="w-full max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           
-          <div className="flex flex-col space-y-16 sm:space-y-20 lg:space-y-24 w-full max-w-full min-w-0">
+          <div className="flex flex-col space-y-10 sm:space-y-16 lg:space-y-20 w-full max-w-full min-w-0">
             {CASE_STUDIES.map((study) => (
               <div
                 key={study.slug}
-                className="group bg-white flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-6 lg:gap-8 xl:gap-10 w-full max-w-full min-w-0 overflow-hidden py-4 sm:py-6"
+                className="group bg-white flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-5 sm:gap-7 lg:gap-8 xl:gap-10 w-full max-w-full min-w-0 overflow-hidden py-2 sm:py-4"
               >
-                {/* Left Column: Widened Thumbnail so image fits properly */}
+                {/* Left Column: Thumbnail */}
                 <Link
                   href={`/case-studies/${study.slug}`}
-                  className="w-full lg:w-[380px] xl:w-[430px] aspect-[16/11] rounded-[18px] sm:rounded-[22px] overflow-hidden shrink-0 relative bg-neutral-100 block cursor-pointer group/img shadow-xs"
+                  className="w-full lg:w-[380px] xl:w-[430px] aspect-[16/11] rounded-[16px] sm:rounded-[22px] overflow-hidden shrink-0 relative bg-neutral-100 block cursor-pointer group/img shadow-xs"
                 >
                   <img
                     src={study.image}
@@ -95,20 +94,15 @@ export default function CaseStudiesPage() {
                   />
                 </Link>
 
-                {/* Middle Column: Location & Tech Chips, Title, Description & Button */}
-                <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-1 lg:py-2 h-full overflow-hidden">
+                {/* Middle Column: Location & Tech (Text-only with separator), Title, Description & Action */}
+                <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-0.5 sm:py-1 lg:py-2 h-full overflow-hidden">
                   <div className="w-full min-w-0 max-w-full">
-                    {/* Meta Info: Location | Technology (clean text without grey pill bg) */}
-                    <div className="w-full max-w-full flex flex-row flex-wrap items-center gap-2.5 sm:gap-3 mb-2.5 sm:mb-3">
-                      <span className="inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-normal text-neutral-600 whitespace-nowrap shrink-0">
-                        <MapPin strokeWidth={1.5} className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
-                        <span>{study.projectLocation}</span>
-                      </span>
-                      <span className="text-neutral-300 select-none">|</span>
-                      <span className="inline-flex items-center gap-1.5 text-[11.5px] sm:text-[12px] font-normal text-neutral-600 whitespace-nowrap shrink-0">
-                        <Zap strokeWidth={1.5} className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
-                        <span>{study.technology}</span>
-                      </span>
+                    
+                    {/* Meta Info: Pure text in brand light blue */}
+                    <div className="w-full max-w-full flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-2 sm:mb-2.5 text-[11px] sm:text-[12px] font-medium text-[#0A6B88] tracking-[0.05em] uppercase">
+                      <span>{study.projectLocation}</span>
+                      <span className="text-neutral-300 select-none font-light">|</span>
+                      <span>{study.technology}</span>
                     </div>
 
                     {/* Title */}
@@ -116,37 +110,44 @@ export default function CaseStudiesPage() {
                       href={`/case-studies/${study.slug}`}
                       className="block group-hover:text-[#0A6B88] transition-colors"
                     >
-                      <h2 className="text-[20px] xs:text-[22px] sm:text-[24px] lg:text-[26px] font-medium text-[#0B2735] leading-[1.25] tracking-tight mb-2.5 sm:mb-3">
+                      <h2 className="text-[18px] xs:text-[20px] sm:text-[23px] lg:text-[25px] font-medium text-[#0B2735] leading-[1.25] tracking-tight mb-2 sm:mb-2.5">
                         {study.title}
                       </h2>
                     </Link>
 
                     {/* Subtitle / Description */}
-                    <p className="text-[13px] sm:text-[13.5px] text-neutral-600 font-normal leading-[1.6] line-clamp-2 mb-5 max-w-xl">
+                    <p className="text-[12.5px] sm:text-[13.5px] text-neutral-600 font-normal leading-[1.55] sm:leading-[1.6] line-clamp-2 mb-4 sm:mb-5 max-w-xl">
                       {study.subtitle}
                     </p>
                   </div>
 
-                  {/* Button: Outline Pill WITHOUT Arrow */}
-                  <Link
-                    href={`/case-studies/${study.slug}`}
-                    className="inline-flex items-center justify-center h-[42px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11px] sm:text-[11.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
-                  >
-                    <span>READ FULL STORY</span>
-                  </Link>
+                  {/* Action Row: Outline Pill on Left, Date on Right */}
+                  <div className="flex flex-row items-center justify-between w-full pt-0.5">
+                    <Link
+                      href={`/case-studies/${study.slug}`}
+                      className="inline-flex items-center justify-center h-[38px] sm:h-[42px] px-5 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[11px] sm:text-[11.5px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
+                    >
+                      <span>READ FULL STORY</span>
+                    </Link>
+
+                    {/* Mobile Date Indicator */}
+                    <div className="lg:hidden flex items-center gap-1.5 text-neutral-500 text-[11.5px] font-medium pr-1">
+                      <CalendarDays strokeWidth={1.5} className="w-3.5 h-3.5 text-[#0A6B88] shrink-0" />
+                      <span>{study.date || "October 09, 2026"}</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Big Visible Vertical Divider Line for Desktop */}
                 <div className="hidden lg:block w-[1.5px] h-28 xl:h-32 bg-neutral-300 shrink-0 self-center mx-1 xl:mx-2" />
 
-                {/* Right Column: Calendar Icon and Date */}
-                <div className="w-full lg:w-[150px] xl:w-[170px] shrink-0 pt-4 lg:pt-0 border-t lg:border-t-0 border-neutral-200 flex flex-col justify-center items-center gap-2.5">
+                {/* Right Column: Calendar Icon and Date (Desktop Only) */}
+                <div className="hidden lg:flex w-[150px] xl:w-[170px] shrink-0 flex-col justify-center items-center gap-2.5">
                   <CalendarDays strokeWidth={1.4} className="w-11 h-11 sm:w-12 sm:h-12 text-[#0A6B88]" />
                   <div className="text-[13px] sm:text-[13.5px] font-semibold text-neutral-800 text-center leading-snug">
                     {study.date || "October 09, 2026"}
                   </div>
                 </div>
-
               </div>
             ))}
           </div>
@@ -154,7 +155,7 @@ export default function CaseStudiesPage() {
         </div>
       </section>
 
-      {/* ── FOOTER ── */}
+      {/* ── 3. FOOTER ── */}
       <FooterV2 />
     </div>
   );

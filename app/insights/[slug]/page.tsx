@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { Check, ArrowLeft, ArrowDown } from 'lucide-react';
+import { Check, ArrowLeft } from 'lucide-react';
 import { ALL_BLOG_POSTS, getBlogPostBySlug } from '@/lib/blog-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
 import { SectionBadge } from '@/components/ui/SectionBadge';
@@ -31,73 +31,62 @@ export default async function InsightDetailPage({ params }: Props) {
   const relatedPosts = ALL_BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 2);
 
   return (
-    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
+    <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950 flex flex-col">
       
-      {/* 1. Full-Bleed Panoramic Hero Section */}
-      <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
+      {/* ── MAIN CONTENT CONTAINER (Clean Editorial Layout Matching Case Studies) ── */}
+      <main className="max-w-[940px] mx-auto px-6 sm:px-10 pt-28 sm:pt-36 pb-20 sm:pb-28 w-full flex-1">
         
-        {/* Panoramic Background Image */}
-        <div className="absolute inset-0 z-0">
+        {/* Back Link to All Insights (Matching Reference Image with regular font) */}
+        <div className="mb-8 sm:mb-10">
+          <Link
+            href="/insights"
+            className="group inline-flex items-center gap-3.5 sm:gap-4 select-none cursor-pointer"
+          >
+            {/* Circular Border Arrow Button with smaller arrow */}
+            <div className="w-[32px] h-[32px] sm:w-[36px] sm:h-[36px] rounded-full bg-white border border-[#0B2735] flex items-center justify-center text-[#0B2735] transition-all duration-300 group-hover:bg-[#0A6B88] group-hover:border-[#0A6B88] group-hover:text-white group-hover:scale-105 shrink-0 shadow-xs">
+              <ArrowLeft strokeWidth={2} className="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-200 group-hover:-translate-x-0.5" />
+            </div>
+
+            {/* Stacked Labels with regular font */}
+            <div className="flex flex-col text-left justify-center">
+              <span className="text-[10px] sm:text-[11px] font-medium tracking-[0.14em] text-[#0A6B88] uppercase leading-none mb-1">
+                BACK TO
+              </span>
+              <span className="text-[17px] sm:text-[19px] font-normal text-[#0B2735] tracking-tight leading-none group-hover:text-[#0A6B88] transition-colors">
+                All Insights
+              </span>
+            </div>
+          </Link>
+        </div>
+
+        {/* Scope / Category Eyebrow Badge */}
+        <div className="mb-3 sm:mb-4">
+          <SectionBadge theme="dark" size="default">
+            {post.category}
+          </SectionBadge>
+        </div>
+
+        {/* Title */}
+        <h1 className="text-[30px] sm:text-[38px] md:text-[44px] lg:text-[48px] font-medium text-neutral-900 tracking-tight leading-[1.16] mb-4 select-text">
+          {post.title}
+        </h1>
+
+        {/* Meta Bar: Date & Read Time */}
+        <div className="flex items-center gap-2.5 sm:gap-3 text-[13px] sm:text-[14px] text-neutral-600 font-normal mb-8">
+          <span>{post.date}</span>
+          <span className="w-1 h-1 rounded-full bg-neutral-400"></span>
+          <span>{post.readTime}</span>
+        </div>
+
+        {/* Featured Hero Image: Positioned at Bottom of Title & Meta Info */}
+        <div className="w-full aspect-[16/9] sm:aspect-[21/9] rounded-[20px] overflow-hidden bg-neutral-100 my-8 shadow-xs border border-neutral-200/70">
           <img
             src={post.image}
             alt={post.title}
-            className="w-full h-full object-cover object-center opacity-60"
+            className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
-        {/* Hero Content Area - Width increased back to max-w-[1380px] with Right-aligned Scroll Element */}
-        <div className="relative z-10 w-full px-6 sm:px-10 lg:px-14 xl:px-16 pb-12 sm:pb-16 md:pb-20 pt-32 sm:pt-40">
-          <div className="max-w-[1380px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10">
-            
-            {/* Left Content */}
-            <div className="max-w-3xl">
-              {/* Back Link / Badge - Plain text matching other inner pages, no background, no border */}
-              <div className="mb-4 sm:mb-5">
-                <Link
-                  href="/insights"
-                  className="inline-flex items-center gap-2 text-[12px] sm:text-[13px] font-medium tracking-[0.14em] text-white/80 hover:text-white uppercase transition-colors select-none"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5" />
-                  <span>Back to Insights</span>
-                </Link>
-              </div>
-
-              {/* Title */}
-              <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] max-w-4xl drop-shadow-sm mb-4 sm:mb-6 select-text">
-                {post.title}
-              </h1>
-
-              {/* Subtitle / Meta Bar */}
-              <p className="text-[13px] sm:text-[14px] md:text-[15px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-medium flex items-center gap-3 flex-wrap">
-                <span>{post.date}</span>
-                <span className="w-1 h-1 rounded-full bg-white/40"></span>
-                <span>{post.readTime}</span>
-                <span className="w-1 h-1 rounded-full bg-white/40"></span>
-                <span className="text-[#AEF977]">{post.category}</span>
-              </p>
-            </div>
-
-            {/* Right Scroll Down Element */}
-            <a 
-              href="#article-content"
-              className="shrink-0 flex flex-col items-center gap-2.5 cursor-pointer select-none self-start lg:self-end group"
-            >
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-full border border-white/40 flex items-center justify-center text-white/90 transition-all duration-300 group-hover:border-white group-hover:text-white group-hover:scale-105">
-                <ArrowDown strokeWidth={1.75} className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover:translate-y-0.5" />
-              </div>
-              <span className="text-[10px] sm:text-[10.5px] font-semibold tracking-[0.18em] uppercase text-white/70 group-hover:text-white transition-colors">
-                SCROLL TO EXPLORE
-              </span>
-            </a>
-
-          </div>
-        </div>
-      </section>
-
-      {/* 2. Main Article Content Body */}
-      <main id="article-content" className="max-w-[940px] mx-auto px-6 sm:px-10 py-14 sm:py-20 scroll-mt-20">
-        
         {/* Intro Paragraph */}
         <p className="text-[17px] sm:text-[19px] md:text-[20px] text-neutral-800 leading-[1.7] font-normal mb-10 sm:mb-12">
           {post.content.intro}
@@ -140,7 +129,7 @@ export default async function InsightDetailPage({ params }: Props) {
           ))}
         </div>
 
-        {/* 3. Quote Block */}
+        {/* Quote Block */}
         {post.content.quote && (
           <div className="my-14 sm:my-16 pl-6 sm:pl-8 border-l-2 border-[#0A6B88]">
             <blockquote className="text-[20px] sm:text-[22px] md:text-[24px] font-medium text-neutral-900 leading-[1.4] mb-3 italic">
@@ -152,7 +141,7 @@ export default async function InsightDetailPage({ params }: Props) {
           </div>
         )}
 
-        {/* 4. Concluding Paragraph with Regular Font */}
+        {/* Concluding Paragraph with Regular Font */}
         <p className="text-[16px] sm:text-[17px] text-neutral-700 leading-[1.8] font-normal mb-12 sm:mb-14">
           The engineering behind wind turbines represents the perfect balance of science and sustainability transforming invisible air currents into tangible progress. As materials improve and digital systems evolve, wind energy will only become more efficient, accessible, and vital to the world’s clean energy transition.
         </p>
@@ -164,9 +153,9 @@ export default async function InsightDetailPage({ params }: Props) {
           tags={["energy", "renewable", "solar"]}
         />
 
-        {/* Key Takeaways Section - Clean White Background */}
+        {/* Key Takeaways Section - Pure text with tick icons (No box, no background) */}
         {post.content.takeaways && post.content.takeaways.length > 0 && (
-          <div className="mb-10 p-7 sm:p-8 bg-white rounded-[20px] border border-neutral-200">
+          <div className="my-10 sm:my-12">
             <div className="mb-4">
               <SectionBadge theme="dark" className="w-fit">
                 KEY TAKEAWAYS &amp; STRATEGIC SUMMARY
@@ -206,7 +195,7 @@ export default async function InsightDetailPage({ params }: Props) {
 
       </main>
 
-      {/* 5. Related Posts Section - Matching Standard Blog Card Design */}
+      {/* Related Posts Section - Matching Standard Blog Card Design */}
       <section className="w-full bg-white pb-20 sm:pb-24 md:pb-28 max-w-[940px] mx-auto px-6 sm:px-10">
         
         {/* Heading */}
@@ -239,19 +228,21 @@ export default async function InsightDetailPage({ params }: Props) {
                   </div>
                 </div>
 
-                {/* Date & Read Time */}
-                <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em] mb-2">
-                  {relPost.date} · {relPost.readTime}
-                </p>
+                {/* Card Meta Date & Read Time */}
+                <div className="mb-2">
+                  <p className="text-[11px] sm:text-[11.5px] font-medium text-neutral-600 uppercase tracking-[0.04em]">
+                    {relPost.date} · {relPost.readTime}
+                  </p>
+                </div>
 
-                {/* Title */}
-                <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 tracking-tight leading-[1.3] group-hover/blog:text-[#087589] transition-colors mb-4">
+                {/* Card Title */}
+                <h3 className="text-[17px] sm:text-[18px] lg:text-[19px] font-medium text-neutral-900 leading-[1.3] tracking-tight group-hover/blog:text-[#087589] transition-colors min-h-[46px] sm:min-h-[50px]">
                   {relPost.title}
                 </h3>
               </div>
 
               {/* Read Insight Button */}
-              <div className="mt-1">
+              <div className="mt-4 sm:mt-5">
                 <span className="inline-flex items-center justify-center h-[38px] px-5 sm:px-6 rounded-full border border-[#0B2735] text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase text-[#0B2735] transition-all duration-200 group-hover/blog:bg-[#0B2735] group-hover/blog:text-white">
                   READ INSIGHT
                 </span>
@@ -259,12 +250,10 @@ export default async function InsightDetailPage({ params }: Props) {
             </Link>
           ))}
         </div>
-
       </section>
 
-      {/* 6. Footer */}
+      {/* Footer */}
       <FooterV2 />
-
     </div>
   );
 }
