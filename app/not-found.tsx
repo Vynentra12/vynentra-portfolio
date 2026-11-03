@@ -2,6 +2,11 @@ import React from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Page Not Found",
+};
 
 export default function NotFound() {
   return (

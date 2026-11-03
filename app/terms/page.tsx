@@ -1,11 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Terms & Conditions | Vynentra Clean Energy",
+export const metadata: Metadata = pageMetadata({
+  title: "Terms & Conditions",
   description: "Terms and conditions governing the use of Vynentra's website, renewable energy advisory, and project execution services.",
-};
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

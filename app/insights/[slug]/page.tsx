@@ -1,5 +1,7 @@
 import React from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import { Check, ArrowLeft } from 'lucide-react';
 import { ALL_BLOG_POSTS, getBlogPostBySlug } from '@/lib/blog-data';
@@ -17,6 +19,21 @@ export async function generateStaticParams() {
   return ALL_BLOG_POSTS.map((post) => ({
     slug: post.slug,
   }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
+  if (!post) return { title: "Insight Not Found" };
+
+  return pageMetadata({
+    title: post.title,
+    description: post.excerpt,
+    path: `/insights/${post.slug}`,
+    image: post.image,
+    imageAlt: post.title,
+    type: "article",
+  });
 }
 
 export default async function InsightDetailPage({ params }: Props) {

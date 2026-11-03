@@ -1,11 +1,13 @@
 import React from "react";
 import type { Metadata } from "next";
 import { FooterV2 } from "@/components/sections/FooterV2";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy | Vynentra Clean Energy",
+export const metadata: Metadata = pageMetadata({
+  title: "Privacy Policy",
   description: "Learn how Vynentra collects, handles, and protects client data, site feasibility metrics, and renewable energy consultations.",
-};
+  path: "/privacy",
+});
 
 export default function PrivacyPolicyPage() {
   return (

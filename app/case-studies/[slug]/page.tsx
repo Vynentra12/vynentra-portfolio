@@ -1,5 +1,7 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import { CASE_STUDIES, getCaseStudyBySlug } from "@/lib/case-studies-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
@@ -17,6 +19,23 @@ export async function generateStaticParams() {
   }));
   slugs.push({ slug: "commercial-solar-plants" });
   return slugs;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const study = getCaseStudyBySlug(slug);
+  if (!study) return { title: "Case Study Not Found" };
+
+  // Canonical always points at the study's own slug, so legacy aliases
+  // (e.g. "commercial-solar-plants") don't count as duplicate content.
+  return pageMetadata({
+    title: study.title,
+    description: study.subtitle,
+    path: `/case-studies/${study.slug}`,
+    image: study.image,
+    imageAlt: study.title,
+    type: "article",
+  });
 }
 
 export default async function CaseStudyDetailPage({ params }: Props) {
