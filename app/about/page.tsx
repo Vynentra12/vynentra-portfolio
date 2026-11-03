@@ -45,7 +45,7 @@ export default function AboutPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg"
+            src="/images/stock/pexels-414837.jpg"
             alt="About us background"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
@@ -131,7 +131,7 @@ export default function AboutPage() {
               <div className="hidden lg:block lg:col-span-6 relative order-1 lg:order-1">
                 <div className="relative w-full aspect-[4/3] sm:aspect-[4/3] lg:aspect-square max-h-[560px] rounded-[20px] sm:rounded-[24px] overflow-hidden border border-neutral-200/80 shadow-xs bg-neutral-100">
                   <img
-                    src="https://images.pexels.com/photos/5520322/pexels-photo-5520322.jpeg"
+                    src="/images/stock/pexels-5520322.jpg"
                     alt="Strategic Partners in Renewable Infrastructure - Vynentra & HRV Group"
                     className="w-full h-full object-cover object-center"
                   />
@@ -151,7 +151,7 @@ export default function AboutPage() {
                 {/* Mobile-Only Image: Positioned directly after badge and title on mobile */}
                 <div className="block lg:hidden w-full aspect-[16/10] sm:aspect-[4/3] rounded-[18px] sm:rounded-[20px] overflow-hidden border border-neutral-200/80 shadow-xs bg-neutral-100 mb-5 sm:mb-6">
                   <img
-                    src="https://images.pexels.com/photos/5520322/pexels-photo-5520322.jpeg"
+                    src="/images/stock/pexels-5520322.jpg"
                     alt="Strategic Partners in Renewable Infrastructure - Vynentra & HRV Group"
                     className="w-full h-full object-cover object-center"
                   />

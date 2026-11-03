@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
 import { google } from "googleapis";
+import { createRateLimiter, getClientIp } from "@/lib/rate-limit";
+
+// Per-IP limit on submissions (valid or not), so one client can't flood the
+// sheet or burn the Brevo email quota.
+const submissionLimiter = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
+// Global cap on rows written to the "Spam" tab, so a distributed bot flood
+// can't fill the sheet. Excess spam is still rejected silently, just not logged.
+const spamLogLimiter = createRateLimiter({ limit: 30, windowMs: 60 * 60 * 1000 });
 
 // Helper function to escape HTML special characters to prevent injection in emails
 function escapeHtml(text: string): string {
@@ -109,8 +117,28 @@ async function logSpam(reason: string, body: Record<string, unknown>) {
 
 export async function POST(req: Request) {
   console.log("\n[CONTACT API] ▶ Received submission");
+
+  const rate = submissionLimiter(getClientIp(req));
+  if (!rate.allowed) {
+    console.warn("[CONTACT API] ✖ Rate limit exceeded");
+    return NextResponse.json(
+      { error: "Too many submissions. Please wait a few minutes and try again." },
+      { status: 429, headers: { "Retry-After": String(rate.retryAfterSec) } }
+    );
+  }
+
+  let body: Record<string, unknown>;
   try {
-    const body = await req.json();
+    const parsed: unknown = await req.json();
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      throw new Error("Body is not a JSON object");
+    }
+    body = parsed as Record<string, unknown>;
+  } catch {
+    return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+  }
+
+  try {
     const { name, email, company, service, requirements, marketing, honeypot, elapsed } = body;
     console.log("[CONTACT API] Fields received:", {
       name: !!name,
@@ -136,7 +164,11 @@ export async function POST(req: Request) {
     if (spamReasons.length > 0) {
       const reason = spamReasons.join(", ");
       console.warn("Possible bot blocked", { honeypot: !!honeypot, elapsed, reason });
-      await logSpam(reason, body);
+      if (spamLogLimiter("global").allowed) {
+        await logSpam(reason, body);
+      } else {
+        console.warn("[CONTACT API] Spam log cap reached; not writing to sheet");
+      }
       return NextResponse.json(
         { success: true, message: "Thank you! Your message has been sent successfully." },
         { status: 200 }

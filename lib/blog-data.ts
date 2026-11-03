@@ -192,7 +192,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     readTime: "6 MIN READ",
     title: "The economic ripple and infrastructure benefits of clean renewable energy",
     excerpt: "Local job creation, rural infrastructure development, and manufacturing supply chains ignited by wind energy investments.",
-    image: "https://images.pexels.com/photos/34727208/pexels-photo-34727208.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: "/images/stock/pexels-34727208.jpg",
     content: {
       intro: "The renewable transition is revitalizing rural economies and creating high-skilled technical employment across manufacturing, geotechnical surveying, crane operations, and precision blade maintenance.",
       sections: [
@@ -220,7 +220,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     readTime: "5 MIN READ",
     title: "Building the future of sustainable power through decentralized microgrids",
     excerpt: "Architecting decentralized microgrids that combine wind, solar, and battery storage for remote industrial clusters.",
-    image: "https://images.pexels.com/photos/7763083/pexels-photo-7763083.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    image: "/images/stock/pexels-7763083.jpg",
     content: {
       intro: "Decentralized microgrids ensure energy continuity for remote mining operations, agricultural processing plants, and critical logistics hubs independent of distant transmission failures.",
       sections: [

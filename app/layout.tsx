@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/motion/LenisProvider";
 import { Navbar } from "@/components/navigation/Navbar";
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -10,9 +11,30 @@ const inter = Inter({
   display: "swap",
 });
 
+// Site-wide defaults. Each page sets its own title/description/canonical via
+// pageMetadata() in lib/seo.ts; no canonical here so pages never inherit "/".
 export const metadata: Metadata = {
-  title: "Vynentra",
-  description: "Vynentra is an integrated renewable energy solutions and project development company.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_IN",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
 };
 
 export default function RootLayout({
