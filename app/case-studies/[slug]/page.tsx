@@ -50,7 +50,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
       {/* ── MAIN CONTENT CONTAINER (Centered Editorial Layout Optimized for Mobile & Desktop) ── */}
-      <main className="max-w-[880px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 sm:pb-28">
+      <div className="max-w-[880px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 sm:pb-28">
         
         {/* Back Link to All Case Studies */}
         <div className="mb-6 sm:mb-10">
@@ -217,7 +217,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           </div>
         </div>
 
-      </main>
+      </div>
 
       {/* ── FOOTER ── */}
       <FooterV2 />

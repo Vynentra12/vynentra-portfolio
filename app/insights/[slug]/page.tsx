@@ -51,7 +51,7 @@ export default async function InsightDetailPage({ params }: Props) {
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950 flex flex-col">
       
       {/* ── MAIN CONTENT CONTAINER (Clean Editorial Layout Matching Case Studies) ── */}
-      <main className="max-w-[940px] mx-auto px-6 sm:px-10 pt-28 sm:pt-36 pb-20 sm:pb-28 w-full flex-1">
+      <div className="max-w-[940px] mx-auto px-6 sm:px-10 pt-28 sm:pt-36 pb-20 sm:pb-28 w-full flex-1">
         
         {/* Back Link to All Insights (Matching Reference Image with regular font) */}
         <div className="mb-8 sm:mb-10">
@@ -210,7 +210,7 @@ export default async function InsightDetailPage({ params }: Props) {
           </Link>
         </div>
 
-      </main>
+      </div>
 
       {/* Related Posts Section - Matching Standard Blog Card Design */}
       <section className="w-full bg-white pb-20 sm:pb-24 md:pb-28 max-w-[940px] mx-auto px-6 sm:px-10">

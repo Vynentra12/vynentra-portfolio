@@ -14,7 +14,7 @@ export default function TermsPage() {
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen">
       
       {/* ── SIMPLE EDITORIAL LEGAL DOCUMENT (No hero section, clean text layout) ── */}
-      <main className="max-w-[820px] mx-auto px-6 sm:px-8 pt-28 sm:pt-36 pb-20 sm:pb-28">
+      <div className="max-w-[820px] mx-auto px-6 sm:px-8 pt-28 sm:pt-36 pb-20 sm:pb-28">
         
         {/* Title */}
         <h1 className="text-[32px] sm:text-[40px] md:text-[46px] font-medium text-neutral-950 tracking-tight leading-[1.15] mb-3">
@@ -103,7 +103,7 @@ export default function TermsPage() {
 
         </div>
 
-      </main>
+      </div>
 
       {/* ── FOOTER ── */}
       <FooterV2 />

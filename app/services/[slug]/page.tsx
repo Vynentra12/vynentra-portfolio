@@ -100,7 +100,7 @@ export default async function ServiceDetailPage({ params }: Props) {
     <div id="service-top" className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950 flex flex-col">
       
       {/* ── MAIN CONTENT CONTAINER (Optimized for Mobile & Desktop) ── */}
-      <main className="max-w-[1240px] mx-auto px-5 sm:px-10 lg:px-12 pt-20 sm:pt-32 lg:pt-36 pb-14 sm:pb-24 w-full flex-1">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-10 lg:px-12 pt-20 sm:pt-32 lg:pt-36 pb-14 sm:pb-24 w-full flex-1">
         
         {/* Back Link to All Services (Preserving light blue accent as requested) */}
         <div className="mb-6 sm:mb-10">
@@ -354,7 +354,7 @@ export default async function ServiceDetailPage({ params }: Props) {
           </div>
         </section>
 
-      </main>
+      </div>
 
       <FooterV2 />
     </div>
