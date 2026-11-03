@@ -36,7 +36,13 @@ export default function ContactPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startedAt = useRef(Date.now());
+  // When the form became usable; the API treats very fast submissions as bots.
+  // Set in an effect because Date.now() must not run during render.
+  const startedAt = useRef(0);
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
