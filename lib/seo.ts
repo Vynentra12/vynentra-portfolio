@@ -12,7 +12,7 @@ export const DEFAULT_OG_IMAGE = {
 };
 
 interface PageMetadataInput {
-  /** Page title; the root layout template appends " | Vynentra". */
+  /** Page title; " | Vynentra" is appended. */
   title: string;
   description: string;
   /** Canonical path, e.g. "/services". */
@@ -45,9 +45,12 @@ export function pageMetadata({
 }: PageMetadataInput): Metadata {
   const description = clipDescription(rawDescription);
   const images = image ? [{ url: image, alt: imageAlt ?? title }] : [DEFAULT_OG_IMAGE];
+  const fullTitle = `${title} | ${SITE_NAME}`;
 
   return {
-    title,
+    // Absolute rather than relying on the root title template: a string title in a
+    // route layout (e.g. app/services/layout.tsx) resets the template for its children.
+    title: { absolute: fullTitle },
     description,
     alternates: { canonical: path },
     openGraph: {
@@ -55,13 +58,13 @@ export function pageMetadata({
       siteName: SITE_NAME,
       locale: "en_IN",
       url: path,
-      title: `${title} | ${SITE_NAME}`,
+      title: fullTitle,
       description,
       images,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ${SITE_NAME}`,
+      title: fullTitle,
       description,
       images: images.map((img) => img.url),
     },
