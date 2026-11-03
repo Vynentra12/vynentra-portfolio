@@ -28,7 +28,7 @@ export function CaseStudySectionV2() {
         <div className="relative shrink-0 mx-1.5 min-[380px]:mx-2 sm:mx-4 md:mx-6 w-[88px] min-[360px]:w-[94px] min-[390px]:w-[104px] sm:w-[170px] md:w-[240px] lg:w-[350px] xl:w-[420px] 2xl:w-[460px] h-[32px] min-[360px]:h-[35px] min-[390px]:h-[38px] sm:h-[58px] md:h-[78px] lg:h-[108px] xl:h-[126px] 2xl:h-[136px] rounded-full overflow-hidden flex items-center justify-center shadow-[0_6px_20px_rgba(0,88,105,0.18)] sm:shadow-[0_14px_42px_rgba(0,88,105,0.22)]">
           {/* Turbine Background Image - Center aligned turbine hub & blades */}
           <img
-            src="https://images.pexels.com/photos/12828526/pexels-photo-12828526.jpeg?auto=compress&cs=tinysrgb&w=1200"
+            src="/images/stock/pexels-12828526.jpg"
             alt="Future-Ready Wind Turbine"
             className="absolute inset-0 w-full h-full object-cover object-[center_38%]"
           />

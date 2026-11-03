@@ -159,7 +159,7 @@ export default function ContactPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/10041227/pexels-photo-10041227.jpeg"
+            src="/images/stock/pexels-10041227.jpg"
             alt="Customer support contact background"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
