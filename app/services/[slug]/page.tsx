@@ -1,16 +1,15 @@
-"use client";
-
-import React, { useEffect, useRef } from "react";
+import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 import { SERVICES } from "@/lib/services-data";
+import { pageMetadata } from "@/lib/seo";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { 
+import { RoadmapScrollControls } from "@/components/ui/RoadmapScrollControls";
+import {
   ArrowLeft,
-  ChevronLeft,
-  ChevronRight, 
-  Search, 
+  Search,
   Cpu, 
   Wrench, 
   Activity, 
@@ -67,24 +66,41 @@ function getFeatureIcon(featureName: string, index: number) {
   return defaults[index % defaults.length];
 }
 
-export default function ServiceDetailPage() {
-  const params = useParams();
-  const slug = params.slug as string;
+interface Props {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export async function generateStaticParams() {
+  return SERVICES.map((service) => ({ slug: service.slug }));
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const service = SERVICES.find((s) => s.slug === slug);
+  if (!service) return { title: "Service Not Found" };
+
+  return pageMetadata({
+    title: service.title,
+    description: `${service.subtitle} ${service.desc}`,
+    path: `/services/${service.slug}`,
+    image: service.image,
+    imageAlt: service.title,
+  });
+}
+
+export default async function ServiceDetailPage({ params }: Props) {
+  const { slug } = await params;
   const currentService = SERVICES.find((s) => s.slug === slug);
-  const currentIndex = SERVICES.findIndex((s) => s.slug === slug);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [slug]);
-
-  if (!currentService) return notFound();
-
+  if (!currentService) notFound();
 
   return (
     <div id="service-top" className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950 flex flex-col">
       
       {/* ── MAIN CONTENT CONTAINER (Optimized for Mobile & Desktop) ── */}
-      <main className="max-w-[1240px] mx-auto px-5 sm:px-10 lg:px-12 pt-20 sm:pt-32 lg:pt-36 pb-14 sm:pb-24 w-full flex-1">
+      <div className="max-w-[1240px] mx-auto px-5 sm:px-10 lg:px-12 pt-20 sm:pt-32 lg:pt-36 pb-14 sm:pb-24 w-full flex-1">
         
         {/* Back Link to All Services (Preserving light blue accent as requested) */}
         <div className="mb-6 sm:mb-10">
@@ -207,36 +223,7 @@ export default function ServiceDetailPage() {
               </div>
 
               {/* Manual Scroll Controls (Desktop & Tablet) */}
-              <div className="hidden sm:flex items-center gap-2 shrink-0 pb-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById("roadmap-scroll-track");
-                    if (el) {
-                      const scrollDist = el.clientWidth / (window.innerWidth >= 1024 ? 3 : 2);
-                      el.scrollBy({ left: -scrollDist, behavior: "smooth" });
-                    }
-                  }}
-                  aria-label="Previous step"
-                  className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:bg-[#0B2735] hover:border-[#0B2735] hover:text-white transition-all active:scale-95"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById("roadmap-scroll-track");
-                    if (el) {
-                      const scrollDist = el.clientWidth / (window.innerWidth >= 1024 ? 3 : 2);
-                      el.scrollBy({ left: scrollDist, behavior: "smooth" });
-                    }
-                  }}
-                  aria-label="Next step"
-                  className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:bg-[#0B2735] hover:border-[#0B2735] hover:text-white transition-all active:scale-95"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
+              <RoadmapScrollControls trackId="roadmap-scroll-track" />
             </div>
 
             {/* Horizontal Manual Scroll Track: Aligned to left margin, fits 3 boxes on desktop */}
@@ -312,7 +299,7 @@ export default function ServiceDetailPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-9 lg:gap-10">
-            {SERVICES.filter((s) => s.slug !== currentService.slug).map((service) => (
+            {SERVICES.filter((s) => s.slug !== slug).map((service) => (
               <div
                 key={service.id}
                 className="group bg-transparent flex flex-col justify-between"
@@ -367,7 +354,7 @@ export default function ServiceDetailPage() {
           </div>
         </section>
 
-      </main>
+      </div>
 
       <FooterV2 />
     </div>

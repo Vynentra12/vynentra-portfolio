@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vynentra website
 
-## Getting Started
+Marketing site for Vynentra, a renewable energy solutions and project development company. Built with Next.js 16 (App Router), React 19, Tailwind CSS 4, GSAP / Framer Motion and Lenis smooth scrolling.
 
-First, run the development server:
+> Next.js 16 has breaking changes from earlier versions (for example, `params` is a Promise). Check `node_modules/next/dist/docs/` before relying on older patterns. See `AGENTS.md`.
+
+## Getting started
+
+Requires Node.js 20.9 or later.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build
+npm run start    # serve the production build
+npm run lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Create a `.env` file in the project root (it is gitignored):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `NEXT_PUBLIC_SITE_URL` | Production | Canonical site URL used for metadata, sitemap and robots. Defaults to `https://vynentra.com`. |
+| `GOOGLE_CLIENT_EMAIL` | Contact form | Google service account email. |
+| `GOOGLE_PRIVATE_KEY` | Contact form | Service account private key (`\n` escapes are supported). |
+| `SHEET_ID` | Contact form | Google Sheet that stores leads. Share it with the service account as an editor. |
+| `BREVO_API_KEY` | Contact form | Brevo API key for lead notification emails. |
+| `SENDER_EMAIL` | Contact form | Verified Brevo sender address. |
+| `NOTIFY_EMAIL` | Contact form | Inbox that receives lead notifications. |
+| `TIMEZONE` | No | Time zone for submission timestamps. Defaults to `Asia/Kolkata`. |
 
-## Learn More
+## Contact form
 
-To learn more about Next.js, take a look at the following resources:
+`POST /api/contact` ([app/api/contact/route.ts](app/api/contact/route.ts)):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Valid leads are appended to the `Sheet1` tab (columns A–G) and emailed via Brevo. The request succeeds if either step works.
+- Bot checks: a hidden honeypot field and a minimum fill time of 2 seconds. Flagged submissions get a normal success response, but are written to the `Spam` tab (columns A–I) instead, capped at 30 rows per hour.
+- Rate limit: 5 submissions per IP per 10 minutes. The limiter is in-memory, so on serverless hosting it is per instance; use a shared store such as Upstash Redis for strict limits.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The sheet needs both a `Sheet1` and a `Spam` tab.
 
-## Deploy on Vercel
+## Project structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/                 Routes (App Router). Each route sets SEO metadata via lib/seo.ts
+  api/contact/       Contact form endpoint
+components/
+  sections/          Page sections (home page uses the *V2 sections)
+  navigation/        Navbar
+  motion/            Lenis smooth-scroll provider
+  ui/                Shared UI pieces
+lib/
+  services-data.ts   Service pages content
+  case-studies-data.ts
+  blog-data.ts       Insights articles
+  seo.ts             Site URL and pageMetadata() helper
+  rate-limit.ts      In-memory rate limiter
+public/              Static assets (stock photos live in public/images/stock)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content
+
+Services, case studies and insights are plain TypeScript data in `lib/`. Adding an entry there creates its detail page, metadata and sitemap entry automatically.
