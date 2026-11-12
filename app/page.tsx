@@ -1,6 +1,4 @@
-'use client';
-
-import React from 'react';
+import type { Metadata } from 'next';
 import { HeroSectionV2 } from '@/components/sections/HeroSectionV2';
 import { MissionSectionV2 } from '@/components/sections/MissionSectionV2';
 import { ProcessSectionV2 } from '@/components/sections/ProcessSectionV2';
@@ -12,6 +10,19 @@ import { BlogSectionV2 } from '@/components/sections/BlogSectionV2';
 import { FAQSectionV2 } from '@/components/sections/FAQSectionV2';
 import { CTASectionV2 } from '@/components/sections/CTASectionV2';
 import { FooterV2 } from '@/components/sections/FooterV2';
+import { SITE_DESCRIPTION, SITE_NAME, pageMetadata } from '@/lib/seo';
+
+const homeMetadata = pageMetadata({
+  title: 'Renewable Energy Solutions & Project Development',
+  description: SITE_DESCRIPTION,
+  path: '/',
+});
+
+export const metadata: Metadata = {
+  ...homeMetadata,
+  // Home uses an absolute title so it reads "Vynentra | ..." rather than "... | Vynentra".
+  title: { absolute: `${SITE_NAME} | Renewable Energy Solutions & Project Development` },
+};
 
 export default function Home() {
   return (
@@ -25,7 +36,7 @@ export default function Home() {
       <FeaturedProjectsSectionV2 />
       <BlogSectionV2 />
       <FAQSectionV2 />
-      <CTASectionV2 
+      <CTASectionV2
         badgeText="Let's Build What's Next"
         title="Find the right energy solution for your project"
         buttonText="Get Started"

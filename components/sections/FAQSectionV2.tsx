@@ -79,7 +79,7 @@ export function FAQSectionV2() {
               className="w-full h-[260px] xs:h-[300px] sm:h-[340px] lg:h-full min-h-0 rounded-[20px] sm:rounded-[24px] overflow-hidden relative shadow-sm bg-neutral-100 select-none flex-1"
             >
               <img
-                src="https://images.pexels.com/photos/16550751/pexels-photo-16550751.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                src="/images/stock/pexels-16550751.jpg"
                 alt="Wind turbines in landscape"
                 className="absolute inset-0 w-full h-full object-cover"
               />

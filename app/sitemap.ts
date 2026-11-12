@@ -2,9 +2,10 @@ import { MetadataRoute } from "next";
 import { SERVICES } from "@/lib/services-data";
 import { CASE_STUDIES } from "@/lib/case-studies-data";
 import { ALL_BLOG_POSTS } from "@/lib/blog-data";
+import { SITE_URL } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://vynentra.com";
+  const baseUrl = SITE_URL;
   const now = new Date();
 
   // Core Static Pages

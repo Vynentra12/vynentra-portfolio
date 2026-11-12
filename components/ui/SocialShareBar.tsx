@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { SITE_URL } from "@/lib/seo";
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -21,15 +22,8 @@ interface SocialShareBarProps {
 }
 
 export function SocialShareBar({ title, slug, tags = ["energy", "renewable", "solar"] }: SocialShareBarProps) {
-  const [currentUrl, setCurrentUrl] = useState("");
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setCurrentUrl(window.location.href);
-    }
-  }, [slug]);
-
-  const shareUrl = currentUrl || `https://vynentra.com/insights/${slug}`;
+  // Always share the canonical URL (no query strings or #hash from the address bar).
+  const shareUrl = `${SITE_URL}/insights/${slug}`;
 
   const openShare = (url: string) => {
     if (typeof window !== "undefined") {

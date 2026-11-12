@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/motion/LenisProvider";
 import { Navbar } from "@/components/navigation/Navbar";
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -12,10 +13,30 @@ const inter = Inter({
 
 const EXTENSION_ATTR_CLEANUP_SCRIPT = `(function(){try{var a=['bis_skin_checked','bis_register'];var w=typeof WeakMap==='function'?new WeakMap():null;var c=function(e){if(!e||e.nodeType!==1)return;for(var i=0;i<a.length;i++){if(e.hasAttribute(a[i])){if(w){var n=w.get(e)||0;if(n>=6)continue;w.set(e,n+1);}e.removeAttribute(a[i]);}}};var s=function(r){if(!r||!r.querySelectorAll)return;var q=r.querySelectorAll('[bis_skin_checked],[bis_register]');for(var i=0;i<q.length;i++)c(q[i]);};s(document);var m=new MutationObserver(function(l){for(var i=0;i<l.length;i++){var t=l[i];if(t.type==='attributes'){c(t.target);}else if(t.type==='childList'){for(var j=0;j<t.addedNodes.length;j++){var n=t.addedNodes[j];c(n);s(n);}}}});m.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:a});document.addEventListener('DOMContentLoaded',function(){s(document);},{once:true});var d=function(){setTimeout(function(){m.disconnect();},2500);};if(document.readyState==='complete'){d();}else{window.addEventListener('load',d,{once:true});}}catch(e){}})();`;
 
+// Site-wide defaults. Each page sets its own title/description/canonical via
+// pageMetadata() in lib/seo.ts; no canonical here so pages never inherit "/".
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://vynentra.com"),
-  title: "Vynentra",
-  description: "Vynentra is an integrated renewable energy solutions and project development company.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_IN",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE.url],
+  },
 };
 
 export default function RootLayout({

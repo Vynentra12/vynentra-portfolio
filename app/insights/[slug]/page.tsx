@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { pageMetadata } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import { Check, ArrowLeft } from 'lucide-react';
 import { ALL_BLOG_POSTS, getBlogPostBySlug, type ArticleBlock } from '@/lib/blog-data';
@@ -26,31 +27,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   if (!post) {
     return {
-      title: 'Insight Not Found | Vynentra',
+      title: 'Insight Not Found',
     };
   }
 
+  const baseTitle = (post.seoTitle || post.title).replace(/\s*\|\s*Vynentra$/i, '');
+
   return {
-    title: post.seoTitle,
-    description: post.metaDescription,
-    keywords: [post.primaryKeyword, ...post.secondaryKeywords],
-    openGraph: {
-      title: post.seoTitle,
-      description: post.metaDescription,
+    ...pageMetadata({
+      title: baseTitle,
+      description: post.metaDescription || post.excerpt,
+      path: `/insights/${post.slug}`,
+      image: post.image,
+      imageAlt: post.imageAlt || post.title,
       type: 'article',
-      images: [
-        {
-          url: post.image,
-          alt: post.imageAlt || post.title,
-        },
-      ],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: post.seoTitle,
-      description: post.metaDescription,
-      images: [post.image],
-    },
+    }),
+    keywords: [post.primaryKeyword, ...post.secondaryKeywords],
   };
 }
 

@@ -20,7 +20,17 @@ export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [prevPathname, setPrevPathname] = useState(pathname);
   const lastScrollYRef = useRef(0);
+
+  // Close mobile menu and ensure header is visible on route change.
+  // Done during render (not in an effect) so the new page's first render
+  // already has the reset state: https://react.dev/learn/you-might-not-need-an-effect
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname);
+    setIsMobileMenuOpen(false);
+    setIsVisible(true);
+  }
 
   const isServiceDetail = Boolean(pathname?.startsWith("/services/") && pathname !== "/services");
   const isInsightDetail = Boolean((pathname?.startsWith("/insights/") && pathname !== "/insights") || (pathname?.startsWith("/blog/") && pathname !== "/blog"));
@@ -86,12 +96,6 @@ export function Navbar() {
       document.documentElement.style.overflow = "";
     };
   }, [isMobileMenuOpen]);
-
-  // Close mobile menu and ensure header is visible on route change
-  useEffect(() => {
-    setIsMobileMenuOpen(false);
-    setIsVisible(true);
-  }, [pathname]);
 
   const navLinks = [
     { name: "About Us", href: "/about" },

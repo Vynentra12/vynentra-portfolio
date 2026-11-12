@@ -36,7 +36,13 @@ export default function ContactPage() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const startedAt = useRef(Date.now());
+  // When the form became usable; the API treats very fast submissions as bots.
+  // Set in an effect because Date.now() must not run during render.
+  const startedAt = useRef(0);
+
+  useEffect(() => {
+    startedAt.current = Date.now();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -153,7 +159,7 @@ export default function ContactPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/10041227/pexels-photo-10041227.jpeg"
+            src="/images/stock/pexels-10041227.jpg"
             alt="Customer support contact background"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />

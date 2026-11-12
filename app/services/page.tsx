@@ -26,7 +26,7 @@ export default function ServicesPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/35105436/pexels-photo-35105436.jpeg"
+            src="/images/stock/pexels-35105436.jpg"
             alt="Renewable energy services hero"
             className="w-full h-full object-cover object-center opacity-60"
           />

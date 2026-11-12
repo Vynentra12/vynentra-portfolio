@@ -1,5 +1,7 @@
 import React from "react";
+import type { Metadata } from "next";
 import Link from "next/link";
+import { pageMetadata } from "@/lib/seo";
 import { notFound } from "next/navigation";
 import {
   CASE_STUDIES,
@@ -31,6 +33,23 @@ export async function generateStaticParams() {
     }
   }
   return slugs;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const study = getCaseStudyBySlug(slug);
+  if (!study) return { title: "Case Study Not Found" };
+
+  // Canonical always points at the study's own slug, so legacy aliases
+  // (e.g. "commercial-solar-plants") don't count as duplicate content.
+  return pageMetadata({
+    title: study.title,
+    description: study.subtitle,
+    path: `/case-studies/${study.slug}`,
+    image: study.image,
+    imageAlt: study.title,
+    type: "article",
+  });
 }
 
 function renderBoldSegments(text: string, keyPrefix: string): React.ReactNode[] {
@@ -182,7 +201,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
       {/* ── MAIN CONTENT CONTAINER (Centered Editorial Layout Optimized for Mobile & Desktop) ── */}
-      <main className="max-w-[880px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 sm:pb-28">
+      <div className="max-w-[880px] mx-auto px-5 sm:px-8 pt-20 sm:pt-28 pb-16 sm:pb-28">
         
         {/* Back Link to All Case Studies */}
         <div className="mb-6 sm:mb-10">
@@ -360,7 +379,7 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           </div>
         </div>
 
-      </main>
+      </div>
 
       {/* ── FOOTER ── */}
       <FooterV2 />

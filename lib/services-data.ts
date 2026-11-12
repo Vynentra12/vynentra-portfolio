@@ -53,17 +53,17 @@ export const SERVICES: ServiceItem[] = [
       {
         name: "Live Events & Concerts",
         desc: "Supporting event power requirements across production, lighting, audio and other connected equipment.",
-        image: "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg"
+        image: "/images/stock/pexels-1105666.jpg"
       },
       {
         name: "Exhibitions & Conferences",
         desc: "Providing energy storage solutions for temporary venues, exhibition spaces and business events.",
-        image: "https://images.pexels.com/photos/2608517/pexels-photo-2608517.jpeg"
+        image: "/images/stock/pexels-2608517.jpg"
       },
       {
         name: "Large-Scale Gatherings",
         desc: "Evaluating power requirements for festivals, outdoor events and temporary installations.",
-        image: "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg"
+        image: "/images/stock/pexels-1190297.jpg"
       },
       {
         name: "Hybrid Power Setups",
@@ -123,25 +123,25 @@ export const SERVICES: ServiceItem[] = [
           num: "01",
           title: "Site Assessment",
           desc: "Evaluating location, available space, site access and renewable resource potential.",
-          image: "https://images.pexels.com/photos/5520322/pexels-photo-5520322.jpeg"
+          image: "/images/stock/pexels-5520322.jpg"
         },
         {
           num: "02",
           title: "Feasibility & Planning",
           desc: "Assessing energy requirements, system configurations, project costs and implementation considerations.",
-          image: "https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg"
+          image: "/images/stock/pexels-3183150.jpg"
         },
         {
           num: "03",
           title: "Project Design",
           desc: "Developing a project approach around suitable technologies, system sizing and site conditions.",
-          image: "https://images.pexels.com/photos/3862130/pexels-photo-3862130.jpeg"
+          image: "/images/stock/pexels-3862130.jpg"
         },
         {
           num: "04",
           title: "Approvals & Coordination",
           desc: "Coordinating applicable permissions, connectivity requirements and project stakeholders, as defined by project scope.",
-          image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg"
+          image: "/images/stock/pexels-3184291.jpg"
         },
         {
           num: "05",
@@ -177,12 +177,12 @@ export const SERVICES: ServiceItem[] = [
       {
         name: "Commercial Establishments",
         desc: "Evaluating renewable power supply opportunities for offices, commercial properties and business facilities.",
-        image: "https://images.pexels.com/photos/323705/pexels-photo-323705.jpeg"
+        image: "/images/stock/pexels-323705.jpg"
       },
       {
         name: "Warehousing & Logistics",
         desc: "Exploring renewable electricity supply for facilities with substantial operational energy consumption.",
-        image: "https://images.pexels.com/photos/4483610/pexels-photo-4483610.jpeg"
+        image: "/images/stock/pexels-4483610.jpg"
       },
       {
         name: "Growing MSMEs",
