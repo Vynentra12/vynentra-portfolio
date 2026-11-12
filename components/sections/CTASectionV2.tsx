@@ -27,8 +27,8 @@ const ctaImages = [
 ];
 
 export function CTASectionV2({
-  badgeText = "ENERGY, REIMAGINED",
-  title = "Power Your Next Move",
+  badgeText = "Let's Build What's Next",
+  title = "Find the right energy solution for your project",
   description,
   buttonText = "Get Started",
   buttonLink = "/contact#contact-form"

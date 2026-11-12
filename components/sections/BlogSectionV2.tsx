@@ -4,60 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-
-interface BlogPost {
-  slug: string;
-  image: string;
-  category: string;
-  date: string;
-  readTime: string;
-  title: string;
-  description: string;
-}
+import { ALL_BLOG_POSTS } from "@/lib/blog-data";
 
 export function BlogSectionV2() {
-  const blogs: BlogPost[] = [
-    {
-      slug: "inside-the-engineering-of-wind-turbines",
-      image: "/wind_farm_sunset.jpg",
-      category: "WIND ENERGY",
-      date: "DECEMBER 10, 2025",
-      readTime: "5 MIN READ",
-      title: "Why wind energy is becoming an important part of India's energy mix",
-      description:
-        "Exploring the changing role of wind energy and how it can complement solar generation as India's energy requirements continue to grow.",
-    },
-    {
-      slug: "the-environmental-impact-of-wind-energy",
-      image: "/why-choose-us/expert-guidance.jpg",
-      category: "WIND ENERGY",
-      date: "DECEMBER 10, 2025",
-      readTime: "5 MIN READ",
-      title: "What actually goes into developing a renewable energy project",
-      description:
-        "From understanding the site and assessing energy potential to selecting technology and coordinating execution, we are breaking down what happens behind the project.",
-    },
-    {
-      slug: "the-real-numbers-behind-green-energy",
-      image: "/solutions/solar-installation.jpg",
-      category: "SOLAR ENERGY",
-      date: "DECEMBER 10, 2025",
-      readTime: "5 MIN READ",
-      title: "Why the right renewable technology starts with the site",
-      description:
-        "Wind speed, available space, energy consumption and surrounding conditions can all influence the right solution. We are looking at why technology selection needs to begin with the site.",
-    },
-    {
-      slug: "a-world-powered-by-wind-and-sunlight",
-      image: "/hybrid-wind-solar.jpg",
-      category: "HYBRID",
-      date: "DECEMBER 10, 2025",
-      readTime: "5 MIN READ",
-      title: "Wind and solar are not competing technologies",
-      description:
-        "Exploring how different generation profiles can work together through hybrid renewable energy systems and create more effective solutions for different energy requirements.",
-    },
-  ];
+  const featuredBlogs = ALL_BLOG_POSTS.slice(0, 3);
 
   return (
     <section id="insights" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
@@ -79,12 +29,12 @@ export function BlogSectionV2() {
 
             {/* Main Title */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-2.5">
-              Exploring the ideas shaping<br />the future of energy
+              Explore the ideas shaping<br />the future of energy
             </h2>
 
             {/* Subtitle / Description */}
             <p className="text-[14px] sm:text-[14.5px] text-neutral-600 leading-[1.6] max-w-[580px] font-normal">
-              Exploring the trends, technologies and ideas transforming India&apos;s renewable energy landscape, from wind and solar to hybrid systems and project development.
+              We examine developments across wind, solar, hybrid energy systems and project development, covering the technologies and applications shaping India&apos;s energy landscape.
             </p>
           </motion.div>
 
@@ -100,16 +50,16 @@ export function BlogSectionV2() {
               href="/insights"
               className="inline-flex items-center justify-center h-[46px] px-6 sm:px-7 rounded-full border border-[#0B2735] text-[#0B2735] text-[12px] sm:text-[12.5px] font-medium tracking-[0.06em] uppercase select-none cursor-pointer whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
             >
-              VIEW ALL INSIGHTS
+              Explore all Insights
             </Link>
           </motion.div>
         </div>
 
         {/* 3-Column Blog Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 items-stretch">
-          {blogs.slice(0, 3).map((blog, idx) => (
+          {featuredBlogs.map((blog, idx) => (
             <motion.div
-              key={idx}
+              key={blog.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.1 }}
@@ -125,7 +75,7 @@ export function BlogSectionV2() {
                   <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
                     <img
                       src={blog.image}
-                      alt={blog.title}
+                      alt={blog.imageAlt || blog.title}
                       className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                     />
 

@@ -20,10 +20,23 @@ export function MissionSectionV2() {
 
     // Track mask position and radius with buttery-smooth GSAP quickTo
     const maskState = { x: 0, y: 0, r: 0 };
+    let lastTouchTime = 0;
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const clearHideTimer = () => {
+      if (hideTimer !== null) {
+        clearTimeout(hideTimer);
+        hideTimer = null;
+      }
+    };
+
+    const getCircleRadius = () => (window.innerWidth < 640 ? 95 : 115);
 
     const updateClipPath = () => {
       if (mask) {
-        mask.style.clipPath = `circle(${maskState.r}px at ${maskState.x}px ${maskState.y}px)`;
+        const clipValue = `circle(${maskState.r}px at ${maskState.x}px ${maskState.y}px)`;
+        mask.style.clipPath = clipValue;
+        (mask.style as CSSStyleDeclaration & { webkitClipPath?: string }).webkitClipPath = clipValue;
       }
     };
 
@@ -46,42 +59,127 @@ export function MissionSectionV2() {
       onUpdate: updateClipPath,
     });
 
-    // Handle mouse movement strictly over the text content area
+    // Handle mouse movement strictly over the text content area (desktop)
     const handleMouseMove = (e: MouseEvent) => {
+      if (Date.now() - lastTouchTime < 800) return;
       const sectionRect = section.getBoundingClientRect();
       const targetX = e.clientX - sectionRect.left;
       const targetY = e.clientY - sectionRect.top;
 
       xTo(targetX);
       yTo(targetY);
-      rTo(115);
+      rTo(getCircleRadius());
     };
 
     const handleMouseEnter = (e: MouseEvent) => {
+      if (Date.now() - lastTouchTime < 800) return;
       const sectionRect = section.getBoundingClientRect();
       const targetX = e.clientX - sectionRect.left;
       const targetY = e.clientY - sectionRect.top;
 
-      maskState.x = targetX;
-      maskState.y = targetY;
-      xTo(targetX);
-      yTo(targetY);
-      rTo(115);
+      xTo(targetX, targetX);
+      yTo(targetY, targetY);
+      rTo(getCircleRadius());
     };
 
     const handleMouseLeave = () => {
+      if (Date.now() - lastTouchTime < 800) return;
       // Smoothly dissolve circle strictly when leaving the text
       rTo(0);
+    };
+
+    // Handle finger touch & drag over the text content area (mobile/touchscreens)
+    const handleTouchStart = (e: TouchEvent) => {
+      lastTouchTime = Date.now();
+      clearHideTimer();
+
+      const touch = e.touches[0];
+      if (!touch) return;
+
+      const sectionRect = section.getBoundingClientRect();
+      const targetX = touch.clientX - sectionRect.left;
+      const targetY = touch.clientY - sectionRect.top;
+
+      if (maskState.r < 2) {
+        xTo(targetX, targetX);
+        yTo(targetY, targetY);
+      } else {
+        xTo(targetX);
+        yTo(targetY);
+      }
+      rTo(getCircleRadius());
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      lastTouchTime = Date.now();
+      clearHideTimer();
+
+      const touch = e.touches[0];
+      if (!touch) return;
+
+      const targetRect = textTarget.getBoundingClientRect();
+      const isWithinBounds =
+        touch.clientX >= targetRect.left - 24 &&
+        touch.clientX <= targetRect.right + 24 &&
+        touch.clientY >= targetRect.top - 24 &&
+        touch.clientY <= targetRect.bottom + 24;
+
+      if (!isWithinBounds) {
+        rTo(0);
+        return;
+      }
+
+      const sectionRect = section.getBoundingClientRect();
+      const targetX = touch.clientX - sectionRect.left;
+      const targetY = touch.clientY - sectionRect.top;
+
+      xTo(targetX);
+      yTo(targetY);
+      rTo(getCircleRadius());
+    };
+
+    const handleTouchEnd = () => {
+      lastTouchTime = Date.now();
+      clearHideTimer();
+      hideTimer = setTimeout(() => {
+        rTo(0);
+        hideTimer = null;
+      }, 750);
+    };
+
+    const handleTouchCancel = () => {
+      lastTouchTime = Date.now();
+      clearHideTimer();
+      rTo(0);
+    };
+
+    const handleDocumentTouchStart = (e: TouchEvent) => {
+      if (textTarget.contains(e.target as Node)) return;
+      clearHideTimer();
+      if (maskState.r > 0) {
+        rTo(0);
+      }
     };
 
     textTarget.addEventListener('mousemove', handleMouseMove);
     textTarget.addEventListener('mouseenter', handleMouseEnter);
     textTarget.addEventListener('mouseleave', handleMouseLeave);
+    textTarget.addEventListener('touchstart', handleTouchStart, { passive: true });
+    textTarget.addEventListener('touchmove', handleTouchMove, { passive: true });
+    textTarget.addEventListener('touchend', handleTouchEnd, { passive: true });
+    textTarget.addEventListener('touchcancel', handleTouchCancel, { passive: true });
+    document.addEventListener('touchstart', handleDocumentTouchStart, { passive: true });
 
     return () => {
+      clearHideTimer();
       textTarget.removeEventListener('mousemove', handleMouseMove);
       textTarget.removeEventListener('mouseenter', handleMouseEnter);
       textTarget.removeEventListener('mouseleave', handleMouseLeave);
+      textTarget.removeEventListener('touchstart', handleTouchStart);
+      textTarget.removeEventListener('touchmove', handleTouchMove);
+      textTarget.removeEventListener('touchend', handleTouchEnd);
+      textTarget.removeEventListener('touchcancel', handleTouchCancel);
+      document.removeEventListener('touchstart', handleDocumentTouchStart);
     };
   }, { scope: sectionRef });
 
@@ -93,14 +191,14 @@ export function MissionSectionV2() {
         OUR MISSION
       </SectionBadge>
 
-      {/* Main Mission Headline - Symmetrically balanced line break */}
+      {/* Main Mission Headline */}
       <h2 className={`text-[30px] sm:text-[40px] md:text-[48px] lg:text-[54px] font-medium tracking-[-0.03em] leading-[1.18] sm:leading-[1.16] max-w-[920px] mx-auto ${textColor}`}>
-        Renewable energy, designed around<br className="hidden sm:inline" /> the way India lives and works.
+        What we believe
       </h2>
 
       {/* Supporting Mission Statement - Balanced typography without dangling orphans */}
       <p className={`mt-6 sm:mt-8 md:mt-9 text-[15px] sm:text-[17px] md:text-[19px] lg:text-[20px] font-normal leading-[1.65] sm:leading-[1.7] max-w-[760px] mx-auto opacity-75 ${textColor}`}>
-        We are bringing together wind, solar and hybrid energy solutions to help businesses, residencies and infrastructure move towards cleaner, more efficient and commercially viable power.
+        We intend to bring together wind, solar and hybrid energy solutions to help businesses, residencies and infrastructure move towards cleaner, more efficient and commercially viable power.
       </p>
     </div>
   );
@@ -117,7 +215,7 @@ export function MissionSectionV2() {
     >
       {/* LAYER 1 (Base): Crisp white background with light blue badge #0A6B88 */}
       <div className="w-full max-w-[1240px] mx-auto px-6 sm:px-10 md:px-12 flex items-center justify-center">
-        <div ref={textTargetRef} className="cursor-default w-full">
+        <div ref={textTargetRef} className="cursor-default w-full py-6 -my-6 sm:py-0 sm:my-0">
           {renderTypography("text-neutral-900", "text-[#0A6B88]", "dark")}
         </div>
       </div>
@@ -125,7 +223,10 @@ export function MissionSectionV2() {
       {/* LAYER 2 (GSAP Inverted Mask Layer): Brand Green #AEF977 with pure white text, clipped strictly to cursor */}
       <div
         ref={maskRef}
-        style={{ clipPath: "circle(0px at 50% 50%)" }}
+        style={{
+          clipPath: "circle(0px at 50% 50%)",
+          WebkitClipPath: "circle(0px at 50% 50%)",
+        }}
         className="absolute inset-0 bg-[#AEF977] flex items-center justify-center pointer-events-none select-none will-change-[clip-path]"
         aria-hidden="true"
       >

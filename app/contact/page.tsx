@@ -166,14 +166,15 @@ export default function ContactPage() {
             {/* Back to Home Link */}
             <HeroBackLink />
 
-            {/* Same font size as ServicesPage Hero Title */}
-            <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
-              Let&apos;s develop the right energy<br />solution for your requirement
+            {/* Two-line hero headline matching ServicesPage */}
+            <h1 className="text-[28px] sm:text-[34px] md:text-[clamp(26px,3.1vw,48px)] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-6 select-text">
+              <span className="block">Let&apos;s connect</span>
+              <span className="block">Start a conversation about your energy requirements</span>
             </h1>
 
             {/* Subtitle matching ServicesPage Hero Paragraph */}
             <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl drop-shadow-sm font-medium">
-              Tell us about your site, your energy needs and what you are looking to achieve. Our team will help you explore the renewable energy solution that makes sense for your project.
+              Whether you&apos;re exploring a new project, evaluating a site or looking for the right energy solution, we&apos;re here to understand your requirements and discuss the way forward.
             </p>
           </div>
         </div>
@@ -198,7 +199,7 @@ export default function ContactPage() {
 
               {/* Subtitle */}
               <p className="text-[13.5px] sm:text-[15px] md:text-[16px] text-neutral-600 leading-[1.55] sm:leading-[1.6] font-normal mb-6 sm:mb-10 max-w-xl">
-                Get in touch to discuss your renewable energy requirements today. Please give us a call or drop us an email.
+                Have a project in mind or need help identifying the right energy solution? Drop us a message. Our team will be happy to hear from you.
               </p>
 
               {/* 2x2 Details Grid - Pure clean spacing without border */}
@@ -243,10 +244,16 @@ export default function ContactPage() {
                     </h3>
                   </div>
                   <div className="text-[15px] sm:text-[15.5px] text-neutral-700 leading-[1.6] font-normal space-y-1">
-                    <a href="mailto:info@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
+                    <a
+                      href="mailto:info@vynentra.com"
+                      className="text-neutral-800 underline underline-offset-4 decoration-neutral-300 hover:text-[#0A6B88] hover:decoration-[#0A6B88] font-normal transition-colors block w-fit text-[15px] sm:text-[15.5px]"
+                    >
                       info@vynentra.com
                     </a>
-                    <a href="mailto:partner@vynentra.com" className="hover:text-[#0A6B88] font-normal transition-colors block text-[15px] sm:text-[15.5px]">
+                    <a
+                      href="mailto:partner@vynentra.com"
+                      className="text-neutral-800 underline underline-offset-4 decoration-neutral-300 hover:text-[#0A6B88] hover:decoration-[#0A6B88] font-normal transition-colors block w-fit text-[15px] sm:text-[15.5px]"
+                    >
                       partner@vynentra.com
                     </a>
                   </div>

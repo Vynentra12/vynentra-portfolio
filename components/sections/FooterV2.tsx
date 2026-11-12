@@ -50,7 +50,7 @@ export function FooterV2() {
           {/* Left Column: Mission, Direct Contact & Socials */}
           <div className="lg:col-span-4 flex flex-col justify-between">
             <p className="text-[17px] sm:text-[18px] text-white/90 hover:text-[#AEF977] transition-colors duration-300 cursor-default leading-[1.5] max-w-[380px] font-normal">
-              Building towards a more energy-efficient future.
+              Powering businesses and infrastructure across India.
             </p>
 
             <div className="flex flex-col gap-2 mt-6 mb-7 sm:mb-8">
@@ -101,7 +101,7 @@ export function FooterV2() {
 
           {/* Right Column: 4 Navigation Groups (Company, Services, Resources, Legal) */}
           <div className="lg:col-span-8 flex flex-col border-l-0 lg:border-l border-white/15 pl-0 lg:pl-10 xl:pl-12 pt-1 lg:pt-0">
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 sm:gap-6 lg:gap-6 xl:gap-8">
+            <div className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-8 sm:flex sm:flex-row sm:justify-between sm:gap-5 lg:gap-4 xl:gap-8">
               
               {/* Company */}
               <div className="flex flex-col">
@@ -113,7 +113,7 @@ export function FooterV2() {
                     <li key={link.name}>
                       <Link 
                         href={link.href}
-                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                        className="text-[13.5px] sm:text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal whitespace-nowrap"
                       >
                         {link.name}
                       </Link>
@@ -122,7 +122,7 @@ export function FooterV2() {
                 </ul>
               </div>
 
-              {/* Services: 4 types of services */}
+              {/* Services: 3 types of services */}
               <div className="flex flex-col">
                 <h4 className="text-[14px] sm:text-[15px] font-bold text-white tracking-wide uppercase mb-4 sm:mb-5">
                   Services
@@ -132,7 +132,7 @@ export function FooterV2() {
                     <li key={link.name}>
                       <Link 
                         href={link.href}
-                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                        className="text-[13.5px] sm:text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal whitespace-nowrap"
                       >
                         {link.name}
                       </Link>
@@ -151,7 +151,7 @@ export function FooterV2() {
                     <li key={link.name}>
                       <Link 
                         href={link.href}
-                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                        className="text-[13.5px] sm:text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal whitespace-nowrap"
                       >
                         {link.name}
                       </Link>
@@ -170,7 +170,7 @@ export function FooterV2() {
                     <li key={link.name}>
                       <Link 
                         href={link.href}
-                        className="text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal"
+                        className="text-[13.5px] sm:text-[14.5px] text-white/80 hover:text-[#AEF977] transition-colors py-0.5 inline-block font-normal whitespace-nowrap"
                       >
                         {link.name}
                       </Link>

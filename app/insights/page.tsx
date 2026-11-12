@@ -10,15 +10,27 @@ import { Search, X } from "lucide-react";
 export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
-  const categories = ["ALL", "WIND ENERGY", "SOLAR ENERGY", "HYBRID"];
+  const categories = [
+    "ALL",
+    "WIND ENERGY",
+    "SOLAR ENERGY",
+    "HYBRID",
+    "BATTERY STORAGE",
+    "ENERGY ECONOMICS",
+    "PROJECT DEVELOPMENT",
+  ];
 
-  const filteredPosts = ALL_BLOG_POSTS.filter(post => {
-    const matchesCategory = activeCategory === "ALL" || post.category.toUpperCase() === activeCategory.toUpperCase();
+  const cleanSearch = searchQuery.trim().toLowerCase();
+  const filteredPosts = ALL_BLOG_POSTS.filter((post) => {
+    const matchesCategory =
+      activeCategory === "ALL" ||
+      post.category.toUpperCase() === activeCategory.toUpperCase();
     const matchesSearch =
-      searchQuery === "" ||
-      post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      cleanSearch === "" ||
+      post.title.toLowerCase().includes(cleanSearch) ||
+      post.category.toLowerCase().includes(cleanSearch) ||
+      post.excerpt.toLowerCase().includes(cleanSearch) ||
+      post.tags.some((t) => t.toLowerCase().includes(cleanSearch));
     return matchesCategory && matchesSearch;
   });
 
@@ -49,18 +61,19 @@ export default function InsightsPage() {
           <div className="max-w-[1380px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10">
             
             {/* Left Content */}
-            <div className="max-w-3xl">
+            <div className="w-full">
               {/* Back to Home Link */}
               <HeroBackLink />
 
               {/* Main Headline */}
-              <h1 className="text-[34px] sm:text-[44px] md:text-[54px] lg:text-[58px] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
-                Exploring the ideas shaping<br />India&apos;s renewable energy
+              <h1 className="text-[28px] sm:text-[36px] md:text-[clamp(30px,3.8vw,56px)] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
+                <span className="block">What we think</span>
+                <span className="block">A perspective on the energy industry</span>
               </h1>
 
               {/* Subtitle */}
               <p className="text-[14.5px] sm:text-[16px] md:text-[17px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm font-normal">
-                Perspectives on wind, solar, hybrid technologies, project engineering, and the clean energy transition.
+                Analysis, insights and informed perspectives on renewable energy, technology, policy and the changing energy landscape.
               </p>
             </div>
 
@@ -141,10 +154,10 @@ export default function InsightsPage() {
             <>
               {/* Blog Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 md:gap-8 items-stretch">
-                {posts.map((post, idx) => (
+                {posts.map((post) => (
                   <Link
                     key={post.id}
-                    href={`/insights/${post.slug || 'inside-the-engineering-of-wind-turbines'}`}
+                    href={`/insights/${post.slug}`}
                     className="flex flex-col justify-between h-full group/blog cursor-pointer"
                   >
                     <div className="flex flex-col">
@@ -152,7 +165,7 @@ export default function InsightsPage() {
                       <div className="w-full aspect-[16/10.5] rounded-[18px] sm:rounded-[20px] overflow-hidden relative bg-neutral-200 select-none">
                         <img
                           src={post.image}
-                          alt={post.title}
+                          alt={post.imageAlt || post.title}
                           className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                         />
 

@@ -114,6 +114,8 @@ export const SEARCH_INDEX: SearchItem[] = [
       post.title.toLowerCase(),
       post.category.toLowerCase(),
       post.author.toLowerCase(),
+      post.primaryKeyword.toLowerCase(),
+      ...post.tags.map((t) => t.toLowerCase()),
       "article",
       "insight",
       "insights",

@@ -45,8 +45,8 @@ export default function AboutPage() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg"
-            alt="About us background"
+            src="/images/about-hero.jpg"
+            alt="Vynentra energy engineers, project developers and technical specialists collaborating on a renewable energy site"
             className="w-full h-full object-cover object-[center_35%] opacity-60"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
@@ -59,10 +59,10 @@ export default function AboutPage() {
             <HeroBackLink />
 
             <h1 className="text-[32px] sm:text-[40px] md:text-[46px] lg:text-[52px] font-medium text-white tracking-tight leading-[1.1] mb-4 sm:mb-6 select-text">
-              Empowering India&apos;s renewable future<br />through innovation and scale
+              Who we are<br />What drives us
             </h1>
             <p className="text-[14px] sm:text-[15px] md:text-[17px] text-white/80 leading-[1.6] max-w-3xl font-medium">
-              We are a team of passionate engineers, designers, and operators building the infrastructure for a sustainable tomorrow. Our mission is to accelerate the transition to clean energy.
+              We are a team of energy engineers, project developers and technical specialists building the infrastructure for a sustainable tomorrow.
             </p>
           </div>
         </div>

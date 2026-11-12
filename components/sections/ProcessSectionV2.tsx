@@ -15,30 +15,30 @@ const PANELS: ProcessPanel[] = [
   {
     id: 1,
     num: "1",
-    title: "Reducing energy costs and improving long-term efficiency",
-    desc: "By integrating renewable energy into business and institutional energy systems, we are helping reduce dependence on conventional power sources while creating more efficient energy solutions.",
+    title: "Reduce long-term energy expenditure",
+    desc: "Renewable energy systems reduce dependence on grid electricity and conventional power sources, giving businesses greater control over long-term energy costs.",
     bgColor: "#7FA6B9", // Slate/Steel Blue
   },
   {
     id: 2,
     num: "2",
-    title: "Combining wind and solar for more efficient generation",
-    desc: "By combining complementary wind and solar energy sources to develop hybrid systems that optimise energy generation across varying site conditions.",
+    title: "Strengthen energy independence",
+    desc: "On-site wind, solar and hybrid systems diversify energy sources, reduce exposure to grid disruptions and support more predictable energy planning.",
     bgColor: "#0B2735", // Deep Navy
   },
   {
     id: 3,
     num: "3",
-    title: "Advancing carbon credit opportunities for long-term value",
-    desc: "We are exploring carbon credit opportunities across renewable energy projects, aligning project development with evolving carbon market frameworks to support emissions reduction and long-term value creation.",
+    title: "Create value through carbon reduction",
+    desc: "Eligible renewable energy projects contribute to emissions reduction and create potential carbon credit opportunities, subject to applicable methodologies and verification.",
     bgColor: "#1c2e3d",
     bgImage: "/images/process-resilient-energy.webp",
   },
   {
     id: 4,
     num: "4",
-    title: "Accelerating India's transition to renewable energy",
-    desc: "By developing practical renewable energy projects across businesses, institutions and infrastructure, we are expanding access to cleaner and more commercially viable energy solutions across India.",
+    title: "Improve long-term commercial viability",
+    desc: "Renewable energy adoption supports sustainability targets, improves resource efficiency and aligns businesses with evolving regulatory and supply-chain expectations.",
     bgColor: "#84D447", // Vivid Leaf Green
   },
 ];

@@ -107,7 +107,7 @@ export function WhyChooseUsSectionV2() {
                 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 lg:mb-8 max-w-[640px] select-text cursor-text"
                 style={{ userSelect: "text", WebkitUserSelect: "text" }}
               >
-                Developing renewable energy solutions for evolving energy needs
+                Develop renewable energy solutions for evolving energy needs
               </h2>
 
               {/* CTA Button with clean stroke in default & matching hover */}

@@ -53,7 +53,7 @@ export function HeroSectionV2() {
             className="max-w-[100%] sm:max-w-[520px] md:max-w-[580px] lg:max-w-[620px]"
           >
             <p className="text-[16px] sm:text-[20px] md:text-[22px] lg:text-[23px] font-medium text-white/95 leading-[1.4] sm:leading-[1.35] tracking-tight drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] select-text">
-              End-to-end wind and solar solutions, from project development to execution, for businesses, residencies and infrastructure across India.
+              We develop and execute end-to-end wind and solar energy solutions for businesses, residences and infrastructure across India.
             </p>
           </motion.div>
 

@@ -1,7 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { CASE_STUDIES, getCaseStudyBySlug } from "@/lib/case-studies-data";
+import {
+  CASE_STUDIES,
+  getCaseStudyBySlug,
+  type CaseStudyContentBlock,
+} from "@/lib/case-studies-data";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { ArrowLeft } from "lucide-react";
 
@@ -11,12 +15,159 @@ interface Props {
   }>;
 }
 
+const LEGACY_CASE_STUDY_SLUGS = [
+  "commercial-solar-plants",
+  "hybrid-wind-turbine-surat",
+  "vawt-madhavpur-beach",
+];
+
 export async function generateStaticParams() {
   const slugs = CASE_STUDIES.map((study) => ({
     slug: study.slug,
   }));
-  slugs.push({ slug: "commercial-solar-plants" });
+  for (const legacySlug of LEGACY_CASE_STUDY_SLUGS) {
+    if (!slugs.some((s) => s.slug === legacySlug)) {
+      slugs.push({ slug: legacySlug });
+    }
+  }
   return slugs;
+}
+
+function renderBoldSegments(text: string, keyPrefix: string): React.ReactNode[] {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, idx) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={`${keyPrefix}-b-${idx}`} className="font-semibold text-neutral-900">
+          {part.slice(2, -2)}
+        </strong>
+      );
+    }
+    return <React.Fragment key={`${keyPrefix}-t-${idx}`}>{part}</React.Fragment>;
+  });
+}
+
+function RichText({ text }: { text: string }) {
+  const tokens: React.ReactNode[] = [];
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let tokenIdx = 0;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    if (match.index > lastIndex) {
+      tokens.push(
+        ...renderBoldSegments(text.slice(lastIndex, match.index), `seg-${tokenIdx++}`)
+      );
+    }
+
+    const label = match[1];
+    const url = match[2];
+    const linkClass =
+      "text-[#0A6B88] font-medium underline underline-offset-4 decoration-[#0A6B88]/35 hover:text-[#08556d] hover:decoration-[#0A6B88] transition-colors";
+
+    if (url.startsWith("/")) {
+      tokens.push(
+        <Link key={`link-${tokenIdx++}`} href={url} className={linkClass}>
+          {renderBoldSegments(label, `lbl-${tokenIdx}`)}
+        </Link>
+      );
+    } else {
+      tokens.push(
+        <a
+          key={`ext-${tokenIdx++}`}
+          href={url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={linkClass}
+        >
+          {renderBoldSegments(label, `extlbl-${tokenIdx}`)}
+        </a>
+      );
+    }
+
+    lastIndex = linkRegex.lastIndex;
+  }
+
+  if (lastIndex < text.length) {
+    tokens.push(...renderBoldSegments(text.slice(lastIndex), `tail-${tokenIdx++}`));
+  }
+
+  return <>{tokens}</>;
+}
+
+function renderArticleBlock(block: CaseStudyContentBlock, idx: number) {
+  if (block.type === "paragraph") {
+    return (
+      <p key={idx} className="leading-[1.75] sm:leading-[1.8]">
+        <RichText text={block.text} />
+      </p>
+    );
+  }
+
+  if (block.type === "subheading") {
+    return (
+      <h3
+        key={idx}
+        className="text-[16.5px] sm:text-[18.5px] font-medium text-[#111827] pt-2 tracking-tight"
+      >
+        {block.text}
+      </h3>
+    );
+  }
+
+  if (block.type === "quote") {
+    return (
+      <blockquote
+        key={idx}
+        className="my-2 pl-4 sm:pl-5 border-l-2 border-[#0A6B88] text-neutral-700 space-y-1"
+      >
+        {block.attribution && (
+          <p className="text-[13.5px] sm:text-[14.5px] text-neutral-500 font-normal">
+            {block.attribution}
+          </p>
+        )}
+        <p className="font-medium text-[#0B2735]">{block.text}</p>
+      </blockquote>
+    );
+  }
+
+  if (block.type === "list") {
+    return (
+      <ul key={idx} className="space-y-2.5 pl-5 list-disc marker:text-[#0A6B88]">
+        {block.items.map((item, itemIdx) => (
+          <li key={itemIdx} className="leading-[1.7] pl-1">
+            <RichText text={item} />
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (block.type === "specs") {
+    return (
+      <div
+        key={idx}
+        className="rounded-[14px] sm:rounded-[18px] bg-white border border-neutral-200 p-4 sm:p-6 divide-y divide-neutral-200/80"
+      >
+        {block.items.map((spec, specIdx) => (
+          <div
+            key={specIdx}
+            className="py-2.5 first:pt-0 last:pb-0 flex flex-col sm:flex-row sm:items-center justify-between gap-1 sm:gap-4"
+          >
+            <span className="text-[13px] sm:text-[14px] font-medium text-neutral-500">
+              {spec.label}
+            </span>
+            <span className="text-[14px] sm:text-[15px] font-medium text-[#0B2735]">
+              {spec.value}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return null;
 }
 
 export default async function CaseStudyDetailPage({ params }: Props) {
@@ -71,8 +222,6 @@ export default async function CaseStudyDetailPage({ params }: Props) {
           <span>{study.projectLocation}</span>
           <span className="text-neutral-300 select-none font-light">|</span>
           <span>{study.technology}</span>
-          <span className="text-neutral-300 select-none font-light">|</span>
-          <span>{study.company}</span>
         </div>
 
         {/* Featured Hero Image: Unblurred & sharp */}
@@ -111,68 +260,81 @@ export default async function CaseStudyDetailPage({ params }: Props) {
 
         {/* ── EDITORIAL STORY SECTIONS ── */}
         <article className="space-y-8 sm:space-y-12 text-[14.5px] sm:text-[16px] text-neutral-700 font-normal leading-[1.75] sm:leading-[1.8]">
-          
-          {/* 1. Problem */}
-          <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
-            <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
-              Problem
-            </h2>
-            <div className="space-y-3.5 text-neutral-600">
-              {study.problem.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-            </div>
-          </section>
+          {study.articleSections && study.articleSections.length > 0 ? (
+            study.articleSections.map((section, sectionIdx) => (
+              <section key={sectionIdx} className="border-t border-neutral-200/80 pt-6 sm:pt-8">
+                <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
+                  {section.heading}
+                </h2>
+                <div className="space-y-3.5 text-neutral-600">
+                  {section.blocks.map((block, blockIdx) => renderArticleBlock(block, blockIdx))}
+                </div>
+              </section>
+            ))
+          ) : (
+            <>
+              {/* 1. Problem */}
+              <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
+                <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
+                  Problem
+                </h2>
+                <div className="space-y-3.5 text-neutral-600">
+                  {study.problem.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                </div>
+              </section>
 
-          {/* 2. Solution */}
-          <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
-            <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
-              Solution
-            </h2>
-            <div className="space-y-3.5 text-neutral-600">
-              {study.solution.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-            </div>
-          </section>
+              {/* 2. Solution */}
+              <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
+                <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
+                  Solution
+                </h2>
+                <div className="space-y-3.5 text-neutral-600">
+                  {study.solution.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                </div>
+              </section>
 
-          {/* 3. Results & Key Findings */}
-          <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
-            <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
-              Results &amp; Key Findings
-            </h2>
-            <div className="space-y-4 text-neutral-600">
-              {study.resultsAndFindings.map((finding, idx) => {
-                const parts = finding.split(":");
-                const hasLabel = parts.length > 1;
-                return (
-                  <p key={idx} className="leading-relaxed">
-                    {hasLabel ? (
-                      <>
-                        <strong className="font-semibold text-neutral-900">{parts[0]}:</strong>
-                        {parts.slice(1).join(":")}
-                      </>
-                    ) : (
-                      finding
-                    )}
-                  </p>
-                );
-              })}
-            </div>
-          </section>
+              {/* 3. Results & Key Findings */}
+              <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
+                <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
+                  Results &amp; Key Findings
+                </h2>
+                <div className="space-y-4 text-neutral-600">
+                  {study.resultsAndFindings.map((finding, idx) => {
+                    const parts = finding.split(":");
+                    const hasLabel = parts.length > 1;
+                    return (
+                      <p key={idx} className="leading-relaxed">
+                        {hasLabel ? (
+                          <>
+                            <strong className="font-semibold text-neutral-900">{parts[0]}:</strong>
+                            {parts.slice(1).join(":")}
+                          </>
+                        ) : (
+                          finding
+                        )}
+                      </p>
+                    );
+                  })}
+                </div>
+              </section>
 
-          {/* 4. Conclusion & Recommendation */}
-          <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
-            <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
-              Conclusion &amp; Recommendation
-            </h2>
-            <div className="space-y-3.5 text-neutral-600">
-              {study.conclusionAndRecommendation.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-            </div>
-          </section>
-
+              {/* 4. Conclusion & Recommendation */}
+              <section className="border-t border-neutral-200/80 pt-6 sm:pt-8">
+                <h2 className="text-[20px] sm:text-[26px] font-medium text-[#111827] mb-3 sm:mb-4 tracking-tight">
+                  Conclusion &amp; Recommendation
+                </h2>
+                <div className="space-y-3.5 text-neutral-600">
+                  {study.conclusionAndRecommendation.map((para, idx) => (
+                    <p key={idx}>{para}</p>
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
         </article>
 
         {/* Direct CTA */}
