@@ -11,6 +11,8 @@ const inter = Inter({
   display: "swap",
 });
 
+const EXTENSION_ATTR_CLEANUP_SCRIPT = `(function(){try{var a=['bis_skin_checked','bis_register'];var w=typeof WeakMap==='function'?new WeakMap():null;var c=function(e){if(!e||e.nodeType!==1)return;for(var i=0;i<a.length;i++){if(e.hasAttribute(a[i])){if(w){var n=w.get(e)||0;if(n>=6)continue;w.set(e,n+1);}e.removeAttribute(a[i]);}}};var s=function(r){if(!r||!r.querySelectorAll)return;var q=r.querySelectorAll('[bis_skin_checked],[bis_register]');for(var i=0;i<q.length;i++)c(q[i]);};s(document);var m=new MutationObserver(function(l){for(var i=0;i<l.length;i++){var t=l[i];if(t.type==='attributes'){c(t.target);}else if(t.type==='childList'){for(var j=0;j<t.addedNodes.length;j++){var n=t.addedNodes[j];c(n);s(n);}}}});m.observe(document.documentElement,{subtree:true,childList:true,attributes:true,attributeFilter:a});document.addEventListener('DOMContentLoaded',function(){s(document);},{once:true});var d=function(){setTimeout(function(){m.disconnect();},2500);};if(document.readyState==='complete'){d();}else{window.addEventListener('load',d,{once:true});}}catch(e){}})();`;
+
 // Site-wide defaults. Each page sets its own title/description/canonical via
 // pageMetadata() in lib/seo.ts; no canonical here so pages never inherit "/".
 export const metadata: Metadata = {
@@ -44,6 +46,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} overflow-x-hidden max-w-[100vw]`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: EXTENSION_ATTR_CLEANUP_SCRIPT }} />
+      </head>
       <body className="antialiased font-sans overflow-x-hidden max-w-[100vw]" suppressHydrationWarning>
         <LenisProvider>
           <Navbar />

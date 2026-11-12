@@ -1,26 +1,99 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { CASE_STUDIES } from '@/lib/case-studies-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
 import { HeroBackLink } from '@/components/ui/HeroBackLink';
 import { CalendarDays } from 'lucide-react';
 
+const HERO_SLIDES = [
+  {
+    src: '/case-studies/case-study-1-surat.webp',
+    alt: 'Hybrid Wind Turbine Installation by Vynentra in Surat, Gujarat',
+    positionClass: 'object-[50%_28%]',
+  },
+  {
+    src: '/case-studies/case-study-2-madhavpur.webp',
+    alt: 'VAWT Installation Near Madhavpur Beach, Gujarat',
+    positionClass: 'object-[32%_35%]',
+  },
+  {
+    src: '/case-studies/case-study-3-mandvi.webp',
+    alt: '5 kW VAWT Installation at Mandvi Beach, Gujarat',
+    positionClass: 'object-[54%_24%]',
+  },
+] as const;
+
 export default function CaseStudiesPage() {
+  const [slideState, setSlideState] = useState<{ active: number; prev: number }>({
+    active: 0,
+    prev: -1,
+  });
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    let raf2 = 0;
+    const raf1 = window.requestAnimationFrame(() => {
+      raf2 = window.requestAnimationFrame(() => {
+        setHasStarted(true);
+      });
+    });
+
+    const intervalId = window.setInterval(() => {
+      setSlideState((current) => ({
+        active: (current.active + 1) % HERO_SLIDES.length,
+        prev: current.active,
+      }));
+    }, 2500);
+
+    return () => {
+      window.cancelAnimationFrame(raf1);
+      if (raf2) window.cancelAnimationFrame(raf2);
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
       
       {/* ── 1. HERO SECTION (Matching Reference Image 4 & 5 Layout) ── */}
       <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
-        {/* Background Image with Cinematic Darkness */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?q=80&w=2000&auto=format&fit=crop"
-            alt="Wind turbines against vast horizon"
-            className="w-full h-full object-cover object-center opacity-60"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
+        {/* Rotating Case Studies Background (2.5 sec per image with seamless video-like dissolve & motion) */}
+        <div className="absolute inset-0 z-0 overflow-hidden bg-black pointer-events-none">
+          <div className="absolute inset-0 opacity-60">
+            {HERO_SLIDES.map((slide, idx) => {
+              const isActive = idx === slideState.active;
+              const isPrev = idx === slideState.prev;
+              const isVisible = isActive || isPrev;
+              const shouldZoom =
+                isPrev || (isActive && (hasStarted || slideState.prev !== -1));
+
+              return (
+                <img
+                  key={slide.src}
+                  src={slide.src}
+                  alt={slide.alt}
+                  loading="eager"
+                  decoding="async"
+                  className={`absolute inset-0 w-full h-full object-cover ${slide.positionClass} ${
+                    isActive ? 'z-20' : isPrev ? 'z-10' : 'z-0'
+                  }`}
+                  style={{
+                    opacity: isVisible ? 1 : 0,
+                    transform: shouldZoom ? 'scale(1.06)' : 'scale(1)',
+                    transition: isActive
+                      ? 'opacity 600ms ease-in-out, transform 3100ms linear'
+                      : isPrev
+                        ? 'transform 600ms linear'
+                        : 'none',
+                    willChange: isVisible ? 'opacity, transform' : 'auto',
+                  }}
+                />
+              );
+            })}
+          </div>
+          <div className="absolute inset-0 z-30 bg-gradient-to-t from-black via-black/60 to-transparent pointer-events-none" />
         </div>
 
         {/* Hero Content Container: Left Info + Right Scroll to Explore Button */}
@@ -34,12 +107,12 @@ export default function CaseStudiesPage() {
 
               {/* Main Headline */}
               <h1 className="text-[34px] sm:text-[44px] md:text-[54px] lg:text-[60px] font-medium text-white tracking-tight leading-[1.08] drop-shadow-sm mb-4 sm:mb-5 select-text">
-                Real projects<br />Lasting impact
+                What we&apos;ve built<br />Where we work
               </h1>
 
               {/* Subtitle */}
               <p className="text-[14.5px] sm:text-[16px] md:text-[17.5px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm font-normal">
-                Renewable energy solutions designed for real-world conditions across India.
+                A closer look at the renewable energy projects we develop and execute, showcasing the technologies, engineering and expertise behind each installation.
               </p>
             </div>
 
@@ -74,17 +147,9 @@ export default function CaseStudiesPage() {
                   />
                 </Link>
 
-                {/* Middle Column: Location & Tech (Text-only with separator), Title, Description & Action */}
+                {/* Middle Column: Title, Description & Action */}
                 <div className="flex-1 w-full min-w-0 max-w-full flex flex-col justify-between items-start py-0.5 sm:py-1 lg:py-2 h-full overflow-hidden">
                   <div className="w-full min-w-0 max-w-full">
-                    
-                    {/* Meta Info: Pure text in brand light blue */}
-                    <div className="w-full max-w-full flex flex-wrap items-center gap-x-2.5 gap-y-1 mb-2 sm:mb-2.5 text-[11px] sm:text-[12px] font-medium text-[#0A6B88] tracking-[0.05em] uppercase">
-                      <span>{study.projectLocation}</span>
-                      <span className="text-neutral-300 select-none font-light">|</span>
-                      <span>{study.technology}</span>
-                    </div>
-
                     {/* Title */}
                     <Link
                       href={`/case-studies/${study.slug}`}

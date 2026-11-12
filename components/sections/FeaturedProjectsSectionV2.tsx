@@ -36,7 +36,7 @@ export function FeaturedProjectsSectionV2() {
 
             {/* Standardized Title matching Blog & Why Choose Us sections */}
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.18] mb-2.5">
-              Renewable energy, delivered in practice
+              Renewable energy projects, built for performance
             </h2>
 
             {/* Standardized Subtitle matching design system body typography */}

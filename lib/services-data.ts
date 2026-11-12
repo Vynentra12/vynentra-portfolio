@@ -72,10 +72,10 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     cta: {
-      badge: "EVENT STORAGE INQUIRY",
-      title: "Planning an event?",
-      desc: "Share your event dates, location, estimated power requirements and duration. We are assessing deployment requirements to identify a suitable energy storage solution.",
-      buttonText: "Discuss Your Requirements",
+      badge: "PROJECT CONSULTATION",
+      title: "Have a project in mind?",
+      desc: "Share your project location, energy requirements and site details. We are evaluating opportunities across wind, solar and hybrid energy development.",
+      buttonText: "Discuss Your Project",
       buttonLink: "/contact#contact-form"
     }
   },
@@ -191,10 +191,10 @@ export const SERVICES: ServiceItem[] = [
       }
     ],
     cta: {
-      badge: "IPP POWER ASSESSMENT",
-      title: "Let's evaluate your energy requirements.",
-      desc: "Share your location, monthly electricity consumption, sanctioned load and current tariff details. We are assessing project suitability and applicable renewable power supply options.",
-      buttonText: "Explore IPP Solutions",
+      badge: "PROJECT CONSULTATION",
+      title: "Have a project in mind?",
+      desc: "Share your project location, energy requirements and site details. We are evaluating opportunities across wind, solar and hybrid energy development.",
+      buttonText: "Discuss Your Project",
       buttonLink: "/contact#contact-form"
     }
   }

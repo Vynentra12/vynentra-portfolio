@@ -38,16 +38,17 @@ export default function ServicesPage() {
           <div className="max-w-[1380px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-8 sm:gap-10">
             
             {/* Left Content */}
-            <div className="max-w-5xl">
+            <div className="w-full">
               {/* Back to Home Link */}
               <HeroBackLink />
 
-              <h1 className="text-[32px] sm:text-[42px] md:text-[48px] lg:text-[54px] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-5 select-text">
-                Building renewable energy solutions<br />around your requirements
+              <h1 className="text-[28px] sm:text-[34px] md:text-[clamp(28px,3.6vw,52px)] font-medium text-white tracking-tight leading-[1.1] drop-shadow-sm mb-4 sm:mb-5 select-text">
+                <span className="block">What we do</span>
+                <span className="block">Developing energy projects from the ground up</span>
               </h1>
 
               <p className="text-[14.5px] sm:text-[16px] md:text-[17px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm font-normal">
-                From solar and wind systems to hybrid installations and advanced energy management, we deliver turnkey clean energy infrastructure.
+                From site assessment and feasibility to engineering, project execution and commissioning, we work across wind, solar, hybrid systems and battery energy storage.
               </p>
             </div>
 
@@ -148,7 +149,7 @@ export default function ServicesPage() {
               One connected approach, from requirement<br />to renewable energy.
             </h2>
             <p className="mt-3 sm:mt-4 text-[14px] sm:text-[15.5px] md:text-[16px] text-neutral-600 max-w-3xl leading-[1.65] font-normal">
-              We are not starting with a predetermined technology. We are starting with the site, the energy requirement and the objective. From there, we are evaluating the available resources, selecting the appropriate solution and bringing together the partners required to develop and deliver it.
+              We are not starting with a predetermined technology. We are starting with the site, the energy requirement and the objective.
             </p>
           </div>
 
