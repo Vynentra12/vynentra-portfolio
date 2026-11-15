@@ -7922,11 +7922,10 @@ export function getBlogPostBySlug(slug: string): BlogPostDetail | undefined {
  * unlock precisely at midnight Indian time regardless of server/hosting timezone.
  */
 export function isPostPublished(post: BlogPostDetail): boolean {
-  if (!post.publishDate) return true;
   const todayIST = new Date().toLocaleDateString("en-CA", {
     timeZone: "Asia/Kolkata",
   });
-  return post.publishDate <= todayIST;
+  return !post.publishDate || post.publishDate <= todayIST;
 }
 
 /**
