@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: { absolute: `${SITE_NAME} | Renewable Energy Solutions & Project Development` },
 };
 
+// Revalidate homepage hourly so weekly published blog cards appear automatically
+export const revalidate = 3600;
+
 export default function Home() {
   return (
     <div className="bg-brand-midnight text-brand-softwhite min-h-screen">

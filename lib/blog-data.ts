@@ -32,6 +32,8 @@ export interface BlogPostDetail {
   slug: string;
   category: string;
   date: string;
+  /** ISO-8601 date (YYYY-MM-DD) when this post becomes visible on listings. */
+  publishDate: string;
   author: string;
   authorRole: string;
   authorAvatar: string;
@@ -67,6 +69,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "slug": "industrial-electricity-cost-india",
     "category": "ENERGY ECONOMICS",
     "date": "NOVEMBER 01, 2026",
+    "publishDate": "2026-11-01",
     "author": "Vynentra Energy Insights",
     "authorRole": "Clean Energy Economics & Advisory",
     "authorAvatar": "/favicon.ico",
@@ -729,6 +732,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "slug": "is-renewable-energy-cheaper-for-businesses",
     "category": "ENERGY ECONOMICS",
     "date": "NOVEMBER 02, 2026",
+    "publishDate": "2026-11-02",
     "author": "Vynentra Energy Insights",
     "authorRole": "Clean Energy Economics & Advisory",
     "authorAvatar": "/favicon.ico",
@@ -1485,6 +1489,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "slug": "wind-energy-potential-gujarat-india",
     "category": "WIND ENERGY",
     "date": "NOVEMBER 03, 2026",
+    "publishDate": "2026-11-03",
     "author": "Vynentra Technical Team",
     "authorRole": "Renewable Systems Engineering",
     "authorAvatar": "/favicon.ico",
@@ -2092,7 +2097,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 4,
     "slug": "engineering-behind-renewable-energy-installation",
     "category": "PROJECT DEVELOPMENT",
-    "date": "NOVEMBER 04, 2026",
+    "date": "NOVEMBER 17, 2026",
+    "publishDate": "2026-11-17",
     "author": "Vynentra Technical Team",
     "authorRole": "Renewable Systems Engineering",
     "authorAvatar": "/favicon.ico",
@@ -2883,7 +2889,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 5,
     "slug": "wind-energy-site-assessment",
     "category": "WIND ENERGY",
-    "date": "NOVEMBER 05, 2026",
+    "date": "NOVEMBER 24, 2026",
+    "publishDate": "2026-11-24",
     "author": "Vynentra Project Desk",
     "authorRole": "Renewable Infrastructure & Planning",
     "authorAvatar": "/favicon.ico",
@@ -3232,7 +3239,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 6,
     "slug": "wind-vs-solar-vs-hybrid-energy-businesses",
     "category": "HYBRID",
-    "date": "NOVEMBER 06, 2026",
+    "date": "DECEMBER 01, 2026",
+    "publishDate": "2026-12-01",
     "author": "Vynentra Project Desk",
     "authorRole": "Renewable Infrastructure & Planning",
     "authorAvatar": "/favicon.ico",
@@ -3851,7 +3859,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 7,
     "slug": "wind-turbine-rated-capacity-vs-actual-generation",
     "category": "WIND ENERGY",
-    "date": "NOVEMBER 07, 2026",
+    "date": "DECEMBER 08, 2026",
+    "publishDate": "2026-12-08",
     "author": "Vynentra Technical Team",
     "authorRole": "Renewable Systems Engineering",
     "authorAvatar": "/favicon.ico",
@@ -4410,7 +4419,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 8,
     "slug": "renewable-energy-project-development-process",
     "category": "PROJECT DEVELOPMENT",
-    "date": "NOVEMBER 08, 2026",
+    "date": "DECEMBER 15, 2026",
+    "publishDate": "2026-12-15",
     "author": "Vynentra Project Desk",
     "authorRole": "Renewable Infrastructure & Planning",
     "authorAvatar": "/favicon.ico",
@@ -5186,7 +5196,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 9,
     "slug": "vertical-vs-horizontal-axis-wind-turbines",
     "category": "WIND ENERGY",
-    "date": "NOVEMBER 09, 2026",
+    "date": "DECEMBER 22, 2026",
+    "publishDate": "2026-12-22",
     "author": "Vynentra Technical Team",
     "authorRole": "Renewable Systems Engineering",
     "authorAvatar": "/favicon.ico",
@@ -5784,7 +5795,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 10,
     "slug": "battery-storage-renewable-energy-projects",
     "category": "BATTERY STORAGE",
-    "date": "NOVEMBER 10, 2026",
+    "date": "DECEMBER 29, 2026",
+    "publishDate": "2026-12-29",
     "author": "Vynentra Project Desk",
     "authorRole": "Renewable Infrastructure & Planning",
     "authorAvatar": "/favicon.ico",
@@ -6547,7 +6559,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 11,
     "slug": "rooftop-space-required-for-solar-panels",
     "category": "SOLAR ENERGY",
-    "date": "NOVEMBER 11, 2026",
+    "date": "JANUARY 05, 2027",
+    "publishDate": "2027-01-05",
     "author": "Vynentra Project Desk",
     "authorRole": "Renewable Infrastructure & Planning",
     "authorAvatar": "/favicon.ico",
@@ -7192,7 +7205,8 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
     "id": 12,
     "slug": "why-solar-project-design-matters",
     "category": "SOLAR ENERGY",
-    "date": "NOVEMBER 12, 2026",
+    "date": "JANUARY 12, 2027",
+    "publishDate": "2027-01-12",
     "author": "Vynentra Technical Team",
     "authorRole": "Renewable Systems Engineering",
     "authorAvatar": "/favicon.ico",
@@ -7900,4 +7914,25 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
 
 export function getBlogPostBySlug(slug: string): BlogPostDetail | undefined {
   return ALL_BLOG_POSTS.find((p) => p.slug === slug);
+}
+
+/**
+ * Checks whether a post is published based on its publishDate (YYYY-MM-DD).
+ * Evaluates against Indian Standard Time (IST, Asia/Kolkata) so releases
+ * unlock precisely at midnight Indian time regardless of server/hosting timezone.
+ */
+export function isPostPublished(post: BlogPostDetail): boolean {
+  if (!post.publishDate) return true;
+  const todayIST = new Date().toLocaleDateString("en-CA", {
+    timeZone: "Asia/Kolkata",
+  });
+  return post.publishDate <= todayIST;
+}
+
+/**
+ * Returns only posts whose publishDate is today or in the past.
+ * Safe to call on both server (build-time) and client (runtime).
+ */
+export function getPublishedPosts(): BlogPostDetail[] {
+  return ALL_BLOG_POSTS.filter(isPostPublished);
 }

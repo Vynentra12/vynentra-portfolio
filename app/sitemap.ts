@@ -1,8 +1,11 @@
 import { MetadataRoute } from "next";
 import { SERVICES } from "@/lib/services-data";
 import { CASE_STUDIES } from "@/lib/case-studies-data";
-import { ALL_BLOG_POSTS } from "@/lib/blog-data";
+import { getPublishedPosts } from "@/lib/blog-data";
 import { SITE_URL } from "@/lib/seo";
+
+// Revalidate sitemap daily so weekly published posts are automatically picked up by search crawlers
+export const revalidate = 86400;
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE_URL;
@@ -76,10 +79,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Dynamic Insights/Blog Pages
-  const insightRoutes: MetadataRoute.Sitemap = ALL_BLOG_POSTS.map((post) => ({
+  // Dynamic Insights/Blog Pages (only published posts)
+  const insightRoutes: MetadataRoute.Sitemap = getPublishedPosts().map((post) => ({
     url: `${baseUrl}/insights/${post.slug}`,
-    lastModified: now,
+    lastModified: new Date(post.publishDate + "T00:00:00"),
     changeFrequency: "monthly",
     priority: 0.75,
   }));
