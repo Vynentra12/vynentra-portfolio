@@ -4,10 +4,11 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { FooterV2 } from "@/components/sections/FooterV2";
 import { HeroBackLink } from "@/components/ui/HeroBackLink";
-import { ALL_BLOG_POSTS } from "@/lib/blog-data";
+import { getPublishedPosts } from "@/lib/blog-data";
 import { Search, X } from "lucide-react";
 
 export default function InsightsPage() {
+  const allPosts = getPublishedPosts();
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
   const categories = [
@@ -21,7 +22,7 @@ export default function InsightsPage() {
   ];
 
   const cleanSearch = searchQuery.trim().toLowerCase();
-  const filteredPosts = ALL_BLOG_POSTS.filter((post) => {
+  const filteredPosts = allPosts.filter((post) => {
     const matchesCategory =
       activeCategory === "ALL" ||
       post.category.toUpperCase() === activeCategory.toUpperCase();

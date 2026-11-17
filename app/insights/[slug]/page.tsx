@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { pageMetadata } from '@/lib/seo';
 import { notFound } from 'next/navigation';
 import { Check, ArrowLeft } from 'lucide-react';
-import { ALL_BLOG_POSTS, getBlogPostBySlug, type ArticleBlock } from '@/lib/blog-data';
+import { ALL_BLOG_POSTS, getBlogPostBySlug, getPublishedPosts, type ArticleBlock } from '@/lib/blog-data';
 import { FooterV2 } from '@/components/sections/FooterV2';
 import { SectionBadge } from '@/components/ui/SectionBadge';
 import { SocialShareBar } from '@/components/ui/SocialShareBar';
@@ -550,11 +550,12 @@ export default async function InsightDetailPage({ params }: Props) {
     notFound();
   }
 
-  // Prefer related posts from same category first, then remaining posts
-  const sameCategory = ALL_BLOG_POSTS.filter(
+  // Prefer related posts from same category first among published posts, then remaining published posts
+  const published = getPublishedPosts();
+  const sameCategory = published.filter(
     (p) => p.slug !== post.slug && p.category === post.category
   );
-  const otherPosts = ALL_BLOG_POSTS.filter(
+  const otherPosts = published.filter(
     (p) => p.slug !== post.slug && p.category !== post.category
   );
   const relatedPosts = [...sameCategory, ...otherPosts].slice(0, 2);

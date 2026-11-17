@@ -4,10 +4,10 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { SectionBadge } from "@/components/ui/SectionBadge";
-import { ALL_BLOG_POSTS } from "@/lib/blog-data";
+import { getPublishedPosts } from "@/lib/blog-data";
 
 export function BlogSectionV2() {
-  const featuredBlogs = ALL_BLOG_POSTS.slice(0, 3);
+  const featuredBlogs = getPublishedPosts().slice(0, 3);
 
   return (
     <section id="insights" className="w-full bg-[#F4F6F8] text-neutral-900 py-16 md:py-24 font-sans select-text">
