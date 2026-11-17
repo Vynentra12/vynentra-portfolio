@@ -59,6 +59,7 @@ export function HeroSectionV2() {
 
           {/* Right: Pure Dark Blue Preview Card (No hover color change, white text, green icon) */}
           <Link
+
             href="/case-studies"
             className="group/hero-card relative flex items-center gap-3 sm:gap-3.5 md:gap-4 p-2.5 sm:p-3 md:p-3.5 pr-4 sm:pr-4.5 md:pr-5 rounded-[16px] sm:rounded-[18px] md:rounded-[20px] bg-[#0B2735] text-white shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-white/15 shrink-0 self-start lg:self-auto cursor-pointer overflow-hidden w-full max-w-[325px] sm:max-w-[375px] md:max-w-[405px] h-[104px] sm:h-[140px] md:h-[150px] transition-transform duration-300 hover:scale-[1.02]"
           >
