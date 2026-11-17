@@ -11,8 +11,8 @@ export default function InsightsPage() {
   const allPosts = getPublishedPosts();
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
-  const categories = [
-    "ALL",
+
+  const PREFERRED_CATEGORY_ORDER = [
     "WIND ENERGY",
     "SOLAR ENERGY",
     "HYBRID",
@@ -21,11 +21,25 @@ export default function InsightsPage() {
     "PROJECT DEVELOPMENT",
   ];
 
+  // Derive categories that currently have at least one published post
+  const publishedCategories = Array.from(
+    new Set(allPosts.map((p) => p.category.toUpperCase()))
+  );
+
+  // Keep preferred order, but only include categories that have published posts
+  const categories = [
+    "ALL",
+    ...PREFERRED_CATEGORY_ORDER.filter((cat) => publishedCategories.includes(cat)),
+    ...publishedCategories.filter((cat) => !PREFERRED_CATEGORY_ORDER.includes(cat)),
+  ];
+
+  const currentCategory = categories.includes(activeCategory) ? activeCategory : "ALL";
+
   const cleanSearch = searchQuery.trim().toLowerCase();
   const filteredPosts = allPosts.filter((post) => {
     const matchesCategory =
-      activeCategory === "ALL" ||
-      post.category.toUpperCase() === activeCategory.toUpperCase();
+      currentCategory === "ALL" ||
+      post.category.toUpperCase() === currentCategory.toUpperCase();
     const matchesSearch =
       cleanSearch === "" ||
       post.title.toLowerCase().includes(cleanSearch) ||
@@ -100,7 +114,7 @@ export default function InsightsPage() {
                     setVisibleCount(6);
                   }}
                   className={`px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-[6px] text-[10.5px] sm:text-[11.5px] font-normal tracking-wider uppercase transition-all duration-300 border cursor-pointer ${
-                    activeCategory === category 
+                    currentCategory === category 
                       ? "bg-[#0A6B88] border-[#0A6B88] text-white shadow-xs" 
                       : "bg-white border-neutral-200 text-neutral-600 hover:border-[#0A6B88] hover:text-[#0A6B88]"
                   }`}
@@ -139,7 +153,7 @@ export default function InsightsPage() {
           {posts.length === 0 ? (
             <div className="bg-white rounded-[20px] border border-neutral-200/80 p-12 text-center my-6">
               <p className="text-neutral-600 text-[15px] mb-4">
-                No insights found matching &ldquo;{searchQuery}&rdquo; {activeCategory !== "ALL" ? `under ${activeCategory}` : ""}.
+                No insights found matching &ldquo;{searchQuery}&rdquo; {currentCategory !== "ALL" ? `under ${currentCategory}` : ""}.
               </p>
               <button
                 onClick={() => {

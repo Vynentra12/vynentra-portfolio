@@ -29,10 +29,10 @@ function AnimatedNumber({ to, decimals = 0, suffixText = "", colorClass = "text-
   }, [to, decimals, inView]);
 
   return (
-    <h3 className={`text-[40px] md:text-[48px] font-medium mb-6 ${textClass}`}>
-      <span ref={nodeRef}>0</span>
+    <div className={`text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap ${textClass}`}>
+      <span ref={nodeRef}>{decimals > 0 ? (0).toFixed(decimals) : "0"}</span>
       <span className={colorClass}>{suffixText}</span>
-    </h3>
+    </div>
   );
 }
 
@@ -195,16 +195,6 @@ export default function AboutPage() {
                   </div>
                 </div>
 
-                {/* Single Inquire Alliance Button */}
-                <div className="pt-1">
-                  <a
-                    href="mailto:partner@vynentra.com"
-                    className="inline-flex items-center justify-center h-[44px] sm:h-[46px] px-7 sm:px-8 rounded-full border border-[#0B2735] text-[#0B2735] text-[11.5px] sm:text-[12px] font-medium tracking-[0.08em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#0B2735] hover:text-white active:scale-[0.98]"
-                  >
-                    <span>Inquire Alliance</span>
-                  </a>
-                </div>
-
               </div>
 
             </div>
@@ -213,52 +203,123 @@ export default function AboutPage() {
       </section>
 
       {/* ── BY THE NUMBERS ── */}
-      <section className="w-full py-16 sm:py-24 md:py-32 bg-[#0A6B88]">
-        <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
-          <SectionBadge theme="light" className="mb-4 sm:mb-5 w-fit">
+      <section className="w-full py-10 sm:py-20 md:py-28 bg-[#0A6B88]">
+        <div className="w-full px-5 sm:px-10 lg:px-12 xl:px-14">
+          <SectionBadge theme="light" className="mb-3 sm:mb-5 w-fit">
             BY THE NUMBERS
           </SectionBadge>
-          <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.18] mb-10 lg:mb-14 max-w-[640px]">
-            Trusted where scale meets execution
+          <h2 className="text-[24px] sm:text-[32px] md:text-[38px] lg:text-[40px] font-medium text-white tracking-tight leading-[1.18] mb-6 sm:mb-10 lg:mb-14 max-w-[720px]">
+            The numbers behind India&apos;s energy transition
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 lg:gap-6">
             {/* Stat 1 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-[24px] p-6 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px]">
-              <AnimatedNumber to={450} suffixText="MW+" textClass="text-white" colorClass="text-white" />
-              <p className="text-[14px] text-white/90 leading-snug font-medium">Developed and commissioned capacity across commercial projects</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
+              <div>
+                <AnimatedNumber to={299.25} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
+                  Cumulative RE capacity
+                </h3>
+                <p className="text-[11.5px] sm:text-[12.5px] text-white/80 leading-snug sm:leading-relaxed font-normal">
+                  Total renewable energy capacity of 299,246.53 MW as of 30 September 2026. Includes large hydro.
+                </p>
+              </div>
+              <div className="pt-2.5 mt-3 sm:pt-4 sm:mt-5 border-t border-white/15">
+                <a
+                  href="https://mnre.gov.in/documents/guidelines/physical-achievements-kzN2kTMtQWa?pageTitle=Physical-Achievements&utm_source=chatgpt.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
+                >
+                  MNRE – Physical Achievements
+                </a>
+              </div>
             </div>
+
             {/* Stat 2 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-[24px] p-6 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px]">
-              <AnimatedNumber to={12} suffixText="+" textClass="text-white" colorClass="text-white" />
-              <p className="text-[14px] text-white/90 leading-snug font-medium">Utility-scale solar farms delivered successfully in 3 years</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
+              <div>
+                <AnimatedNumber to={171.05} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
+                  Installed solar capacity
+                </h3>
+                <p className="text-[11.5px] sm:text-[12.5px] text-white/80 leading-snug sm:leading-relaxed font-normal">
+                  171,051.46 MW across ground-mounted, rooftop, hybrid and off-grid solar installations.
+                </p>
+              </div>
+              <div className="pt-2.5 mt-3 sm:pt-4 sm:mt-5 border-t border-white/15">
+                <a
+                  href="https://mnre.gov.in/documents/guidelines/physical-achievements-kzN2kTMtQWa?pageTitle=Physical-Achievements&utm_source=chatgpt.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
+                >
+                  MNRE – Solar Capacity Data
+                </a>
+              </div>
             </div>
+
             {/* Stat 3 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-[24px] p-6 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px]">
-              <AnimatedNumber to={98} suffixText="%" textClass="text-white" colorClass="text-white" />
-              <p className="text-[14px] text-white/90 leading-snug font-medium">Average operational uptime rating for all our managed sites</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
+              <div>
+                <AnimatedNumber to={59.20} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
+                  Installed wind capacity
+                </h3>
+                <p className="text-[11.5px] sm:text-[12.5px] text-white/80 leading-snug sm:leading-relaxed font-normal">
+                  59,201.07 MW across utility and commercial wind installations as of 30 September 2026.
+                </p>
+              </div>
+              <div className="pt-2.5 mt-3 sm:pt-4 sm:mt-5 border-t border-white/15">
+                <a
+                  href="https://mnre.gov.in/documents/guidelines/physical-achievements-kzN2kTMtQWa?pageTitle=Physical-Achievements&utm_source=chatgpt.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
+                >
+                  MNRE – Wind Capacity Data
+                </a>
+              </div>
             </div>
+
             {/* Stat 4 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-[24px] p-6 sm:p-8 flex flex-col justify-between min-h-[160px] sm:min-h-[220px]">
-              <AnimatedNumber to={2.5} decimals={1} suffixText="x" textClass="text-white" colorClass="text-white" />
-              <p className="text-[14px] text-white/90 leading-snug font-medium">Faster project completion times compared to industry standard</p>
+            <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
+              <div>
+                <AnimatedNumber to={500} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
+                  India&apos;s 2030 non-fossil target
+                </h3>
+                <p className="text-[11.5px] sm:text-[12.5px] text-white/80 leading-snug sm:leading-relaxed font-normal">
+                  National target of 500 GW non-fossil fuel-based installed electricity capacity by 2030.
+                </p>
+              </div>
+              <div className="pt-2.5 mt-3 sm:pt-4 sm:mt-5 border-t border-white/15">
+                <a
+                  href="https://www.pib.gov.in/newsite/erelcontent.aspx?lang=2&reg=48&relid=293063&utm_source=chatgpt.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
+                >
+                  PIB – Landmark 300 GW Report
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── OUR VALUES ── */}
-      <section className="w-full py-16 sm:py-24 md:py-32 bg-white">
+      {/* ── WHAT BINDS US ── */}
+      <section className="w-full pt-16 sm:pt-24 md:pt-32 pb-10 sm:pb-14 lg:pb-16 bg-white">
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-            WHAT WE VALUE
+            WHAT BINDS US
           </SectionBadge>
           <div className="max-w-3xl mb-12 lg:mb-16">
             <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 max-w-[640px]">
-              Principles that shape every project
+              What binds us
             </h2>
             <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium">
-              We build for clients who are judged on generation output and long-term viability, not just aesthetics. Our values are the foundation of our execution.
+              Our principles guide every decision, from engineering and technology selection to project execution.
             </p>
           </div>
 
@@ -315,32 +376,42 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ── CARBON MARKETS & VALUE CREATION (With Separation Line, 2-line Title & Minimized Image Width) ── */}
-      <section className="w-full py-8 sm:py-12 lg:py-14 bg-white select-text border-t border-neutral-200/80">
-        <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
-          <div className="max-w-[1380px] mx-auto rounded-[20px] sm:rounded-[28px] bg-[#0E2F3E] text-white p-5 sm:p-7 lg:p-9 shadow-xs">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-7 lg:gap-8 items-center">
+      {/* ── CARBON MARKETS & VALUE CREATION ── */}
+      <section className="w-full pt-4 sm:pt-6 lg:pt-8 pb-16 sm:pb-24 lg:pb-32 bg-white select-text">
+        <div className="w-full px-5 sm:px-10 lg:px-12 xl:px-14">
+          <div className="max-w-[1380px] mx-auto rounded-[24px] sm:rounded-[30px] lg:rounded-[34px] bg-[#0E2F3E] text-white p-6 sm:p-9 md:p-11 lg:p-14 border border-white/10 shadow-[0_24px_50px_-12px_rgba(11,37,51,0.18)]">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
               
-              {/* Left Column: Editorial Content (8 cols) */}
-              <div className="lg:col-span-8 flex flex-col justify-center">
-                <span className="text-[10.5px] sm:text-[11px] uppercase tracking-wider font-semibold text-[#AEF977] block mb-2 sm:mb-2.5">
+              {/* Left Column: Editorial Content (7 cols on lg, 8 cols on xl) */}
+              <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-center">
+                <span className="text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.1em] font-semibold text-[#AEF977] block mb-2.5 sm:mb-3">
                   CARBON MARKETS &amp; VALUE CREATION
                 </span>
-                <h2 className="text-[20px] sm:text-[24px] md:text-[27px] lg:text-[30px] font-medium tracking-tight leading-[1.2] mb-2 sm:mb-2.5 text-white max-w-xl">
+                <h2 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[34px] font-medium tracking-tight leading-[1.2] mb-3 sm:mb-4 text-white max-w-2xl">
                   Currently aligning with India&apos;s<br className="hidden sm:inline" /> evolving carbon market.
                 </h2>
-                <p className="text-[13px] sm:text-[14px] md:text-[14.5px] text-white/80 leading-[1.6] font-normal max-w-2xl">
+                <p className="text-[13.5px] sm:text-[14.5px] md:text-[15.5px] text-white/80 leading-[1.65] font-normal max-w-2xl mb-6 sm:mb-8">
                   We are taking steps to explore carbon credit opportunities under India&apos;s Carbon Credit Trading Scheme, aligning renewable energy project development with evolving carbon market frameworks.
                 </p>
+                <div>
+                  <a
+                    href="https://icapcarbonaction.com/en/ets/indian-carbon-credit-trading-scheme"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center h-[42px] sm:h-[44px] px-7 sm:px-8 rounded-full bg-white text-[#0B2533] text-[11.5px] sm:text-[12px] font-semibold tracking-[0.06em] uppercase select-none cursor-pointer w-fit whitespace-nowrap transition-all duration-300 hover:bg-[#AEF977] hover:text-[#0B2533] active:scale-[0.98]"
+                  >
+                    <span>Read More</span>
+                  </a>
+                </div>
               </div>
 
-              {/* Right Column: Rectangular Image with Minimized Width (4 cols) */}
-              <div className="lg:col-span-4 flex justify-start lg:justify-end w-full">
-                <div className="relative w-full max-w-[320px] sm:max-w-[340px] lg:max-w-[310px] aspect-[16/10] rounded-[14px] sm:rounded-[18px] overflow-hidden border border-white/10 shadow-md bg-neutral-900">
+              {/* Right Column: Rectangular Image with Natural Proportions (5 cols on lg, 4 cols on xl) */}
+              <div className="lg:col-span-5 xl:col-span-4 flex justify-start lg:justify-end w-full">
+                <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-[18px] sm:rounded-[22px] overflow-hidden border border-white/10 shadow-lg bg-neutral-900 group/img">
                   <img
                     src="/wind_farm_sunset.jpg"
                     alt="India Carbon Credit and Clean Renewable Energy Landscape"
-                    className="w-full h-full object-cover object-center"
+                    className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover/img:scale-105"
                   />
                 </div>
               </div>
