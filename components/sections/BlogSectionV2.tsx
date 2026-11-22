@@ -76,6 +76,8 @@ export function BlogSectionV2() {
                     <img
                       src={blog.image}
                       alt={blog.imageAlt || blog.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                     />
 

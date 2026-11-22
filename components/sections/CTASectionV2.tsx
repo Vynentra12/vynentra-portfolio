@@ -5,29 +5,29 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
-import { SectionBadge } from "@/components/ui/SectionBadge";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
 }
 
+// 12 unique, interchanged images representing Vynentra's core clean energy USPs
 const ctaImages = [
-  "/images/stock/pexels-414837.jpg",
+  "/wind_farm_sunset.jpg",
+  "/solutions/solar-installation.jpg",
+  "/solutions/battery-storage.jpg",
+  "/case-studies/rooftop-wind-turbine-over-cityscape.webp",
+  "/images/about-hero.jpg",
+  "/case-studies/case-study-3-mandvi.webp",
+  "/images/process-hybrid-clean-energy.webp",
+  "/images/stock/pexels-35105436.jpg",
+  "/novatech-case-study.jpg",
   "/images/stock/pexels-16550751.jpg",
-  "/images/stock/pexels-114979.jpg",
-  "/images/stock/pexels-822419.jpg",
-  "/images/stock/pexels-1036936.jpg",
-  "/images/stock/pexels-414837.jpg",
-  "/images/stock/pexels-16550751.jpg",
-  "/images/stock/pexels-114979.jpg",
-  "/images/stock/pexels-822419.jpg",
-  "/images/stock/pexels-1036936.jpg",
-  "/images/stock/pexels-414837.jpg",
-  "/images/stock/pexels-16550751.jpg",
+  "/images/stock/pexels-10041227.jpg",
+  "/images/process-resilient-energy.webp",
 ];
 
 export function CTASectionV2({
-  badgeText = "Let's Build What's Next",
+  badgeText,
   title = "Find the right energy solution for your project",
   description,
   buttonText = "Get Started",
@@ -293,6 +293,8 @@ export function CTASectionV2({
             <img
               src={src}
               alt={`Energy project ${idx + 1}`}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover select-none pointer-events-none"
               draggable={false}
             />

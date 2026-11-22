@@ -18,7 +18,7 @@ export function HeroSectionV2() {
           loop
           muted
           playsInline
-          preload="auto"
+          preload="metadata"
           className="w-full h-full object-cover scale-[1.01]"
         >
           <source src="/hero-video-03.mp4" type="video/mp4" />
@@ -68,6 +68,8 @@ export function HeroSectionV2() {
               <img
                 src="/case-studies/case-study-1-surat.webp"
                 alt="Hybrid Wind Turbine Installation by Vynentra"
+                loading="eager"
+                decoding="async"
                 className="w-full h-full object-cover group-hover/hero-card:scale-105 transition-transform duration-500"
               />
             </div>

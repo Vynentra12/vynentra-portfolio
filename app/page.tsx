@@ -40,7 +40,6 @@ export default function Home() {
       <BlogSectionV2 />
       <FAQSectionV2 />
       <CTASectionV2
-        badgeText="Let's Build What's Next"
         title="Find the right energy solution for your project"
         buttonText="Get Started"
         buttonLink="/contact#contact-form"

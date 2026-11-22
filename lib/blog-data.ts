@@ -67,7 +67,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 1,
     "slug": "industrial-electricity-cost-india",
-    "category": "ENERGY ECONOMICS",
+    "category": "SOLAR ENERGY",
     "date": "NOVEMBER 01, 2026",
     "publishDate": "2026-11-01",
     "author": "Vynentra Energy Insights",
@@ -730,7 +730,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 2,
     "slug": "is-renewable-energy-cheaper-for-businesses",
-    "category": "ENERGY ECONOMICS",
+    "category": "SOLAR ENERGY",
     "date": "NOVEMBER 02, 2026",
     "publishDate": "2026-11-02",
     "author": "Vynentra Energy Insights",
@@ -2096,7 +2096,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 4,
     "slug": "engineering-behind-renewable-energy-installation",
-    "category": "PROJECT DEVELOPMENT",
+    "category": "SOLAR ENERGY",
     "date": "NOVEMBER 16, 2026",
     "publishDate": "2026-11-16",
     "author": "Vynentra Technical Team",
@@ -3238,7 +3238,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 6,
     "slug": "wind-vs-solar-vs-hybrid-energy-businesses",
-    "category": "HYBRID",
+    "category": "WIND ENERGY",
     "date": "NOVEMBER 30, 2026",
     "publishDate": "2026-11-30",
     "author": "Vynentra Project Desk",
@@ -4418,7 +4418,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 8,
     "slug": "renewable-energy-project-development-process",
-    "category": "PROJECT DEVELOPMENT",
+    "category": "SOLAR ENERGY",
     "date": "DECEMBER 14, 2026",
     "publishDate": "2026-12-14",
     "author": "Vynentra Project Desk",
@@ -5794,7 +5794,7 @@ export const ALL_BLOG_POSTS: BlogPostDetail[] = [
   {
     "id": 10,
     "slug": "battery-storage-renewable-energy-projects",
-    "category": "BATTERY STORAGE",
+    "category": "SOLAR ENERGY",
     "date": "DECEMBER 28, 2026",
     "publishDate": "2026-12-28",
     "author": "Vynentra Project Desk",

@@ -1,45 +1,18 @@
 "use client";
-
-import React, { useRef, useEffect } from "react";
-import Link from "next/link";
-import { motion, useInView, animate } from "framer-motion";
+/*  */
+import React from "react";
+import { motion } from "framer-motion";
 import { CheckCircle, Lightbulb, Shield, Award, Users, Heart } from "lucide-react";
 import { SectionBadge } from "@/components/ui/SectionBadge";
 import { HeroBackLink } from "@/components/ui/HeroBackLink";
 import { FooterV2 } from "@/components/sections/FooterV2";
 
 
-function AnimatedNumber({ to, decimals = 0, suffixText = "", colorClass = "text-[#0A6B88]", textClass = "text-neutral-900" }: { to: number, decimals?: number, suffixText?: string, colorClass?: string, textClass?: string }) {
-  const nodeRef = useRef<HTMLSpanElement>(null);
-  const inView = useInView(nodeRef, { once: true, margin: "-50px" });
-
-  useEffect(() => {
-    if (inView && nodeRef.current) {
-      const controls = animate(0, to, {
-        duration: 2,
-        ease: "easeOut",
-        onUpdate(value) {
-          if (nodeRef.current) {
-            nodeRef.current.textContent = value.toFixed(decimals);
-          }
-        }
-      });
-      return () => controls.stop();
-    }
-  }, [to, decimals, inView]);
-
-  return (
-    <div className={`text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap ${textClass}`}>
-      <span ref={nodeRef}>{decimals > 0 ? (0).toFixed(decimals) : "0"}</span>
-      <span className={colorClass}>{suffixText}</span>
-    </div>
-  );
-}
 
 export default function AboutPage() {
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen">
-      
+
       {/* ── HERO SECTION ── */}
       <section className="relative w-full min-h-[100vh] flex flex-col justify-end overflow-hidden bg-black">
         {/* Background Image */}
@@ -72,14 +45,14 @@ export default function AboutPage() {
       <section className="w-full py-16 sm:py-24 md:py-32 bg-white overflow-hidden">
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
               <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
-                OUR STORY
+                HOW IT BEGAN
               </SectionBadge>
               <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-5 sm:mb-6 lg:mb-8 max-w-[640px]">
                 From a vision to a leading renewable developer
@@ -87,20 +60,28 @@ export default function AboutPage() {
 
               {/* Mobile-Only Founder Image: Positioned directly after Title on mobile (< lg) */}
               <div className="block lg:hidden w-full aspect-[4/3] sm:aspect-[4/3] rounded-[18px] sm:rounded-[20px] overflow-hidden shadow-xs mb-6 sm:mb-8">
-                <img 
-                  src="/founder-image.png" 
-                  alt="Founder of Vynentra" 
+                <img
+                  src="/founder-image.png"
+                  alt="Harsh - Founder of Vynentra"
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              <div className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium space-y-6">
+              <div className="text-[14px] sm:text-[15px] md:text-[16.5px] text-neutral-600 leading-[1.65] font-normal space-y-4 sm:space-y-5 select-text">
                 <p>
-                  Vynentra began with a simple observation: the transition to renewable energy was happening too slowly because development was fragmented. 
-                  We spent years working across the sector - navigating regulatory hurdles, managing supply chains, and commissioning plants. The insight was always there; the unified execution never was.
+                  Vynentra began by questioning a gap in India&apos;s renewable energy market.
                 </p>
                 <p>
-                  So we built a company that integrates the entire lifecycle. Today, we develop, execute, and operate large-scale utility projects across India, handing our clients turnkey solutions instead of complex management headaches.
+                  While large EPC players focused on projects of 5 MW and above, businesses with requirements of 1–2 MW were often overlooked. They needed renewable energy, but the market wasn&apos;t structured to serve them.
+                </p>
+                <p className="font-medium text-neutral-900">
+                  We saw an opportunity to change that.
+                </p>
+                <p>
+                  Today, Vynentra is building on that original insight with a broader vision: making renewable energy more accessible, commercially viable and relevant to businesses across India.
+                </p>
+                <p className="text-[15px] sm:text-[16px] md:text-[17px] font-semibold text-[#087589] tracking-tight pt-1">
+                  The opportunity was in the gap. The vision is much bigger.
                 </p>
               </div>
             </motion.div>
@@ -111,9 +92,11 @@ export default function AboutPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="hidden lg:block relative w-full aspect-[4/3] sm:aspect-[4/3] lg:aspect-square max-h-[560px] rounded-[20px] overflow-hidden"
             >
-              <img 
-                src="/founder-image.png" 
-                alt="Founder of Vynentra" 
+              <img
+                src="/founder-image.png"
+                alt="Harsh - Founder of Vynentra"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover relative z-10"
               />
             </motion.div>
@@ -126,13 +109,15 @@ export default function AboutPage() {
         <div className="w-full px-6 sm:px-10 lg:px-12 xl:px-14">
           <div className="max-w-[1380px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 xl:gap-20 items-center">
-              
+
               {/* Desktop-Only Left Column Image: Hidden on mobile, shown on lg screens */}
               <div className="hidden lg:block lg:col-span-6 relative order-1 lg:order-1">
                 <div className="relative w-full aspect-[4/3] sm:aspect-[4/3] lg:aspect-square max-h-[560px] rounded-[20px] sm:rounded-[24px] overflow-hidden border border-neutral-200/80 shadow-xs bg-neutral-100">
                   <img
                     src="/images/stock/pexels-5520322.jpg"
                     alt="Strategic Partners in Renewable Infrastructure - Vynentra & HRV Group"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
@@ -141,7 +126,7 @@ export default function AboutPage() {
               {/* Text Column: Full width on mobile, right column on desktop */}
               <div className="w-full lg:col-span-6 flex flex-col justify-center order-2 lg:order-2">
                 <SectionBadge theme="dark" className="mb-3 sm:mb-3.5 w-fit">
-                  STRATEGIC PARTNERSHIP
+                  OUR PARTNERSHIPS
                 </SectionBadge>
 
                 <h2 className="text-[26px] xs:text-[28px] sm:text-[34px] md:text-[38px] lg:text-[42px] font-medium text-neutral-950 tracking-tight leading-[1.18] mb-3.5 sm:mb-4 lg:mb-5">
@@ -153,16 +138,14 @@ export default function AboutPage() {
                   <img
                     src="/images/stock/pexels-5520322.jpg"
                     alt="Strategic Partners in Renewable Infrastructure - Vynentra & HRV Group"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
 
-                <p className="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-neutral-800 leading-[1.65] mb-3.5 sm:mb-4 font-normal">
+                <p className="text-[14.5px] sm:text-[15.5px] md:text-[16.5px] text-neutral-800 leading-[1.65] mb-6 sm:mb-8 font-normal">
                   HRV Group is a strategic partner of Vynentra Energy Solutions, supporting the development and expansion of <strong className="font-semibold text-neutral-950">Independent Power Producer (IPP) projects across wind and solar energy</strong>.
-                </p>
-
-                <p className="text-[13.5px] sm:text-[14.5px] md:text-[15.5px] text-neutral-600 leading-[1.65] mb-6 sm:mb-8 font-normal">
-                  Through this partnership, HRV Group will play a key role in identifying investment opportunities, facilitating project development, and supporting the establishment of renewable energy assets designed to deliver long-term value.
                 </p>
 
                 {/* Key Technical Metric Points */}
@@ -216,7 +199,9 @@ export default function AboutPage() {
             {/* Stat 1 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
               <div>
-                <AnimatedNumber to={299.25} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <div className="text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap text-white">
+                  299.25 GW
+                </div>
                 <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
                   Cumulative RE capacity
                 </h3>
@@ -231,7 +216,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
                 >
-                  MNRE – Physical Achievements
+                  Source
                 </a>
               </div>
             </div>
@@ -239,7 +224,9 @@ export default function AboutPage() {
             {/* Stat 2 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
               <div>
-                <AnimatedNumber to={171.05} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <div className="text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap text-white">
+                  171.05 GW
+                </div>
                 <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
                   Installed solar capacity
                 </h3>
@@ -254,7 +241,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
                 >
-                  MNRE – Solar Capacity Data
+                  Source
                 </a>
               </div>
             </div>
@@ -262,7 +249,9 @@ export default function AboutPage() {
             {/* Stat 3 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
               <div>
-                <AnimatedNumber to={59.20} decimals={2} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <div className="text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap text-white">
+                  59.20 GW
+                </div>
                 <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
                   Installed wind capacity
                 </h3>
@@ -277,7 +266,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
                 >
-                  MNRE – Wind Capacity Data
+                  Source
                 </a>
               </div>
             </div>
@@ -285,7 +274,9 @@ export default function AboutPage() {
             {/* Stat 4 */}
             <div className="bg-white/10 backdrop-blur-sm rounded-[18px] sm:rounded-[24px] p-4 sm:p-6 lg:p-7 flex flex-col justify-between h-full border border-white/10 transition-all duration-300 hover:bg-white/[0.14]">
               <div>
-                <AnimatedNumber to={500} suffixText=" GW" textClass="text-white" colorClass="text-white" />
+                <div className="text-[26px] xs:text-[28px] sm:text-[36px] lg:text-[40px] font-medium tracking-tight mb-1 sm:mb-2 lg:mb-2.5 whitespace-nowrap text-white">
+                  500 GW
+                </div>
                 <h3 className="text-[13.5px] sm:text-[15.5px] font-semibold text-white mb-1 sm:mb-1.5 leading-snug">
                   India&apos;s 2030 non-fossil target
                 </h3>
@@ -300,7 +291,7 @@ export default function AboutPage() {
                   rel="noopener noreferrer"
                   className="inline-block text-[11px] sm:text-[11.5px] font-medium text-white/75 hover:text-white underline underline-offset-2 transition-colors duration-200"
                 >
-                  PIB – Landmark 300 GW Report
+                  Source
                 </a>
               </div>
             </div>
@@ -315,12 +306,9 @@ export default function AboutPage() {
             WHAT BINDS US
           </SectionBadge>
           <div className="max-w-3xl mb-12 lg:mb-16">
-            <h2 className="text-[28px] sm:text-[34px] md:text-[38px] lg:text-[40px] font-medium text-neutral-900 tracking-tight leading-[1.18] mb-6 max-w-[640px]">
-              What binds us
-            </h2>
-            <p className="text-[14px] sm:text-[15px] md:text-[17px] text-neutral-600 leading-[1.6] font-medium">
+            <h2 className="text-[26px] sm:text-[32px] md:text-[36px] lg:text-[38px] font-medium text-neutral-900 tracking-tight leading-[1.22] max-w-[720px] select-text">
               Our principles guide every decision, from engineering and technology selection to project execution.
-            </p>
+            </h2>
           </div>
 
           <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10 sm:gap-x-8 sm:gap-y-14">
@@ -381,11 +369,11 @@ export default function AboutPage() {
         <div className="w-full px-5 sm:px-10 lg:px-12 xl:px-14">
           <div className="max-w-[1380px] mx-auto rounded-[24px] sm:rounded-[30px] lg:rounded-[34px] bg-[#0E2F3E] text-white p-6 sm:p-9 md:p-11 lg:p-14 border border-white/10 shadow-[0_24px_50px_-12px_rgba(11,37,51,0.18)]">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-center">
-              
+
               {/* Left Column: Editorial Content (7 cols on lg, 8 cols on xl) */}
               <div className="lg:col-span-7 xl:col-span-8 flex flex-col justify-center">
                 <span className="text-[10.5px] sm:text-[11.5px] uppercase tracking-[0.1em] font-semibold text-[#AEF977] block mb-2.5 sm:mb-3">
-                  CARBON MARKETS &amp; VALUE CREATION
+                  WHAT&apos;S HAPPENING
                 </span>
                 <h2 className="text-[22px] sm:text-[26px] md:text-[30px] lg:text-[34px] font-medium tracking-tight leading-[1.2] mb-3 sm:mb-4 text-white max-w-2xl">
                   Currently aligning with India&apos;s<br className="hidden sm:inline" /> evolving carbon market.
@@ -409,8 +397,13 @@ export default function AboutPage() {
               <div className="lg:col-span-5 xl:col-span-4 flex justify-start lg:justify-end w-full">
                 <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3] rounded-[18px] sm:rounded-[22px] overflow-hidden border border-white/10 shadow-lg bg-neutral-900 group/img">
                   <img
-                    src="/wind_farm_sunset.jpg"
-                    alt="India Carbon Credit and Clean Renewable Energy Landscape"
+                    src="/carbon-credits.jpg"
+                    loading="lazy"
+                    decoding="async"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src = '/why-choose-us/eco-friendly-impact.jpg';
+                    }}
+                    alt="India Carbon Credit and Clean Renewable Energy Framework"
                     className="w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover/img:scale-105"
                   />
                 </div>
