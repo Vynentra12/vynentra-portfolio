@@ -75,9 +75,9 @@ export default function ContactPage() {
   }, []);
 
   const serviceOptions = [
-    { value: "wind-installation", label: "1. Wind Turbine Installation & Execution" },
-    { value: "captive-hybrid", label: "2. Commercial & Industrial (C&I) Captive Hybrid Power" },
-    { value: "maintenance-repowering", label: "3. Operations, Maintenance & Repowering" }
+    { value: "bess", label: "1. BESS: Battery Energy Storage Systems" },
+    { value: "end-to-end-project-development", label: "2. End-To-End Project Development" },
+    { value: "ipp", label: "3. IPP: Independent Power Producer" }
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -219,10 +219,10 @@ export default function ContactPage() {
                       WE ARE HERE:
                     </h3>
                   </div>
-                  <p className="text-[13.5px] sm:text-[14px] text-neutral-700 leading-[1.6] font-normal">
-                    601-602, Devashish CHS, SV Road,<br />
-                    Beside Shoppers Stop, Andheri West,<br />
-                    Mumbai – 400058
+                  <p className="text-[13.5px] sm:text-[14px] text-neutral-700 leading-[1.65] font-normal">
+                    601–602, Devashish CHS,<br />
+                    SV Road, Beside Shoppers Stop,<br />
+                    Andheri West, Mumbai – 400058
                   </p>
                 </div>
 

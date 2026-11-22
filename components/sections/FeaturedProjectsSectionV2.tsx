@@ -73,6 +73,8 @@ export function FeaturedProjectsSectionV2() {
             <img
               src={project.image}
               alt={project.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover object-center select-none"
             />
           </div>

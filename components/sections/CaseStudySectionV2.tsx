@@ -30,6 +30,8 @@ export function CaseStudySectionV2() {
           <img
             src="/images/stock/pexels-12828526.jpg"
             alt="Future-Ready Wind Turbine"
+            loading="lazy"
+            decoding="async"
             className="absolute inset-0 w-full h-full object-cover object-[center_38%]"
           />
 

@@ -85,6 +85,8 @@ export default function ServicesPage() {
                   <img
                     src={service.image}
                     alt={service.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
                   />
                 </Link>

@@ -12,26 +12,8 @@ export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("ALL");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const PREFERRED_CATEGORY_ORDER = [
-    "WIND ENERGY",
-    "SOLAR ENERGY",
-    "HYBRID",
-    "BATTERY STORAGE",
-    "ENERGY ECONOMICS",
-    "PROJECT DEVELOPMENT",
-  ];
-
-  // Derive categories that currently have at least one published post
-  const publishedCategories = Array.from(
-    new Set(allPosts.map((p) => p.category.toUpperCase()))
-  );
-
-  // Keep preferred order, but only include categories that have published posts
-  const categories = [
-    "ALL",
-    ...PREFERRED_CATEGORY_ORDER.filter((cat) => publishedCategories.includes(cat)),
-    ...publishedCategories.filter((cat) => !PREFERRED_CATEGORY_ORDER.includes(cat)),
-  ];
+  // Filters strictly limited to Wind and Solar energy
+  const categories = ["ALL", "WIND ENERGY", "SOLAR ENERGY"];
 
   const currentCategory = categories.includes(activeCategory) ? activeCategory : "ALL";
 
@@ -181,6 +163,8 @@ export default function InsightsPage() {
                         <img
                           src={post.image}
                           alt={post.imageAlt || post.title}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover/blog:scale-105 transition-transform duration-500"
                         />
 

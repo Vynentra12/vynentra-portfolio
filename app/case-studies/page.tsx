@@ -31,6 +31,7 @@ export default function CaseStudiesPage() {
     prev: -1,
   });
   const [hasStarted, setHasStarted] = useState(false);
+  const [resetTimerKey, setResetTimerKey] = useState(0);
 
   useEffect(() => {
     let raf2 = 0;
@@ -52,7 +53,16 @@ export default function CaseStudiesPage() {
       if (raf2) window.cancelAnimationFrame(raf2);
       window.clearInterval(intervalId);
     };
-  }, []);
+  }, [resetTimerKey]);
+
+  const handleDotClick = (targetIdx: number) => {
+    if (targetIdx === slideState.active) return;
+    setSlideState({
+      active: targetIdx,
+      prev: slideState.active,
+    });
+    setResetTimerKey((k) => k + 1);
+  };
 
   return (
     <div className="w-full bg-white text-neutral-900 font-sans min-h-screen selection:bg-[#AEF977] selection:text-neutral-950">
@@ -114,6 +124,27 @@ export default function CaseStudiesPage() {
               <p className="text-[14.5px] sm:text-[16px] md:text-[17.5px] text-white/80 leading-[1.6] max-w-2xl drop-shadow-sm font-normal">
                 A closer look at the renewable energy projects we develop and execute, showcasing the technologies, engineering and expertise behind each installation.
               </p>
+
+              {/* 3 Interactive Slide Indicator Dots (Left-Aligned below subtitle) */}
+              <div className="flex items-center gap-2.5 sm:gap-3 mt-5 sm:mt-6">
+                {HERO_SLIDES.map((_, idx) => {
+                  const isActive = idx === slideState.active;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleDotClick(idx)}
+                      className={`h-2.5 sm:h-3 rounded-full transition-all duration-300 cursor-pointer ${
+                        isActive
+                          ? "w-7 sm:w-8 bg-[#AEF977] shadow-[0_0_12px_rgba(174,249,119,0.7)]"
+                          : "w-2.5 sm:w-3 bg-white/40 hover:bg-white/75"
+                      }`}
+                      aria-label={`Navigate to slide ${idx + 1}`}
+                      title={`Slide ${idx + 1}`}
+                    />
+                  );
+                })}
+              </div>
             </div>
 
 
@@ -143,6 +174,8 @@ export default function CaseStudiesPage() {
                   <img
                     src={study.image}
                     alt={study.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover object-center group-hover/img:scale-105 transition-transform duration-500"
                   />
                 </Link>

@@ -1,7 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { SITE_URL } from "@/lib/seo";
+import { Link2, Check } from "lucide-react";
 
 const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -22,12 +23,34 @@ interface SocialShareBarProps {
 }
 
 export function SocialShareBar({ title, slug, tags = ["energy", "renewable", "solar"] }: SocialShareBarProps) {
+  const [copied, setCopied] = useState(false);
+
   // Always share the canonical URL (no query strings or #hash from the address bar).
   const shareUrl = `${SITE_URL}/insights/${slug}`;
 
   const openShare = (url: string) => {
     if (typeof window !== "undefined") {
       window.open(url, "_blank", "noopener,noreferrer,width=620,height=580");
+    }
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      if (typeof window !== "undefined" && navigator?.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2500);
+      }
+    } catch {
+      // Fallback if clipboard API is constrained
+      const textArea = document.createElement("textarea");
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
     }
   };
 
@@ -77,6 +100,25 @@ export function SocialShareBar({ title, slug, tags = ["energy", "renewable", "so
             className="w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:text-[#0A6B88] hover:border-[#0A6B88] transition-all duration-200 cursor-pointer bg-white active:scale-95 shadow-xs"
           >
             <TwitterIcon />
+          </button>
+
+          {/* Copy Link Button */}
+          <button
+            onClick={handleCopyLink}
+            aria-label={copied ? "Link Copied" : "Copy Link"}
+            title={copied ? "Copied to clipboard!" : "Copy link"}
+            className="relative w-9 h-9 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-800 hover:text-[#0A6B88] hover:border-[#0A6B88] transition-all duration-200 cursor-pointer bg-white active:scale-95 shadow-xs group"
+          >
+            {copied ? (
+              <Check className="w-4 h-4 text-[#087589]" />
+            ) : (
+              <Link2 className="w-4 h-4 text-neutral-700 group-hover:text-[#087589] transition-colors" />
+            )}
+            {copied && (
+              <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-[#0B2533] text-white text-[9.5px] font-semibold tracking-wider uppercase px-2 py-0.5 rounded shadow whitespace-nowrap pointer-events-none">
+                Copied!
+              </span>
+            )}
           </button>
         </div>
 

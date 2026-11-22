@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { Plus, Minus } from "lucide-react";
 import { motion } from "framer-motion";
@@ -49,12 +49,12 @@ export function FAQSectionV2() {
       question: "Does Vynentra only work with small distributed wind projects?",
       answer: (
         <span>
-          No. While distributed wind is an important part of our focus, we are also working across larger captive wind projects and hybrid renewable systems,{" "}
+          While distributed wind is an important part of our focus, we are also working across larger captive wind projects and hybrid renewable systems,{" "}
           <Link
             href="/contact#contact-form"
             className="text-[#087589] font-medium underline underline-offset-4 hover:text-[#065463] transition-colors"
           >
-            Contact us here
+            contact us here
           </Link>{" "}
           to know more.
         </span>

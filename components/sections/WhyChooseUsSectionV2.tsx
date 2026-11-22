@@ -16,47 +16,30 @@ interface FeatureItem {
 export function WhyChooseUsSectionV2() {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
 
-  // 4 Features with service-accurate images
+  // 3 Services matching the new services on /services
   const features: FeatureItem[] = [
     {
-      id: "wind-energy-solutions",
-      title: "Wind Energy Solutions",
-      desc: "We are developing distributed and captive wind solutions across vertical and horizontal axis technologies, designed around different site conditions and energy requirements.",
-      image: "/why-choose-us/reliable-performance.webp",
-      alt: "Reliable wind energy turbine rotating in breeze over hills",
-    },
-    {
-      id: "wind-solar-hybrid",
-      title: "Wind-Solar Hybrid Solutions",
-      desc: "We are integrating wind and solar generation to create hybrid renewable energy systems that make better use of available resources and complement different generation profiles.",
-      image: "/why-choose-us/hybrid-wind-solar.webp",
-      alt: "Integrated wind and solar hybrid generation plant with solar arrays and wind turbines",
-    },
-    {
-      id: "energy-storage-solutions",
-      title: "Energy Storage Solutions",
-      desc: "We are incorporating battery energy storage systems where appropriate to support renewable generation, energy management and more resilient power infrastructure",
+      id: "bess-battery-energy-storage-systems",
+      title: "BESS: Battery Energy Storage Systems",
+      desc: "We are providing battery energy storage solutions for large-scale events, supporting temporary power requirements through energy storage systems designed around event demand, duration and site conditions.",
       image: "/why-choose-us/battery-storage.webp",
       alt: "Battery energy storage systems (BESS) for clean power resilience",
     },
     {
-      id: "project-development-advisory",
-      title: "Project Development & Advisory",
-      desc: "We are supporting projects from energy audits and feasibility studies through technology evaluation, regulatory coordination, financing facilitation and EPC partner management.",
-      image: "/why-choose-us/expert-guidance.webp",
-      alt: "Renewable energy engineers conducting on-site feasibility and project development advisory",
+      id: "end-to-end-project-development",
+      title: "End-To-End Project Development",
+      desc: "We are developing wind, solar and hybrid energy projects around site conditions, energy requirements and project feasibility, from initial assessment and planning to execution.",
+      image: "/solutions/solar-installation.jpg",
+      alt: "End-to-end renewable energy project development, assessment and execution",
+    },
+    {
+      id: "ipp-independent-power-producer",
+      title: "IPP: Independent Power Producer",
+      desc: "Designed for businesses with energy requirements of up to 3 MW, we are creating opportunities to access renewable power without directly investing in the generation infrastructure.",
+      image: "/hybrid-wind-solar.jpg",
+      alt: "Independent power producer renewable energy solutions for businesses",
     },
   ];
-
-  // Preload all 4 service images on mount for instantaneous, zero-latency transitions
-  React.useEffect(() => {
-    features.forEach((feature) => {
-      if (typeof window !== "undefined" && feature.image) {
-        const img = new window.Image();
-        img.src = feature.image;
-      }
-    });
-  }, []);
 
   const currentFeature = features[selectedIndex] ?? features[0];
 
@@ -70,13 +53,15 @@ export function WhyChooseUsSectionV2() {
       <div className="w-full px-5 sm:px-8 md:px-10 lg:px-12 xl:px-14">
         {/* Main Grid: Left Static Hero Card (5 cols) + Right Content Section (7 cols) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16 items-stretch">
-          
-          {/* ─── LEFT COLUMN: Static Big Hero Card (No animations or sliding transitions) ─── */}
-          <div className="lg:col-span-5 flex flex-col w-full">
-            <div className="relative w-full h-[320px] sm:h-[440px] md:h-[520px] lg:h-[650px] xl:h-[700px] rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm bg-neutral-100">
+
+          {/* ─── LEFT COLUMN: Static Hero Card (10px smaller on desktop, center-aligned) ─── */}
+          <div className="lg:col-span-5 flex flex-col w-full h-full justify-center">
+            <div className="relative w-full h-[280px] sm:h-[370px] md:h-[440px] lg:h-[calc(100%-10px)] min-h-[280px] lg:min-h-[470px] my-auto rounded-[16px] sm:rounded-[18px] md:rounded-[20px] overflow-hidden shadow-sm bg-neutral-100">
               <img
                 src="/why-choose-us/hero-windmill.webp"
                 alt="Architectural windmill house with solar panels on rotor blades"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover object-center pointer-events-none select-none"
                 draggable={false}
               />
@@ -88,14 +73,14 @@ export function WhyChooseUsSectionV2() {
 
           {/* ─── RIGHT COLUMN: Header, CTA Button & Interactive Split View ─── */}
           <div className="lg:col-span-7 flex flex-col justify-between pt-1 lg:pt-2">
-            
+
             {/* Top Section: Headline & Stroke-Only CTA Button */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.2, ease: "easeOut" }}
-              className="flex flex-col mb-8 lg:mb-10"
+              className="flex flex-col mb-6 lg:mb-8"
             >
               {/* Badge: WHAT WE DO */}
               <SectionBadge theme="dark" className="mb-4 sm:mb-5 w-fit">
@@ -119,17 +104,17 @@ export function WhyChooseUsSectionV2() {
               </Link>
             </motion.div>
 
-            {/* Bottom Sub-Split: Left Feature Rows + Right Dynamic Service Preview */}
-            <motion.div 
+            {/* Bottom Sub-Split: Left Feature Rows + Right Dynamic Service Preview (Center-Aligned) */}
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.7, delay: 0.4, ease: "easeOut" }}
-              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start pt-3"
+              className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-center pt-3"
             >
-              
-              {/* ── Feature Rows (Clean title rows, no external-link arrows) ── */}
-              <div className="md:col-span-7 flex flex-col justify-start">
+
+              {/* ── Feature Rows (Clean title rows, center aligned) ── */}
+              <div className="md:col-span-7 flex flex-col justify-center">
                 {features.map((feature, idx) => {
                   const isSelected = selectedIndex === idx;
 
@@ -144,23 +129,21 @@ export function WhyChooseUsSectionV2() {
                       {/* Row Title */}
                       <div className="flex items-center justify-between gap-4 pb-2.5">
                         <span
-                          className={`text-[17px] sm:text-[18px] lg:text-[19px] tracking-tight transition-colors duration-200 select-text cursor-pointer ${
-                            isSelected
-                              ? "text-[#0A6B88] font-medium"
-                              : "text-neutral-900 group-hover/item:text-[#0A6B88]"
-                          }`}
+                          className={`text-[17px] sm:text-[18px] lg:text-[19px] tracking-tight transition-colors duration-200 select-text cursor-pointer ${isSelected
+                            ? "text-[#0A6B88] font-medium"
+                            : "text-neutral-900 group-hover/item:text-[#0A6B88]"
+                            }`}
                           style={{ userSelect: "text", WebkitUserSelect: "text" }}
                         >
                           {feature.title}
                         </span>
                       </div>
 
-                      {/* ── Single Unified Border Line with Linear Fill ── */}
-                      <div className="relative w-full h-[1.5px] bg-neutral-200 overflow-hidden">
+                      {/* ── Single Unified Border Line with Controlled Max-Width to prevent excessive right line width ── */}
+                      <div className="relative w-full max-w-[340px] sm:max-w-[360px] lg:max-w-[375px] h-[1.5px] bg-neutral-200 overflow-hidden">
                         <div
-                          className={`absolute inset-y-0 left-0 bg-[#0A6B88] transition-[width] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                            isSelected ? "w-full" : "w-0"
-                          }`}
+                          className={`absolute inset-y-0 left-0 bg-[#0A6B88] transition-[width] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${isSelected ? "w-full" : "w-0"
+                            }`}
                         />
                       </div>
                     </div>
@@ -168,16 +151,18 @@ export function WhyChooseUsSectionV2() {
                 })}
               </div>
 
-              {/* ── Dynamic Service Preview Card & Description (Completely static frame so it never jumps up/down) ── */}
-              <div className="md:col-span-5 flex flex-col items-start gap-4">
-                
-                {/* Dynamic Service Image (Static dimensions & frame, pure fade without scale jumping) */}
+              {/* ── Dynamic Service Preview Card: Top Image, Bottom Description (Center aligned) ── */}
+              <div className="md:col-span-5 flex flex-col items-start justify-center gap-3.5">
+
+                {/* Dynamic Service Image (Top) */}
                 <div className="relative w-full aspect-[16/10.5] rounded-[14px] sm:rounded-[16px] overflow-hidden bg-neutral-100 shadow-sm shrink-0">
                   <AnimatePresence initial={false}>
                     <motion.img
                       key={currentFeature.id}
                       src={currentFeature.image}
                       alt={currentFeature.alt}
+                      loading="lazy"
+                      decoding="async"
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -188,8 +173,8 @@ export function WhyChooseUsSectionV2() {
                   </AnimatePresence>
                 </div>
 
-                {/* Clean Energy Solutions Description (Static container height, no layout jump) */}
-                <div className="w-full min-h-[72px] sm:min-h-[80px] pt-0.5">
+                {/* Clean Energy Solutions Description (Bottom - text baseline perfectly aligns with bottom of left hero image) */}
+                <div className="w-full">
                   <p
                     key={currentFeature.id}
                     className="text-[13px] sm:text-[13.5px] text-neutral-600 leading-[1.62] font-normal select-text cursor-text transition-opacity duration-200"

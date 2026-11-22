@@ -21,6 +21,8 @@ const LEGACY_CASE_STUDY_SLUGS = [
   "commercial-solar-plants",
   "hybrid-wind-turbine-surat",
   "vawt-madhavpur-beach",
+  "5kw-vawt-mandvi-beach-gujarat",
+  "wind-energy-mandvi-gujarat-vawt",
 ];
 
 export async function generateStaticParams() {
